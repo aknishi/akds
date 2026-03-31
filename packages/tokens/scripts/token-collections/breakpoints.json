@@ -1,0 +1,93 @@
+{
+  "akds": {
+    "breakpoint": {
+      "xs": {
+        "$type": "number",
+        "$value": 320,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:14:2",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--akds-breakpoint-xs)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "sm": {
+        "$type": "number",
+        "$value": 480,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:14:3",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--akds-breakpoint-sm)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "md": {
+        "$type": "number",
+        "$value": 768,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:14:4",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--akds-breakpoint-md)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "lg": {
+        "$type": "number",
+        "$value": 1024,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:14:5",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--akds-breakpoint-lg)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "xl": {
+        "$type": "number",
+        "$value": 1280,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:14:6",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--akds-breakpoint-xl)"
+          },
+          "com.figma.isOverride": true
+        }
+      },
+      "2xl": {
+        "$type": "number",
+        "$value": 1536,
+        "$extensions": {
+          "com.figma.variableId": "VariableID:14:7",
+          "com.figma.scopes": [
+            "WIDTH_HEIGHT"
+          ],
+          "com.figma.codeSyntax": {
+            "WEB": "var(--akds-breakpoint-2xl)"
+          },
+          "com.figma.isOverride": true
+        }
+      }
+    }
+  },
+  "$extensions": {
+    "com.figma.modeName": "Value"
+  }
+}

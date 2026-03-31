@@ -20,10 +20,15 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:tokens": "tsx scripts/fetch-tokens.ts",
+    "build:tokens:local": "tsx scripts/build-from-collections.ts"
   },
   "devDependencies": {
+    "@types/node": "^25.5.0",
+    "dotenv": "^16.0.0",
     "tsup": "^8.0.0",
+    "tsx": "^4.0.0",
     "typescript": "^5.4.0"
   }
 }
