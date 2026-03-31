@@ -1,0 +1,365 @@
+:root {
+  /* ─── Primitives ─────────────────────────────────────────────── */
+
+  /* Neutral */
+  --akds-primitive-color-neutral-50: #FAFAFA;
+  --akds-primitive-color-neutral-100: #F5F5F5;
+  --akds-primitive-color-neutral-200: #E5E5E5;
+  --akds-primitive-color-neutral-300: #D4D4D4;
+  --akds-primitive-color-neutral-400: #A3A3A3;
+  --akds-primitive-color-neutral-500: #737373;
+  --akds-primitive-color-neutral-600: #525252;
+  --akds-primitive-color-neutral-700: #404040;
+  --akds-primitive-color-neutral-800: #262626;
+  --akds-primitive-color-neutral-900: #171717;
+  --akds-primitive-color-neutral-950: #0A0A0A;
+
+  /* Blue */
+  --akds-primitive-color-blue-50: #EFF6FF;
+  --akds-primitive-color-blue-100: #DBEAFE;
+  --akds-primitive-color-blue-200: #BFDBFE;
+  --akds-primitive-color-blue-300: #93C5FD;
+  --akds-primitive-color-blue-400: #60A5FA;
+  --akds-primitive-color-blue-500: #3B82F6;
+  --akds-primitive-color-blue-600: #2563EB;
+  --akds-primitive-color-blue-700: #1D4ED8;
+  --akds-primitive-color-blue-800: #1E40AF;
+  --akds-primitive-color-blue-900: #1E3A8A;
+  --akds-primitive-color-blue-950: #172554;
+
+  /* Green */
+  --akds-primitive-color-green-50: #F0FDF4;
+  --akds-primitive-color-green-100: #DCFCE7;
+  --akds-primitive-color-green-200: #BBF7D0;
+  --akds-primitive-color-green-300: #86EFAC;
+  --akds-primitive-color-green-400: #4ADE80;
+  --akds-primitive-color-green-500: #22C55E;
+  --akds-primitive-color-green-600: #16A34A;
+  --akds-primitive-color-green-700: #15803D;
+  --akds-primitive-color-green-800: #166534;
+  --akds-primitive-color-green-900: #14532D;
+  --akds-primitive-color-green-950: #052E16;
+
+  /* Red */
+  --akds-primitive-color-red-50: #FEF2F2;
+  --akds-primitive-color-red-100: #FEE2E2;
+  --akds-primitive-color-red-200: #FECACA;
+  --akds-primitive-color-red-300: #FCA5A5;
+  --akds-primitive-color-red-400: #F87171;
+  --akds-primitive-color-red-500: #EF4444;
+  --akds-primitive-color-red-600: #DC2626;
+  --akds-primitive-color-red-700: #B91C1C;
+  --akds-primitive-color-red-800: #991B1B;
+  --akds-primitive-color-red-900: #7F1D1D;
+  --akds-primitive-color-red-950: #450A0A;
+
+  /* Yellow */
+  --akds-primitive-color-yellow-50: #FEFCE8;
+  --akds-primitive-color-yellow-100: #FEF9C3;
+  --akds-primitive-color-yellow-200: #FEF08A;
+  --akds-primitive-color-yellow-300: #FDE047;
+  --akds-primitive-color-yellow-400: #FACC15;
+  --akds-primitive-color-yellow-500: #EAB308;
+  --akds-primitive-color-yellow-600: #CA8A04;
+  --akds-primitive-color-yellow-700: #A16207;
+  --akds-primitive-color-yellow-800: #854D0E;
+  --akds-primitive-color-yellow-900: #713F12;
+  --akds-primitive-color-yellow-950: #422006;
+
+  /* Purple */
+  --akds-primitive-color-purple-50: #FAF5FF;
+  --akds-primitive-color-purple-100: #F3E8FF;
+  --akds-primitive-color-purple-200: #E9D5FF;
+  --akds-primitive-color-purple-300: #D8B4FE;
+  --akds-primitive-color-purple-400: #C084FC;
+  --akds-primitive-color-purple-500: #A855F7;
+  --akds-primitive-color-purple-600: #9333EA;
+  --akds-primitive-color-purple-700: #7E22CE;
+  --akds-primitive-color-purple-800: #6B21A8;
+  --akds-primitive-color-purple-900: #581C87;
+  --akds-primitive-color-purple-950: #3B0764;
+
+  /* Orange */
+  --akds-primitive-color-orange-50: #FFF7ED;
+  --akds-primitive-color-orange-100: #FFEDD5;
+  --akds-primitive-color-orange-200: #FED7AA;
+  --akds-primitive-color-orange-300: #FDBA74;
+  --akds-primitive-color-orange-400: #FB923C;
+  --akds-primitive-color-orange-500: #F97316;
+  --akds-primitive-color-orange-600: #EA580C;
+  --akds-primitive-color-orange-700: #C2410C;
+  --akds-primitive-color-orange-800: #9A3412;
+  --akds-primitive-color-orange-900: #7C2D12;
+  --akds-primitive-color-orange-950: #431407;
+
+  /* White / Black */
+  --akds-primitive-color-white: #FFFFFF;
+  --akds-primitive-color-black: #000000;
+
+  /* ─── Spacing scale ──────────────────────────────────────────── */
+  --akds-spacing-scale-05: 2px;
+  --akds-spacing-scale-01: 4px;
+  --akds-spacing-scale-02: 8px;
+  --akds-spacing-scale-03: 12px;
+  --akds-spacing-scale-04: 16px;
+  --akds-spacing-scale-06: 24px;
+  --akds-spacing-scale-08: 32px;
+  --akds-spacing-scale-10: 40px;
+  --akds-spacing-scale-12: 48px;
+  --akds-spacing-scale-16: 64px;
+  --akds-spacing-scale-20: 80px;
+
+  /* ─── Spacing layout ─────────────────────────────────────────── */
+  --akds-spacing-layout-xs: 4px;
+  --akds-spacing-layout-sm: 8px;
+  --akds-spacing-layout-md: 16px;
+  --akds-spacing-layout-lg: 24px;
+  --akds-spacing-layout-xl: 40px;
+  --akds-spacing-layout-2xl: 64px;
+
+  /* ─── Icon sizes ─────────────────────────────────────────────── */
+  --akds-size-icon-xs: 12px;
+  --akds-size-icon-sm: 16px;
+  --akds-size-icon-md: 20px;
+  --akds-size-icon-lg: 24px;
+  --akds-size-icon-xl: 32px;
+
+  /* ─── Component sizes ────────────────────────────────────────── */
+  --akds-size-component-xs: 24px;
+  --akds-size-component-sm: 32px;
+  --akds-size-component-md: 40px;
+  --akds-size-component-lg: 48px;
+  --akds-size-component-xl: 56px;
+
+  /* ─── Border radius ──────────────────────────────────────────── */
+  --akds-radius-none: 0px;
+  --akds-radius-xs: 2px;
+  --akds-radius-sm: 4px;
+  --akds-radius-md: 8px;
+  --akds-radius-lg: 12px;
+  --akds-radius-xl: 16px;
+  --akds-radius-2xl: 24px;
+  --akds-radius-full: 9999px;
+
+  /* ─── Typography — font families ────────────────────────────── */
+  --akds-font-family-sans: 'Inter', system-ui, sans-serif;
+  --akds-font-family-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --akds-font-family-serif: 'Merriweather', Georgia, serif;
+
+  /* ─── Typography — font sizes ───────────────────────────────── */
+  --akds-font-size-2xs: 10px;
+  --akds-font-size-xs: 12px;
+  --akds-font-size-sm: 14px;
+  --akds-font-size-md: 16px;
+  --akds-font-size-lg: 18px;
+  --akds-font-size-xl: 20px;
+  --akds-font-size-2xl: 24px;
+  --akds-font-size-3xl: 32px;
+  --akds-font-size-4xl: 40px;
+  --akds-font-size-5xl: 48px;
+  --akds-font-size-6xl: 64px;
+
+  /* ─── Typography — font weights ─────────────────────────────── */
+  --akds-font-weight-light: 300;
+  --akds-font-weight-regular: 400;
+  --akds-font-weight-medium: 500;
+  --akds-font-weight-semibold: 600;
+  --akds-font-weight-bold: 700;
+  --akds-font-weight-extrabold: 800;
+
+  /* ─── Typography — line heights ─────────────────────────────── */
+  --akds-font-line-height-tight: 1.1;
+  --akds-font-line-height-snug: 1.25;
+  --akds-font-line-height-normal: 1.5;
+  --akds-font-line-height-relaxed: 1.625;
+  --akds-font-line-height-loose: 2;
+
+  /* ─── Typography — letter spacing ───────────────────────────── */
+  --akds-font-letter-spacing-tight: -0.05em;
+  --akds-font-letter-spacing-normal: 0em;
+  --akds-font-letter-spacing-wide: 0.025em;
+  --akds-font-letter-spacing-wider: 0.05em;
+  --akds-font-letter-spacing-widest: 0.1em;
+
+  /* ─── Breakpoints ────────────────────────────────────────────── */
+  --akds-breakpoint-xs: 320px;
+  --akds-breakpoint-sm: 480px;
+  --akds-breakpoint-md: 768px;
+  --akds-breakpoint-lg: 1024px;
+  --akds-breakpoint-xl: 1280px;
+  --akds-breakpoint-2xl: 1536px;
+
+  /* ─── Elevation ──────────────────────────────────────────────── */
+  --akds-elevation-none: none;
+  --akds-elevation-xs: 0 1px 2px rgba(0,0,0,0.05);
+  --akds-elevation-sm: 0 1px 3px rgba(0,0,0,0.10), 0 1px 2px rgba(0,0,0,0.06);
+  --akds-elevation-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
+  --akds-elevation-lg: 0 10px 15px rgba(0,0,0,0.10), 0 4px 6px rgba(0,0,0,0.05);
+  --akds-elevation-xl: 0 20px 25px rgba(0,0,0,0.10), 0 10px 10px rgba(0,0,0,0.04);
+  --akds-elevation-2xl: 0 25px 50px rgba(0,0,0,0.25);
+
+  /* ─── Semantic colors — Light mode ──────────────────────────── */
+
+  /* background */
+  --akds-color-background-primary-default: #2563EB;
+  --akds-color-background-primary-hover: #1D4ED8;
+  --akds-color-background-primary-active: #1E40AF;
+  --akds-color-background-primary-disabled: #E5E5E5;
+  --akds-color-background-secondary-default: #F5F5F5;
+  --akds-color-background-secondary-hover: #E5E5E5;
+  --akds-color-background-secondary-active: #D4D4D4;
+  --akds-color-background-secondary-disabled: #F5F5F5;
+  --akds-color-background-error-default: #DC2626;
+  --akds-color-background-error-hover: #B91C1C;
+  --akds-color-background-warning-default: #EAB308;
+  --akds-color-background-warning-hover: #CA8A04;
+  --akds-color-background-success-default: #16A34A;
+  --akds-color-background-success-hover: #15803D;
+  --akds-color-background-info-default: #3B82F6;
+  --akds-color-background-info-hover: #2563EB;
+  --akds-color-background-neutral-default: #F5F5F5;
+  --akds-color-background-neutral-hover: #E5E5E5;
+  --akds-color-background-neutral-subtle: #FAFAFA;
+
+  /* surface */
+  --akds-color-surface-default: #FFFFFF;
+  --akds-color-surface-raised: #FFFFFF;
+  --akds-color-surface-overlay: #FFFFFF;
+  --akds-color-surface-sunken: #FAFAFA;
+
+  /* text */
+  --akds-color-text-primary-default: #171717;
+  --akds-color-text-primary-disabled: #A3A3A3;
+  --akds-color-text-secondary-default: #525252;
+  --akds-color-text-secondary-disabled: #D4D4D4;
+  --akds-color-text-error-default: #DC2626;
+  --akds-color-text-warning-default: #A16207;
+  --akds-color-text-success-default: #15803D;
+  --akds-color-text-info-default: #2563EB;
+  --akds-color-text-on-primary-default: #FFFFFF;
+  --akds-color-text-on-secondary-default: #171717;
+  --akds-color-text-placeholder-default: #A3A3A3;
+
+  /* border */
+  --akds-color-border-default-default: #E5E5E5;
+  --akds-color-border-default-hover: #A3A3A3;
+  --akds-color-border-default-focus: #3B82F6;
+  --akds-color-border-error-default: #EF4444;
+  --akds-color-border-success-default: #22C55E;
+  --akds-color-border-primary-default: #2563EB;
+  --akds-color-border-primary-hover: #1D4ED8;
+
+  /* icon */
+  --akds-color-icon-primary-default: #171717;
+  --akds-color-icon-primary-disabled: #A3A3A3;
+  --akds-color-icon-secondary-default: #737373;
+  --akds-color-icon-on-primary-default: #FFFFFF;
+
+  /* Interaction overlays */
+  --akds-color-interaction-hover-overlay: rgba(0,0,0,0.06);
+  --akds-color-interaction-pressed-overlay: rgba(0,0,0,0.10);
+}
+
+/* ─── Dark mode — explicit attribute ────────────────────────────── */
+[data-theme="dark"] {
+  --akds-color-background-primary-default: #3B82F6;
+  --akds-color-background-primary-hover: #60A5FA;
+  --akds-color-background-primary-active: #93C5FD;
+  --akds-color-background-primary-disabled: #404040;
+  --akds-color-background-secondary-default: #262626;
+  --akds-color-background-secondary-hover: #404040;
+  --akds-color-background-secondary-active: #525252;
+  --akds-color-background-secondary-disabled: #262626;
+  --akds-color-background-error-default: #EF4444;
+  --akds-color-background-error-hover: #F87171;
+  --akds-color-background-warning-default: #FACC15;
+  --akds-color-background-warning-hover: #FDE047;
+  --akds-color-background-success-default: #22C55E;
+  --akds-color-background-success-hover: #4ADE80;
+  --akds-color-background-info-default: #60A5FA;
+  --akds-color-background-info-hover: #93C5FD;
+  --akds-color-background-neutral-default: #262626;
+  --akds-color-background-neutral-hover: #404040;
+  --akds-color-background-neutral-subtle: #171717;
+  --akds-color-surface-default: #171717;
+  --akds-color-surface-raised: #262626;
+  --akds-color-surface-overlay: #262626;
+  --akds-color-surface-sunken: #0A0A0A;
+  --akds-color-text-primary-default: #FAFAFA;
+  --akds-color-text-primary-disabled: #525252;
+  --akds-color-text-secondary-default: #A3A3A3;
+  --akds-color-text-secondary-disabled: #404040;
+  --akds-color-text-error-default: #F87171;
+  --akds-color-text-warning-default: #FACC15;
+  --akds-color-text-success-default: #4ADE80;
+  --akds-color-text-info-default: #60A5FA;
+  --akds-color-text-on-primary-default: #FFFFFF;
+  --akds-color-text-on-secondary-default: #FAFAFA;
+  --akds-color-text-placeholder-default: #737373;
+  --akds-color-border-default-default: #404040;
+  --akds-color-border-default-hover: #737373;
+  --akds-color-border-default-focus: #60A5FA;
+  --akds-color-border-error-default: #F87171;
+  --akds-color-border-success-default: #4ADE80;
+  --akds-color-border-primary-default: #3B82F6;
+  --akds-color-border-primary-hover: #60A5FA;
+  --akds-color-icon-primary-default: #FAFAFA;
+  --akds-color-icon-primary-disabled: #525252;
+  --akds-color-icon-secondary-default: #A3A3A3;
+  --akds-color-icon-on-primary-default: #FFFFFF;
+  --akds-color-interaction-hover-overlay: rgba(255,255,255,0.08);
+  --akds-color-interaction-pressed-overlay: rgba(255,255,255,0.14);
+}
+
+/* ─── Dark mode — OS preference (respects explicit light override) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --akds-color-background-primary-default: #3B82F6;
+    --akds-color-background-primary-hover: #60A5FA;
+    --akds-color-background-primary-active: #93C5FD;
+    --akds-color-background-primary-disabled: #404040;
+    --akds-color-background-secondary-default: #262626;
+    --akds-color-background-secondary-hover: #404040;
+    --akds-color-background-secondary-active: #525252;
+    --akds-color-background-secondary-disabled: #262626;
+    --akds-color-background-error-default: #EF4444;
+    --akds-color-background-error-hover: #F87171;
+    --akds-color-background-warning-default: #FACC15;
+    --akds-color-background-warning-hover: #FDE047;
+    --akds-color-background-success-default: #22C55E;
+    --akds-color-background-success-hover: #4ADE80;
+    --akds-color-background-info-default: #60A5FA;
+    --akds-color-background-info-hover: #93C5FD;
+    --akds-color-background-neutral-default: #262626;
+    --akds-color-background-neutral-hover: #404040;
+    --akds-color-background-neutral-subtle: #171717;
+    --akds-color-surface-default: #171717;
+    --akds-color-surface-raised: #262626;
+    --akds-color-surface-overlay: #262626;
+    --akds-color-surface-sunken: #0A0A0A;
+    --akds-color-text-primary-default: #FAFAFA;
+    --akds-color-text-primary-disabled: #525252;
+    --akds-color-text-secondary-default: #A3A3A3;
+    --akds-color-text-secondary-disabled: #404040;
+    --akds-color-text-error-default: #F87171;
+    --akds-color-text-warning-default: #FACC15;
+    --akds-color-text-success-default: #4ADE80;
+    --akds-color-text-info-default: #60A5FA;
+    --akds-color-text-on-primary-default: #FFFFFF;
+    --akds-color-text-on-secondary-default: #FAFAFA;
+    --akds-color-text-placeholder-default: #737373;
+    --akds-color-border-default-default: #404040;
+    --akds-color-border-default-hover: #737373;
+    --akds-color-border-default-focus: #60A5FA;
+    --akds-color-border-error-default: #F87171;
+    --akds-color-border-success-default: #4ADE80;
+    --akds-color-border-primary-default: #3B82F6;
+    --akds-color-border-primary-hover: #60A5FA;
+    --akds-color-icon-primary-default: #FAFAFA;
+    --akds-color-icon-primary-disabled: #525252;
+    --akds-color-icon-secondary-default: #A3A3A3;
+    --akds-color-icon-on-primary-default: #FFFFFF;
+    --akds-color-interaction-hover-overlay: rgba(255,255,255,0.08);
+    --akds-color-interaction-pressed-overlay: rgba(255,255,255,0.14);
+  }
+}

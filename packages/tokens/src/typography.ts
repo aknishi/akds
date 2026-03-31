@@ -1,0 +1,20 @@
+export const typography = {
+  fontFamily: {
+    sans:  "'Inter', system-ui, sans-serif",
+    mono:  "'JetBrains Mono', 'Fira Code', monospace",
+    serif: "'Merriweather', Georgia, serif",
+  },
+  fontSize: {
+    '2xs': 10, xs: 12, sm: 14, md: 16, lg: 18,
+    xl: 20, '2xl': 24, '3xl': 32, '4xl': 40, '5xl': 48, '6xl': 64,
+  },
+  fontWeight: {
+    light: 300, regular: 400, medium: 500, semibold: 600, bold: 700, extrabold: 800,
+  },
+  lineHeight: {
+    tight: 1.1, snug: 1.25, normal: 1.5, relaxed: 1.625, loose: 2.0,
+  },
+  letterSpacing: {
+    tight: '-0.05em', normal: '0em', wide: '0.025em', wider: '0.05em', widest: '0.1em',
+  },
+} as const;
