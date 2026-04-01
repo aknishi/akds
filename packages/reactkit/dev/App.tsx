@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '../src/components/Button/Button';
 import { Spinner } from '../src/components/Spinner/Spinner';
+import { TextInput } from '../src/components/TextInput/TextInput';
 import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '../src/components/Button/Button.types';
 import './App.css';
 
@@ -96,6 +97,35 @@ export default function App() {
           <Button loading>Saving</Button>
           <Button appearance="bordered" sentiment="neutral" loading>Loading</Button>
           <Button appearance="solid" sentiment="success" loading>Processing</Button>
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* TextInput */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">TextInput</h2>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <TextInput label="Label" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with value</span>
+          <TextInput label="Label" defaultValue="Hello world" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">helper text</span>
+          <TextInput label="Email" helperText="We'll never share your email." />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">start adornment</span>
+          <TextInput label="Amount" startAdornment={"$"} />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <TextInput label="Label" disabled defaultValue="Can't touch this" />
         </div>
       </section>
     </div>

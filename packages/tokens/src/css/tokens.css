@@ -170,8 +170,9 @@
   --akds-elevation-2xl:  0 25px 50px rgba(0,0,0,0.25);
 
   /* ─── Focus ──────────────────────────────────────────────────────────── */
-  --akds-outline-focus: 1px dashed var(--akds-color-interaction-focus-outline);
-  --akds-outline-focus-offset: 2px;
+  --akds-color-interaction-focus-outline: #262626;
+  --akds-outline-focus: 2px dotted var(--akds-color-interaction-focus-outline);
+  --akds-outline-focus-offset: 1px;
 
   /* ─── Semantic colors — Light mode ─────────────────────────── */
   --akds-color-background-primary-default: #2563EB;

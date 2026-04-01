@@ -246,11 +246,13 @@ const ELEVATION_CSS_BLOCK = `
   --akds-elevation-2xl:  0 25px 50px rgba(0,0,0,0.25);`;
 
 // Figma Variables cannot represent CSS shorthand values (outline, box-shadow, etc.)
-// so the compound focus outline token is hardcoded here, referencing the color variable.
+// so compound focus tokens are hardcoded here. --akds-color-interaction-focus-outline
+// is also hardcoded for light mode because Figma only exports it in the dark collection.
 const FOCUS_CSS_BLOCK = `
   /* ─── Focus ──────────────────────────────────────────────────────────── */
-  --akds-outline-focus: 1px dashed var(--akds-color-interaction-focus-outline);
-  --akds-outline-focus-offset: 2px;`;
+  --akds-color-interaction-focus-outline: #262626;
+  --akds-outline-focus: 2px dotted var(--akds-color-interaction-focus-outline);
+  --akds-outline-focus-offset: 1px;`;
 
 function toCssValue(t: FlatToken): string {
   if (t.type === 'color')  return colorToString(t.value);

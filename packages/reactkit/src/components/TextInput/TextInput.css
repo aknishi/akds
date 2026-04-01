@@ -1,0 +1,121 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-text-input {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--akds-font-family-sans);
+  box-sizing: border-box;
+}
+
+/* ── Control (bordered wrapper) ────────────────────────────────────────── */
+.akds-text-input__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--akds-color-border-default-default);
+  border-radius: var(--akds-radius-md);
+  background: var(--akds-color-surface-default);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  min-height: var(--akds-size-component-lg);
+  box-sizing: border-box;
+}
+
+.akds-text-input__control:focus-within {
+  border-color: var(--akds-color-border-default-focus);
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Start adornment ───────────────────────────────────────────────────── */
+.akds-text-input__start-adornment {
+  display: flex;
+  align-items: center;
+  padding-left: var(--akds-spacing-scale-03);
+  color: var(--akds-color-icon-secondary-default);
+  flex-shrink: 0;
+}
+
+/* ── Field wrapper ─────────────────────────────────────────────────────── */
+.akds-text-input__field-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Input ─────────────────────────────────────────────────────────────── */
+.akds-text-input__input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding-top: var(--akds-spacing-scale-04);
+  padding-bottom: var(--akds-spacing-scale-02);
+  padding-left: var(--akds-spacing-scale-03);
+  padding-right: var(--akds-spacing-scale-03);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-primary-default);
+  box-sizing: border-box;
+}
+
+.akds-text-input__input::placeholder {
+  color: transparent;
+}
+
+/* ── Label ─────────────────────────────────────────────────────────────── */
+.akds-text-input__label {
+  position: absolute;
+  left: var(--akds-spacing-scale-03);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-placeholder-default);
+  pointer-events: none;
+  transition: transform 150ms ease, font-size 150ms ease, color 150ms ease, top 150ms ease;
+  transform-origin: left top;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── Floating label (focused or has value) ─────────────────────────────── */
+.akds-text-input__label--floating {
+  top: var(--akds-spacing-scale-01);
+  transform: translateY(0) scale(0.75);
+  font-size: var(--akds-font-size-xs);
+  color: var(--akds-color-text-secondary-default);
+}
+
+/* ── Helper text ───────────────────────────────────────────────────────── */
+.akds-text-input__helper-text {
+  margin: 0;
+  margin-top: var(--akds-spacing-scale-01);
+  padding-left: var(--akds-spacing-scale-03);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-secondary-default);
+  line-height: var(--akds-font-line-height-normal);
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-text-input--disabled .akds-text-input__control {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: var(--akds-color-border-default-default) !important;
+  outline: none !important;
+}
+
+.akds-text-input--disabled .akds-text-input__input {
+  cursor: not-allowed;
+  color: var(--akds-color-text-primary-disabled);
+}
+
+.akds-text-input--disabled .akds-text-input__label {
+  color: var(--akds-color-text-secondary-default);
+}
+
+.akds-text-input--disabled .akds-text-input__helper-text {
+  color: var(--akds-color-text-secondary-disabled);
+}

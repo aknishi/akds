@@ -6,3 +6,6 @@ export type { SpinnerProps, SpinnerSize } from './components/Spinner/index.js';
 
 export { RippleBase } from './components/RippleBase/index.js';
 export type { RippleBaseProps, RippleBaseHandle } from './components/RippleBase/index.js';
+
+export { TextInput } from './components/TextInput/index.js';
+export type { TextInputProps } from './components/TextInput/index.js';

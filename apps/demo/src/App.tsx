@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from '@akds/reactkit';
+import { Button, TextInput } from '@akds/reactkit';
 import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@akds/reactkit';
 import './App.css';
 
@@ -74,6 +74,39 @@ export default function App() {
           <Button appearance="solid" sentiment="accented" loading>Saving</Button>
           <Button appearance="bordered" sentiment="neutral" loading>Loading</Button>
           <Button appearance="solid" sentiment="success" loading>Processing</Button>
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* TextInput section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">TextInput</h2>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <TextInput label="Email address" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with adornment</span>
+          <TextInput label="Amount" startAdornment={<span>$</span>} />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with helper text</span>
+          <TextInput label="Username" helperText="Must be at least 3 characters" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <TextInput label="Read only" disabled />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">pre-filled value</span>
+          <TextInput
+            label="Full name"
+            value="Adrian Kawanishi"
+            onChange={() => {}}
+          />
         </div>
       </section>
     </div>
