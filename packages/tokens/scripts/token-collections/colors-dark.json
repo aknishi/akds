@@ -1390,6 +1390,30 @@
         }
       },
       "interaction": {
+        "focus": {
+          "outline": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                1,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "hex": "#FFFFFF"
+            },
+            "$extensions": {
+              "com.figma.variableId": "VariableID:44:10",
+              "com.figma.scopes": [
+                "STROKE"
+              ],
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-interaction-focus-outline)"
+              }
+            }
+          }
+        },
         "hover": {
           "overlay": {
             "$type": "color",
@@ -1439,6 +1463,56 @@
                 "WEB": "var(--akds-color-interaction-pressed-overlay)"
               },
               "com.figma.isOverride": true
+            }
+          }
+        },
+        "hoverOnDark": {
+          "overlay": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                1,
+                1,
+                1
+              ],
+              "alpha": 0.10000000149011612,
+              "hex": "#FFFFFF"
+            },
+            "$extensions": {
+              "com.figma.variableId": "VariableID:44:20",
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ],
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-interaction-hover-ondark-overlay)"
+              }
+            }
+          }
+        },
+        "pressedOnDark": {
+          "overlay": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                1,
+                1,
+                1
+              ],
+              "alpha": 0.20000000298023224,
+              "hex": "#FFFFFF"
+            },
+            "$extensions": {
+              "com.figma.variableId": "VariableID:44:21",
+              "com.figma.scopes": [
+                "FRAME_FILL",
+                "SHAPE_FILL"
+              ],
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-interaction-pressed-ondark-overlay)"
+              }
             }
           }
         }

@@ -1,0 +1,31 @@
+/* ── Container ───────────────────────────────────────────────────────────── */
+.akds-ripple-base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* ── Ripple ──────────────────────────────────────────────────────────────── */
+@keyframes akds-ripple {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.akds-ripple-base--ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--akds-color-interaction-pressed-overlay);
+  pointer-events: none;
+  animation: akds-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.akds-ripple-base--ondark .akds-ripple-base--ripple {
+  background: var(--akds-color-interaction-pressed-ondark-overlay);
+}

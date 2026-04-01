@@ -1,6 +1,7 @@
 import React from 'react';
-import { Button } from '@akds/reactkit';
-import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@akds/reactkit';
+import { Button } from '../src/components/Button/Button';
+import { Spinner } from '../src/components/Spinner/Spinner';
+import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '../src/components/Button/Button.types';
 import './App.css';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];
@@ -19,8 +20,8 @@ export default function App() {
       {/* Header */}
       <div className="demo-header">
         <div>
-          <h1 className="demo-header__title">akds</h1>
-          <p className="demo-header__subtitle">Component Showcase</p>
+          <h1 className="demo-header__title">reactkit</h1>
+          <p className="demo-header__subtitle">dev playground</p>
         </div>
         <Button
           appearance="bordered"
@@ -34,11 +35,29 @@ export default function App() {
 
       <hr className="demo-divider" />
 
-      {/* Button section */}
+      {/* Spinner */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Spinner</h2>
+        <div className="demo-row">
+          <span className="demo-row__label">sm</span>
+          <Spinner size="sm" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">md</span>
+          <Spinner size="md" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">lg</span>
+          <Spinner size="lg" />
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Button */}
       <section className="demo-section">
         <h2 className="demo-section__heading">Button</h2>
 
-        {/* By appearance × sentiment */}
         {appearances.map(appearance => (
           <div key={appearance} className="demo-section">
             <p className="demo-label-heading">{appearance}</p>
@@ -57,21 +76,24 @@ export default function App() {
 
         <hr className="demo-divider" />
 
-        {/* States */}
         <p className="demo-label-heading">States</p>
         <div className="demo-row">
           <span className="demo-row__label">default</span>
-          <Button appearance="solid" sentiment="accented">Button</Button>
+          <Button>Button</Button>
         </div>
         <div className="demo-row">
           <span className="demo-row__label">disabled</span>
-          <Button appearance="solid" sentiment="accented" disabled>Button</Button>
+          <Button disabled>Button</Button>
           <Button appearance="bordered" sentiment="neutral" disabled>Button</Button>
           <Button appearance="transparent" sentiment="destructive" disabled>Button</Button>
         </div>
         <div className="demo-row">
+          <span className="demo-row__label">focusable</span>
+          <Button disabled focusableWhenDisabled>Button</Button>
+        </div>
+        <div className="demo-row">
           <span className="demo-row__label">loading</span>
-          <Button appearance="solid" sentiment="accented" loading>Saving</Button>
+          <Button loading>Saving</Button>
           <Button appearance="bordered" sentiment="neutral" loading>Loading</Button>
           <Button appearance="solid" sentiment="success" loading>Processing</Button>
         </div>

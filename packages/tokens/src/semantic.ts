@@ -90,7 +90,7 @@ export const semanticColors = {
         dark: '#404040',
       },
       subtle: {
-        light: '#FFFFFF',
+        light: '#FAFAFA',
         dark: '#171717',
       },
     },
@@ -109,7 +109,7 @@ export const semanticColors = {
       dark: '#262626',
     },
     sunken: {
-      light: '#FFFFFF',
+      light: '#FAFAFA',
       dark: '#0A0A0A',
     },
   },
@@ -242,14 +242,26 @@ export const semanticColors = {
   interaction: {
     hover: {
       overlay: {
-        light: '#000000',
-        dark: '#FFFFFF',
+        light: 'rgba(0,0,0,0.06)',
+        dark: 'rgba(255,255,255,0.08)',
       },
     },
     pressed: {
       overlay: {
-        light: '#000000',
-        dark: '#FFFFFF',
+        light: 'rgba(0,0,0,0.1)',
+        dark: 'rgba(255,255,255,0.14)',
+      },
+    },
+    hoverOndark: {
+      overlay: {
+        light: 'rgba(255,255,255,0.1)',
+        dark: 'rgba(255,255,255,0.1)',
+      },
+    },
+    pressedOndark: {
+      overlay: {
+        light: 'rgba(255,255,255,0.2)',
+        dark: 'rgba(255,255,255,0.2)',
       },
     },
   },

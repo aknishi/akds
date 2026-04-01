@@ -74,7 +74,8 @@ function toHex(r: number, g: number, b: number): string {
 function colorToStr(c: FigmaRGBA): string {
   if (c.a < 0.9999) {
     const [r, g, b] = [c.r, c.g, c.b].map(x => Math.round(x * 255));
-    return `rgba(${r},${g},${b},${c.a})`;
+    const a = parseFloat(c.a.toFixed(4));
+    return `rgba(${r},${g},${b},${a})`;
   }
   return toHex(c.r, c.g, c.b);
 }
@@ -354,6 +355,13 @@ const ELEVATION_CSS_BLOCK = `
   --akds-elevation-xl:   0 20px 25px rgba(0,0,0,0.10), 0 10px 10px rgba(0,0,0,0.04);
   --akds-elevation-2xl:  0 25px 50px rgba(0,0,0,0.25);`;
 
+// Figma Variables cannot represent CSS shorthand values (outline, box-shadow, etc.)
+// so the compound focus outline token is hardcoded here, referencing the color variable.
+const FOCUS_CSS_BLOCK = `
+  /* ─── Focus ──────────────────────────────────────────────────────────── */
+  --akds-outline-focus: 1px dashed var(--akds-color-interaction-focus-outline);
+  --akds-outline-focus-offset: 2px;`;
+
 function genCSS(
   allVars:    Map<string, FigmaVariable>,
   cols:       Map<string, FigmaCollection>,
@@ -417,6 +425,7 @@ function genCSS(
 
   // Elevation (hardcoded)
   rootLines.push(ELEVATION_CSS_BLOCK);
+  rootLines.push(FOCUS_CSS_BLOCK);
 
   // Semantic colors — Light mode
   if (colorVars.length && lightModeId) {

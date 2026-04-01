@@ -46,7 +46,7 @@ export const spacing = {
     none: 0,
     xs: 2,
     sm: 4,
-    md: 8,
+    md: 10,
     lg: 12,
     xl: 16,
     '2xl': 24,

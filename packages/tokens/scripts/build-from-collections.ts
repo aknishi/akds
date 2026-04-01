@@ -68,8 +68,17 @@ function flattenTokens(tree: TokenTree, basePath: string[] = []): FlatToken[] {
 
 // ─── Value helpers ───────────────────────────────────────────────────────────
 
-function colorHex(value: FlatToken['value']): string {
-  if (typeof value === 'object' && value !== null && 'hex' in value) return (value as ColorValue).hex;
+function colorToString(value: FlatToken['value']): string {
+  if (typeof value === 'object' && value !== null && 'hex' in value) {
+    const cv = value as ColorValue;
+    if (cv.alpha < 0.9999) {
+      const [r, g, b] = cv.components.map(c => Math.round(c * 255));
+      // Round alpha to 4 decimal places to avoid floating-point noise (e.g. 0.05999999865889549 → 0.06)
+      const a = parseFloat(cv.alpha.toFixed(4));
+      return `rgba(${r},${g},${b},${a})`;
+    }
+    return cv.hex;
+  }
   return String(value);
 }
 
@@ -143,7 +152,7 @@ function load(filename: string, stripPrefix: string[]): FlatToken[] {
 
 function genPrimitives(): string {
   const tokens = load('primitives.json', ['akds', 'primitive', 'color']);
-  const obj    = buildNested(tokens, t => colorHex(t.value));
+  const obj    = buildNested(tokens, t => colorToString(t.value));
   return (
     AUTO_HEADER +
     `export const primitiveColors = ${tsLiteral(obj)} as const;\n\n` +
@@ -158,8 +167,8 @@ function genSemantic(): string {
 
   const obj = buildNested(lightTokens, lt => {
     const dk    = darkMap.get(lt.path.join('/'));
-    const light = colorHex(lt.value);
-    const dark  = dk ? colorHex(dk.value) : light;
+    const light = colorToString(lt.value);
+    const dark  = dk ? colorToString(dk.value) : light;
     return { light, dark };
   });
 
@@ -236,8 +245,15 @@ const ELEVATION_CSS_BLOCK = `
   --akds-elevation-xl:   0 20px 25px rgba(0,0,0,0.10), 0 10px 10px rgba(0,0,0,0.04);
   --akds-elevation-2xl:  0 25px 50px rgba(0,0,0,0.25);`;
 
+// Figma Variables cannot represent CSS shorthand values (outline, box-shadow, etc.)
+// so the compound focus outline token is hardcoded here, referencing the color variable.
+const FOCUS_CSS_BLOCK = `
+  /* ─── Focus ──────────────────────────────────────────────────────────── */
+  --akds-outline-focus: 1px dashed var(--akds-color-interaction-focus-outline);
+  --akds-outline-focus-offset: 2px;`;
+
 function toCssValue(t: FlatToken): string {
-  if (t.type === 'color')  return colorHex(t.value);
+  if (t.type === 'color')  return colorToString(t.value);
   if (t.type === 'string') return t.value as string;
   const n   = numVal(t.value);
   const cv  = t.cssVar;
@@ -260,7 +276,7 @@ function genCSS(): string {
   rootLines.push('  /* ─── Primitives ──────────────────────────────────────────── */');
   for (const t of primTokens) {
     if (!t.cssVar) continue;
-    rootLines.push(`  ${cssVarName(t.cssVar)}: ${colorHex(t.value)};`);
+    rootLines.push(`  ${cssVarName(t.cssVar)}: ${colorToString(t.value)};`);
   }
 
   rootLines.push('\n  /* ─── Spacing ──────────────────────────────────────────────── */');
@@ -282,17 +298,18 @@ function genCSS(): string {
   }
 
   rootLines.push(ELEVATION_CSS_BLOCK);
+  rootLines.push(FOCUS_CSS_BLOCK);
 
   rootLines.push('\n  /* ─── Semantic colors — Light mode ─────────────────────────── */');
   for (const t of lightTokens) {
     if (!t.cssVar) continue;
-    rootLines.push(`  ${cssVarName(t.cssVar)}: ${colorHex(t.value)};`);
+    rootLines.push(`  ${cssVarName(t.cssVar)}: ${colorToString(t.value)};`);
   }
 
   const darkLines: string[] = [];
   for (const t of darkTokens) {
     if (!t.cssVar) continue;
-    darkLines.push(`  ${cssVarName(t.cssVar)}: ${colorHex(t.value)};`);
+    darkLines.push(`  ${cssVarName(t.cssVar)}: ${colorToString(t.value)};`);
   }
 
   const hdr =

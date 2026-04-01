@@ -435,7 +435,7 @@
       },
       "md": {
         "$type": "number",
-        "$value": 8,
+        "$value": 10,
         "$extensions": {
           "com.figma.variableId": "VariableID:12:32",
           "com.figma.scopes": [

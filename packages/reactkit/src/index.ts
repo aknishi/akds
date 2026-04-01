@@ -3,3 +3,6 @@ export type { ButtonProps, ButtonAppearance, ButtonSentiment, ButtonSize } from 
 
 export { Spinner } from './components/Spinner/index.js';
 export type { SpinnerProps, SpinnerSize } from './components/Spinner/index.js';
+
+export { RippleBase } from './components/RippleBase/index.js';
+export type { RippleBaseProps, RippleBaseHandle } from './components/RippleBase/index.js';

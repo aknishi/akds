@@ -2,7 +2,10 @@ import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { Button } from '../../../components/Button/Button';
+
+expect.extend(toHaveNoViolations);
 
 describe('Button', () => {
   it('renders children', () => {
@@ -13,42 +16,42 @@ describe('Button', () => {
   it('applies default classes', () => {
     render(<Button>Default</Button>);
     const btn = screen.getByRole('button');
-    expect(btn).toHaveClass('akds-btn');
-    expect(btn).toHaveClass('akds-btn--solid');
-    expect(btn).toHaveClass('akds-btn--accented');
-    expect(btn).toHaveClass('akds-btn--md');
+    expect(btn).toHaveClass('akds-button');
+    expect(btn).toHaveClass('akds-button--solid');
+    expect(btn).toHaveClass('akds-button--accented');
+    expect(btn).toHaveClass('akds-button--md');
   });
 
   it('applies appearance variant classes', () => {
     const { rerender } = render(<Button appearance="transparent">T</Button>);
-    expect(screen.getByRole('button')).toHaveClass('akds-btn--transparent');
+    expect(screen.getByRole('button')).toHaveClass('akds-button--transparent');
 
     rerender(<Button appearance="bordered">T</Button>);
-    expect(screen.getByRole('button')).toHaveClass('akds-btn--bordered');
+    expect(screen.getByRole('button')).toHaveClass('akds-button--bordered');
   });
 
   it('applies sentiment variant classes', () => {
     const sentiments = ['neutral', 'success', 'destructive'] as const;
     for (const sentiment of sentiments) {
       const { unmount } = render(<Button sentiment={sentiment}>T</Button>);
-      expect(screen.getByRole('button')).toHaveClass(`akds-btn--${sentiment}`);
+      expect(screen.getByRole('button')).toHaveClass(`akds-button--${sentiment}`);
       unmount();
     }
   });
 
   it('applies size variant classes', () => {
     const { rerender } = render(<Button size="sm">T</Button>);
-    expect(screen.getByRole('button')).toHaveClass('akds-btn--sm');
+    expect(screen.getByRole('button')).toHaveClass('akds-button--sm');
 
     rerender(<Button size="lg">T</Button>);
-    expect(screen.getByRole('button')).toHaveClass('akds-btn--lg');
+    expect(screen.getByRole('button')).toHaveClass('akds-button--lg');
   });
 
   it('shows spinner and disables button when loading', () => {
     render(<Button loading>Save</Button>);
     const btn = screen.getByRole('button');
     expect(btn).toBeDisabled();
-    expect(btn).toHaveClass('akds-btn--disabled');
+    expect(btn).toHaveClass('akds-button--disabled');
     expect(btn).toHaveAttribute('aria-busy', 'true');
     expect(btn.querySelector('.akds-spinner')).toBeInTheDocument();
   });
@@ -95,5 +98,29 @@ describe('Button', () => {
     const ref = React.createRef<HTMLButtonElement>();
     render(<Button ref={ref}>Ref test</Button>);
     expect(ref.current).toBeInstanceOf(HTMLButtonElement);
+  });
+
+  describe('axe accessibility', () => {
+    it('has no violations in default state', async () => {
+      const { container } = render(<Button>Click me</Button>);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations when disabled', async () => {
+      const { container } = render(<Button disabled>Click me</Button>);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations when loading', async () => {
+      const { container } = render(<Button loading>Click me</Button>);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations when focusableWhenDisabled', async () => {
+      const { container } = render(
+        <Button disabled focusableWhenDisabled>Click me</Button>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
   });
 });
