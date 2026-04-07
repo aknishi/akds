@@ -1,0 +1,156 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-dropdown-menu {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  font-family: var(--akds-font-family-sans);
+  box-sizing: border-box;
+  min-width: 200px;
+}
+
+/* ── Full width ─────────────────────────────────────────────────────────── */
+.akds-dropdown-menu--full-width {
+  width: 100%;
+}
+
+/* ── Control — mirrors .akds-text-input__control exactly ───────────────── */
+.akds-dropdown-menu__control {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid var(--akds-color-border-default-default);
+  border-radius: var(--akds-radius-md);
+  background: var(--akds-color-surface-default);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  min-height: var(--akds-size-component-lg);
+  box-sizing: border-box;
+}
+
+.akds-dropdown-menu__control:focus-within {
+  border-color: var(--akds-color-border-default-focus);
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Trigger button ────────────────────────────────────────────────────── */
+.akds-dropdown-menu__trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-top: var(--akds-spacing-scale-04);
+  padding-bottom: var(--akds-spacing-scale-02);
+  padding-left: var(--akds-spacing-scale-03);
+  padding-right: var(--akds-spacing-scale-03);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-primary-default);
+  box-sizing: border-box;
+  gap: var(--akds-spacing-scale-02);
+  text-align: left;
+}
+
+.akds-dropdown-menu__trigger:disabled {
+  cursor: not-allowed;
+}
+
+/* ── Value text — hidden until label floats ────────────────────────────── */
+.akds-dropdown-menu__value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: transparent;
+  transition: color 150ms ease;
+}
+
+.akds-dropdown-menu__trigger--has-value .akds-dropdown-menu__value {
+  color: var(--akds-color-text-primary-default);
+}
+
+/* ── Chevron ────────────────────────────────────────────────────────────── */
+.akds-dropdown-menu__chevron {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--akds-color-icon-secondary-default);
+  transition: transform 150ms ease;
+}
+
+.akds-dropdown-menu__chevron svg {
+  width: var(--akds-size-icon-sm);
+  height: var(--akds-size-icon-sm);
+}
+
+.akds-dropdown-menu__trigger[aria-expanded="true"] .akds-dropdown-menu__chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Floating label — mirrors .akds-text-input__label exactly ──────────── */
+.akds-dropdown-menu__label {
+  position: absolute;
+  left: var(--akds-spacing-scale-03);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-placeholder-default);
+  pointer-events: none;
+  transition: transform 150ms ease, font-size 150ms ease, color 150ms ease, top 150ms ease;
+  transform-origin: left top;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.akds-dropdown-menu__label--floating {
+  top: var(--akds-spacing-scale-01);
+  transform: translateY(0) scale(0.75);
+  font-size: var(--akds-font-size-xs);
+  color: var(--akds-color-text-secondary-default);
+}
+
+/* ── Helper text — mirrors .akds-text-input__helper-text exactly ───────── */
+.akds-dropdown-menu__helper-text {
+  margin: 0;
+  margin-top: var(--akds-spacing-scale-01);
+  padding-left: var(--akds-spacing-scale-03);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-secondary-default);
+  line-height: var(--akds-font-line-height-normal);
+}
+
+/* ── Listbox panel — positioned below control, full width ──────────────── */
+.akds-dropdown-menu__listbox {
+  position: absolute;
+  top: calc(100% + var(--akds-spacing-scale-01));
+  left: 0;
+  right: 0;
+  z-index: 100;
+  max-height: 240px;
+  overflow-y: auto;
+  /* min-width: 0 to allow full-width stretch (overrides .akds-menu's min-width) */
+  min-width: 0;
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-dropdown-menu--disabled .akds-dropdown-menu__control {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: var(--akds-color-border-default-default) !important;
+  outline: none !important;
+}
+
+.akds-dropdown-menu--disabled .akds-dropdown-menu__label {
+  color: var(--akds-color-text-secondary-default);
+}
+
+.akds-dropdown-menu--disabled .akds-dropdown-menu__helper-text {
+  color: var(--akds-color-text-secondary-disabled);
+}

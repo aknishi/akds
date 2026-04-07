@@ -1,0 +1,123 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-scale-02);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-primary-default);
+  line-height: var(--akds-font-line-height-normal);
+}
+
+.akds-radio__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.akds-radio__indicator {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--akds-color-border-default-default);
+  border-radius: var(--akds-radius-full);
+  background: var(--akds-color-surface-default);
+  transition: background 150ms ease, border-color 150ms ease;
+  box-sizing: border-box;
+}
+
+.akds-radio__dot {
+  border-radius: var(--akds-radius-full);
+  background: var(--akds-color-text-on-primary-default);
+  transform: scale(0);
+  transition: transform 150ms ease;
+}
+
+/* Hover overlay */
+.akds-radio__indicator::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-radio:hover:not(.akds-radio--disabled) .akds-radio__indicator::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+/* Focus */
+.akds-radio__input:focus-visible ~ .akds-radio__indicator {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Checked ────────────────────────────────────────────────────────────── */
+.akds-radio__input:checked ~ .akds-radio__indicator {
+  border-color: var(--akds-color-background-primary-default);
+  background: var(--akds-color-background-primary-default);
+}
+
+.akds-radio__input:checked ~ .akds-radio__indicator .akds-radio__dot {
+  transform: scale(1);
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────── */
+.akds-radio--sm {
+  font-size: var(--akds-font-size-sm);
+}
+
+.akds-radio--sm .akds-radio__indicator {
+  width: var(--akds-size-icon-xs);
+  height: var(--akds-size-icon-xs);
+}
+
+.akds-radio--sm .akds-radio__dot {
+  width: 4px;
+  height: 4px;
+}
+
+.akds-radio--md .akds-radio__indicator {
+  width: var(--akds-size-icon-sm);
+  height: var(--akds-size-icon-sm);
+}
+
+.akds-radio--md .akds-radio__dot {
+  width: 6px;
+  height: 6px;
+}
+
+.akds-radio--lg {
+  font-size: var(--akds-font-size-lg);
+}
+
+.akds-radio--lg .akds-radio__indicator {
+  width: var(--akds-size-icon-md);
+  height: var(--akds-size-icon-md);
+}
+
+.akds-radio--lg .akds-radio__dot {
+  width: 8px;
+  height: 8px;
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-radio--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.akds-radio--disabled .akds-radio__indicator {
+  border-color: var(--akds-color-border-default-default) !important;
+  background: var(--akds-color-surface-default) !important;
+}

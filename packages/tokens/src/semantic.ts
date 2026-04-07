@@ -6,7 +6,7 @@ export const semanticColors = {
   background: {
     primary: {
       default: {
-        light: '#2563EB',
+        light: '#1D4ED8',
         dark: '#3B82F6',
       },
       hover: {
@@ -206,7 +206,7 @@ export const semanticColors = {
     },
     primary: {
       default: {
-        light: '#2563EB',
+        light: '#1D4ED8',
         dark: '#3B82F6',
       },
       hover: {

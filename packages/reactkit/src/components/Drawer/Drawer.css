@@ -1,0 +1,185 @@
+/* ── Backdrop ───────────────────────────────────────────────────────────── */
+.akds-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
+.akds-drawer {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  background: var(--akds-color-surface-overlay);
+  box-shadow: var(--akds-elevation-xl);
+  box-sizing: border-box;
+  outline: none;
+  z-index: 1001;
+}
+
+/* ── Sides ─────────────────────────────────────────────────────────────── */
+.akds-drawer--left {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  animation: akds-drawer-in-left 200ms ease;
+}
+
+.akds-drawer--right {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  animation: akds-drawer-in-right 200ms ease;
+}
+
+.akds-drawer--top {
+  top: 0;
+  left: 0;
+  right: 0;
+  animation: akds-drawer-in-top 200ms ease;
+}
+
+.akds-drawer--bottom {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation: akds-drawer-in-bottom 200ms ease;
+}
+
+@keyframes akds-drawer-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes akds-drawer-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes akds-drawer-in-top {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes akds-drawer-in-bottom {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* ── Sizes (left / right drawers) ──────────────────────────────────────── */
+.akds-drawer--left.akds-drawer--sm,
+.akds-drawer--right.akds-drawer--sm {
+  width: 280px;
+}
+
+.akds-drawer--left.akds-drawer--md,
+.akds-drawer--right.akds-drawer--md {
+  width: 360px;
+}
+
+.akds-drawer--left.akds-drawer--lg,
+.akds-drawer--right.akds-drawer--lg {
+  width: 480px;
+}
+
+.akds-drawer--left.akds-drawer--full,
+.akds-drawer--right.akds-drawer--full {
+  width: 100%;
+}
+
+/* ── Sizes (top / bottom drawers) ──────────────────────────────────────── */
+.akds-drawer--top.akds-drawer--sm,
+.akds-drawer--bottom.akds-drawer--sm {
+  height: 200px;
+}
+
+.akds-drawer--top.akds-drawer--md,
+.akds-drawer--bottom.akds-drawer--md {
+  height: 320px;
+}
+
+.akds-drawer--top.akds-drawer--lg,
+.akds-drawer--bottom.akds-drawer--lg {
+  height: 480px;
+}
+
+.akds-drawer--top.akds-drawer--full,
+.akds-drawer--bottom.akds-drawer--full {
+  height: 100%;
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.akds-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--akds-spacing-scale-04) var(--akds-spacing-scale-06);
+  border-bottom: 1px solid var(--akds-color-border-default-default);
+  gap: var(--akds-spacing-scale-03);
+  flex-shrink: 0;
+}
+
+.akds-drawer__title {
+  margin: 0;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-lg);
+  font-weight: var(--akds-font-weight-semibold);
+  color: var(--akds-color-text-primary-default);
+  line-height: var(--akds-font-line-height-snug);
+}
+
+/* ── Close button ──────────────────────────────────────────────────────── */
+.akds-drawer__close {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--akds-size-component-sm);
+  height: var(--akds-size-component-sm);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--akds-radius-md);
+  color: var(--akds-color-icon-secondary-default);
+  cursor: pointer;
+  outline: none;
+  transition: color 150ms ease;
+  margin-left: auto;
+}
+
+.akds-drawer__close svg {
+  width: var(--akds-size-icon-md);
+  height: var(--akds-size-icon-md);
+}
+
+.akds-drawer__close:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+.akds-drawer__close::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-drawer__close:hover::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+.akds-drawer__body {
+  padding: var(--akds-spacing-scale-06);
+  overflow-y: auto;
+  flex: 1;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  color: var(--akds-color-text-primary-default);
+  line-height: var(--akds-font-line-height-normal);
+}

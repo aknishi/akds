@@ -19,7 +19,11 @@
   box-sizing: border-box;
 }
 
-.akds-text-input__control:focus-within {
+.akds-text-input__control:focus-within{
+  border-color: var(--akds-color-border-default-focus);
+}
+
+.akds-text-input__control--keyboard-focus {
   border-color: var(--akds-color-border-default-focus);
   outline: var(--akds-outline-focus);
   outline-offset: var(--akds-outline-focus-offset);

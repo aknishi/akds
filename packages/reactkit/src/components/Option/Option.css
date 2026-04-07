@@ -1,0 +1,121 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-scale-02);
+  width: 100%;
+  padding-block: var(--akds-spacing-scale-02);
+  padding-inline: var(--akds-spacing-scale-03);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-primary-default);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  line-height: var(--akds-font-line-height-normal);
+  border-radius: var(--akds-radius-sm);
+  transition: background 100ms ease;
+  box-sizing: border-box;
+  outline: none;
+  list-style: none;
+}
+
+.akds-option:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* Hover overlay */
+.akds-option::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 100ms ease;
+}
+
+.akds-option:hover:not(.akds-option--disabled)::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+/* ── Trailing element ──────────────────────────────────────────────────── */
+.akds-option__trailing {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--akds-color-text-secondary-default);
+  font-size: var(--akds-font-size-xs);
+}
+
+/* ── Selected (listbox context) ────────────────────────────────────────── */
+.akds-option--selected {
+  background: var(--akds-color-background-secondary-default);
+  color: var(--akds-color-text-info-default);
+  font-weight: var(--akds-font-weight-medium);
+}
+
+/* Trailing checkmark (single-select) */
+.akds-option__checkmark {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--akds-color-text-info-default);
+}
+
+.akds-option__checkmark svg {
+  width: var(--akds-size-icon-sm);
+  height: var(--akds-size-icon-sm);
+  stroke: currentColor;
+  display: block;
+}
+
+/* Decorative checkbox (multi-select) */
+.akds-option__checkbox {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.akds-option__checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--akds-size-icon-sm);
+  height: var(--akds-size-icon-sm);
+  border: 2px solid var(--akds-color-border-default-default);
+  border-radius: var(--akds-radius-xs);
+  background: var(--akds-color-surface-default);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: background 150ms ease, border-color 150ms ease;
+}
+
+.akds-option__checkbox-box--checked {
+  background: var(--akds-color-background-primary-default);
+  border-color: var(--akds-color-background-primary-default);
+}
+
+.akds-option__checkbox-icon {
+  width: var(--akds-size-icon-sm);
+  height: var(--akds-size-icon-sm);
+  stroke: transparent;
+  display: block;
+  transition: stroke 100ms ease;
+}
+
+.akds-option__checkbox-box--checked .akds-option__checkbox-icon {
+  stroke: var(--akds-color-text-on-primary-default);
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-option--disabled {
+  color: var(--akds-color-text-primary-disabled) !important;
+  cursor: not-allowed;
+  opacity: 0.5;
+}

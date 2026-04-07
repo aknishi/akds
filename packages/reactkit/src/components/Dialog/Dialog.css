@@ -1,0 +1,131 @@
+/* ── Backdrop ───────────────────────────────────────────────────────────── */
+.akds-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: var(--akds-spacing-scale-04);
+  box-sizing: border-box;
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
+.akds-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--akds-color-surface-overlay);
+  border-radius: var(--akds-radius-xl);
+  box-shadow: var(--akds-elevation-xl);
+  max-height: calc(100vh - var(--akds-spacing-scale-08));
+  width: 100%;
+  box-sizing: border-box;
+  animation: akds-dialog-in 150ms ease;
+  outline: none;
+}
+
+@keyframes akds-dialog-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(var(--akds-spacing-scale-02));
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────── */
+.akds-dialog--sm {
+  max-width: 400px;
+}
+
+.akds-dialog--md {
+  max-width: 560px;
+}
+
+.akds-dialog--lg {
+  max-width: 800px;
+}
+
+.akds-dialog--full {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: var(--akds-radius-none);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.akds-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--akds-spacing-scale-04) var(--akds-spacing-scale-06);
+  border-bottom: 1px solid var(--akds-color-border-default-default);
+  gap: var(--akds-spacing-scale-03);
+  flex-shrink: 0;
+}
+
+.akds-dialog__title {
+  margin: 0;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-lg);
+  font-weight: var(--akds-font-weight-semibold);
+  color: var(--akds-color-text-primary-default);
+  line-height: var(--akds-font-line-height-snug);
+}
+
+/* ── Close button ──────────────────────────────────────────────────────── */
+.akds-dialog__close {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--akds-size-component-sm);
+  height: var(--akds-size-component-sm);
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: var(--akds-radius-md);
+  color: var(--akds-color-icon-secondary-default);
+  cursor: pointer;
+  outline: none;
+  transition: color 150ms ease;
+  margin-left: auto;
+}
+
+.akds-dialog__close svg {
+  width: var(--akds-size-icon-md);
+  height: var(--akds-size-icon-md);
+}
+
+.akds-dialog__close:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+.akds-dialog__close::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-dialog__close:hover::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+/* ── Body ──────────────────────────────────────────────────────────────── */
+.akds-dialog__body {
+  padding: var(--akds-spacing-scale-06);
+  overflow-y: auto;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  color: var(--akds-color-text-primary-default);
+  line-height: var(--akds-font-line-height-normal);
+}

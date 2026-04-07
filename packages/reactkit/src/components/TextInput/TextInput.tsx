@@ -12,13 +12,16 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
       label,
       helperText,
       startAdornment,
+      inputRef,
+      wrapperClassName,
       value,
       defaultValue,
       onChange,
+      onPointerDown,      
+      onFocus,
+      onBlur,
       disabled = false,
-      className,
       type = 'text',
-      'aria-label': ariaLabel,
       ...rest
     },
     ref,
@@ -30,6 +33,8 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
       () => Boolean(value !== undefined ? value : defaultValue),
     );
     const [focused, setFocused] = React.useState(false);
+    const [keyboardFocused, setKeyboardFocused] = React.useState(false);
+    const pointerActive = React.useRef(false);
 
     React.useEffect(() => {
       if (value !== undefined) {
@@ -42,6 +47,24 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
       onChange?.(e);
     };
 
+    const handlePointerDown = (e: React.PointerEvent<HTMLInputElement>) => {
+      pointerActive.current = true;
+      onPointerDown?.(e);
+    };
+
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      setFocused(true);
+      setKeyboardFocused(!pointerActive.current);
+      pointerActive.current = false;
+      onFocus?.(e);
+    };
+
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      setFocused(false);
+      setKeyboardFocused(false);
+      onBlur?.(e);
+    };
+
     const isLabelFloating = focused || hasValue;
 
     return (
@@ -50,12 +73,11 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
         className={clsx(
           withBaseName(),
           { [withBaseName('disabled')]: disabled },
-          className,
+          wrapperClassName,
         )}
         aria-disabled={disabled || undefined}
-        {...rest}
       >
-        <div className="akds-text-input__control">
+        <div className={clsx('akds-text-input__control', { 'akds-text-input__control--keyboard-focus': keyboardFocused })}>
           {startAdornment && (
             <span className="akds-text-input__start-adornment">
               {startAdornment}
@@ -63,6 +85,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
           )}
           <div className="akds-text-input__field-wrapper">
             <input
+              ref={inputRef}
               id={inputId}
               className="akds-text-input__input"
               type={type}
@@ -70,10 +93,11 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
               defaultValue={defaultValue}
               disabled={disabled}
               onChange={handleChange}
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
-              aria-label={!label ? ariaLabel : undefined}
+              onPointerDown={handlePointerDown}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               aria-describedby={helperText ? helperId : undefined}
+              {...rest}
             />
             {label && (
               <label

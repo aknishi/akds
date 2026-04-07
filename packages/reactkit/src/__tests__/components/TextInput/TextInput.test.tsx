@@ -121,8 +121,8 @@ describe('TextInput', () => {
   });
 
   it('applies disabled class to the outer wrapper when disabled', () => {
-    render(<TextInput label="Name" disabled data-testid="wrapper" />);
-    expect(screen.getByTestId('wrapper')).toHaveClass('akds-text-input--disabled');
+    const { container } = render(<TextInput label="Name" disabled />);
+    expect(container.firstChild).toHaveClass('akds-text-input--disabled');
   });
 
   it('does not call onChange when disabled', async () => {
@@ -132,17 +132,20 @@ describe('TextInput', () => {
     expect(onChange).not.toHaveBeenCalled();
   });
 
-  // 9. HTML passthrough
-  it('forwards data-testid to the outer div', () => {
-    render(<TextInput data-testid="text-input-root" label="Name" />);
-    const root = screen.getByTestId('text-input-root');
-    expect(root).toHaveClass('akds-text-input');
+  // 9. HTML passthrough — additional props forward to the inner <input>
+  it('forwards data-testid to the inner input', () => {
+    render(<TextInput data-testid="text-input" label="Name" />);
+    expect(screen.getByTestId('text-input')).toBeInstanceOf(HTMLInputElement);
   });
 
-  it('forwards additional HTML attributes to the outer div', () => {
-    render(<TextInput label="Name" data-custom="value" aria-label="Name field" />);
-    const input = screen.getByRole('textbox');
-    expect(input).not.toHaveAttribute('aria-label');
+  it('forwards data-* attributes to the inner input', () => {
+    render(<TextInput label="Name" data-custom="value" />);
+    expect(screen.getByRole('textbox')).toHaveAttribute('data-custom', 'value');
+  });
+
+  it('forwards aria-* attributes to the inner input', () => {
+    render(<TextInput label="Name" aria-describedby="hint" />);
+    expect(screen.getByRole('textbox')).toHaveAttribute('aria-describedby');
   });
 
   // 10. Ref forwarding to outer div
