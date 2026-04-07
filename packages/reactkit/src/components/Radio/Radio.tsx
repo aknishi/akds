@@ -2,10 +2,8 @@ import React from 'react';
 import clsx from 'clsx';
 import './Radio.css';
 import type { RadioProps } from './Radio.types';
-import { RippleBase } from '../RippleBase';
-import type { RippleBaseHandle } from '../RippleBase';
 import { RadioGroupContext } from '../RadioGroup/RadioGroupContext';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-radio');
 
@@ -27,7 +25,6 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     ref,
   ) {
     const groupContext = React.useContext(RadioGroupContext);
-    const rippleRef = React.useRef<RippleBaseHandle>(null);
 
     const resolvedName = name ?? groupContext?.name;
     const resolvedDisabled = disabled || (groupContext?.disabled ?? false);
@@ -41,11 +38,6 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           ? String(groupContext.value) === String(value)
           : undefined;
 
-    const handlePointerDown = (e: React.PointerEvent<HTMLLabelElement>) => {
-      rippleRef.current?.trigger(e);
-      onPointerDown?.(e);
-    };
-
     return (
       <label
         className={clsx(
@@ -54,7 +46,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           { [withBaseName('disabled')]: resolvedDisabled },
           className,
         )}
-        onPointerDown={handlePointerDown}
+        onPointerDown={onPointerDown}
         {...rest}
       >
         <input
@@ -71,7 +63,6 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         />
         <span className={withBaseName('indicator')} aria-hidden="true">
           <span className={withBaseName('dot')} />
-          <RippleBase ref={rippleRef} disabled={resolvedDisabled} />
         </span>
         {label !== undefined && (
           <span className={withBaseName('label')}>{label}</span>

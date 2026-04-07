@@ -5,7 +5,7 @@ import type { ButtonProps } from './Button.types';
 import { Spinner } from '../Spinner';
 import { RippleBase } from '../RippleBase';
 import type { RippleBaseHandle } from '../RippleBase';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-button');
 
@@ -13,7 +13,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
       appearance = 'solid',
-      sentiment = 'accented',
+      sentiment = 'neutral',
       size = 'md',
       loading = false,
       disabled = false,

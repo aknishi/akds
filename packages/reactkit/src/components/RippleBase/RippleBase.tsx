@@ -1,6 +1,6 @@
 import React from 'react';
 import './RippleBase.css';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 import clsx from 'clsx';
 
 const withBaseName = makePrefixer('akds-ripple-base');

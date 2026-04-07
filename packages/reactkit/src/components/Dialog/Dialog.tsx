@@ -5,7 +5,7 @@ import './Dialog.css';
 import type { DialogProps } from './Dialog.types';
 import { RippleBase } from '../RippleBase';
 import type { RippleBaseHandle } from '../RippleBase';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-dialog');
 

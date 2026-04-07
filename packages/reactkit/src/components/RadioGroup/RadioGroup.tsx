@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import './RadioGroup.css';
 import type { RadioGroupProps } from './RadioGroup.types';
 import { RadioGroupContext } from './RadioGroupContext';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-radio-group');
 

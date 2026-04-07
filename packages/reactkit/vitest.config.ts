@@ -15,9 +15,11 @@ export default defineConfig({
       exclude: [
         'src/**/*.types.ts',
         'src/**/*.d.ts',
+        'src/**/*.stories.tsx',
         'src/index.ts',
         'src/**/index.ts',
         'src/test/**',
+        'src/utils/LiveEditStory.ts',
       ],
     },
   },

@@ -305,7 +305,11 @@ describe('DropdownMenu', () => {
   });
 
   it('forwards HTML attributes to the container div', () => {
-    setup({ 'data-testid': 'my-select' });
+    render(
+      <DropdownMenu label="Fruit" data-testid="my-select">
+        <Option value="apple">Apple</Option>
+      </DropdownMenu>,
+    );
     expect(screen.getByTestId('my-select')).toBeInTheDocument();
   });
 

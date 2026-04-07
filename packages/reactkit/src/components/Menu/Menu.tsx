@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './Menu.css';
 import type { MenuProps } from './Menu.types';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 import { OptionContext } from '../Option/OptionContext';
 import type { OptionContextValue } from '../Option/OptionContext';
 

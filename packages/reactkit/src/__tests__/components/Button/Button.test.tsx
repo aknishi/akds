@@ -18,7 +18,7 @@ describe('Button', () => {
     const btn = screen.getByRole('button');
     expect(btn).toHaveClass('akds-button');
     expect(btn).toHaveClass('akds-button--solid');
-    expect(btn).toHaveClass('akds-button--accented');
+    expect(btn).toHaveClass('akds-button--neutral');
     expect(btn).toHaveClass('akds-button--md');
   });
 

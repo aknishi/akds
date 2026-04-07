@@ -2,9 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.types';
-import { RippleBase } from '../RippleBase';
-import type { RippleBaseHandle } from '../RippleBase';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-checkbox');
 
@@ -27,7 +25,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     ref,
   ) {
     const inputRef = React.useRef<HTMLInputElement>(null);
-    const rippleRef = React.useRef<RippleBaseHandle>(null);
 
     const callbackRef = React.useCallback(
       (el: HTMLInputElement | null) => {
@@ -44,11 +41,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate]);
 
-    const handlePointerDown = (e: React.PointerEvent<HTMLLabelElement>) => {
-      rippleRef.current?.trigger(e);
-      onPointerDown?.(e);
-    };
-
     return (
       <label
         className={clsx(
@@ -57,7 +49,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           { [withBaseName('disabled')]: disabled },
           className,
         )}
-        onPointerDown={handlePointerDown}
+        onPointerDown={onPointerDown}
         {...rest}
       >
         <input
@@ -94,7 +86,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           >
             <line x1="3" y1="8" x2="13" y2="8" strokeWidth="2" strokeLinecap="round" />
           </svg>
-          <RippleBase ref={rippleRef} disabled={disabled} />
         </span>
         {label !== undefined && (
           <span className={withBaseName('label')}>{label}</span>

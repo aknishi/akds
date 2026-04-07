@@ -5,7 +5,7 @@ import './Drawer.css';
 import type { DrawerProps } from './Drawer.types';
 import { RippleBase } from '../RippleBase';
 import type { RippleBaseHandle } from '../RippleBase';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-drawer');
 

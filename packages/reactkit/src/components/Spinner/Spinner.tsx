@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './Spinner.css';
 import type { SpinnerProps } from './Spinner.types';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-spinner');
 

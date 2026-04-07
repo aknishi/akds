@@ -8,17 +8,19 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
     },
-    "./css": "./src/css/tokens.css"
+    "./css": {
+      "types": "./dist/css/tokens.css.d.ts",
+      "default": "./dist/css/tokens.css"
+    }
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "src/css"
+    "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean && mkdir -p dist/css && cp src/css/tokens.css dist/css/tokens.css && cp src/css/tokens.css.d.ts dist/css/tokens.css.d.ts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "typecheck": "tsc --noEmit",
     "build:tokens": "tsx scripts/fetch-tokens.ts",

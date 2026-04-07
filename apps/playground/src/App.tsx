@@ -1,17 +1,6 @@
 import React from 'react';
-import { Button } from '../src/components/Button/Button';
-import { Spinner } from '../src/components/Spinner/Spinner';
-import { TextInput } from '../src/components/TextInput/TextInput';
-import { Checkbox } from '../src/components/Checkbox/Checkbox';
-import { Radio } from '../src/components/Radio/Radio';
-import { RadioGroup } from '../src/components/RadioGroup/RadioGroup';
-import { Menu } from '../src/components/Menu/Menu';
-import { MenuItem } from '../src/components/MenuItem/MenuItem';
-import { Option } from '../src/components/Option/Option';
-import { DropdownMenu } from '../src/components/DropdownMenu/DropdownMenu';
-import { Dialog } from '../src/components/Dialog/Dialog';
-import { Drawer } from '../src/components/Drawer/Drawer';
-import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '../src/components/Button/Button.types';
+import { Button, Spinner, TextInput, Checkbox, Radio, RadioGroup, Menu, MenuItem, Option, DropdownMenu, Dialog, Drawer } from '@akds/reactkit';
+import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@akds/reactkit';
 import './App.css';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];
@@ -31,7 +20,7 @@ export default function App() {
       <div className="demo-header">
         <div>
           <h1 className="demo-header__title">reactkit</h1>
-          <p className="demo-header__subtitle">dev playground</p>
+          <p className="demo-header__subtitle">playground</p>
         </div>
         <Button
           appearance="bordered"
@@ -213,7 +202,7 @@ export default function App() {
 
       <hr className="demo-divider" />
 
-      {/* Menu / MenuItem / Option */}
+      {/* Menu */}
       <section className="demo-section">
         <h2 className="demo-section__heading">Menu</h2>
 

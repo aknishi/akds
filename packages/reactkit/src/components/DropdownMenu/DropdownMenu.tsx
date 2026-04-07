@@ -4,7 +4,7 @@ import '../Menu/Menu.css';
 import '../Option/Option.css';
 import './DropdownMenu.css';
 import type { DropdownMenuProps } from './DropdownMenu.types';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 import { OptionContext } from '../Option/OptionContext';
 import type { OptionContextValue } from '../Option/OptionContext';
 

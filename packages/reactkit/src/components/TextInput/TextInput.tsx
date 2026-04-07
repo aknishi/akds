@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './TextInput.css';
 import type { TextInputProps } from './TextInput.types';
-import { makePrefixer } from '../../utils/makePrefixer';
+import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-text-input');
 

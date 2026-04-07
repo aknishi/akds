@@ -4,26 +4,26 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
+      "types": "./dist/akds-reactkit.d.ts",
+      "import": "./dist/akds-reactkit.js",
+      "require": "./dist/akds-reactkit.cjs"
     }
   },
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/akds-reactkit.cjs",
+  "module": "./dist/akds-reactkit.js",
+  "types": "./dist/akds-reactkit.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
-    "dev:playground": "vite --config vite.dev.config.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
+  "sideEffects": ["**/*.css"],
   "dependencies": {
     "@akds/tokens": "*",
     "clsx": "^2.1.0"
@@ -40,7 +40,6 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@vitejs/plugin-react": "^4.7.0",
-    "vite": "^5.4.0",
     "@vitest/coverage-istanbul": "^4.1.2",
     "jest-axe": "^10.0.0",
     "jsdom": "^29.0.1",
