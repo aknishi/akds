@@ -3,3 +3,8 @@
   flex: 1;
   padding: var(--akds-spacing-layout-md);
 }
+
+.akds-card--borderless .akds-card-content {
+  padding-top: 0;
+  padding-bottom: 0;
+}

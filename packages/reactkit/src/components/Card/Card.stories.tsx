@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react-vite';
 import { Card } from './Card';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
@@ -15,19 +15,23 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Card,
-  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button } from '@aknishi/akds-reactkit';
+  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button, Flexbox } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card style={{ width: 360 }}>
     <CardHeader>
-      <Text styleAs="h6">Card title</Text>
+      Card Title
     </CardHeader>
     <CardContent>
-      <Text styleAs="body">This is the main body content of the card.</Text>
+      <Text styleAs="body">
+        This is the main body content of the card. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </Text>
     </CardContent>
     <CardFooter>
-      <Button appearance="solid" sentiment="accented">Confirm</Button>
-      <Button appearance="bordered" sentiment="neutral">Cancel</Button>
+      <Flexbox justify="flex-end" gap={'sm'} style={{ width: '100%' }}>
+        <Button appearance="bordered" emphasis="neutral">Cancel</Button>
+        <Button appearance="solid" emphasis="accented">Confirm</Button>
+      </Flexbox>
     </CardFooter>
   </Card>
 );
@@ -38,18 +42,20 @@ export default CardExample;
 
 export const Borderless = LiveEditStory({
   component: Card,
-  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button } from '@aknishi/akds-reactkit';
+  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button, Flexbox } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card borderless style={{ width: 360 }}>
     <CardHeader>
-      <Text styleAs="h6">Borderless card</Text>
+      Borderless card
     </CardHeader>
     <CardContent>
       <Text styleAs="body">No border and no dividers — clean and minimal.</Text>
     </CardContent>
     <CardFooter>
-      <Button appearance="transparent" sentiment="accented">Learn more</Button>
+      <Flexbox justify="flex-end" gap={'sm'} style={{ width: '100%' }}>
+        <Button appearance="transparent" emphasis="accented">Learn more</Button>
+      </Flexbox>
     </CardFooter>
   </Card>
 );

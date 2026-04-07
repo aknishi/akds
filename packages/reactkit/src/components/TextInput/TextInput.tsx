@@ -17,10 +17,11 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
       value,
       defaultValue,
       onChange,
-      onPointerDown,      
+      onPointerDown,
       onFocus,
       onBlur,
       disabled = false,
+      error = false,
       type = 'text',
       ...rest
     },
@@ -73,6 +74,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
         className={clsx(
           withBaseName(),
           { [withBaseName('disabled')]: disabled },
+          { [withBaseName('error')]: error },
           wrapperClassName,
         )}
         aria-disabled={disabled || undefined}
@@ -97,6 +99,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
               onFocus={handleFocus}
               onBlur={handleBlur}
               aria-describedby={helperText ? helperId : undefined}
+              aria-invalid={error || undefined}
               {...rest}
             />
             {label && (

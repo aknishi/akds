@@ -54,6 +54,8 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
 
     const [internalOpen, setInternalOpen] = React.useState(false);
     const [focused, setFocused] = React.useState(false);
+    const [keyboardFocused, setKeyboardFocused] = React.useState(false);
+    const pointerActive = React.useRef(false);
 
     const resolvedOpen = isOpenControlled ? open! : internalOpen;
 
@@ -182,7 +184,11 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         {...rest}
       >
         {/* ── Control — mirrors TextInput's .akds-text-input__control ── */}
-        <div className="akds-dropdown-menu__control">
+        <div className={clsx(
+          'akds-dropdown-menu__control',
+          { 'akds-dropdown-menu__control--open': resolvedOpen },
+          { 'akds-dropdown-menu__control--keyboard-focus': keyboardFocused },
+        )}>
           <button
             ref={triggerRef}
             id={triggerId}
@@ -201,8 +207,16 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             )}
             onClick={() => handleOpenChange(!resolvedOpen)}
             onKeyDown={handleTriggerKeyDown}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
+            onPointerDown={() => { pointerActive.current = true; }}
+            onFocus={() => {
+              setFocused(true);
+              setKeyboardFocused(!pointerActive.current);
+              pointerActive.current = false;
+            }}
+            onBlur={() => {
+              setFocused(false);
+              setKeyboardFocused(false);
+            }}
           >
             <span className="akds-dropdown-menu__value">
               {displayText || (placeholder ?? '\u00A0')}

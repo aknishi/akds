@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react-vite';
 import { Dialog } from './Dialog';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
@@ -28,8 +28,8 @@ const DialogExample = () => {
       <Dialog open={open} onClose={() => setOpen(false)} title="Dialog title">
         <p>This is the dialog body content.</p>
         <Flexbox gap="sm" mt="md">
-          <Button appearance="solid" sentiment="accented" onClick={() => setOpen(false)}>Confirm</Button>
-          <Button appearance="bordered" sentiment="neutral" onClick={() => setOpen(false)}>Cancel</Button>
+          <Button appearance="solid" emphasis="accented" onClick={() => setOpen(false)}>Confirm</Button>
+          <Button appearance="bordered" emphasis="neutral" onClick={() => setOpen(false)}>Cancel</Button>
         </Flexbox>
       </Dialog>
     </>

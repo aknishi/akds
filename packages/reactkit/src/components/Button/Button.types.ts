@@ -1,12 +1,12 @@
 export type ButtonAppearance = 'solid' | 'transparent' | 'bordered';
-export type ButtonSentiment = 'accented' | 'neutral' | 'success' | 'destructive';
+export type ButtonEmphasis = 'accented' | 'neutral' | 'success' | 'destructive';
 export type ButtonSize = 'sm' | 'md' | 'lg';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   /** Controls the visual style of the button. */
   appearance?: ButtonAppearance;
   /** Conveys the intent or meaning of the action. */
-  sentiment?: ButtonSentiment;
+  emphasis?: ButtonEmphasis;
   /** Sets the size of the button. */
   size?: ButtonSize;
   /** When true, replaces button content with a spinner and disables interaction. */

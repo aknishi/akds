@@ -8,12 +8,12 @@
             "$value": {
               "colorSpace": "srgb",
               "components": [
-                0.11372549086809158,
-                0.30588236451148987,
-                0.8470588326454163
+                0.11764705926179886,
+                0.250980406999588,
+                0.686274528503418
               ],
               "alpha": 1,
-              "hex": "#1D4ED8"
+              "hex": "#1E40AF"
             },
             "$extensions": {
               "com.figma.variableId": "VariableID:16:2",
@@ -25,8 +25,8 @@
                 "WEB": "var(--akds-color-background-primary-default)"
               },
               "com.figma.aliasData": {
-                "targetVariableId": "VariableID:e2b3e9e47a00f8870599ec9a4257f023e083ad52/-1:-1",
-                "targetVariableName": "akds/primitive/color/blue/700",
+                "targetVariableId": "VariableID:3ccdb5fcc7daf0d539815f1b1af88c468ccf38d3/-1:-1",
+                "targetVariableName": "akds/primitive/color/blue/800",
                 "targetVariableSetId": "VariableCollectionId:24508a2331f607831c1b55408ee3a45810c250bc/-1:-1",
                 "targetVariableSetName": "Primitives"
               },
@@ -69,11 +69,11 @@
               "colorSpace": "srgb",
               "components": [
                 0.11764705926179886,
-                0.250980406999588,
-                0.686274528503418
+                0.22745098173618317,
+                0.5411764979362488
               ],
               "alpha": 1,
-              "hex": "#1E40AF"
+              "hex": "#1E3A8A"
             },
             "$extensions": {
               "com.figma.variableId": "VariableID:16:4",
@@ -85,8 +85,8 @@
                 "WEB": "var(--akds-color-background-primary-active)"
               },
               "com.figma.aliasData": {
-                "targetVariableId": "VariableID:3ccdb5fcc7daf0d539815f1b1af88c468ccf38d3/-1:-1",
-                "targetVariableName": "akds/primitive/color/blue/800",
+                "targetVariableId": "VariableID:8d45e0ccb92c763574af94b8b5753bbd08b8e9d4/-1:-1",
+                "targetVariableName": "akds/primitive/color/blue/900",
                 "targetVariableSetId": "VariableCollectionId:24508a2331f607831c1b55408ee3a45810c250bc/-1:-1",
                 "targetVariableSetName": "Primitives"
               },
@@ -582,6 +582,28 @@
                 "targetVariableSetId": "VariableCollectionId:24508a2331f607831c1b55408ee3a45810c250bc/-1:-1",
                 "targetVariableSetName": "Primitives"
               },
+              "com.figma.isOverride": true
+            }
+          }
+        },
+        "scrim": {
+          "default": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                1,
+                1,
+                1
+              ],
+              "alpha": 0.5,
+              "hex": "#FFFFFF"
+            },
+            "$extensions": {
+              "com.figma.variableId": "VariableID:110:2",
+              "com.figma.scopes": [
+                "ALL_SCOPES"
+              ],
               "com.figma.isOverride": true
             }
           }

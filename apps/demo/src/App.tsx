@@ -12,11 +12,11 @@ import {
   Dialog,
   Drawer,
 } from '@aknishi/akds-reactkit';
-import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@aknishi/akds-reactkit';
+import type { ButtonAppearance, ButtonEmphasis, ButtonSize } from '@aknishi/akds-reactkit';
 import './App.css';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];
-const sentiments: ButtonSentiment[] = ['accented', 'neutral', 'success', 'destructive'];
+const emphases: ButtonEmphasis[] = ['accented', 'neutral', 'success', 'destructive'];
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 export default function App() {
@@ -36,7 +36,7 @@ export default function App() {
         </div>
         <Button
           appearance="bordered"
-          sentiment="neutral"
+          emphasis="neutral"
           size="sm"
           onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
         >
@@ -50,15 +50,15 @@ export default function App() {
       <section className="demo-section">
         <h2 className="demo-section__heading">Button</h2>
 
-        {/* By appearance × sentiment */}
+        {/* By appearance × emphasis */}
         {appearances.map(appearance => (
           <div key={appearance} className="demo-section">
             <p className="demo-label-heading">{appearance}</p>
-            {sentiments.map(sentiment => (
-              <div key={sentiment} className="demo-row">
-                <span className="demo-row__label">{sentiment}</span>
+            {emphases.map(emphasis => (
+              <div key={emphasis} className="demo-row">
+                <span className="demo-row__label">{emphasis}</span>
                 {sizes.map(size => (
-                  <Button key={size} appearance={appearance} sentiment={sentiment} size={size}>
+                  <Button key={size} appearance={appearance} emphasis={emphasis} size={size}>
                     Button
                   </Button>
                 ))}
@@ -73,19 +73,19 @@ export default function App() {
         <p className="demo-label-heading">States</p>
         <div className="demo-row">
           <span className="demo-row__label">default</span>
-          <Button appearance="solid" sentiment="accented">Button</Button>
+          <Button appearance="solid" emphasis="accented">Button</Button>
         </div>
         <div className="demo-row">
           <span className="demo-row__label">disabled</span>
-          <Button appearance="solid" sentiment="accented" disabled>Button</Button>
-          <Button appearance="bordered" sentiment="neutral" disabled>Button</Button>
-          <Button appearance="transparent" sentiment="destructive" disabled>Button</Button>
+          <Button appearance="solid" emphasis="accented" disabled>Button</Button>
+          <Button appearance="bordered" emphasis="neutral" disabled>Button</Button>
+          <Button appearance="transparent" emphasis="destructive" disabled>Button</Button>
         </div>
         <div className="demo-row">
           <span className="demo-row__label">loading</span>
-          <Button appearance="solid" sentiment="accented" loading>Saving</Button>
-          <Button appearance="bordered" sentiment="neutral" loading>Loading</Button>
-          <Button appearance="solid" sentiment="success" loading>Processing</Button>
+          <Button appearance="solid" emphasis="accented" loading>Saving</Button>
+          <Button appearance="bordered" emphasis="neutral" loading>Loading</Button>
+          <Button appearance="solid" emphasis="success" loading>Processing</Button>
         </div>
       </section>
 
@@ -250,7 +250,7 @@ function DialogDemo() {
           <Button
             key={s}
             appearance="bordered"
-            sentiment="neutral"
+            emphasis="neutral"
             onClick={() => { setSize(s); setOpen(true); }}
           >
             Open {s}
@@ -260,7 +260,7 @@ function DialogDemo() {
       <Dialog open={open} onClose={() => setOpen(false)} title="Dialog title" size={size}>
         <p>This is the dialog body. Press Escape or click outside to close.</p>
         <div style={{ marginTop: 16 }}>
-          <Button appearance="solid" sentiment="accented" onClick={() => setOpen(false)}>
+          <Button appearance="solid" emphasis="accented" onClick={() => setOpen(false)}>
             Confirm
           </Button>
         </div>
@@ -275,7 +275,7 @@ function MenuDemo() {
     <>
       <p className="demo-label-heading">Controlled</p>
       <div className="demo-row">
-        <Button appearance="bordered" sentiment="neutral" size="sm" onClick={() => setOpen(true)}>
+        <Button appearance="bordered" emphasis="neutral" size="sm" onClick={() => setOpen(true)}>
           Open Menu
         </Button>
         <Menu open={open} onOpenChange={setOpen}>
@@ -334,7 +334,7 @@ function DrawerDemo() {
           <Button
             key={s}
             appearance="bordered"
-            sentiment="neutral"
+            emphasis="neutral"
             onClick={() => { setSide(s); setOpen(true); }}
           >
             {s}

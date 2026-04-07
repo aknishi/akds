@@ -1,2 +1,2 @@
 export { Menu } from './Menu.js';
-export type { MenuProps } from './Menu.types.js';
+export type { MenuProps, MenuPlacement } from './Menu.types.js';

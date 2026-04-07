@@ -3,7 +3,8 @@
   display: flex;
   align-items: center;
   gap: var(--akds-spacing-scale-02);
-  padding: var(--akds-spacing-layout-md);
+  padding-inline: var(--akds-spacing-layout-md);
+  padding-block: var(--akds-spacing-layout-sm);
 }
 
 /* ── Divided ─────────────────────────────────────────────────────────────── */

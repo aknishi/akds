@@ -304,14 +304,14 @@ function genCSS(): string {
 
   rootLines.push('\n  /* ─── Semantic colors — Light mode ─────────────────────────── */');
   for (const t of lightTokens) {
-    if (!t.cssVar) continue;
-    rootLines.push(`  ${cssVarName(t.cssVar)}: ${colorToString(t.value)};`);
+    const name = t.cssVar ? cssVarName(t.cssVar) : `--akds-color-${t.path.join('-')}`;
+    rootLines.push(`  ${name}: ${colorToString(t.value)};`);
   }
 
   const darkLines: string[] = [];
   for (const t of darkTokens) {
-    if (!t.cssVar) continue;
-    darkLines.push(`  ${cssVarName(t.cssVar)}: ${colorToString(t.value)};`);
+    const name = t.cssVar ? cssVarName(t.cssVar) : `--akds-color-${t.path.join('-')}`;
+    darkLines.push(`  ${name}: ${colorToString(t.value)};`);
   }
 
   const hdr =

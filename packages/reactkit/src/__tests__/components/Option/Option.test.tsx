@@ -91,7 +91,7 @@ describe('Option', () => {
 
     it('disables option when parentDisabled is true', () => {
       renderInMenu(<Option>Cut</Option>, { parentDisabled: true });
-      expect(screen.getByRole('menuitem', { name: 'Cut' })).toBeDisabled();
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).toHaveAttribute('aria-disabled', 'true');
     });
 
     it('forwards ref to button in menu context', () => {

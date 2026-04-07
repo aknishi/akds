@@ -51,7 +51,7 @@
 /* ── Body styles ─────────────────────────────────────────────────────────── */
 .akds-text--body {
   font-size: var(--akds-font-size-md);
-  font-weight: var(--akds-font-weight-regular);
+  font-weight: var(--akds-font-weight-light);
   line-height: var(--akds-font-line-height-normal);
   letter-spacing: var(--akds-font-letter-spacing-normal);
 }

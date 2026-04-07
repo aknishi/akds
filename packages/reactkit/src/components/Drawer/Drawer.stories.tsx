@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react-vite';
 import { Drawer } from './Drawer';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 

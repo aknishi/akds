@@ -13,7 +13,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   function Button(
     {
       appearance = 'solid',
-      sentiment = 'neutral',
+      emphasis = 'neutral',
       size = 'md',
       loading = false,
       disabled = false,
@@ -50,7 +50,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           withBaseName(),
           withBaseName(size),
           withBaseName(appearance),
-          withBaseName(sentiment),
+          withBaseName(emphasis),
           { [withBaseName('disabled')]: isDisabled },
           className,
         )}
@@ -60,7 +60,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading && <Spinner />}
         {children}
-        <RippleBase ref={rippleRef} disabled={isDisabled} onDark={appearance === 'solid' && sentiment !== 'neutral'} />
+        <RippleBase ref={rippleRef} disabled={isDisabled} onDark={appearance === 'solid' && emphasis !== 'neutral'} />
       </button>
     );
   },

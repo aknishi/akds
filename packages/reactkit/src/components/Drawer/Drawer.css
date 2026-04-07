@@ -2,7 +2,7 @@
 .akds-drawer-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--akds-color-background-scrim-default);
   z-index: 1000;
 }
 
@@ -44,6 +44,7 @@
   bottom: 0;
   left: 0;
   right: 0;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.10), 0 -10px 10px rgba(0, 0, 0, 0.04);
   animation: akds-drawer-in-bottom 200ms ease;
 }
 
@@ -65,6 +66,43 @@
 @keyframes akds-drawer-in-bottom {
   from { transform: translateY(100%); }
   to { transform: translateY(0); }
+}
+
+@keyframes akds-drawer-out-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+@keyframes akds-drawer-out-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+
+@keyframes akds-drawer-out-top {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+@keyframes akds-drawer-out-bottom {
+  from { transform: translateY(0); }
+  to { transform: translateY(100%); }
+}
+
+/* ── Closing ────────────────────────────────────────────────────────────── */
+.akds-drawer--closing.akds-drawer--left {
+  animation: akds-drawer-out-left 200ms ease forwards;
+}
+
+.akds-drawer--closing.akds-drawer--right {
+  animation: akds-drawer-out-right 200ms ease forwards;
+}
+
+.akds-drawer--closing.akds-drawer--top {
+  animation: akds-drawer-out-top 200ms ease forwards;
+}
+
+.akds-drawer--closing.akds-drawer--bottom {
+  animation: akds-drawer-out-bottom 200ms ease forwards;
 }
 
 /* ── Sizes (left / right drawers) ──────────────────────────────────────── */

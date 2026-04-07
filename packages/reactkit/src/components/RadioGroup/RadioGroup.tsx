@@ -4,6 +4,7 @@ import './RadioGroup.css';
 import type { RadioGroupProps } from './RadioGroup.types';
 import { RadioGroupContext } from './RadioGroupContext';
 import { makePrefixer } from '../../utils';
+import { Text } from '../Text';
 
 const withBaseName = makePrefixer('akds-radio-group');
 
@@ -34,7 +35,7 @@ export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>
           )}
           {...rest}
         >
-          {legend && <legend className={withBaseName('legend')}>{legend}</legend>}
+          {legend && <Text as="legend" className={withBaseName('legend')}>{legend}</Text>}
           {children}
         </fieldset>
       </RadioGroupContext.Provider>

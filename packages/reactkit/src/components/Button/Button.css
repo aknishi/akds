@@ -6,7 +6,7 @@
   justify-content: center;
   gap: var(--akds-spacing-scale-02);
   font-family: var(--akds-font-family-sans);
-  font-weight: var(--akds-font-weight-medium);
+  font-weight: var(--akds-font-weight-small);
   line-height: var(--akds-font-line-height-normal);
   white-space: nowrap;
   cursor: pointer;
@@ -16,10 +16,15 @@
   outline: none;
   box-sizing: border-box;
   border-radius: var(--akds-radius-md);
-  transition: background 150ms ease, color 150ms ease, border-color 150ms ease,
-    box-shadow 150ms ease, opacity 150ms ease;
-  transform: none;
+  transform: scale(1);
   transform-origin: 50% 50% 0px;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease,
+    box-shadow 150ms ease, opacity 150ms ease, transform 100ms ease;
+}
+
+.akds-button:active:not(.akds-button--disabled) {
+  transform: scale(0.96);
+  transition-duration: 50ms;
 }
 
 .akds-button:focus-visible {
@@ -42,7 +47,7 @@
   background: var(--akds-color-interaction-hover-overlay);
 }
 
-.akds-button--solid:hover:not(.akds-button--disabled)::after {
+.akds-button--solid:hover:not(.akds-button--disabled):not(.akds-button--neutral)::after {
   background: var(--akds-color-interaction-hover-ondark-overlay);
 }
 

@@ -1,5 +1,5 @@
 export { Button } from './components/Button/index.js';
-export type { ButtonProps, ButtonAppearance, ButtonSentiment, ButtonSize } from './components/Button/index.js';
+export type { ButtonProps, ButtonAppearance, ButtonEmphasis, ButtonSize } from './components/Button/index.js';
 
 export { Spinner } from './components/Spinner/index.js';
 export type { SpinnerProps, SpinnerSize } from './components/Spinner/index.js';
@@ -20,7 +20,7 @@ export { RadioGroup } from './components/RadioGroup/index.js';
 export type { RadioGroupProps, RadioGroupOrientation } from './components/RadioGroup/index.js';
 
 export { Menu } from './components/Menu/index.js';
-export type { MenuProps } from './components/Menu/index.js';
+export type { MenuProps, MenuPlacement } from './components/Menu/index.js';
 
 export { MenuItem } from './components/MenuItem/index.js';
 export type { MenuItemProps } from './components/MenuItem/index.js';

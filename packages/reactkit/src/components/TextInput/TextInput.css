@@ -58,7 +58,7 @@
   padding-right: var(--akds-spacing-scale-03);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
-  font-weight: var(--akds-font-weight-regular);
+  font-weight: var(--akds-font-weight-light);
   color: var(--akds-color-text-primary-default);
   box-sizing: border-box;
 }
@@ -74,7 +74,7 @@
   top: 50%;
   transform: translateY(-50%);
   font-size: var(--akds-font-size-md);
-  font-weight: var(--akds-font-weight-regular);
+  font-weight: var(--akds-font-weight-light);
   color: var(--akds-color-text-placeholder-default);
   pointer-events: none;
   transition: transform 150ms ease, font-size 150ms ease, color 150ms ease, top 150ms ease;
@@ -87,7 +87,9 @@
 .akds-text-input__label--floating {
   top: var(--akds-spacing-scale-01);
   transform: translateY(0) scale(0.75);
-  font-size: var(--akds-font-size-xs);
+  font-size: var(--akds-font-size-sm);
+  letter-spacing: 1px;
+  font-weight: var(--akds-font-weight-regular);
   color: var(--akds-color-text-secondary-default);
 }
 
@@ -101,6 +103,15 @@
   font-weight: var(--akds-font-weight-regular);
   color: var(--akds-color-text-secondary-default);
   line-height: var(--akds-font-line-height-normal);
+}
+
+/* ── Error ──────────────────────────────────────────────────────────────── */
+.akds-text-input--error .akds-text-input__control {
+  border-color: var(--akds-color-border-error-default) !important;
+}
+
+.akds-text-input--error .akds-text-input__helper-text {
+  color: var(--akds-color-text-error-default);
 }
 
 /* ── Disabled ──────────────────────────────────────────────────────────── */

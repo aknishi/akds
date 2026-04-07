@@ -33,7 +33,7 @@ describe('MenuItem', () => {
       </ul>,
     );
     expect(screen.getByRole('menuitem')).toHaveClass('akds-option--disabled');
-    expect(screen.getByRole('menuitem')).toBeDisabled();
+    expect(screen.getByRole('menuitem')).toHaveAttribute('aria-disabled', 'true');
   });
 
   it('calls onClick when clicked', async () => {

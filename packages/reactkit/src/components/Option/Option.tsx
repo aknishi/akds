@@ -47,7 +47,6 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
             ref={ref as React.Ref<HTMLButtonElement>}
             type="button"
             role="menuitem"
-            disabled={effectiveDisabled}
             aria-disabled={effectiveDisabled || undefined}
             className={clsx(
               withBaseName(),
@@ -91,7 +90,7 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
         role="option"
         aria-selected={selected}
         aria-disabled={effectiveDisabled || undefined}
-        tabIndex={effectiveDisabled ? -1 : 0}
+        tabIndex={0}
         className={clsx(
           withBaseName(),
           {

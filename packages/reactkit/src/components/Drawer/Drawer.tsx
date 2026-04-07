@@ -32,11 +32,28 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
     },
     ref,
   ) {
+    // Snapshot the last valid side so the close animation uses the correct
+    // direction even when `side` is set to null at the same time as `open=false`.
+    const lastSideRef = React.useRef(side ?? 'right');
+    if (side) lastSideRef.current = side;
+    const effectiveSide = lastSideRef.current;
+
     const panelRef = React.useRef<HTMLDivElement>(null);
     const closeRippleRef = React.useRef<RippleBaseHandle>(null);
     const titleId = React.useId();
+    const [isClosing, setIsClosing] = React.useState(false);
+    const wasOpenRef = React.useRef(false);
 
     React.useImperativeHandle(ref, () => panelRef.current!);
+
+    React.useEffect(() => {
+      if (open) {
+        wasOpenRef.current = true;
+        setIsClosing(false);
+      } else if (wasOpenRef.current) {
+        setIsClosing(true);
+      }
+    }, [open]);
 
     // Focus first focusable element when opened
     React.useEffect(() => {
@@ -86,7 +103,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
       return () => { document.body.style.overflow = prev; };
     }, [open]);
 
-    if (!open) return null;
+    if (!open && !isClosing) return null;
 
     return ReactDOM.createPortal(
       <div
@@ -100,10 +117,12 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
           aria-labelledby={title ? titleId : undefined}
           className={clsx(
             withBaseName(),
-            withBaseName(side),
+            withBaseName(effectiveSide),
             withBaseName(size),
+            { [withBaseName('closing')]: isClosing },
             className,
           )}
+          onAnimationEnd={() => { if (isClosing) setIsClosing(false); }}
           onClick={e => e.stopPropagation()}
         >
           <div className="akds-drawer__header">

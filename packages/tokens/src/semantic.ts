@@ -6,7 +6,7 @@ export const semanticColors = {
   background: {
     primary: {
       default: {
-        light: '#1D4ED8',
+        light: '#1E40AF',
         dark: '#3B82F6',
       },
       hover: {
@@ -14,7 +14,7 @@ export const semanticColors = {
         dark: '#60A5FA',
       },
       active: {
-        light: '#1E40AF',
+        light: '#1E3A8A',
         dark: '#93C5FD',
       },
       disabled: {
@@ -94,6 +94,12 @@ export const semanticColors = {
         dark: '#171717',
       },
     },
+    scrim: {
+      default: {
+        light: 'rgba(255,255,255,0.5)',
+        dark: 'rgba(0,0,0,0.5)',
+      },
+    },
   },
   surface: {
     default: {
@@ -117,7 +123,7 @@ export const semanticColors = {
     primary: {
       default: {
         light: '#171717',
-        dark: '#FFFFFF',
+        dark: '#FAFAFA',
       },
       disabled: {
         light: '#A3A3A3',
@@ -167,7 +173,7 @@ export const semanticColors = {
     'on-secondary': {
       default: {
         light: '#171717',
-        dark: '#FFFFFF',
+        dark: '#FAFAFA',
       },
     },
     placeholder: {
@@ -219,7 +225,7 @@ export const semanticColors = {
     primary: {
       default: {
         light: '#171717',
-        dark: '#FFFFFF',
+        dark: '#FAFAFA',
       },
       disabled: {
         light: '#A3A3A3',

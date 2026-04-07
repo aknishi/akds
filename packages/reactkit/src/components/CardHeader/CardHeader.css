@@ -4,6 +4,12 @@
   align-items: center;
   gap: var(--akds-spacing-scale-02);
   padding: var(--akds-spacing-layout-md);
+  font-family: var(--akds-font-family-sans);
+  color: var(--akds-color-text-primary-default);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
 }
 
 /* ── Divided ─────────────────────────────────────────────────────────────── */

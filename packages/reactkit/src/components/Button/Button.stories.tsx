@@ -1,4 +1,4 @@
-import type { Meta } from '@storybook/react';
+import type { Meta } from '@storybook/react-vite';
 import { Button } from './Button';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
@@ -8,7 +8,7 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   argTypes: {
     appearance: { control: 'select', options: ['solid', 'transparent', 'bordered'] },
-    sentiment: { control: 'select', options: ['accented', 'neutral', 'success', 'destructive'] },
+    emphasis: { control: 'select', options: ['accented', 'neutral', 'success', 'destructive'] },
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     disabled: { control: 'boolean' },
     loading: { control: 'boolean' },
@@ -46,16 +46,16 @@ export default ButtonExample;
 `
 })
 
-export const Sentiment = LiveEditStory({
+export const Emphasis = LiveEditStory({
   component: Button,
   code: `import { Flexbox, Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => (
   <Flexbox gap="sm" align="center">
-    <Button appearance="solid" sentiment="accented">Accented</Button>
-    <Button appearance="solid" sentiment="neutral">Neutral</Button>
-    <Button appearance="solid" sentiment="success">Success</Button>
-    <Button appearance="solid" sentiment="destructive">Destructive</Button>
+    <Button appearance="solid" emphasis="accented">Accented</Button>
+    <Button appearance="solid" emphasis="neutral">Neutral</Button>
+    <Button appearance="solid" emphasis="success">Success</Button>
+    <Button appearance="solid" emphasis="destructive">Destructive</Button>
   </Flexbox>
 );
 

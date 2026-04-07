@@ -5,6 +5,47 @@
   align-self: flex-start;
 }
 
+/* ── Animations ──────────────────────────────────────────────────────────── */
+@keyframes akds-tooltip-in-top {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes akds-tooltip-in-bottom {
+  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes akds-tooltip-in-left {
+  from { opacity: 0; transform: translateY(-50%) translateX(8px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+@keyframes akds-tooltip-in-right {
+  from { opacity: 0; transform: translateY(-50%) translateX(-8px); }
+  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+}
+
+@keyframes akds-tooltip-out-top {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(8px); }
+}
+
+@keyframes akds-tooltip-out-bottom {
+  from { opacity: 1; transform: translateX(-50%) translateY(0); }
+  to   { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+}
+
+@keyframes akds-tooltip-out-left {
+  from { opacity: 1; transform: translateY(-50%) translateX(0); }
+  to   { opacity: 0; transform: translateY(-50%) translateX(8px); }
+}
+
+@keyframes akds-tooltip-out-right {
+  from { opacity: 1; transform: translateY(-50%) translateX(0); }
+  to   { opacity: 0; transform: translateY(-50%) translateX(-8px); }
+}
+
 /* ── Base ────────────────────────────────────────────────────────────────── */
 .akds-tooltip {
   position: absolute;
@@ -20,13 +61,7 @@
   white-space: nowrap;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 150ms ease;
   box-shadow: var(--akds-elevation-sm);
-}
-
-/* ── Visible ──────────────────────────────────────────────────────────────── */
-.akds-tooltip--visible {
-  opacity: 1;
 }
 
 /* ── Placements ──────────────────────────────────────────────────────────── */
@@ -52,4 +87,38 @@
   left: calc(100% + var(--akds-spacing-scale-02));
   top: 50%;
   transform: translateY(-50%);
+}
+
+/* ── Visible ──────────────────────────────────────────────────────────────── */
+.akds-tooltip--visible.akds-tooltip--top {
+  animation: akds-tooltip-in-top 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.akds-tooltip--visible.akds-tooltip--bottom {
+  animation: akds-tooltip-in-bottom 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.akds-tooltip--visible.akds-tooltip--left {
+  animation: akds-tooltip-in-left 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.akds-tooltip--visible.akds-tooltip--right {
+  animation: akds-tooltip-in-right 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ── Hiding ──────────────────────────────────────────────────────────────── */
+.akds-tooltip--hiding.akds-tooltip--top {
+  animation: akds-tooltip-out-top 160ms ease-in forwards;
+}
+
+.akds-tooltip--hiding.akds-tooltip--bottom {
+  animation: akds-tooltip-out-bottom 160ms ease-in forwards;
+}
+
+.akds-tooltip--hiding.akds-tooltip--left {
+  animation: akds-tooltip-out-left 160ms ease-in forwards;
+}
+
+.akds-tooltip--hiding.akds-tooltip--right {
+  animation: akds-tooltip-out-right 160ms ease-in forwards;
 }

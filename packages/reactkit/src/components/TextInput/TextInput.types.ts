@@ -11,4 +11,6 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   inputRef?: React.Ref<HTMLInputElement>;
   /** className applied to the outer wrapper <div>. */
   wrapperClassName?: string;
+  /** When true, applies error styling to the border and helper text. */
+  error?: boolean;
 }

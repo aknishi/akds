@@ -30,11 +30,11 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveClass('akds-button--bordered');
   });
 
-  it('applies sentiment variant classes', () => {
-    const sentiments = ['neutral', 'success', 'destructive'] as const;
-    for (const sentiment of sentiments) {
-      const { unmount } = render(<Button sentiment={sentiment}>T</Button>);
-      expect(screen.getByRole('button')).toHaveClass(`akds-button--${sentiment}`);
+  it('applies emphasis variant classes', () => {
+    const emphases = ['neutral', 'success', 'destructive'] as const;
+    for (const emphasis of emphases) {
+      const { unmount } = render(<Button emphasis={emphasis}>T</Button>);
+      expect(screen.getByRole('button')).toHaveClass(`akds-button--${emphasis}`);
       unmount();
     }
   });

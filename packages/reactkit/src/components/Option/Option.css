@@ -6,7 +6,7 @@
   gap: var(--akds-spacing-scale-02);
   width: 100%;
   padding-block: var(--akds-spacing-scale-02);
-  padding-inline: var(--akds-spacing-scale-03);
+  padding-inline: var(--akds-spacing-scale-04);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-regular);
@@ -56,7 +56,7 @@
 /* ── Selected (listbox context) ────────────────────────────────────────── */
 .akds-option--selected {
   background: var(--akds-color-background-secondary-default);
-  color: var(--akds-color-text-info-default);
+  color: var(--akds-color-background-primary-default);
   font-weight: var(--akds-font-weight-medium);
 }
 
@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  color: var(--akds-color-text-info-default);
+  color: var(--akds-color-background-primary-default);
 }
 
 .akds-option__checkmark svg {
