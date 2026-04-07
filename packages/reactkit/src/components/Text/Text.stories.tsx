@@ -19,7 +19,7 @@ export default meta;
 
 export const Headings = LiveEditStory({
   component: Text,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const TextExample = () => (
   <Flexbox direction="column" gap="sm">
@@ -38,7 +38,7 @@ export default TextExample;
 
 export const BodyStyles = LiveEditStory({
   component: Text,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const TextExample = () => (
   <Flexbox direction="column" gap="sm">
@@ -54,7 +54,7 @@ export default TextExample;
 
 export const AsOverride = LiveEditStory({
   component: Text,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const TextExample = () => (
   <Flexbox direction="column" gap="sm">

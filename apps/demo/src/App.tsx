@@ -11,8 +11,8 @@ import {
   DropdownMenu,
   Dialog,
   Drawer,
-} from '@akds/reactkit';
-import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@akds/reactkit';
+} from '@aknishi/akds-reactkit';
+import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@aknishi/akds-reactkit';
 import './App.css';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];

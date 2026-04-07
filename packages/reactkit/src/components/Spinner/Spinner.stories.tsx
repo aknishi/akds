@@ -15,7 +15,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Spinner,
-  code: `import { Spinner } from '@akds/reactkit';
+  code: `import { Spinner } from '@aknishi/akds-reactkit';
 
 const SpinnerExample = () => <Spinner />;
 
@@ -25,7 +25,7 @@ export default SpinnerExample;
 
 export const Sizes = LiveEditStory({
   component: Spinner,
-  code: `import { Flexbox, Spinner } from '@akds/reactkit';
+  code: `import { Flexbox, Spinner } from '@aknishi/akds-reactkit';
 
 const SpinnerExample = () => (
   <Flexbox gap="md" align="center">

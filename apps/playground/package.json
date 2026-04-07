@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@akds/reactkit": "*",
-    "@akds/tokens": "*"
+    "@aknishi/akds-reactkit": "*",
+    "@aknishi/akds-tokens": "*"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",

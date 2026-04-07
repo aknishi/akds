@@ -1,1 +1,1 @@
-npm run test:coverage --workspace=@akds/reactkit
+npm run test:coverage --workspace=@aknishi/akds-reactkit

@@ -1,5 +1,5 @@
 {
-  "name": "@akds/reactkit",
+  "name": "@aknishi/akds-reactkit",
   "version": "0.1.0",
   "type": "module",
   "exports": {
@@ -24,8 +24,17 @@
     "test:coverage": "vitest run --coverage"
   },
   "sideEffects": ["**/*.css"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aknishi/akds.git",
+    "directory": "packages/reactkit"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "dependencies": {
-    "@akds/tokens": "*",
+    "@aknishi/akds-tokens": "^0.1.0",
     "clsx": "^2.1.0"
   },
   "peerDependencies": {

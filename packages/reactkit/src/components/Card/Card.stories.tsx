@@ -15,7 +15,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Card,
-  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button } from '@akds/reactkit';
+  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card style={{ width: 360 }}>
@@ -38,7 +38,7 @@ export default CardExample;
 
 export const Borderless = LiveEditStory({
   component: Card,
-  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button } from '@akds/reactkit';
+  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card borderless style={{ width: 360 }}>
@@ -60,7 +60,7 @@ export default CardExample;
 
 export const ContentOnly = LiveEditStory({
   component: Card,
-  code: `import { Card, CardContent, Text } from '@akds/reactkit';
+  code: `import { Card, CardContent, Text } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card style={{ width: 360 }}>

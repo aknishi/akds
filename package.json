@@ -17,7 +17,7 @@
     "clean": "rm -rf node_modules dist storybook-static .turbo packages/*/node_modules packages/*/dist packages/*/.turbo apps/*/node_modules apps/*/dist apps/*/.turbo"
   },
   "devDependencies": {
-    "@akds/tokens": "*",
+    "@aknishi/akds-tokens": "*",
     "@rollup/plugin-terser": "^1.0.0",
     "@storybook/addon-a11y": "^8.6.18",
     "@storybook/addon-essentials": "^8.6.14",

@@ -17,7 +17,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Checkbox,
-  code: `import { Checkbox } from '@akds/reactkit';
+  code: `import { Checkbox } from '@aknishi/akds-reactkit';
 
 const CheckboxExample = () => <Checkbox label="Accept terms and conditions" />;
 
@@ -27,7 +27,7 @@ export default CheckboxExample;
 
 export const States = LiveEditStory({
   component: Checkbox,
-  code: `import { Flexbox, Checkbox } from '@akds/reactkit';
+  code: `import { Flexbox, Checkbox } from '@aknishi/akds-reactkit';
 
 const CheckboxExample = () => (
   <Flexbox direction="column" gap="sm">
@@ -45,7 +45,7 @@ export default CheckboxExample;
 
 export const Sizes = LiveEditStory({
   component: Checkbox,
-  code: `import { Flexbox, Checkbox } from '@akds/reactkit';
+  code: `import { Flexbox, Checkbox } from '@aknishi/akds-reactkit';
 
 const CheckboxExample = () => (
   <Flexbox direction="column" gap="sm">

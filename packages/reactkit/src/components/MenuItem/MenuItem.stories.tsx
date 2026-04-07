@@ -15,7 +15,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: MenuItem,
-  code: `import { Menu, MenuItem } from '@akds/reactkit';
+  code: `import { Menu, MenuItem } from '@aknishi/akds-reactkit';
 
 const MenuItemExample = () => (
   <Menu open>
@@ -29,7 +29,7 @@ export default MenuItemExample;
 
 export const WithTrailingElement = LiveEditStory({
   component: MenuItem,
-  code: `import { Menu, MenuItem } from '@akds/reactkit';
+  code: `import { Menu, MenuItem } from '@aknishi/akds-reactkit';
 
 const MenuItemExample = () => (
   <Menu open>
@@ -45,7 +45,7 @@ export default MenuItemExample;
 
 export const Disabled = LiveEditStory({
   component: MenuItem,
-  code: `import { Menu, MenuItem } from '@akds/reactkit';
+  code: `import { Menu, MenuItem } from '@aknishi/akds-reactkit';
 
 const MenuItemExample = () => (
   <Menu open>

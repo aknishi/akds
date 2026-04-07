@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import '@akds/tokens/css';
+import '@aknishi/akds-tokens/css';
 
 const preview: Preview = {
   globalTypes: {

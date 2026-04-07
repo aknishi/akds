@@ -20,7 +20,7 @@ export default meta;
 export const SingleSelect = LiveEditStory({
   component: DropdownMenu,
   code: `import React from 'react';
-import { DropdownMenu, Option } from '@akds/reactkit';
+import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 
 const DropdownMenuExample = () => {
   const [value, setValue] = React.useState(undefined);
@@ -41,7 +41,7 @@ export default DropdownMenuExample;
 export const MultiSelect = LiveEditStory({
   component: DropdownMenu,
   code: `import React from 'react';
-import { DropdownMenu, Option } from '@akds/reactkit';
+import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 
 const DropdownMenuExample = () => {
   const [values, setValues] = React.useState([]);
@@ -62,7 +62,7 @@ export default DropdownMenuExample;
 export const WithHelperText = LiveEditStory({
   component: DropdownMenu,
   code: `import React from 'react';
-import { DropdownMenu, Option } from '@akds/reactkit';
+import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 
 const DropdownMenuExample = () => {
   const [value, setValue] = React.useState(undefined);
@@ -86,7 +86,7 @@ export default DropdownMenuExample;
 
 export const Disabled = LiveEditStory({
   component: DropdownMenu,
-  code: `import { DropdownMenu, Option } from '@akds/reactkit';
+  code: `import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 
 const DropdownMenuExample = () => (
   <DropdownMenu label="Country" disabled>

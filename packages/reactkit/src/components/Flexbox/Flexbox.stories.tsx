@@ -28,7 +28,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Box = ({ label }) => (
   <div style={{
@@ -55,7 +55,7 @@ export default FlexboxExample;
 
 export const Direction = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Box = ({ label }) => (
   <div style={{
@@ -108,7 +108,7 @@ export default FlexboxExample;
 
 export const JustifyContent = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Box = () => (
   <div style={{
@@ -144,7 +144,7 @@ export default FlexboxExample;
 
 export const AlignItems = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Box = ({ height }) => (
   <div style={{
@@ -178,7 +178,7 @@ export default FlexboxExample;
 
 export const Wrap = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Box = ({ n }) => (
   <div style={{
@@ -203,7 +203,7 @@ export default FlexboxExample;
 
 export const Gap = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Box = () => (
   <div style={{
@@ -240,7 +240,7 @@ export default FlexboxExample;
 
 export const Spacing = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@akds/reactkit';
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
 const Outline = ({ children, label }) => (
   <Flexbox direction="column" gap="xs">

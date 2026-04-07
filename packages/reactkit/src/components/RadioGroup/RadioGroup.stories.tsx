@@ -16,7 +16,7 @@ export default meta;
 
 export const Vertical = LiveEditStory({
   component: RadioGroup,
-  code: `import { RadioGroup, Radio } from '@akds/reactkit';
+  code: `import { RadioGroup, Radio } from '@aknishi/akds-reactkit';
 
 const RadioGroupExample = () => (
   <RadioGroup name="fruit" legend="Pick a fruit">
@@ -32,7 +32,7 @@ export default RadioGroupExample;
 
 export const Horizontal = LiveEditStory({
   component: RadioGroup,
-  code: `import { RadioGroup, Radio } from '@akds/reactkit';
+  code: `import { RadioGroup, Radio } from '@aknishi/akds-reactkit';
 
 const RadioGroupExample = () => (
   <RadioGroup name="size" legend="Size" orientation="horizontal">
@@ -48,7 +48,7 @@ export default RadioGroupExample;
 
 export const Disabled = LiveEditStory({
   component: RadioGroup,
-  code: `import { RadioGroup, Radio } from '@akds/reactkit';
+  code: `import { RadioGroup, Radio } from '@aknishi/akds-reactkit';
 
 const RadioGroupExample = () => (
   <RadioGroup name="disabled-group" disabled>

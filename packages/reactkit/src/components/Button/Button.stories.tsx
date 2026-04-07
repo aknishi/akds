@@ -20,7 +20,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Button,
-  code: `import { Button } from '@akds/reactkit';
+  code: `import { Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => (
   <Button>Button</Button>
@@ -32,7 +32,7 @@ export default ButtonExample;
 
 export const Appearance = LiveEditStory({
   component: Button,
-  code: `import { Flexbox, Button } from '@akds/reactkit';
+  code: `import { Flexbox, Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => (
   <Flexbox gap="sm" align="center">
@@ -48,7 +48,7 @@ export default ButtonExample;
 
 export const Sentiment = LiveEditStory({
   component: Button,
-  code: `import { Flexbox, Button } from '@akds/reactkit';
+  code: `import { Flexbox, Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => (
   <Flexbox gap="sm" align="center">
@@ -65,7 +65,7 @@ export default ButtonExample;
 
 export const Disabled = LiveEditStory({
   component: Button,
-  code: `import { Button } from '@akds/reactkit';
+  code: `import { Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => <Button disabled>Button</Button>;
 
@@ -75,7 +75,7 @@ export default ButtonExample;
 
 export const Loading = LiveEditStory({
   component: Button,
-  code: `import { Button } from '@akds/reactkit';
+  code: `import { Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => <Button loading>Saving</Button>;
 
@@ -85,7 +85,7 @@ export default ButtonExample;
 
 export const Sizes = LiveEditStory({
   component: Button,
-  code: `import { Flexbox, Button } from '@akds/reactkit';
+  code: `import { Flexbox, Button } from '@aknishi/akds-reactkit';
 
 const ButtonExample = () => (
   <Flexbox gap="sm" align="center">

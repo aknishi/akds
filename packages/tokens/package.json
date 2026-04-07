@@ -1,5 +1,5 @@
 {
-  "name": "@akds/tokens",
+  "name": "@aknishi/akds-tokens",
   "version": "0.1.0",
   "type": "module",
   "exports": {
@@ -19,6 +19,15 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aknishi/akds.git",
+    "directory": "packages/tokens"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean && mkdir -p dist/css && cp src/css/tokens.css dist/css/tokens.css && cp src/css/tokens.css.d.ts dist/css/tokens.css.d.ts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",

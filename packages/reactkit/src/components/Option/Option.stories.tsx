@@ -16,7 +16,7 @@ export default meta;
 export const SingleSelect = LiveEditStory({
   component: Option,
   code: `import React from 'react';
-import { DropdownMenu, Option } from '@akds/reactkit';
+import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 
 const OptionExample = () => {
   const [value, setValue] = React.useState(undefined);
@@ -36,7 +36,7 @@ export default OptionExample;
 export const MultiSelect = LiveEditStory({
   component: Option,
   code: `import React from 'react';
-import { DropdownMenu, Option } from '@akds/reactkit';
+import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 
 const OptionExample = () => {
   const [values, setValues] = React.useState([]);

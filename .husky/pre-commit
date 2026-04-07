@@ -1,1 +1,1 @@
-npm run test:run --workspace=@akds/reactkit
+npm run test:run --workspace=@aknishi/akds-reactkit

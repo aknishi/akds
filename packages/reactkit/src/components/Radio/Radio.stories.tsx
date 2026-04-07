@@ -16,7 +16,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Radio,
-  code: `import { Flexbox, Radio } from '@akds/reactkit';
+  code: `import { Flexbox, Radio } from '@aknishi/akds-reactkit';
 
 const RadioExample = () => (
   <Flexbox direction="column" gap="sm">
@@ -32,7 +32,7 @@ export default RadioExample;
 
 export const States = LiveEditStory({
   component: Radio,
-  code: `import { Flexbox, Radio } from '@akds/reactkit';
+  code: `import { Flexbox, Radio } from '@aknishi/akds-reactkit';
 
 const RadioExample = () => (
   <Flexbox direction="column" gap="sm">
@@ -48,7 +48,7 @@ export default RadioExample;
 
 export const Sizes = LiveEditStory({
   component: Radio,
-  code: `import { Flexbox, Radio } from '@akds/reactkit';
+  code: `import { Flexbox, Radio } from '@aknishi/akds-reactkit';
 
 const RadioExample = () => (
   <Flexbox direction="column" gap="sm">

@@ -17,7 +17,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: TextInput,
-  code: `import { TextInput } from '@akds/reactkit';
+  code: `import { TextInput } from '@aknishi/akds-reactkit';
 
 const TextInputExample = () => <TextInput label="Email address" />;
 
@@ -27,7 +27,7 @@ export default TextInputExample;
 
 export const WithHelperText = LiveEditStory({
   component: TextInput,
-  code: `import { TextInput } from '@akds/reactkit';
+  code: `import { TextInput } from '@aknishi/akds-reactkit';
 
 const TextInputExample = () => (
   <TextInput label="Username" helperText="Must be at least 3 characters" />
@@ -39,7 +39,7 @@ export default TextInputExample;
 
 export const WithStartAdornment = LiveEditStory({
   component: TextInput,
-  code: `import { TextInput } from '@akds/reactkit';
+  code: `import { TextInput } from '@aknishi/akds-reactkit';
 
 const TextInputExample = () => (
   <TextInput label="Amount" startAdornment="$" />
@@ -51,7 +51,7 @@ export default TextInputExample;
 
 export const Disabled = LiveEditStory({
   component: TextInput,
-  code: `import { TextInput } from '@akds/reactkit';
+  code: `import { TextInput } from '@aknishi/akds-reactkit';
 
 const TextInputExample = () => <TextInput label="Read only" disabled />;
 

@@ -18,7 +18,7 @@ export default meta;
 export const Default = LiveEditStory({
   component: Drawer,
   code: `import React from 'react';
-import { Drawer, Button } from '@akds/reactkit';
+import { Drawer, Button } from '@aknishi/akds-reactkit';
 
 const DrawerExample = () => {
   const [open, setOpen] = React.useState(false);
@@ -39,7 +39,7 @@ export default DrawerExample;
 export const Sides = LiveEditStory({
   component: Drawer,
   code: `import React from 'react';
-import { Flexbox, Drawer, Button } from '@akds/reactkit';
+import { Flexbox, Drawer, Button } from '@aknishi/akds-reactkit';
 
 const DrawerExample = () => {
   const [side, setSide] = React.useState(null);

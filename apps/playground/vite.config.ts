@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@akds/reactkit': path.resolve(__dirname, '../../packages/reactkit/src/index.ts'),
+      '@aknishi/akds-reactkit': path.resolve(__dirname, '../../packages/reactkit/src/index.ts'),
     },
   },
   server: {

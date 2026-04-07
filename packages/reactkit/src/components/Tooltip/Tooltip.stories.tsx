@@ -16,7 +16,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Tooltip,
-  code: `import { Flexbox, Tooltip, Button } from '@akds/reactkit';
+  code: `import { Flexbox, Tooltip, Button } from '@aknishi/akds-reactkit';
 
 const TooltipExample = () => (
   <Flexbox justify="center" padding="xl">
@@ -32,7 +32,7 @@ export default TooltipExample;
 
 export const Placements = LiveEditStory({
   component: Tooltip,
-  code: `import { Flexbox, Tooltip, Button } from '@akds/reactkit';
+  code: `import { Flexbox, Tooltip, Button } from '@aknishi/akds-reactkit';
 
 const TooltipExample = () => (
   <Flexbox justify="center" wrap gap="sm" padding="xl">

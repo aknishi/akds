@@ -18,7 +18,7 @@ export default meta;
 export const Default = LiveEditStory({
   component: Dialog,
   code: `import React from 'react';
-import { Flexbox, Dialog, Button } from '@akds/reactkit';
+import { Flexbox, Dialog, Button } from '@aknishi/akds-reactkit';
 
 const DialogExample = () => {
   const [open, setOpen] = React.useState(false);
@@ -43,7 +43,7 @@ export default DialogExample;
 export const Sizes = LiveEditStory({
   component: Dialog,
   code: `import React from 'react';
-import { Flexbox, Dialog, Button } from '@akds/reactkit';
+import { Flexbox, Dialog, Button } from '@aknishi/akds-reactkit';
 
 const DialogExample = () => {
   const [size, setSize] = React.useState(null);

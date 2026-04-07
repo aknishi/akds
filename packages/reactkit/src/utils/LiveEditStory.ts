@@ -22,7 +22,7 @@ export function LiveEditStory({ component, availableImports, ...rest }: LiveEdit
       ...rest,
       availableImports: {
         'react': React,
-        '@akds/reactkit': ReactKit,
+        '@aknishi/akds-reactkit': ReactKit,
         ...availableImports,
       },
   });

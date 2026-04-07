@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button, Spinner, TextInput, Checkbox, Radio, RadioGroup, Menu, MenuItem, Option, DropdownMenu, Dialog, Drawer } from '@akds/reactkit';
-import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@akds/reactkit';
+import { Button, Spinner, TextInput, Checkbox, Radio, RadioGroup, Menu, MenuItem, Option, DropdownMenu, Dialog, Drawer } from '@aknishi/akds-reactkit';
+import type { ButtonAppearance, ButtonSentiment, ButtonSize } from '@aknishi/akds-reactkit';
 import './App.css';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];

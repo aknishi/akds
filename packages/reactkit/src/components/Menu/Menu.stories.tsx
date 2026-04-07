@@ -15,7 +15,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Menu,
-  code: `import { Menu, MenuItem } from '@akds/reactkit';
+  code: `import { Menu, MenuItem } from '@aknishi/akds-reactkit';
 
 const MenuExample = () => (
   <Menu open>
@@ -32,7 +32,7 @@ export default MenuExample;
 
 export const WithIcons = LiveEditStory({
   component: Menu,
-  code: `import { Menu, MenuItem } from '@akds/reactkit';
+  code: `import { Menu, MenuItem } from '@aknishi/akds-reactkit';
 
 const MenuExample = () => (
   <Menu open>
