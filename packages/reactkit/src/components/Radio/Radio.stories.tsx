@@ -16,14 +16,14 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Radio,
-  code: `import { Radio } from '@akds/reactkit';
+  code: `import { Flexbox, Radio } from '@akds/reactkit';
 
 const RadioExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+  <Flexbox direction="column" gap="sm">
     <Radio label="Option A" value="a" name="radio-default" />
     <Radio label="Option B" value="b" name="radio-default" />
     <Radio label="Option C" value="c" name="radio-default" />
-  </div>
+  </Flexbox>
 );
 
 export default RadioExample;
@@ -32,14 +32,14 @@ export default RadioExample;
 
 export const States = LiveEditStory({
   component: Radio,
-  code: `import { Radio } from '@akds/reactkit';
+  code: `import { Flexbox, Radio } from '@akds/reactkit';
 
 const RadioExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+  <Flexbox direction="column" gap="sm">
     <Radio label="Unchecked" value="a" name="radio-states" />
     <Radio label="Checked" value="b" name="radio-states" defaultChecked />
     <Radio label="Disabled" value="c" name="radio-states-disabled" disabled />
-  </div>
+  </Flexbox>
 );
 
 export default RadioExample;
@@ -48,14 +48,14 @@ export default RadioExample;
 
 export const Sizes = LiveEditStory({
   component: Radio,
-  code: `import { Radio } from '@akds/reactkit';
+  code: `import { Flexbox, Radio } from '@akds/reactkit';
 
 const RadioExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+  <Flexbox direction="column" gap="sm">
     <Radio label="Small" value="sm" name="radio-sizes" size="sm" />
     <Radio label="Medium" value="md" name="radio-sizes" size="md" />
     <Radio label="Large" value="lg" name="radio-sizes" size="lg" />
-  </div>
+  </Flexbox>
 );
 
 export default RadioExample;

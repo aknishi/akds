@@ -1,0 +1,55 @@
+/* ── Wrapper ──────────────────────────────────────────────────────────────── */
+.akds-tooltip__wrapper {
+  display: inline-flex;
+  position: relative;
+  align-self: flex-start;
+}
+
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-tooltip {
+  position: absolute;
+  z-index: 100;
+  padding: var(--akds-spacing-scale-05) var(--akds-spacing-scale-02);
+  background-color: var(--akds-color-text-primary-default);
+  color: var(--akds-color-surface-default);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-medium);
+  line-height: var(--akds-font-line-height-normal);
+  border-radius: var(--akds-radius-sm);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+  box-shadow: var(--akds-elevation-sm);
+}
+
+/* ── Visible ──────────────────────────────────────────────────────────────── */
+.akds-tooltip--visible {
+  opacity: 1;
+}
+
+/* ── Placements ──────────────────────────────────────────────────────────── */
+.akds-tooltip--top {
+  bottom: calc(100% + var(--akds-spacing-scale-02));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.akds-tooltip--bottom {
+  top: calc(100% + var(--akds-spacing-scale-02));
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.akds-tooltip--left {
+  right: calc(100% + var(--akds-spacing-scale-02));
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.akds-tooltip--right {
+  left: calc(100% + var(--akds-spacing-scale-02));
+  top: 50%;
+  transform: translateY(-50%);
+}

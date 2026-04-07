@@ -21,7 +21,7 @@ export default meta;
 export const Default = LiveEditStory({
   component: Button,
   code: `import { Button } from '@akds/reactkit';
-    
+
 const ButtonExample = () => (
   <Button>Button</Button>
 );
@@ -32,14 +32,14 @@ export default ButtonExample;
 
 export const Appearance = LiveEditStory({
   component: Button,
-  code: `import { Button } from '@akds/reactkit';
-    
+  code: `import { Flexbox, Button } from '@akds/reactkit';
+
 const ButtonExample = () => (
-  <div>
+  <Flexbox gap="sm" align="center">
     <Button appearance="solid">Solid</Button>
     <Button appearance="transparent">Transparent</Button>
     <Button appearance="bordered">Bordered</Button>
-  </div>
+  </Flexbox>
 );
 
 export default ButtonExample;
@@ -48,15 +48,15 @@ export default ButtonExample;
 
 export const Sentiment = LiveEditStory({
   component: Button,
-  code: `import { Button } from '@akds/reactkit';
-    
+  code: `import { Flexbox, Button } from '@akds/reactkit';
+
 const ButtonExample = () => (
-  <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+  <Flexbox gap="sm" align="center">
     <Button appearance="solid" sentiment="accented">Accented</Button>
     <Button appearance="solid" sentiment="neutral">Neutral</Button>
     <Button appearance="solid" sentiment="success">Success</Button>
     <Button appearance="solid" sentiment="destructive">Destructive</Button>
-  </div>
+  </Flexbox>
 );
 
 export default ButtonExample;
@@ -85,17 +85,16 @@ export default ButtonExample;
 
 export const Sizes = LiveEditStory({
   component: Button,
-  code: `import { Button } from '@akds/reactkit';
+  code: `import { Flexbox, Button } from '@akds/reactkit';
 
 const ButtonExample = () => (
-  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+  <Flexbox gap="sm" align="center">
     <Button size="sm">Small</Button>
     <Button size="md">Medium</Button>
     <Button size="lg">Large</Button>
-  </div>
+  </Flexbox>
 );
 
 export default ButtonExample;
 `
 })
-

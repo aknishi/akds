@@ -1,0 +1,21 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-flexbox {
+  display: flex;
+  justify-content: var(--akds-flexbox-justify, flex-start);
+  align-items: var(--akds-flexbox-align, stretch);
+  flex-wrap: var(--akds-flexbox-wrap, nowrap);
+  flex-direction: var(--akds-flexbox-direction, row);
+  gap: var(--akds-flexbox-gap, 0);
+
+  /* Padding — side > axis > shorthand */
+  padding-top: var(--akds-flexbox-pt, var(--akds-flexbox-py, var(--akds-flexbox-padding, 0)));
+  padding-right: var(--akds-flexbox-pr, var(--akds-flexbox-px, var(--akds-flexbox-padding, 0)));
+  padding-bottom: var(--akds-flexbox-pb, var(--akds-flexbox-py, var(--akds-flexbox-padding, 0)));
+  padding-left: var(--akds-flexbox-pl, var(--akds-flexbox-px, var(--akds-flexbox-padding, 0)));
+
+  /* Margin — side > axis > shorthand */
+  margin-top: var(--akds-flexbox-mt, var(--akds-flexbox-my, var(--akds-flexbox-margin, 0)));
+  margin-right: var(--akds-flexbox-mr, var(--akds-flexbox-mx, var(--akds-flexbox-margin, 0)));
+  margin-bottom: var(--akds-flexbox-mb, var(--akds-flexbox-my, var(--akds-flexbox-margin, 0)));
+  margin-left: var(--akds-flexbox-ml, var(--akds-flexbox-mx, var(--akds-flexbox-margin, 0)));
+}

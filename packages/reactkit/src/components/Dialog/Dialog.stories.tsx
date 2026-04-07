@@ -18,7 +18,7 @@ export default meta;
 export const Default = LiveEditStory({
   component: Dialog,
   code: `import React from 'react';
-import { Dialog, Button } from '@akds/reactkit';
+import { Flexbox, Dialog, Button } from '@akds/reactkit';
 
 const DialogExample = () => {
   const [open, setOpen] = React.useState(false);
@@ -27,10 +27,10 @@ const DialogExample = () => {
       <Button onClick={() => setOpen(true)}>Open Dialog</Button>
       <Dialog open={open} onClose={() => setOpen(false)} title="Dialog title">
         <p>This is the dialog body content.</p>
-        <div style={{ marginTop: 16, display: 'flex', gap: 8 }}>
+        <Flexbox gap="sm" mt="md">
           <Button appearance="solid" sentiment="accented" onClick={() => setOpen(false)}>Confirm</Button>
           <Button appearance="bordered" sentiment="neutral" onClick={() => setOpen(false)}>Cancel</Button>
-        </div>
+        </Flexbox>
       </Dialog>
     </>
   );
@@ -43,17 +43,17 @@ export default DialogExample;
 export const Sizes = LiveEditStory({
   component: Dialog,
   code: `import React from 'react';
-import { Dialog, Button } from '@akds/reactkit';
+import { Flexbox, Dialog, Button } from '@akds/reactkit';
 
 const DialogExample = () => {
   const [size, setSize] = React.useState(null);
   return (
     <>
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <Flexbox gap="sm">
         <Button onClick={() => setSize('sm')}>Small</Button>
         <Button onClick={() => setSize('md')}>Medium</Button>
         <Button onClick={() => setSize('lg')}>Large</Button>
-      </div>
+      </Flexbox>
       <Dialog open={size !== null} onClose={() => setSize(null)} title="Dialog" size={size}>
         <p>A dialog with size "{size}".</p>
       </Dialog>

@@ -1,0 +1,5 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-card-content {
+  flex: 1;
+  padding: var(--akds-spacing-layout-md);
+}

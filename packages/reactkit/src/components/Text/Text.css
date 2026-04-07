@@ -1,0 +1,74 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-text {
+  font-family: var(--akds-font-family-sans);
+  color: var(--akds-color-text-primary-default);
+  margin: 0;
+}
+
+/* ── Heading styles ──────────────────────────────────────────────────────── */
+.akds-text--h1 {
+  font-size: var(--akds-font-size-4xl);
+  font-weight: var(--akds-font-weight-bold);
+  line-height: var(--akds-font-line-height-tight);
+  letter-spacing: var(--akds-font-letter-spacing-tight);
+}
+
+.akds-text--h2 {
+  font-size: var(--akds-font-size-3xl);
+  font-weight: var(--akds-font-weight-bold);
+  line-height: var(--akds-font-line-height-tight);
+  letter-spacing: var(--akds-font-letter-spacing-tight);
+}
+
+.akds-text--h3 {
+  font-size: var(--akds-font-size-2xl);
+  font-weight: var(--akds-font-weight-semibold);
+  line-height: var(--akds-font-line-height-snug);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+}
+
+.akds-text--h4 {
+  font-size: var(--akds-font-size-xl);
+  font-weight: var(--akds-font-weight-semibold);
+  line-height: var(--akds-font-line-height-snug);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+}
+
+.akds-text--h5 {
+  font-size: var(--akds-font-size-lg);
+  font-weight: var(--akds-font-weight-semibold);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+}
+
+.akds-text--h6 {
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-semibold);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+}
+
+/* ── Body styles ─────────────────────────────────────────────────────────── */
+.akds-text--body {
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+}
+
+/* ── Label styles ────────────────────────────────────────────────────────── */
+.akds-text--label {
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+}
+
+/* ── Caption styles ──────────────────────────────────────────────────────── */
+.akds-text--caption {
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+  color: var(--akds-color-text-secondary-default);
+}

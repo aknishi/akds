@@ -36,3 +36,24 @@ export type { DialogProps, DialogSize } from './components/Dialog/index.js';
 
 export { Drawer } from './components/Drawer/index.js';
 export type { DrawerProps, DrawerSide, DrawerSize } from './components/Drawer/index.js';
+
+export { Text } from './components/Text/index.js';
+export type { TextProps, TextStyleAs } from './components/Text/index.js';
+
+export { Card } from './components/Card/index.js';
+export type { CardProps } from './components/Card/index.js';
+
+export { CardHeader } from './components/CardHeader/index.js';
+export type { CardHeaderProps } from './components/CardHeader/index.js';
+
+export { CardContent } from './components/CardContent/index.js';
+export type { CardContentProps } from './components/CardContent/index.js';
+
+export { CardFooter } from './components/CardFooter/index.js';
+export type { CardFooterProps } from './components/CardFooter/index.js';
+
+export { Tooltip } from './components/Tooltip/index.js';
+export type { TooltipProps, TooltipPlacement } from './components/Tooltip/index.js';
+
+export { Flexbox } from './components/Flexbox/index.js';
+export type { FlexboxProps, FlexboxSpacing, FlexboxSpacingSize, FlexboxGap, FlexboxGapSize } from './components/Flexbox/index.js';

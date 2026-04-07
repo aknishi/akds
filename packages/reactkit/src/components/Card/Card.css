@@ -1,0 +1,15 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--akds-color-surface-default);
+  border: 1px solid var(--akds-color-border-default-default);
+  border-radius: var(--akds-radius-lg);
+  overflow: hidden;
+}
+
+/* ── Borderless ──────────────────────────────────────────────────────────── */
+.akds-card--borderless {
+  border: none;
+  box-shadow: var(--akds-elevation-md);
+}

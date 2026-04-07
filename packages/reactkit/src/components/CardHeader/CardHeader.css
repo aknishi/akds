@@ -1,0 +1,12 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-scale-02);
+  padding: var(--akds-spacing-layout-md);
+}
+
+/* ── Divided ─────────────────────────────────────────────────────────────── */
+.akds-card-header--divided {
+  border-bottom: 1px solid var(--akds-color-border-default-default);
+}

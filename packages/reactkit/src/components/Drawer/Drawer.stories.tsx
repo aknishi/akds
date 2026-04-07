@@ -39,18 +39,18 @@ export default DrawerExample;
 export const Sides = LiveEditStory({
   component: Drawer,
   code: `import React from 'react';
-import { Drawer, Button } from '@akds/reactkit';
+import { Flexbox, Drawer, Button } from '@akds/reactkit';
 
 const DrawerExample = () => {
   const [side, setSide] = React.useState(null);
   return (
     <>
-      <div style={{ display: 'flex', gap: '8px' }}>
+      <Flexbox gap="sm">
         <Button onClick={() => setSide('left')}>Left</Button>
         <Button onClick={() => setSide('right')}>Right</Button>
         <Button onClick={() => setSide('top')}>Top</Button>
         <Button onClick={() => setSide('bottom')}>Bottom</Button>
-      </div>
+      </Flexbox>
       <Drawer open={side !== null} onClose={() => setSide(null)} title="Drawer" side={side}>
         <p>Sliding in from the {side}.</p>
       </Drawer>

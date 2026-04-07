@@ -27,16 +27,16 @@ export default CheckboxExample;
 
 export const States = LiveEditStory({
   component: Checkbox,
-  code: `import { Checkbox } from '@akds/reactkit';
+  code: `import { Flexbox, Checkbox } from '@akds/reactkit';
 
 const CheckboxExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+  <Flexbox direction="column" gap="sm">
     <Checkbox label="Unchecked" />
     <Checkbox label="Checked" defaultChecked />
     <Checkbox label="Indeterminate" indeterminate />
     <Checkbox label="Disabled" disabled />
     <Checkbox label="Disabled checked" disabled defaultChecked />
-  </div>
+  </Flexbox>
 );
 
 export default CheckboxExample;
@@ -45,14 +45,14 @@ export default CheckboxExample;
 
 export const Sizes = LiveEditStory({
   component: Checkbox,
-  code: `import { Checkbox } from '@akds/reactkit';
+  code: `import { Flexbox, Checkbox } from '@akds/reactkit';
 
 const CheckboxExample = () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+  <Flexbox direction="column" gap="sm">
     <Checkbox label="Small" size="sm" />
     <Checkbox label="Medium" size="md" />
     <Checkbox label="Large" size="lg" />
-  </div>
+  </Flexbox>
 );
 
 export default CheckboxExample;

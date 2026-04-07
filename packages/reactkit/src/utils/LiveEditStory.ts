@@ -3,14 +3,14 @@ import React from 'react';
 import * as ReactKit from '..';
 
 export interface LiveEditStoryState extends StoryState {
-  component?: 
+  component?:
     | typeof React.Component
-    | React.FC
+    | React.FC<any>
     | JSX.Element
     | React.ForwardRefExoticComponent<any>;
 }
 
-function LiveEditStory({ component, availableImports, ...rest }: LiveEditStoryState) {
+export function LiveEditStory({ component, availableImports, ...rest }: LiveEditStoryState) {
     const EditableLiveTSStory = {};
     makeLiveEditStory(EditableLiveTSStory, {
       modifyEditor (monaco : any) {
@@ -28,5 +28,3 @@ function LiveEditStory({ component, availableImports, ...rest }: LiveEditStorySt
   });
   return EditableLiveTSStory;
 }
-
-export default LiveEditStory;

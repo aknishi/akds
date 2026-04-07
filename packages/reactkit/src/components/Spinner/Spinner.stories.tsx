@@ -25,14 +25,14 @@ export default SpinnerExample;
 
 export const Sizes = LiveEditStory({
   component: Spinner,
-  code: `import { Spinner } from '@akds/reactkit';
+  code: `import { Flexbox, Spinner } from '@akds/reactkit';
 
 const SpinnerExample = () => (
-  <div style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
+  <Flexbox gap="md" align="center">
     <Spinner size="sm" />
     <Spinner size="md" />
     <Spinner size="lg" />
-  </div>
+  </Flexbox>
 );
 
 export default SpinnerExample;
