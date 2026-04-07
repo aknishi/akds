@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { DropdownMenu } from '../../../components/DropdownMenu/DropdownMenu';
@@ -302,6 +302,110 @@ describe('DropdownMenu', () => {
     const helperId = trigger.getAttribute('aria-describedby');
     expect(helperId).toBeTruthy();
     expect(document.getElementById(helperId!)).toHaveTextContent('Pick one');
+  });
+
+  describe('trigger keyboard navigation', () => {
+    it('opens listbox on ArrowDown', async () => {
+      setup();
+      screen.getByRole('button', { name: 'Fruit' }).focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('opens listbox on ArrowUp', async () => {
+      setup();
+      screen.getByRole('button', { name: 'Fruit' }).focus();
+      await userEvent.keyboard('{ArrowUp}');
+      expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('opens listbox on Enter', async () => {
+      setup();
+      screen.getByRole('button', { name: 'Fruit' }).focus();
+      await userEvent.keyboard('{Enter}');
+      expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+
+    it('opens listbox on Space', async () => {
+      setup();
+      screen.getByRole('button', { name: 'Fruit' }).focus();
+      await userEvent.keyboard(' ');
+      expect(screen.getByRole('listbox')).toBeInTheDocument();
+    });
+  });
+
+  describe('listbox keyboard navigation', () => {
+    it('ArrowDown moves focus to next option', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      apple.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(banana).toHaveFocus();
+    });
+
+    it('ArrowDown wraps from last enabled option to first', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      // Apple=0, Banana=1 are enabled; Cherry=2 is disabled (skipped by OPTION_SELECTOR)
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      banana.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(apple).toHaveFocus();
+    });
+
+    it('ArrowUp moves focus to previous option', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      banana.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      expect(apple).toHaveFocus();
+    });
+
+    it('ArrowUp wraps from first option to last enabled', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      apple.focus();
+      await userEvent.keyboard('{ArrowUp}');
+      expect(banana).toHaveFocus();
+    });
+
+    it('Home moves focus to first option', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      banana.focus();
+      await userEvent.keyboard('{Home}');
+      expect(apple).toHaveFocus();
+    });
+
+    it('End moves focus to last enabled option', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      apple.focus();
+      await userEvent.keyboard('{End}');
+      expect(banana).toHaveFocus();
+    });
+
+    it('Escape closes listbox and returns focus to trigger', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple] = screen.getAllByRole('option') as [HTMLElement];
+      apple.focus();
+      fireEvent.keyDown(screen.getByRole('listbox'), { key: 'Escape' });
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Fruit' })).toHaveFocus();
+    });
+
+    it('Tab closes listbox', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      fireEvent.keyDown(screen.getByRole('listbox'), { key: 'Tab' });
+      expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+    });
   });
 
   it('forwards HTML attributes to the container div', () => {

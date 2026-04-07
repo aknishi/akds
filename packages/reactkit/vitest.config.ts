@@ -17,6 +17,7 @@ export default defineConfig({
         'src/**/*.d.ts',
         'src/**/*.stories.tsx',
         'src/index.ts',
+        'src/main.tsx',
         'src/**/index.ts',
         'src/test/**',
         'src/utils/LiveEditStory.ts',

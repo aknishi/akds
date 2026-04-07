@@ -212,6 +212,17 @@ describe('Option', () => {
     });
   });
 
+  describe('default context (no provider)', () => {
+    it('renders as menuitem using context defaults', () => {
+      render(
+        <ul role="menu">
+          <Option value="cut">Cut</Option>
+        </ul>,
+      );
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).toBeInTheDocument();
+    });
+  });
+
   describe('axe accessibility', () => {
     it('has no violations in menu context', async () => {
       const { container } = renderInMenu(

@@ -89,6 +89,105 @@ describe('Menu', () => {
     expect(onOpenChange).not.toHaveBeenCalled();
   });
 
+  describe('keyboard navigation', () => {
+    it('ArrowDown moves focus to the next item', async () => {
+      render(
+        <Menu open>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+          <Option>Paste</Option>
+        </Menu>,
+      );
+      const items = screen.getAllByRole('menuitem');
+      items[0].focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(items[1]).toHaveFocus();
+    });
+
+    it('ArrowDown wraps from last item to first', async () => {
+      render(
+        <Menu open>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+          <Option>Paste</Option>
+        </Menu>,
+      );
+      const items = screen.getAllByRole('menuitem');
+      items[2].focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(items[0]).toHaveFocus();
+    });
+
+    it('ArrowUp moves focus to the previous item', async () => {
+      render(
+        <Menu open>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+          <Option>Paste</Option>
+        </Menu>,
+      );
+      const items = screen.getAllByRole('menuitem');
+      items[2].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      expect(items[1]).toHaveFocus();
+    });
+
+    it('ArrowUp wraps from first item to last', async () => {
+      render(
+        <Menu open>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+          <Option>Paste</Option>
+        </Menu>,
+      );
+      const items = screen.getAllByRole('menuitem');
+      items[0].focus();
+      await userEvent.keyboard('{ArrowUp}');
+      expect(items[2]).toHaveFocus();
+    });
+
+    it('Home moves focus to the first item', async () => {
+      render(
+        <Menu open>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+          <Option>Paste</Option>
+        </Menu>,
+      );
+      const items = screen.getAllByRole('menuitem');
+      items[2].focus();
+      await userEvent.keyboard('{Home}');
+      expect(items[0]).toHaveFocus();
+    });
+
+    it('End moves focus to the last item', async () => {
+      render(
+        <Menu open>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+          <Option>Paste</Option>
+        </Menu>,
+      );
+      const items = screen.getAllByRole('menuitem');
+      items[0].focus();
+      await userEvent.keyboard('{End}');
+      expect(items[2]).toHaveFocus();
+    });
+
+    it('forwards onKeyDown alongside internal handling', async () => {
+      const onKeyDown = vi.fn();
+      render(
+        <Menu open onKeyDown={onKeyDown}>
+          <Option>Cut</Option>
+          <Option>Copy</Option>
+        </Menu>,
+      );
+      screen.getAllByRole('menuitem')[0].focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(onKeyDown).toHaveBeenCalled();
+    });
+  });
+
   describe('axe accessibility', () => {
     it('has no violations', async () => {
       const { container } = render(

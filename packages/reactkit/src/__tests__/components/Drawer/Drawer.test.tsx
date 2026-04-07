@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Drawer } from '../../../components/Drawer/Drawer';
@@ -73,6 +73,55 @@ describe('Drawer', () => {
   it('sets aria-modal on the panel', () => {
     render(<Drawer open onClose={() => {}}><p>Content</p></Drawer>);
     expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+  });
+
+  it('auto-focuses first focusable element when opened', () => {
+    render(
+      <Drawer open onClose={() => {}}>
+        <p>Content</p>
+      </Drawer>,
+    );
+    expect(screen.getByRole('button', { name: 'Close drawer' })).toHaveFocus();
+  });
+
+  it('sets body overflow to hidden when open', () => {
+    render(<Drawer open onClose={() => {}}><p>Content</p></Drawer>);
+    expect(document.body.style.overflow).toBe('hidden');
+  });
+
+  it('restores body overflow when closed', () => {
+    const { rerender } = render(<Drawer open onClose={() => {}}><p>Content</p></Drawer>);
+    expect(document.body.style.overflow).toBe('hidden');
+    rerender(<Drawer open={false} onClose={() => {}}><p>Content</p></Drawer>);
+    expect(document.body.style.overflow).not.toBe('hidden');
+  });
+
+  describe('focus trap', () => {
+    it('Tab from last focusable element wraps focus to first', () => {
+      render(
+        <Drawer open onClose={() => {}}>
+          <button>Action</button>
+        </Drawer>,
+      );
+      const closeBtn = screen.getByRole('button', { name: 'Close drawer' });
+      const actionBtn = screen.getByRole('button', { name: 'Action' });
+      actionBtn.focus();
+      fireEvent.keyDown(document, { key: 'Tab', shiftKey: false });
+      expect(closeBtn).toHaveFocus();
+    });
+
+    it('Shift+Tab from first focusable element wraps focus to last', () => {
+      render(
+        <Drawer open onClose={() => {}}>
+          <button>Action</button>
+        </Drawer>,
+      );
+      const closeBtn = screen.getByRole('button', { name: 'Close drawer' });
+      const actionBtn = screen.getByRole('button', { name: 'Action' });
+      closeBtn.focus();
+      fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
+      expect(actionBtn).toHaveFocus();
+    });
   });
 
   it('forwards ref to the drawer panel', () => {

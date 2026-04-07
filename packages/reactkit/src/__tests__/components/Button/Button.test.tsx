@@ -80,6 +80,20 @@ describe('Button', () => {
     expect(onClick).not.toHaveBeenCalled();
   });
 
+  it('focusableWhenDisabled: button is not natively disabled but has aria-disabled', () => {
+    render(<Button disabled focusableWhenDisabled>Click me</Button>);
+    const btn = screen.getByRole('button');
+    expect(btn).not.toBeDisabled();
+    expect(btn).toHaveAttribute('aria-disabled', 'true');
+  });
+
+  it('focusableWhenDisabled: onClick is not called when clicked', async () => {
+    const onClick = vi.fn();
+    render(<Button disabled focusableWhenDisabled onClick={onClick}>Click me</Button>);
+    await userEvent.click(screen.getByRole('button'));
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
   it('does not call onClick when loading', async () => {
     const onClick = vi.fn();
     render(<Button loading onClick={onClick}>Click</Button>);
