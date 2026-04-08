@@ -1,11 +1,12 @@
 import type { Meta } from '@storybook/react-vite';
 import { ProgressTracker } from './ProgressTracker';
+import { ProgressTrackerStep } from '../ProgressTrackerStep';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof ProgressTracker> = {
-  title: 'Components/ProgressTracker',
+  title: 'Progress/ProgressTracker',
   component: ProgressTracker,
-  tags: ['autodocs'],
+  subcomponents: { ProgressTrackerStep },
   argTypes: {
     currentStep: { control: 'number' },
   },

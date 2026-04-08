@@ -1,0 +1,30 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TooltipStories from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+> **Available from v1.0.0**
+
+A non-interactive floating label that appears on hover or focus to provide supplementary context. Positioned relative to its trigger child and supports four placements: `top`, `right`, `bottom`, `left`. Renders in a portal to avoid clipping.
+
+## Usage
+
+```tsx
+import { Tooltip } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TooltipStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={TooltipStories.Default} />
+
+### Placements
+
+<Canvas of={TooltipStories.Placements} />

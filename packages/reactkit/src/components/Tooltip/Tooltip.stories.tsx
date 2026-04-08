@@ -3,9 +3,8 @@ import { Tooltip } from './Tooltip';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Tooltip> = {
-  title: 'Components/Tooltip',
+  title: 'Popovers/Tooltip',
   component: Tooltip,
-  tags: ['autodocs'],
   argTypes: {
     placement: { control: 'select', options: ['top', 'bottom', 'left', 'right'] },
     content: { control: 'text' },

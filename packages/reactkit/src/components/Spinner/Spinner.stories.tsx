@@ -3,9 +3,8 @@ import { Spinner } from './Spinner';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Spinner> = {
-  title: 'Components/Spinner',
+  title: 'Progress/Spinner',
   component: Spinner,
-  tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
   },

@@ -1,0 +1,30 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DialogStories from './Dialog.stories';
+
+<Meta of={DialogStories} />
+
+# Dialog
+
+> **Available from v1.0.0**
+
+A modal overlay that blocks interaction with the rest of the page until dismissed. Rendered into a portal, managed with an `open` prop, and closeable via the Escape key or clicking the scrim. Supports `sm`, `md`, and `lg` sizes.
+
+## Usage
+
+```tsx
+import { Dialog } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={DialogStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={DialogStories.Default} />
+
+### Sizes
+
+<Canvas of={DialogStories.Sizes} />

@@ -1,0 +1,36 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ProgressTrackerStories from './ProgressTracker.stories';
+
+<Meta of={ProgressTrackerStories} />
+
+# ProgressTracker
+
+> **Available from v1.0.0**
+
+A stepped progress indicator that spans the full width of its container. Divides space equally between steps and animates a fill line from the first step to the active one as `currentStep` changes. Compose with `ProgressTrackerStep` children.
+
+Each step can carry a `status` of `complete`, `inactive`, `error`, or `warning`. The active step (derived from `currentStep`) overrides any `status` prop to show in-progress styling.
+
+## Usage
+
+```tsx
+import { ProgressTracker, ProgressTrackerStep } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ProgressTrackerStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={ProgressTrackerStories.Default} />
+
+### Statuses
+
+<Canvas of={ProgressTrackerStories.Statuses} />
+
+### Interactive
+
+<Canvas of={ProgressTrackerStories.Interactive} />

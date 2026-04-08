@@ -1,0 +1,34 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TextStories from './Text.stories';
+
+<Meta of={TextStories} />
+
+# Text
+
+> **Available from v1.0.0**
+
+A typography primitive that maps a `styleAs` variant to the correct font size, weight, and line-height tokens. Decouples visual style from the rendered HTML element — use `as` to override the tag while keeping the intended style.
+
+## Usage
+
+```tsx
+import { Text } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TextStories} />
+
+## Examples
+
+### Headings
+
+<Canvas of={TextStories.Headings} />
+
+### Body Styles
+
+<Canvas of={TextStories.BodyStyles} />
+
+### As Override
+
+<Canvas of={TextStories.AsOverride} />

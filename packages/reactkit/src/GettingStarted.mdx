@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Getting Started" />
+
+# Getting Started
+
+`@aknishi/akds-reactkit` is a React component library built on a design token system. Components adapt to light and dark themes out of the box.
+
+---
+
+## Installation
+
+```sh
+npm install @aknishi/akds-reactkit
+```
+
+---
+
+## Setup
+
+Wrap your application with `ThemeProvider` once at the root. This is the only setup step required — it imports the design tokens CSS automatically so you don't need a separate token import.
+
+```tsx
+import { ThemeProvider } from '@aknishi/akds-reactkit';
+
+export default function App() {
+  return (
+    <ThemeProvider defaultTheme="light">
+      {/* your app */}
+    </ThemeProvider>
+  );
+}
+```
+
+> **Note:** Do not import `@aknishi/akds-tokens/css` manually. `ThemeProvider` handles this for you.
+
+---
+
+## Theming
+
+`ThemeProvider` sets a `data-theme` attribute on `document.documentElement`, switching between the light and dark token sets. Use `useTheme` anywhere inside the tree to read or change the active theme.
+
+```tsx
+import { useTheme } from '@aknishi/akds-reactkit';
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      Switch to {theme === 'light' ? 'dark' : 'light'} mode
+    </button>
+  );
+}
+```
+
+### Controlled mode
+
+Pass `theme` and `onThemeChange` to let a parent component own the state:
+
+```tsx
+const [theme, setTheme] = React.useState('light');
+
+<ThemeProvider theme={theme} onThemeChange={setTheme}>
+  <App />
+</ThemeProvider>
+```
+
+---
+
+## Using components
+
+Import components individually from the package root:
+
+```tsx
+import { Button, TextInput, Card } from '@aknishi/akds-reactkit';
+```
+
+All components are tree-shakeable — only the components you import will be included in your bundle.

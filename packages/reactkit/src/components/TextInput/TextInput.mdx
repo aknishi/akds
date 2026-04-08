@@ -1,0 +1,42 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TextInputStories from './TextInput.stories';
+
+<Meta of={TextInputStories} />
+
+# TextInput
+
+> **Available from v1.0.0**
+
+A labelled text field with optional helper text, start adornment, and error state. The native `<input>` is forwarded a ref and accepts all standard HTML input attributes via `...rest`.
+
+## Usage
+
+```tsx
+import { TextInput } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TextInputStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={TextInputStories.Default} />
+
+### With Helper Text
+
+<Canvas of={TextInputStories.WithHelperText} />
+
+### With Start Adornment
+
+<Canvas of={TextInputStories.WithStartAdornment} />
+
+### Error
+
+<Canvas of={TextInputStories.Error} />
+
+### Disabled
+
+<Canvas of={TextInputStories.Disabled} />

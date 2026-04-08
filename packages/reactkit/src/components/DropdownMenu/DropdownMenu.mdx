@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DropdownMenuStories from './DropdownMenu.stories';
+
+<Meta of={DropdownMenuStories} />
+
+# DropdownMenu
+
+> **Available from v1.0.0**
+
+A select input that opens a floating listbox of options. Supports single and multiple selection, an optional helper text, placeholder, and a disabled state. Compose with `Option` children to define the available choices.
+
+## Usage
+
+```tsx
+import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={DropdownMenuStories} />
+
+## Examples
+
+### Single Select
+
+<Canvas of={DropdownMenuStories.SingleSelect} />
+
+### Multi Select
+
+<Canvas of={DropdownMenuStories.MultiSelect} />
+
+### With Helper Text
+
+<Canvas of={DropdownMenuStories.WithHelperText} />
+
+### Disabled
+
+<Canvas of={DropdownMenuStories.Disabled} />

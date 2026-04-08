@@ -1,0 +1,34 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as RadioGroupStories from './RadioGroup.stories';
+
+<Meta of={RadioGroupStories} />
+
+# RadioGroup
+
+> **Available from v1.0.0**
+
+A fieldset wrapper that manages a group of `Radio` inputs. Provides a `legend`, controls orientation (`vertical` / `horizontal`), and propagates a `disabled` state to all children. The `Radio` component handles individual option rendering with label, size, and disabled support.
+
+## Usage
+
+```tsx
+import { RadioGroup, Radio } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={RadioGroupStories} />
+
+## Examples
+
+### Vertical
+
+<Canvas of={RadioGroupStories.Vertical} />
+
+### Horizontal
+
+<Canvas of={RadioGroupStories.Horizontal} />
+
+### Disabled
+
+<Canvas of={RadioGroupStories.Disabled} />

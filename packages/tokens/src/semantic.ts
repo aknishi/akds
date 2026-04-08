@@ -126,7 +126,7 @@ export const semanticColors = {
         dark: '#FAFAFA',
       },
       disabled: {
-        light: '#A3A3A3',
+        light: '#525252',
         dark: '#F5F5F5',
       },
     },

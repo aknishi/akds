@@ -1,0 +1,44 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+> **Available from v1.0.0**
+
+Triggers an action or navigates to a destination. Supports three visual appearances (`solid`, `transparent`, `bordered`) combined with four emphases (`accented`, `neutral`, `success`, `destructive`) to communicate intent.
+
+Includes a ripple animation on press, a loading state with spinner, and a `focusableWhenDisabled` mode for accessible disabled buttons.
+
+## Usage
+
+```tsx
+import { Button } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ButtonStories} />
+
+## Examples
+
+### Appearance
+
+<Canvas of={ButtonStories.Appearance} />
+
+### Emphasis
+
+<Canvas of={ButtonStories.Emphasis} />
+
+### Sizes
+
+<Canvas of={ButtonStories.Sizes} />
+
+### Disabled
+
+<Canvas of={ButtonStories.Disabled} />
+
+### Loading
+
+<Canvas of={ButtonStories.Loading} />

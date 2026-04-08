@@ -63,3 +63,6 @@ export type { ProgressTrackerProps } from './components/ProgressTracker/index.js
 
 export { ProgressTrackerStep } from './components/ProgressTrackerStep/index.js';
 export type { ProgressTrackerStepProps, ProgressTrackerStepStatus } from './components/ProgressTrackerStep/index.js';
+
+export { ThemeProvider, useTheme, ThemeContext } from './components/ThemeProvider/index.js';
+export type { ThemeProviderProps, Theme, ThemeContextValue } from './components/ThemeProvider/index.js';

@@ -3,9 +3,8 @@ import { Checkbox } from './Checkbox';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Components/Checkbox',
+  title: 'Inputs & Controls/Checkbox',
   component: Checkbox,
-  tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     disabled: { control: 'boolean' },

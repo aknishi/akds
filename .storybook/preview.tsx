@@ -1,24 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import type { Preview } from '@storybook/react-vite';
 import { useDarkMode } from 'storybook-dark-mode';
-import '@aknishi/akds-tokens/css';
+import { ThemeProvider } from '@aknishi/akds-reactkit';
 
 function ThemeWrapper({ children }: { children: React.ReactNode }) {
   const isDark = useDarkMode();
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
-
   return (
-    <div 
-      style={{ 
-        padding: '2rem', 
-        background: isDark ? 'black': 'white',
-        minHeight: isDark ? '100vh' : 'unset' 
-      }}>
-      {children}
-    </div>
+    <ThemeProvider theme={isDark ? 'dark' : 'light'}>
+      <div
+        style={{
+          padding: '2rem',
+          background: isDark ? 'black' : 'white',
+          minHeight: isDark ? '100vh' : 'unset',
+        }}
+      >
+        {children}
+      </div>
+    </ThemeProvider>
   );
 }
 
@@ -35,10 +34,12 @@ export const parameters: Preview['parameters'] = {
   darkMode: {
     current: 'light',
   },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /date$/i,
+  controls: { disable: true },
+  actions: { disable: true },
+  interactions: { disable: true },
+  options: {
+    storySort: {
+      order: ['Getting Started', 'Foundation', 'Components'],
     },
   },
 };

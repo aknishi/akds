@@ -3,9 +3,8 @@ import { Drawer } from './Drawer';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Drawer> = {
-  title: 'Components/Drawer',
+  title: 'Popovers/Drawer',
   component: Drawer,
-  tags: ['autodocs'],
   argTypes: {
     side: { control: 'select', options: ['left', 'right', 'top', 'bottom'] },
     open: { control: 'boolean' },

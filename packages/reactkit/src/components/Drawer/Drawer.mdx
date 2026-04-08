@@ -1,0 +1,30 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DrawerStories from './Drawer.stories';
+
+<Meta of={DrawerStories} />
+
+# Drawer
+
+> **Available from v1.0.0**
+
+A panel that slides in from any edge of the viewport. Rendered into a portal, managed with an `open` prop, and closeable via the Escape key or clicking the scrim. Supports `left`, `right`, `top`, and `bottom` sides.
+
+## Usage
+
+```tsx
+import { Drawer } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={DrawerStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={DrawerStories.Default} />
+
+### Sides
+
+<Canvas of={DrawerStories.Sides} />

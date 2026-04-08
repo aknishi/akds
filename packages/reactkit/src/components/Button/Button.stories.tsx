@@ -3,9 +3,8 @@ import { Button } from './Button';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Button> = {
-  title: 'Components/Button',
+  title: 'Core/Button',
   component: Button,
-  tags: ['autodocs'],
   argTypes: {
     appearance: { control: 'select', options: ['solid', 'transparent', 'bordered'] },
     emphasis: { control: 'select', options: ['accented', 'neutral', 'success', 'destructive'] },

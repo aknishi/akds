@@ -1,11 +1,14 @@
 import type { Meta } from '@storybook/react-vite';
 import { Card } from './Card';
+import { CardHeader } from '../CardHeader';
+import { CardContent } from '../CardContent';
+import { CardFooter } from '../CardFooter';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Card> = {
-  title: 'Components/Card',
+  title: 'Core/Card',
   component: Card,
-  tags: ['autodocs'],
+  subcomponents: { CardHeader, CardContent, CardFooter },
   argTypes: {
     borderless: { control: 'boolean' },
   },

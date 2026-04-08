@@ -1,0 +1,50 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as FlexboxStories from './Flexbox.stories';
+
+<Meta of={FlexboxStories} />
+
+# Flexbox
+
+> **Available from v1.0.0**
+
+A layout primitive that maps design tokens to CSS flexbox properties. Replaces inline styles for common layout patterns — direction, alignment, justification, gap, and spacing — while keeping all values tied to the token scale.
+
+## Usage
+
+```tsx
+import { Flexbox } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={FlexboxStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={FlexboxStories.Default} />
+
+### Direction
+
+<Canvas of={FlexboxStories.Direction} />
+
+### Justify Content
+
+<Canvas of={FlexboxStories.JustifyContent} />
+
+### Align Items
+
+<Canvas of={FlexboxStories.AlignItems} />
+
+### Wrap
+
+<Canvas of={FlexboxStories.Wrap} />
+
+### Gap
+
+<Canvas of={FlexboxStories.Gap} />
+
+### Spacing
+
+<Canvas of={FlexboxStories.Spacing} />

@@ -3,9 +3,8 @@ import { Dialog } from './Dialog';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Components/Dialog',
+  title: 'Popovers/Dialog',
   component: Dialog,
-  tags: ['autodocs'],
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     open: { control: 'boolean' },

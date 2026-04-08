@@ -1,11 +1,12 @@
 import type { Meta } from '@storybook/react-vite';
 import { RadioGroup } from './RadioGroup';
+import { Radio } from '../Radio';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof RadioGroup> = {
-  title: 'Components/RadioGroup',
+  title: 'Inputs & Controls/Radio',
   component: RadioGroup,
-  tags: ['autodocs'],
+  subcomponents: { Radio },
   argTypes: {
     orientation: { control: 'select', options: ['vertical', 'horizontal'] },
     disabled: { control: 'boolean' },

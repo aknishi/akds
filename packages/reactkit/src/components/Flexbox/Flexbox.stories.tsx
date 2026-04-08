@@ -3,9 +3,8 @@ import { Flexbox } from './Flexbox';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Flexbox> = {
-  title: 'Components/Flexbox',
+  title: 'Layout/Flexbox',
   component: Flexbox,
-  tags: ['autodocs'],
   argTypes: {
     justify: {
       control: 'select',

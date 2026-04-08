@@ -1,0 +1,33 @@
+import { Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import { ThemeProvider } from './ThemeProvider';
+
+<Meta title="Foundational/Theme Provider" />
+
+# ThemeProvider
+
+> **Available from v1.0.0**
+
+Provides a theme context to all descendant components. Sets `data-theme` on a target DOM element (defaults to `document.documentElement`) so that CSS token overrides in `[data-theme="dark"]` take effect automatically.
+
+Use the `useTheme` hook in any child component to read or change the active theme.
+
+## Usage
+
+```tsx
+import { ThemeProvider, useTheme } from '@aknishi/akds-reactkit';
+
+// Wrap your app
+<ThemeProvider defaultTheme="light">
+  <App />
+</ThemeProvider>
+
+// Read or change the theme from anywhere inside
+function MyComponent() {
+  const { theme, setTheme } = useTheme();
+  return <button onClick={() => setTheme('dark')}>{theme}</button>;
+}
+```
+
+## Props
+
+<ArgTypes of={ThemeProvider} />

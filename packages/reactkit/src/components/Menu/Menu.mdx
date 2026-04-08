@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as MenuStories from './Menu.stories';
+
+<Meta of={MenuStories} />
+
+# Menu
+
+> **Available from v1.0.0**
+
+A floating action menu rendered in a portal. Controlled via `open` / `onOpenChange`, and optionally anchored to a trigger element via `triggerRef`. Supports keyboard navigation (Arrow keys, Home, End, Escape) and four placement options. Compose with `MenuItem` children.
+
+## Usage
+
+```tsx
+import { Menu, MenuItem } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={MenuStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={MenuStories.Default} />
+
+### Anchored
+
+<Canvas of={MenuStories.Anchored} />
+
+### Placement
+
+<Canvas of={MenuStories.Placement} />
+
+### With Icons
+
+<Canvas of={MenuStories.WithIcons} />

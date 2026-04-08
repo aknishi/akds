@@ -13,8 +13,10 @@ import {
   Drawer,
   ProgressTracker,
   ProgressTrackerStep,
+  ThemeProvider,
+  useTheme,
 } from '@aknishi/akds-reactkit';
-import type { ButtonAppearance, ButtonEmphasis, ButtonSize } from '@aknishi/akds-reactkit';
+import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme } from '@aknishi/akds-reactkit';
 import './App.css';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];
@@ -22,11 +24,17 @@ const emphases: ButtonEmphasis[] = ['accented', 'neutral', 'success', 'destructi
 const sizes: ButtonSize[] = ['sm', 'md', 'lg'];
 
 export default function App() {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = React.useState<Theme>('light');
 
-  React.useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+  return (
+    <ThemeProvider theme={theme} onThemeChange={setTheme}>
+      <AppContent />
+    </ThemeProvider>
+  );
+}
+
+function AppContent() {
+  const { theme, setTheme } = useTheme();
 
   return (
     <div className="demo-page">
@@ -40,7 +48,7 @@ export default function App() {
           appearance="bordered"
           emphasis="neutral"
           size="sm"
-          onClick={() => setTheme(t => t === 'light' ? 'dark' : 'light')}
+          onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         >
           {theme === 'light' ? '🌙 Dark' : '☀️ Light'}
         </Button>

@@ -20,6 +20,7 @@
     "@aknishi/akds-tokens": "*",
     "@rollup/plugin-terser": "^1.0.0",
     "@storybook/addon-a11y": "^10.3.5",
+    "@storybook/addon-docs": "^10.3.5",
     "@storybook/react-vite": "^10.3.5",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",

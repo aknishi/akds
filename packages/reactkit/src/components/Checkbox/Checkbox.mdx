@@ -1,0 +1,34 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+> **Available from v1.0.0**
+
+A form control for binary or indeterminate boolean values. Supports `sm` and `md` sizes, a disabled state, and an indeterminate state for tri-state selection patterns (e.g. select-all).
+
+## Usage
+
+```tsx
+import { Checkbox } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={CheckboxStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={CheckboxStories.Default} />
+
+### States
+
+<Canvas of={CheckboxStories.States} />
+
+### Sizes
+
+<Canvas of={CheckboxStories.Sizes} />

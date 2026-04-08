@@ -7,6 +7,7 @@ import { makePrefixer } from '../../utils/makePrefixer';
 const withBaseName = makePrefixer('akds-text');
 
 const defaultElement: Record<TextStyleAs, React.ElementType> = {
+  hero: 'h1',
   h1: 'h1',
   h2: 'h2',
   h3: 'h3',

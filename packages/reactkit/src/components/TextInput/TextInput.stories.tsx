@@ -3,9 +3,8 @@ import { TextInput } from './TextInput';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof TextInput> = {
-  title: 'Components/TextInput',
+  title: 'Inputs & Controls/TextInput',
   component: TextInput,
-  tags: ['autodocs'],
   argTypes: {
     disabled: { control: 'boolean' },
     error: { control: 'boolean' },

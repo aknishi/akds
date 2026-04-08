@@ -1,0 +1,30 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SpinnerStories from './Spinner.stories';
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+> **Available from v1.0.0**
+
+An animated loading indicator. Renders an SVG ring that rotates continuously. Used internally by `Button` during its loading state, and available standalone for any async feedback context.
+
+## Usage
+
+```tsx
+import { Spinner } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={SpinnerStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={SpinnerStories.Default} />
+
+### Sizes
+
+<Canvas of={SpinnerStories.Sizes} />

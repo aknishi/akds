@@ -6,16 +6,23 @@
 }
 
 /* ── Heading styles ──────────────────────────────────────────────────────── */
+.akds-text--hero {
+  font-size: var(--akds-font-size-6xl);
+  font-weight: var(--akds-font-weight-medium);
+  line-height: var(--akds-font-line-height-tight);
+  letter-spacing: -0.025em;
+}
+
 .akds-text--h1 {
   font-size: var(--akds-font-size-4xl);
-  font-weight: var(--akds-font-weight-bold);
+  font-weight: var(--akds-font-weight-semibold);
   line-height: var(--akds-font-line-height-tight);
   letter-spacing: var(--akds-font-letter-spacing-normal);
 }
 
 .akds-text--h2 {
   font-size: var(--akds-font-size-3xl);
-  font-weight: var(--akds-font-weight-bold);
+  font-weight: var(--akds-font-weight-semibold);
   line-height: var(--akds-font-line-height-tight);
   letter-spacing: var(--akds-font-letter-spacing-normal);
 }

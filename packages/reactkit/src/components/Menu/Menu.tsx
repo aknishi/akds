@@ -50,9 +50,32 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   ) {
     const menuRef = React.useRef<HTMLUListElement>(null);
     const [pos, setPos] = React.useState<{ top: number; left: number } | null>(null);
+    const [mounted, setMounted] = React.useState(open);
+    const [closing, setClosing] = React.useState(false);
     const focusedOnOpenRef = React.useRef(false);
+    const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
     const generatedId = React.useId();
     const menuId = id ?? generatedId;
+
+    React.useEffect(() => {
+      if (open) {
+        if (closeTimerRef.current) {
+          clearTimeout(closeTimerRef.current);
+          closeTimerRef.current = null;
+        }
+        setClosing(false);
+        setMounted(true);
+      } else {
+        setClosing(true);
+        closeTimerRef.current = setTimeout(() => {
+          setMounted(false);
+          setClosing(false);
+        }, 120);
+      }
+      return () => {
+        if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+      };
+    }, [open]);
 
     React.useImperativeHandle(ref, () => menuRef.current!);
 
@@ -70,11 +93,11 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       setPos(prev => (prev?.top === next.top && prev?.left === next.left ? prev : next));
     }, [triggerRef, placement]);
 
-    // Calculate position after mount/open — runs only when deps change
+    // Calculate position once the menu is mounted in the DOM
     React.useLayoutEffect(() => {
-      if (!open || !triggerRef?.current || !menuRef.current) return;
+      if (!mounted || !open || !triggerRef?.current || !menuRef.current) return;
       updatePosition();
-    }, [open, updatePosition]);
+    }, [mounted, open, updatePosition]);
 
     // Set aria-expanded and aria-controls on the trigger element
     React.useEffect(() => {
@@ -92,13 +115,13 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       };
     }, [open, triggerRef, menuId]);
 
-    // Reset pos and focus flag when menu closes
+    // Reset pos and focus flag after the closing animation finishes (when unmounted)
     React.useEffect(() => {
-      if (!open) {
+      if (!mounted) {
         setPos(null);
         focusedOnOpenRef.current = false;
       }
-    }, [open]);
+    }, [mounted]);
 
     // Focus the first item once after open — for portal, wait until pos is set
     React.useEffect(() => {
@@ -181,7 +204,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       onKeyDown?.(e);
     };
 
-    if (!open) return null;
+    if (!mounted) return null;
 
     const menu = (
       <OptionContext.Provider value={ctx}>
@@ -189,7 +212,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
           ref={menuRef}
           role="menu"
           id={menuId}
-          className={clsx(withBaseName(), className)}
+          className={clsx(withBaseName(), { [withBaseName('closing')]: closing }, className)}
           style={
             triggerRef
               ? {

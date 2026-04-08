@@ -1,11 +1,12 @@
 import type { Meta } from '@storybook/react-vite';
 import { DropdownMenu } from './DropdownMenu';
+import { Option } from '../Option';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'Components/DropdownMenu',
+  title: 'Inputs & Controls/DropdownMenu',
   component: DropdownMenu,
-  tags: ['autodocs'],
+  subcomponents: { Option },
   argTypes: {
     multiple: { control: 'boolean' },
     disabled: { control: 'boolean' },

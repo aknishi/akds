@@ -3,9 +3,8 @@ import { Text } from './Text';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Text> = {
-  title: 'Components/Text',
+  title: 'Foundational/Text',
   component: Text,
-  tags: ['autodocs'],
   argTypes: {
     styleAs: {
       control: 'select',
@@ -23,6 +22,7 @@ export const Headings = LiveEditStory({
 
 const TextExample = () => (
   <Flexbox direction="column" gap="sm">
+    <Text styleAs="hero">Hero heading</Text>
     <Text styleAs="h1">Heading 1</Text>
     <Text styleAs="h2">Heading 2</Text>
     <Text styleAs="h3">Heading 3</Text>
