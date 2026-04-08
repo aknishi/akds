@@ -57,3 +57,9 @@ export type { TooltipProps, TooltipPlacement } from './components/Tooltip/index.
 
 export { Flexbox } from './components/Flexbox/index.js';
 export type { FlexboxProps, FlexboxSpacing, FlexboxSpacingSize, FlexboxGap, FlexboxGapSize } from './components/Flexbox/index.js';
+
+export { ProgressTracker } from './components/ProgressTracker/index.js';
+export type { ProgressTrackerProps } from './components/ProgressTracker/index.js';
+
+export { ProgressTrackerStep } from './components/ProgressTrackerStep/index.js';
+export type { ProgressTrackerStepProps, ProgressTrackerStepStatus } from './components/ProgressTrackerStep/index.js';

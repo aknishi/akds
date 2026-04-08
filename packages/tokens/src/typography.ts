@@ -4,7 +4,7 @@
 
 export const typography = {
   fontFamily: {
-    sans: 'Inter',
+    sans: 'DM Sans',
     mono: 'JetBrains Mono',
     serif: 'Merriweather',
   },

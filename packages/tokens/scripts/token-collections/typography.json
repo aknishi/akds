@@ -4,7 +4,7 @@
       "family": {
         "sans": {
           "$type": "string",
-          "$value": "Inter",
+          "$value": "DM Sans",
           "$extensions": {
             "com.figma.variableId": "VariableID:13:2",
             "com.figma.scopes": [

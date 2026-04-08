@@ -10,14 +10,14 @@
   font-size: var(--akds-font-size-4xl);
   font-weight: var(--akds-font-weight-bold);
   line-height: var(--akds-font-line-height-tight);
-  letter-spacing: var(--akds-font-letter-spacing-tight);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
 }
 
 .akds-text--h2 {
   font-size: var(--akds-font-size-3xl);
   font-weight: var(--akds-font-weight-bold);
   line-height: var(--akds-font-line-height-tight);
-  letter-spacing: var(--akds-font-letter-spacing-tight);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
 }
 
 .akds-text--h3 {

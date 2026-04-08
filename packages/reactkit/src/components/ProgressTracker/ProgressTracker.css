@@ -1,0 +1,52 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-progress-tracker {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Steps list ────────────────────────────────────────────────────────── */
+.akds-progress-tracker__steps {
+  display: flex;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Track ─────────────────────────────────────────────────────────────── */
+
+/*
+ * Positioned at the vertical centre of the step circles.
+ * Circles are 24px (--akds-size-icon-lg) and sit flush at the bottom of each
+ * step column, so the centre is (24px / 2 - 1px) = 11px up from the bottom.
+ *
+ * Left/right are inset by half a step-column width so the track starts and
+ * ends exactly at the first and last circle centres.
+ */
+.akds-progress-tracker__track-container {
+  position: absolute;
+  bottom: calc(var(--akds-size-icon-lg) / 2 - 1px);
+  left: calc(100% / (2 * var(--pt-step-count, 1)));
+  right: calc(100% / (2 * var(--pt-step-count, 1)));
+  height: 2px;
+  pointer-events: none;
+}
+
+.akds-progress-tracker__track {
+  position: absolute;
+  inset: 0;
+  background: var(--akds-color-border-default-default);
+  border-radius: var(--akds-radius-full);
+}
+
+/* ── Fill (animated progress) ──────────────────────────────────────────── */
+.akds-progress-tracker__fill {
+  position: absolute;
+  inset-block: 0;
+  left: 0;
+  width: var(--pt-fill-width, 0%);
+  background: var(--akds-color-background-primary-default);
+  border-radius: var(--akds-radius-full);
+  transition: width 400ms ease;
+}

@@ -11,6 +11,8 @@ import {
   DropdownMenu,
   Dialog,
   Drawer,
+  ProgressTracker,
+  ProgressTrackerStep,
 } from '@aknishi/akds-reactkit';
 import type { ButtonAppearance, ButtonEmphasis, ButtonSize } from '@aknishi/akds-reactkit';
 import './App.css';
@@ -235,6 +237,12 @@ export default function App() {
         <h2 className="demo-section__heading">Drawer</h2>
         <DrawerDemo />
       </section>
+
+      {/* ProgressTracker section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">ProgressTracker</h2>
+        <ProgressTrackerDemo />
+      </section>
     </div>
   );
 }
@@ -344,6 +352,54 @@ function DrawerDemo() {
       <Drawer open={open} onClose={() => setOpen(false)} side={side} title="Drawer">
         <p>Slide-in from {side}. Press Escape or click outside to close.</p>
       </Drawer>
+    </>
+  );
+}
+
+function ProgressTrackerDemo() {
+  const [step, setStep] = React.useState(2);
+  return (
+    <>
+      <p className="demo-label-heading">Interactive</p>
+      <div className="demo-row">
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          size="sm"
+          onClick={() => setStep(s => Math.max(1, s - 1))}
+          disabled={step <= 1}
+        >
+          Back
+        </Button>
+        <Button
+          appearance="solid"
+          emphasis="accented"
+          size="sm"
+          onClick={() => setStep(s => Math.min(3, s + 1))}
+          disabled={step >= 3}
+        >
+          Next
+        </Button>
+      </div>
+      <ProgressTracker currentStep={step}>
+        <ProgressTrackerStep
+          status={step > 1 ? 'complete' : 'inactive'}
+          label="Select workspace"
+        />
+        <ProgressTrackerStep
+          status={step > 2 ? 'complete' : 'inactive'}
+          label="Select teams"
+        />
+        <ProgressTrackerStep label="Map users" />
+      </ProgressTracker>
+
+      <p className="demo-label-heading">Statuses</p>
+      <ProgressTracker currentStep={-1}>
+        <ProgressTrackerStep status="complete" label="Complete" />
+        <ProgressTrackerStep status="inactive" label="Inactive" />
+        <ProgressTrackerStep status="error" label="Error" />
+        <ProgressTrackerStep status="warning" label="Warning" />
+      </ProgressTracker>
     </>
   );
 }

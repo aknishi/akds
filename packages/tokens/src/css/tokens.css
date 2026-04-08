@@ -121,7 +121,7 @@
   --akds-radius-full: 9999px;
 
   /* ─── Typography ───────────────────────────────────────────── */
-  --akds-font-family-sans: Inter;
+  --akds-font-family-sans: DM Sans;
   --akds-font-family-mono: JetBrains Mono;
   --akds-font-family-serif: Merriweather;
   --akds-font-size-2xs: 10px;
@@ -309,7 +309,7 @@
     --akds-color-surface-overlay: #262626;
     --akds-color-surface-sunken: #0A0A0A;
     --akds-color-text-primary-default: #FAFAFA;
-    --akds-color-text-primary-disabled: #525252;
+    --akds-color-text-primary-disabled: #F5F5F5;
     --akds-color-text-secondary-default: #A3A3A3;
     --akds-color-text-secondary-disabled: #404040;
     --akds-color-text-error-default: #F87171;
