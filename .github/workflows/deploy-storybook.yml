@@ -34,6 +34,10 @@ jobs:
         run: npm run build
         working-directory: packages/tokens
 
+      - name: Build reactkit
+        run: npm run build
+        working-directory: packages/reactkit
+
       - name: Build Storybook
         run: npm run build-storybook
 
