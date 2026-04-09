@@ -33,6 +33,16 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Generate and build icons
+        run: npm run generate && npm run build
+        working-directory: packages/icons
+
+      - name: Publish icons
+        run: npm publish
+        working-directory: packages/icons
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build reactkit
         run: npm run build
         working-directory: packages/reactkit

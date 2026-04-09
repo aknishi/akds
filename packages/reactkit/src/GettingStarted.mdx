@@ -18,7 +18,7 @@ npm install @aknishi/akds-reactkit
 
 ## Setup
 
-Wrap your application with `ThemeProvider` once at the root. This is the only setup step required — it imports the design tokens CSS automatically so you don't need a separate token import.
+Wrap your application with `ThemeProvider` once at the root. This is the only setup step required — component styles are injected automatically when components are imported, so you don't need a separate CSS import.
 
 ```tsx
 import { ThemeProvider } from '@aknishi/akds-reactkit';
@@ -31,8 +31,6 @@ export default function App() {
   );
 }
 ```
-
-> **Note:** Do not import `@aknishi/akds-tokens/css` manually. `ThemeProvider` handles this for you.
 
 ---
 
@@ -75,4 +73,66 @@ Import components individually from the package root:
 import { Button, TextInput, Card } from '@aknishi/akds-reactkit';
 ```
 
-All components are tree-shakeable — only the components you import will be included in your bundle.
+All components are tree-shakeable — only the components you import will be included in your bundle. Styles are injected automatically alongside each component, so unused components carry no CSS overhead either.
+
+---
+
+## Icons
+
+Icons are delivered as a separate package, `@aknishi/akds-icons`, so your app only pays for the icons it actually uses.
+
+```sh
+npm install @aknishi/akds-icons
+```
+
+Each icon is its own inline SVG React component sourced from [Material Symbols](https://fonts.google.com/icons) (Rounded style). No font file or CDN dependency is required.
+
+```tsx
+import { DeleteIcon, ChevronDownIcon, CheckCircleFilledIcon } from '@aknishi/akds-icons';
+
+// Default size (md = 20px)
+<DeleteIcon />
+
+// With size
+<ChevronDownIcon size="sm" />
+
+// With semantic color
+<CheckCircleFilledIcon size="lg" color="success" />
+
+// As a standalone meaningful icon — provide aria-label
+<DeleteIcon size="lg" aria-label="Delete item" aria-hidden={undefined} />
+```
+
+### Size scale
+
+<table>
+  <thead>
+    <tr><th>Prop value</th><th>px</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>xs</code></td><td>12</td></tr>
+    <tr><td><code>sm</code></td><td>16</td></tr>
+    <tr><td><code>md</code></td><td>20</td></tr>
+    <tr><td><code>lg</code></td><td>24</td></tr>
+    <tr><td><code>xl</code></td><td>32</td></tr>
+  </tbody>
+</table>
+
+### Semantic colors
+
+Pass a `color` prop instead of a raw CSS token:
+
+<table>
+  <thead>
+    <tr><th>Value</th><th>Usage</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>default</code></td><td>Inherits <code>currentColor</code> from context</td></tr>
+    <tr><td><code>error</code></td><td>Destructive actions, error states</td></tr>
+    <tr><td><code>warning</code></td><td>Warnings, caution states</td></tr>
+    <tr><td><code>success</code></td><td>Confirmations, success states</td></tr>
+    <tr><td><code>info</code></td><td>Informational, neutral emphasis</td></tr>
+  </tbody>
+</table>
+
+All other `SVGProps` (`className`, `style`, `aria-label`, `ref`, etc.) are forwarded to the root `<svg>` element. Browse all available icons in the **Icons** section of the sidebar.

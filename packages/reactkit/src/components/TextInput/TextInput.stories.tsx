@@ -3,7 +3,7 @@ import { TextInput } from './TextInput';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof TextInput> = {
-  title: 'Inputs & Controls/TextInput',
+  title: 'Reactkit/TextInput',
   component: TextInput,
   argTypes: {
     disabled: { control: 'boolean' },

@@ -408,6 +408,7 @@ function ProgressTrackerDemo() {
         <ProgressTrackerStep status="error" label="Error" />
         <ProgressTrackerStep status="warning" label="Warning" />
       </ProgressTracker>
+
     </>
   );
 }

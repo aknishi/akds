@@ -3,7 +3,7 @@ import { Checkbox } from './Checkbox';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Checkbox> = {
-  title: 'Inputs & Controls/Checkbox',
+  title: 'Reactkit/Checkbox',
   component: Checkbox,
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },

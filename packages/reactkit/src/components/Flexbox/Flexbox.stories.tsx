@@ -3,7 +3,7 @@ import { Flexbox } from './Flexbox';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Flexbox> = {
-  title: 'Layout/Flexbox',
+  title: 'Reactkit/Flexbox',
   component: Flexbox,
   argTypes: {
     justify: {

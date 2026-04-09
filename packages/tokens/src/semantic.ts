@@ -244,6 +244,30 @@ export const semanticColors = {
         dark: '#FFFFFF',
       },
     },
+    error: {
+      default: {
+        light: '#DC2626',
+        dark: '#F87171',
+      },
+    },
+    warning: {
+      default: {
+        light: '#A16207',
+        dark: '#FACC15',
+      },
+    },
+    success: {
+      default: {
+        light: '#15803D',
+        dark: '#4ADE80',
+      },
+    },
+    info: {
+      default: {
+        light: '#2563EB',
+        dark: '#60A5FA',
+      },
+    },
   },
   interaction: {
     hover: {

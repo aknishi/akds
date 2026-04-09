@@ -1,0 +1,35 @@
+import React from 'react';
+import type { IconSize, IconColor } from '../types.js';
+import { SIZE_MAP, COLOR_MAP } from '../types.js';
+
+export interface EditIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
+  /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
+  size?: IconSize;
+  /** Applies a semantic color token. Defaults to "default" (inherits currentColor). */
+  color?: IconColor;
+}
+
+export const EditIcon = React.forwardRef<SVGSVGElement, EditIconProps>(
+  function EditIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+    const px = SIZE_MAP[size];
+    const fill = COLOR_MAP[color];
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 -960 960 960"
+        width={px}
+        height={px}
+        fill="currentColor"
+        aria-hidden="true"
+        focusable="false"
+        style={fill ? { color: fill, ...style } : style}
+        {...props}
+      >
+        <path d="M180-180h44l472-471-44-44-472 471v44Zm-30 60q-13 0-21.5-8.5T120-150v-73q0-12 5-23.5t13-19.5l557-556q8-8 19-12.5t23-4.5q11 0 22 4.5t20 12.5l44 44q9 9 13 20t4 22q0 11-4.5 22.5T823-694L266-138q-8 8-19.5 13t-23.5 5h-73Zm629-617-41-41 41 41Zm-105 64-22-22 44 44-22-22Z" />
+      </svg>
+    );
+  },
+);
+
+EditIcon.displayName = 'EditIcon';

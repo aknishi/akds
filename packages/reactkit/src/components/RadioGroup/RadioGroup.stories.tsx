@@ -4,7 +4,7 @@ import { Radio } from '../Radio';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof RadioGroup> = {
-  title: 'Inputs & Controls/Radio',
+  title: 'Reactkit/Radio',
   component: RadioGroup,
   subcomponents: { Radio },
   argTypes: {
