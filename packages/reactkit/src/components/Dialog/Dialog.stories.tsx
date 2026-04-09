@@ -3,7 +3,7 @@ import { Dialog } from './Dialog';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Dialog> = {
-  title: 'Popovers/Dialog',
+  title: 'Reactkit/Dialog',
   component: Dialog,
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },

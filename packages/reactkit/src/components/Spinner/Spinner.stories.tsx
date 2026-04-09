@@ -3,7 +3,7 @@ import { Spinner } from './Spinner';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Spinner> = {
-  title: 'Progress/Spinner',
+  title: 'Reactkit/Spinner',
   component: Spinner,
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },

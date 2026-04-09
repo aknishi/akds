@@ -3,7 +3,7 @@ import { Tooltip } from './Tooltip';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Tooltip> = {
-  title: 'Popovers/Tooltip',
+  title: 'Reactkit/Tooltip',
   component: Tooltip,
   argTypes: {
     placement: { control: 'select', options: ['top', 'bottom', 'left', 'right'] },

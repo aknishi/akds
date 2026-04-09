@@ -44,7 +44,10 @@ const config: StorybookConfig = {
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
       tsconfigPath: resolve(__dirname, '../packages/reactkit/tsconfig.json'),
-      include: ['packages/reactkit/src/components/**/*.tsx'],
+      include: [
+        'packages/reactkit/src/components/**/*.tsx',
+        'packages/icons/src/components/**/*.tsx',
+      ],
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => {
         // Drop inherited HTML attributes from the props table — only show component-specific props

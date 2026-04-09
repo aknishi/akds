@@ -3,7 +3,7 @@ import { Drawer } from './Drawer';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Drawer> = {
-  title: 'Popovers/Drawer',
+  title: 'Reactkit/Drawer',
   component: Drawer,
   argTypes: {
     side: { control: 'select', options: ['left', 'right', 'top', 'bottom'] },

@@ -1,0 +1,35 @@
+import React from 'react';
+import type { IconSize, IconColor } from '../types.js';
+import { SIZE_MAP, COLOR_MAP } from '../types.js';
+
+export interface CheckCircleFilledIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
+  /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
+  size?: IconSize;
+  /** Applies a semantic color token. Defaults to "default" (inherits currentColor). */
+  color?: IconColor;
+}
+
+export const CheckCircleFilledIcon = React.forwardRef<SVGSVGElement, CheckCircleFilledIconProps>(
+  function CheckCircleFilledIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+    const px = SIZE_MAP[size];
+    const fill = COLOR_MAP[color];
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 -960 960 960"
+        width={px}
+        height={px}
+        fill="currentColor"
+        aria-hidden="true"
+        focusable="false"
+        style={fill ? { color: fill, ...style } : style}
+        {...props}
+      >
+        <path d="m421-389-98-98q-9-9-22-9t-23 10q-9 9-9 22t9 22l122 123q9 9 21 9t21-9l239-239q10-10 10-23t-10-23q-10-9-23.5-8.5T635-603L421-389Zm59 309q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Z" />
+      </svg>
+    );
+  },
+);
+
+CheckCircleFilledIcon.displayName = 'CheckCircleFilledIcon';

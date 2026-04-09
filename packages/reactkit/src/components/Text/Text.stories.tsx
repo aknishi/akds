@@ -3,7 +3,7 @@ import { Text } from './Text';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Text> = {
-  title: 'Foundational/Text',
+  title: 'Reactkit/Text',
   component: Text,
   argTypes: {
     styleAs: {

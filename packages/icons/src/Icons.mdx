@@ -1,0 +1,98 @@
+import { Canvas, Meta } from '@storybook/addon-docs/blocks';
+import * as IconStories from './Icons.stories';
+
+<Meta of={IconStories} />
+
+# Icons
+
+> **Available from v1.0.0**
+
+`@aknishi/akds-icons` delivers [Material Symbols](https://fonts.google.com/icons) (Rounded style) as individual inline SVG React components. Each icon is its own module — only the icons you import are included in your bundle.
+
+No font file, no CDN dependency. Icons inherit `color: currentColor` by default and accept a `size` prop using the design token scale.
+
+## Installation
+
+```sh
+npm install @aknishi/akds-icons
+```
+
+## Usage
+
+```tsx
+import { DeleteIcon, ChevronDownIcon, CheckCircleFilledIcon } from '@aknishi/akds-icons';
+
+// Default size (md = 24px)
+<DeleteIcon />
+
+// With size
+<ChevronDownIcon size="sm" />
+
+// As a decorative icon alongside text (aria-hidden is set automatically)
+<button>
+  <DeleteIcon size="sm" />
+  Delete item
+</button>
+
+// As a standalone meaningful icon — provide aria-label
+<DeleteIcon size="lg" aria-label="Delete item" aria-hidden={undefined} />
+```
+
+## Props
+
+Every icon accepts the same props:
+
+<table>
+  <thead>
+    <tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>size</code></td><td><code>'xs' | 'sm' | 'md' | 'lg' | 'xl'</code></td><td><code>'md'</code></td><td>Maps to icon size tokens: 12 / 16 / 20 / 24 / 32px</td></tr>
+    <tr><td><code>color</code></td><td><code>'default' | 'error' | 'warning' | 'success' | 'info'</code></td><td><code>'default'</code></td><td>Applies a semantic color token. <code>'default'</code> inherits <code>currentColor</code>.</td></tr>
+    <tr><td><code>aria-label</code></td><td><code>string</code></td><td>—</td><td>Set when the icon conveys meaning without surrounding text</td></tr>
+    <tr><td><code>aria-hidden</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Icons are hidden from screen readers by default</td></tr>
+    <tr><td><code>ref</code></td><td><code>React.Ref&lt;SVGSVGElement&gt;</code></td><td>—</td><td>Forwarded to the root <code>&lt;svg&gt;</code> element</td></tr>
+  </tbody>
+</table>
+
+All other `SVGProps` (`className`, `style`, `onClick`, etc.) are forwarded to the `<svg>` element.
+
+## Semantic colors
+
+Use the `color` prop to apply semantic coloring:
+
+```tsx
+import { WarningIcon, ErrorIcon, InfoFilledIcon, CheckCircleFilledIcon } from '@aknishi/akds-icons';
+
+<WarningIcon size="md" color="warning" />
+<ErrorIcon size="md" color="error" />
+<InfoFilledIcon size="md" color="info" />
+<CheckCircleFilledIcon size="md" color="success" />
+```
+
+<table>
+  <thead>
+    <tr><th>Value</th><th>Usage</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>'default'</code></td><td>Inherits <code>currentColor</code> from the surrounding context</td></tr>
+    <tr><td><code>'error'</code></td><td>Destructive actions, error states</td></tr>
+    <tr><td><code>'warning'</code></td><td>Warnings, caution states</td></tr>
+    <tr><td><code>'success'</code></td><td>Confirmations, success states</td></tr>
+    <tr><td><code>'info'</code></td><td>Informational, neutral emphasis</td></tr>
+  </tbody>
+</table>
+
+---
+
+## All Icons
+
+<Canvas of={IconStories.AllIcons} />
+
+## Sizes
+
+<Canvas of={IconStories.Sizes} />
+
+## Semantic Colors
+
+<Canvas of={IconStories.SemanticColors} />

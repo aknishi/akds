@@ -1,0 +1,35 @@
+import React from 'react';
+import type { IconSize, IconColor } from '../types.js';
+import { SIZE_MAP, COLOR_MAP } from '../types.js';
+
+export interface ErrorIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
+  /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
+  size?: IconSize;
+  /** Applies a semantic color token. Defaults to "default" (inherits currentColor). */
+  color?: IconColor;
+}
+
+export const ErrorIcon = React.forwardRef<SVGSVGElement, ErrorIconProps>(
+  function ErrorIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+    const px = SIZE_MAP[size];
+    const fill = COLOR_MAP[color];
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 -960 960 960"
+        width={px}
+        height={px}
+        fill="currentColor"
+        aria-hidden="true"
+        focusable="false"
+        style={fill ? { color: fill, ...style } : style}
+        {...props}
+      >
+        <path d="M503.5-289.48q9.5-9.48 9.5-23.5t-9.48-23.52q-9.48-9.5-23.5-9.5t-23.52 9.48q-9.5 9.48-9.5 23.5t9.48 23.52q9.48 9.5 23.5 9.5t23.52-9.48Zm1-152.15q8.5-8.62 8.5-21.37v-193q0-12.75-8.68-21.38-8.67-8.62-21.5-8.62-12.82 0-21.32 8.62-8.5 8.63-8.5 21.38v193q0 12.75 8.68 21.37 8.67 8.63 21.5 8.63 12.82 0 21.32-8.63ZM480.27-80q-82.74 0-155.5-31.5Q252-143 197.5-197.5t-86-127.34Q80-397.68 80-480.5t31.5-155.66Q143-709 197.5-763t127.34-85.5Q397.68-880 480.5-880t155.66 31.5Q709-817 763-763t85.5 127Q880-563 880-480.27q0 82.74-31.5 155.5Q817-252 763-197.68q-54 54.31-127 86Q563-80 480.27-80Zm.23-60Q622-140 721-239.5t99-241Q820-622 721.19-721T480-820q-141 0-240.5 98.81T140-480q0 141 99.5 240.5t241 99.5Zm-.5-340Z" />
+      </svg>
+    );
+  },
+);
+
+ErrorIcon.displayName = 'ErrorIcon';

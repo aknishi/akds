@@ -39,7 +39,7 @@ export const parameters: Preview['parameters'] = {
   interactions: { disable: true },
   options: {
     storySort: {
-      order: ['Getting Started', 'Foundation', 'Components'],
+      order: ['Getting Started', 'ThemeProvider', 'Reactkit', 'Icons'],
     },
   },
 };

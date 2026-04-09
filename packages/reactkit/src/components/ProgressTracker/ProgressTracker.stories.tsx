@@ -4,7 +4,7 @@ import { ProgressTrackerStep } from '../ProgressTrackerStep';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof ProgressTracker> = {
-  title: 'Progress/ProgressTracker',
+  title: 'Reactkit/ProgressTracker',
   component: ProgressTracker,
   subcomponents: { ProgressTrackerStep },
   argTypes: {

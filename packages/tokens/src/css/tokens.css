@@ -221,6 +221,10 @@
   --akds-color-icon-primary-disabled: #A3A3A3;
   --akds-color-icon-secondary-default: #737373;
   --akds-color-icon-on-primary-default: #FFFFFF;
+  --akds-color-icon-error-default: #DC2626;
+  --akds-color-icon-warning-default: #A16207;
+  --akds-color-icon-success-default: #15803D;
+  --akds-color-icon-info-default: #2563EB;
   --akds-color-interaction-hover-overlay: rgba(0,0,0,0.06);
   --akds-color-interaction-pressed-overlay: rgba(0,0,0,0.1);
   --akds-color-interaction-hover-ondark-overlay: rgba(255,255,255,0.1);
@@ -275,6 +279,10 @@
   --akds-color-icon-primary-disabled: #525252;
   --akds-color-icon-secondary-default: #A3A3A3;
   --akds-color-icon-on-primary-default: #FFFFFF;
+  --akds-color-icon-error-default: #F87171;
+  --akds-color-icon-warning-default: #FACC15;
+  --akds-color-icon-success-default: #4ADE80;
+  --akds-color-icon-info-default: #60A5FA;
   --akds-color-interaction-hover-overlay: rgba(255,255,255,0.08);
   --akds-color-interaction-pressed-overlay: rgba(255,255,255,0.14);
   --akds-color-interaction-hover-ondark-overlay: rgba(255,255,255,0.1);
@@ -330,6 +338,10 @@
     --akds-color-icon-primary-disabled: #525252;
     --akds-color-icon-secondary-default: #A3A3A3;
     --akds-color-icon-on-primary-default: #FFFFFF;
+    --akds-color-icon-error-default: #F87171;
+    --akds-color-icon-warning-default: #FACC15;
+    --akds-color-icon-success-default: #4ADE80;
+    --akds-color-icon-info-default: #60A5FA;
     --akds-color-interaction-hover-overlay: rgba(255,255,255,0.08);
     --akds-color-interaction-pressed-overlay: rgba(255,255,255,0.14);
     --akds-color-interaction-hover-ondark-overlay: rgba(255,255,255,0.1);

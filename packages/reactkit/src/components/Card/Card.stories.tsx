@@ -6,7 +6,7 @@ import { CardFooter } from '../CardFooter';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Card> = {
-  title: 'Core/Card',
+  title: 'Reactkit/Card',
   component: Card,
   subcomponents: { CardHeader, CardContent, CardFooter },
   argTypes: {

@@ -4,7 +4,7 @@ import { Option } from '../Option';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof DropdownMenu> = {
-  title: 'Inputs & Controls/DropdownMenu',
+  title: 'Reactkit/DropdownMenu',
   component: DropdownMenu,
   subcomponents: { Option },
   argTypes: {

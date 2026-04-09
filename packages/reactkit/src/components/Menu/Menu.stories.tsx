@@ -4,7 +4,7 @@ import { MenuItem } from '../MenuItem';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Menu> = {
-  title: 'Popovers/Menu',
+  title: 'Reactkit/Menu',
   component: Menu,
   subcomponents: { MenuItem },
   argTypes: {
