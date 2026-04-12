@@ -1,0 +1,59 @@
+/* ── Navbar ─────────────────────────────────────────────────────────────── */
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-layout-md);
+  padding: var(--akds-spacing-scale-03) var(--akds-spacing-scale-08);
+  background: var(--akds-color-surface-default);
+  border-bottom: 1px solid var(--akds-color-border-default-default);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* ── Brand ──────────────────────────────────────────────────────────────── */
+
+.navbar__brand {
+  font-size: var(--akds-font-size-lg);
+  font-weight: var(--akds-font-weight-bold);
+  color: var(--akds-color-text-primary-default);
+  text-decoration: none;
+  margin-right: auto;
+}
+
+.navbar__brand:hover {
+  color: var(--akds-color-text-info-default);
+}
+
+/* ── Nav links ──────────────────────────────────────────────────────────── */
+
+.navbar__links {
+  display: flex;
+  gap: var(--akds-spacing-scale-01);
+}
+
+.navbar__link {
+  padding: var(--akds-spacing-scale-01) var(--akds-spacing-scale-03);
+  border-radius: var(--akds-radius-md);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  color: var(--akds-color-text-secondary-default);
+  text-decoration: none;
+  transition: color 150ms ease, background 150ms ease;
+}
+
+.navbar__link:hover {
+  color: var(--akds-color-text-primary-default);
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+.navbar__link.active {
+  color: var(--akds-color-text-info-default);
+  font-weight: var(--akds-font-weight-semibold);
+}
+
+.navbar__link:focus-visible {
+  outline: 2px solid var(--akds-color-border-default-focus);
+  outline-offset: 2px;
+}

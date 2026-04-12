@@ -1,0 +1,38 @@
+/* ── About page ─────────────────────────────────────────────────────────── */
+
+.about {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--akds-spacing-layout-2xl) var(--akds-spacing-scale-08);
+  display: flex;
+  flex-direction: column;
+  gap: var(--akds-spacing-layout-lg);
+}
+
+.about__intro {
+  color: var(--akds-color-text-secondary-default);
+}
+
+.about__intro code,
+.about__card code {
+  font-family: var(--akds-font-family-mono);
+  font-size: var(--akds-font-size-sm);
+  background: var(--akds-color-surface-sunken);
+  padding: 2px var(--akds-spacing-scale-01);
+  border-radius: var(--akds-radius-sm);
+}
+
+.about__card {
+  margin: var(--akds-spacing-scale-02) 0;
+}
+
+.about__list {
+  list-style: disc;
+  padding-left: var(--akds-spacing-layout-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--akds-spacing-scale-01);
+  color: var(--akds-color-text-secondary-default);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+}
