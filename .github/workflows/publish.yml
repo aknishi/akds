@@ -29,6 +29,8 @@ jobs:
 
       - name: Install dependencies
         run: rm -f package-lock.json && npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build tokens
         run: npm run build
