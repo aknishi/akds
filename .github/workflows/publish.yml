@@ -28,7 +28,7 @@ jobs:
           scope: '@aknishi'
 
       - name: Install dependencies
-        run: npm install
+        run: rm -f package-lock.json && npm install
 
       - name: Build tokens
         run: npm run build
