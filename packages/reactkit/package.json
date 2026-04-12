@@ -34,6 +34,7 @@
     "access": "restricted"
   },
   "dependencies": {
+    "@aknishi/akds-icons": "^0.1.0",
     "@aknishi/akds-tokens": "^0.1.0",
     "clsx": "^2.1.0"
   },

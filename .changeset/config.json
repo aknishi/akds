@@ -8,8 +8,6 @@
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
   "ignore": [
-    "@aknishi/akds-tokens",
-    "@aknishi/akds-icons",
     "@aknishi/create-akds-app"
   ]
 }

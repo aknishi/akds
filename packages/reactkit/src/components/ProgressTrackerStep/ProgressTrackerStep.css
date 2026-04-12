@@ -39,9 +39,11 @@
 }
 
 .akds-progress-tracker-step__check-icon {
-  width: 12px;
-  height: 12px;
+  width: var(--akds-size-icon-lg);
+  height: var(--akds-size-icon-lg);
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .akds-progress-tracker-step__alert-node {
@@ -84,9 +86,8 @@
 
 /* ── Complete ──────────────────────────────────────────────────────────── */
 .akds-progress-tracker-step--complete .akds-progress-tracker-step__circle {
-  background: var(--akds-color-background-primary-default);
-  border-color: var(--akds-color-background-primary-default);
-  color: var(--akds-color-text-on-primary-default);
+  border: 2px solid var(--akds-color-surface-default);
+  background: var(--akds-primitive-color-white);
 }
 
 @keyframes akds-pt-check-in {

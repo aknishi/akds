@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import './ProgressTrackerStep.css';
 import type { ProgressTrackerStepProps } from './ProgressTrackerStep.types';
 import { ProgressTrackerStepContext } from './ProgressTrackerStepContext';
+import { CheckCircleFilledIcon, WarningFilledIcon, WarningIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-progress-tracker-step');
@@ -38,51 +39,21 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
         <span className="akds-progress-tracker-step__label">{label}</span>
         {showError && (
           <div className="akds-progress-tracker-step__alert-node" aria-hidden="true">
-            <svg
-              className="akds-progress-tracker-step__alert-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                fill="currentColor"
-                d="m13.299 3.148 8.634 14.954a1.5 1.5 0 0 1-1.299 2.25H3.366a1.5 1.5 0 0 1-1.299-2.25l8.634-14.954c.577-1 2.02-1 2.598 0M12 15a1 1 0 1 0 0 2 1 1 0 0 0 0-2m0-7a1 1 0 0 0-.993.883L11 9v4a1 1 0 0 0 1.993.117L13 13V9a1 1 0 0 0-1-1"
-              />
-            </svg>
+            <WarningFilledIcon className="akds-progress-tracker-step__alert-icon" />
           </div>
         )}
         {showWarning && (
           <div className="akds-progress-tracker-step__alert-node" aria-hidden="true">
-            <svg
-              className="akds-progress-tracker-step__alert-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                fill="currentColor"
-                d="m13.299 3.148 8.634 14.954a1.5 1.5 0 0 1-1.299 2.25H3.366a1.5 1.5 0 0 1-1.299-2.25l8.634-14.954c.577-1 2.02-1 2.598 0M12 4.898 4.232 18.352h15.536zM12 15a1 1 0 1 1 0 2 1 1 0 0 1 0-2m0-7a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V9a1 1 0 0 1 1-1"
-              />
-            </svg>
+            <WarningIcon className="akds-progress-tracker-step__alert-icon" />
           </div>
         )}
         {!showError && !showWarning && (
           <div className="akds-progress-tracker-step__circle" aria-hidden="true">
             {showCheck && (
-              <svg
+              <CheckCircleFilledIcon
                 className="akds-progress-tracker-step__check-icon"
-                viewBox="0 0 12 12"
-                fill="none"
-                aria-hidden="true"
-              >
-                <polyline
-                  points="1.5,6 4.5,9 10.5,3"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+                color="success"
+              />
             )}
             {showDot && <div className="akds-progress-tracker-step__dot" />}
           </div>

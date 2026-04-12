@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 import './Dialog.css';
 import type { DialogProps } from './Dialog.types';
+import { CloseIcon } from '@aknishi/akds-icons';
 import { RippleBase } from '../RippleBase';
 import type { RippleBaseHandle } from '../RippleBase';
 import { makePrefixer } from '../../utils';
@@ -113,18 +114,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
               onPointerDown={e => closeRippleRef.current?.trigger(e)}
               aria-label="Close dialog"
             >
-              <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <line x1="18" y1="6" x2="6" y2="18" />
-                <line x1="6" y1="6" x2="18" y2="18" />
-              </svg>
+              <CloseIcon />
               <RippleBase ref={closeRippleRef} />
             </button>
           </div>
