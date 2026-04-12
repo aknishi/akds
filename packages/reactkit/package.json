@@ -1,6 +1,6 @@
 {
   "name": "@aknishi/akds-reactkit",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -33,11 +33,11 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "dependencies": {
-    "@aknishi/akds-icons": "^0.2.0",
-    "@aknishi/akds-tokens": "^0.2.0",
+    "@aknishi/akds-icons": "latest",
+    "@aknishi/akds-tokens": "latest",
     "clsx": "^2.1.0"
   },
   "peerDependencies": {

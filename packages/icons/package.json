@@ -1,6 +1,6 @@
 {
   "name": "@aknishi/akds-icons",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -41,6 +41,6 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   }
 }
