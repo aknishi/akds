@@ -10,9 +10,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@aknishi/akds-icons": "^0.1.0",
-    "@aknishi/akds-reactkit": "^0.1.0",
-    "@aknishi/akds-tokens": "^0.1.0",
+    "@aknishi/akds-icons": "latest",
+    "@aknishi/akds-reactkit": "latest",
+    "@aknishi/akds-tokens": "latest",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^7.0.0"
