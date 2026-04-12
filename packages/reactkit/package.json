@@ -21,7 +21,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:run": "vitest run",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "mkdir -p coverage/.tmp && vitest run --coverage"
   },
   "sideEffects": [
     "**/*.css"
