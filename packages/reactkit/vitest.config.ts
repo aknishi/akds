@@ -10,6 +10,7 @@ export default defineConfig({
     css: true,
     coverage: {
       provider: 'istanbul',
+      reportsDirectory: './coverage',
       reporter: ['text'],
       include: ['src/**/*.{ts,tsx}'],
       exclude: [
