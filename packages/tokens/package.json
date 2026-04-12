@@ -1,6 +1,6 @@
 {
   "name": "@aknishi/akds-tokens",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "type": "module",
   "exports": {
     ".": {
@@ -26,7 +26,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   },
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts --clean && mkdir -p dist/css && cp src/css/tokens.css dist/css/tokens.css && cp src/css/tokens.css.d.ts dist/css/tokens.css.d.ts",
