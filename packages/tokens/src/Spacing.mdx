@@ -1,0 +1,143 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+export function SpacingBar({ name, px, cssVar }) {
+  return (
+    <tr>
+      <td><code>{name}</code></td>
+      <td><code>{cssVar}</code></td>
+      <td style={{ textAlign: 'right' }}>{px}px</td>
+      <td>
+        <div style={{ width: px, height: 20, background: 'var(--akds-color-background-primary-default, #1E40AF)', borderRadius: 2, minWidth: 2 }} />
+      </td>
+    </tr>
+  );
+}
+
+export function RadiusSwatch({ name, px, cssVar }) {
+  return (
+    <tr>
+      <td><code>{name}</code></td>
+      <td><code>{cssVar}</code></td>
+      <td style={{ textAlign: 'right' }}>{px === 9999 ? '9999px (full)' : `${px}px`}</td>
+      <td>
+        <div style={{
+          width: 48, height: 48,
+          background: 'var(--akds-color-background-primary-default, #1E40AF)',
+          borderRadius: Math.min(px, 24),
+          opacity: 0.8,
+        }} />
+      </td>
+    </tr>
+  );
+}
+
+<Meta title="Tokens/Tokens/Spacing" />
+
+# Spacing
+
+Spacing tokens cover the full layout system: a numeric scale for component-level spacing, layout sizes for page structure, icon and component sizing, and a border-radius scale.
+
+---
+
+## Spacing scale
+
+Used for padding, gap, and margin within components. Referenced via `--akds-spacing-scale-{step}`.
+
+<table>
+  <thead>
+    <tr><th>Step</th><th>CSS variable</th><th>Value</th><th>Visual</th></tr>
+  </thead>
+  <tbody>
+    <SpacingBar name="05" px={2}  cssVar="--akds-spacing-scale-05" />
+    <SpacingBar name="01" px={4}  cssVar="--akds-spacing-scale-01" />
+    <SpacingBar name="02" px={8}  cssVar="--akds-spacing-scale-02" />
+    <SpacingBar name="03" px={12} cssVar="--akds-spacing-scale-03" />
+    <SpacingBar name="04" px={16} cssVar="--akds-spacing-scale-04" />
+    <SpacingBar name="06" px={24} cssVar="--akds-spacing-scale-06" />
+    <SpacingBar name="08" px={32} cssVar="--akds-spacing-scale-08" />
+    <SpacingBar name="10" px={40} cssVar="--akds-spacing-scale-10" />
+    <SpacingBar name="12" px={48} cssVar="--akds-spacing-scale-12" />
+    <SpacingBar name="16" px={64} cssVar="--akds-spacing-scale-16" />
+    <SpacingBar name="20" px={80} cssVar="--akds-spacing-scale-20" />
+  </tbody>
+</table>
+
+---
+
+## Layout spacing
+
+Used for section gaps, page gutters, and structural spacing. Referenced via `--akds-spacing-layout-{size}`.
+
+<table>
+  <thead>
+    <tr><th>Size</th><th>CSS variable</th><th>Value</th><th>Visual</th></tr>
+  </thead>
+  <tbody>
+    <SpacingBar name="xs"  px={4}  cssVar="--akds-spacing-layout-xs" />
+    <SpacingBar name="sm"  px={8}  cssVar="--akds-spacing-layout-sm" />
+    <SpacingBar name="md"  px={16} cssVar="--akds-spacing-layout-md" />
+    <SpacingBar name="lg"  px={24} cssVar="--akds-spacing-layout-lg" />
+    <SpacingBar name="xl"  px={40} cssVar="--akds-spacing-layout-xl" />
+    <SpacingBar name="2xl" px={64} cssVar="--akds-spacing-layout-2xl" />
+  </tbody>
+</table>
+
+---
+
+## Icon sizes
+
+Applied to icon width and height. Referenced via `--akds-size-icon-{size}`.
+
+<table>
+  <thead>
+    <tr><th>Size</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>xs</code></td><td><code>--akds-size-icon-xs</code></td><td>12px</td></tr>
+    <tr><td><code>sm</code></td><td><code>--akds-size-icon-sm</code></td><td>16px</td></tr>
+    <tr><td><code>md</code></td><td><code>--akds-size-icon-md</code></td><td>20px</td></tr>
+    <tr><td><code>lg</code></td><td><code>--akds-size-icon-lg</code></td><td>24px</td></tr>
+    <tr><td><code>xl</code></td><td><code>--akds-size-icon-xl</code></td><td>32px</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Component sizes
+
+Applied to component height (buttons, inputs, etc.). Referenced via `--akds-size-component-{size}`.
+
+<table>
+  <thead>
+    <tr><th>Size</th><th>CSS variable</th><th>Value</th><th>Visual</th></tr>
+  </thead>
+  <tbody>
+    <SpacingBar name="xs" px={24} cssVar="--akds-size-component-xs" />
+    <SpacingBar name="sm" px={32} cssVar="--akds-size-component-sm" />
+    <SpacingBar name="md" px={40} cssVar="--akds-size-component-md" />
+    <SpacingBar name="lg" px={48} cssVar="--akds-size-component-lg" />
+    <SpacingBar name="xl" px={56} cssVar="--akds-size-component-xl" />
+  </tbody>
+</table>
+
+---
+
+## Border radius
+
+Referenced via `--akds-radius-{size}`.
+
+<table>
+  <thead>
+    <tr><th>Size</th><th>CSS variable</th><th>Value</th><th>Visual</th></tr>
+  </thead>
+  <tbody>
+    <RadiusSwatch name="none" px={0}    cssVar="--akds-radius-none" />
+    <RadiusSwatch name="xs"   px={2}    cssVar="--akds-radius-xs" />
+    <RadiusSwatch name="sm"   px={4}    cssVar="--akds-radius-sm" />
+    <RadiusSwatch name="md"   px={10}   cssVar="--akds-radius-md" />
+    <RadiusSwatch name="lg"   px={12}   cssVar="--akds-radius-lg" />
+    <RadiusSwatch name="xl"   px={16}   cssVar="--akds-radius-xl" />
+    <RadiusSwatch name="2xl"  px={24}   cssVar="--akds-radius-2xl" />
+    <RadiusSwatch name="full" px={9999} cssVar="--akds-radius-full" />
+  </tbody>
+</table>
