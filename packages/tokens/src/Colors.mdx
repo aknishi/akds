@@ -1,0 +1,221 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { useDarkMode } from 'storybook-dark-mode';
+
+export function ColorScale({ steps }) {
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: `repeat(${steps.length}, 1fr)`, gap: 8, marginBottom: 32 }}>
+      {steps.map(([step, hex]) => (
+        <div key={step} style={{ textAlign: 'center' }}>
+          <div style={{ background: hex, height: 48, borderRadius: 6, border: '1px solid rgba(0,0,0,0.1)', marginBottom: 6 }} title={hex} />
+          <div style={{ fontSize: 11, fontWeight: 600 }}>{step}</div>
+          <div style={{ fontSize: 10, color: '#888', fontFamily: 'monospace' }}>{hex}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function LiveSwatch({ cssVar, light, dark }) {
+  const isDark = useDarkMode();
+  const hex = isDark ? dark : light;
+  return (
+    <span style={{ display: 'inline-flex', gap: 6, alignItems: 'center' }}>
+      <span
+        style={{
+          display: 'inline-block',
+          width: 20,
+          height: 20,
+          background: `var(${cssVar})`,
+          borderRadius: 3,
+          border: '1px solid rgba(127,127,127,0.2)',
+          flexShrink: 0,
+        }}
+        title={hex}
+      />
+      <code style={{ fontSize: 11 }}>{hex}</code>
+    </span>
+  );
+}
+
+<Meta title="Tokens/Tokens/Colors" />
+
+# Colors
+
+The color system has two layers: **primitive** scales (raw color values) and **semantic** tokens (role-based, theme-aware aliases that reference primitives). Components always use semantic tokens via CSS variables.
+
+Toggle the **dark mode** switch in the Storybook toolbar — the semantic swatches and hex values update live.
+
+---
+
+## Primitive palette
+
+Raw color scales used as the source material for semantic tokens. Do not reference these directly in components.
+
+### Neutral
+
+<ColorScale steps={[
+  ['50', '#FAFAFA'], ['100', '#F5F5F5'], ['200', '#E5E5E5'], ['300', '#D4D4D4'],
+  ['400', '#A3A3A3'], ['500', '#737373'], ['600', '#525252'], ['700', '#404040'],
+  ['800', '#262626'], ['900', '#171717'], ['950', '#0A0A0A'],
+]} />
+
+### Blue
+
+<ColorScale steps={[
+  ['50', '#EFF6FF'], ['100', '#DBEAFE'], ['200', '#BFDBFE'], ['300', '#93C5FD'],
+  ['400', '#60A5FA'], ['500', '#3B82F6'], ['600', '#2563EB'], ['700', '#1D4ED8'],
+  ['800', '#1E40AF'], ['900', '#1E3A8A'], ['950', '#172554'],
+]} />
+
+### Green
+
+<ColorScale steps={[
+  ['50', '#F0FDF4'], ['100', '#DCFCE7'], ['200', '#BBF7D0'], ['300', '#86EFAC'],
+  ['400', '#4ADE80'], ['500', '#22C55E'], ['600', '#16A34A'], ['700', '#15803D'],
+  ['800', '#166534'], ['900', '#14532D'], ['950', '#052E16'],
+]} />
+
+### Red
+
+<ColorScale steps={[
+  ['50', '#FEF2F2'], ['100', '#FEE2E2'], ['200', '#FECACA'], ['300', '#FCA5A5'],
+  ['400', '#F87171'], ['500', '#EF4444'], ['600', '#DC2626'], ['700', '#B91C1C'],
+  ['800', '#991B1B'], ['900', '#7F1D1D'], ['950', '#450A0A'],
+]} />
+
+### Yellow
+
+<ColorScale steps={[
+  ['50', '#FEFCE8'], ['100', '#FEF9C3'], ['200', '#FEF08A'], ['300', '#FDE047'],
+  ['400', '#FACC15'], ['500', '#EAB308'], ['600', '#CA8A04'], ['700', '#A16207'],
+  ['800', '#854D0E'], ['900', '#713F12'], ['950', '#422006'],
+]} />
+
+### Purple
+
+<ColorScale steps={[
+  ['50', '#FAF5FF'], ['100', '#F3E8FF'], ['200', '#E9D5FF'], ['300', '#D8B4FE'],
+  ['400', '#C084FC'], ['500', '#A855F7'], ['600', '#9333EA'], ['700', '#7E22CE'],
+  ['800', '#6B21A8'], ['900', '#581C87'], ['950', '#3B0764'],
+]} />
+
+### Orange
+
+<ColorScale steps={[
+  ['50', '#FFF7ED'], ['100', '#FFEDD5'], ['200', '#FED7AA'], ['300', '#FDBA74'],
+  ['400', '#FB923C'], ['500', '#F97316'], ['600', '#EA580C'], ['700', '#C2410C'],
+  ['800', '#9A3412'], ['900', '#7C2D12'], ['950', '#431407'],
+]} />
+
+---
+
+## Semantic colors
+
+Role-based tokens that adapt between light and dark themes. The swatch and hex value below each variable reflect the **currently active theme**.
+
+### Background
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>background.primary.default</code></td><td><code>--akds-color-background-primary-default</code></td><td><LiveSwatch cssVar="--akds-color-background-primary-default" light="#1E40AF" dark="#3B82F6" /></td></tr>
+    <tr><td><code>background.primary.hover</code></td><td><code>--akds-color-background-primary-hover</code></td><td><LiveSwatch cssVar="--akds-color-background-primary-hover" light="#1D4ED8" dark="#60A5FA" /></td></tr>
+    <tr><td><code>background.primary.active</code></td><td><code>--akds-color-background-primary-active</code></td><td><LiveSwatch cssVar="--akds-color-background-primary-active" light="#1E3A8A" dark="#93C5FD" /></td></tr>
+    <tr><td><code>background.primary.disabled</code></td><td><code>--akds-color-background-primary-disabled</code></td><td><LiveSwatch cssVar="--akds-color-background-primary-disabled" light="#E5E5E5" dark="#404040" /></td></tr>
+    <tr><td><code>background.secondary.default</code></td><td><code>--akds-color-background-secondary-default</code></td><td><LiveSwatch cssVar="--akds-color-background-secondary-default" light="#F5F5F5" dark="#262626" /></td></tr>
+    <tr><td><code>background.secondary.hover</code></td><td><code>--akds-color-background-secondary-hover</code></td><td><LiveSwatch cssVar="--akds-color-background-secondary-hover" light="#E5E5E5" dark="#404040" /></td></tr>
+    <tr><td><code>background.secondary.active</code></td><td><code>--akds-color-background-secondary-active</code></td><td><LiveSwatch cssVar="--akds-color-background-secondary-active" light="#D4D4D4" dark="#525252" /></td></tr>
+    <tr><td><code>background.error.default</code></td><td><code>--akds-color-background-error-default</code></td><td><LiveSwatch cssVar="--akds-color-background-error-default" light="#DC2626" dark="#EF4444" /></td></tr>
+    <tr><td><code>background.error.hover</code></td><td><code>--akds-color-background-error-hover</code></td><td><LiveSwatch cssVar="--akds-color-background-error-hover" light="#B91C1C" dark="#F87171" /></td></tr>
+    <tr><td><code>background.warning.default</code></td><td><code>--akds-color-background-warning-default</code></td><td><LiveSwatch cssVar="--akds-color-background-warning-default" light="#EAB308" dark="#FACC15" /></td></tr>
+    <tr><td><code>background.success.default</code></td><td><code>--akds-color-background-success-default</code></td><td><LiveSwatch cssVar="--akds-color-background-success-default" light="#16A34A" dark="#22C55E" /></td></tr>
+    <tr><td><code>background.info.default</code></td><td><code>--akds-color-background-info-default</code></td><td><LiveSwatch cssVar="--akds-color-background-info-default" light="#3B82F6" dark="#60A5FA" /></td></tr>
+    <tr><td><code>background.neutral.default</code></td><td><code>--akds-color-background-neutral-default</code></td><td><LiveSwatch cssVar="--akds-color-background-neutral-default" light="#F5F5F5" dark="#262626" /></td></tr>
+    <tr><td><code>background.neutral.subtle</code></td><td><code>--akds-color-background-neutral-subtle</code></td><td><LiveSwatch cssVar="--akds-color-background-neutral-subtle" light="#FAFAFA" dark="#171717" /></td></tr>
+  </tbody>
+</table>
+
+### Surface
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>surface.default</code></td><td><code>--akds-color-surface-default</code></td><td><LiveSwatch cssVar="--akds-color-surface-default" light="#FFFFFF" dark="#171717" /></td></tr>
+    <tr><td><code>surface.raised</code></td><td><code>--akds-color-surface-raised</code></td><td><LiveSwatch cssVar="--akds-color-surface-raised" light="#FFFFFF" dark="#262626" /></td></tr>
+    <tr><td><code>surface.overlay</code></td><td><code>--akds-color-surface-overlay</code></td><td><LiveSwatch cssVar="--akds-color-surface-overlay" light="#FFFFFF" dark="#262626" /></td></tr>
+    <tr><td><code>surface.sunken</code></td><td><code>--akds-color-surface-sunken</code></td><td><LiveSwatch cssVar="--akds-color-surface-sunken" light="#FAFAFA" dark="#0A0A0A" /></td></tr>
+  </tbody>
+</table>
+
+### Text
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>text.primary.default</code></td><td><code>--akds-color-text-primary-default</code></td><td><LiveSwatch cssVar="--akds-color-text-primary-default" light="#171717" dark="#FAFAFA" /></td></tr>
+    <tr><td><code>text.primary.disabled</code></td><td><code>--akds-color-text-primary-disabled</code></td><td><LiveSwatch cssVar="--akds-color-text-primary-disabled" light="#525252" dark="#F5F5F5" /></td></tr>
+    <tr><td><code>text.secondary.default</code></td><td><code>--akds-color-text-secondary-default</code></td><td><LiveSwatch cssVar="--akds-color-text-secondary-default" light="#525252" dark="#A3A3A3" /></td></tr>
+    <tr><td><code>text.error.default</code></td><td><code>--akds-color-text-error-default</code></td><td><LiveSwatch cssVar="--akds-color-text-error-default" light="#DC2626" dark="#F87171" /></td></tr>
+    <tr><td><code>text.warning.default</code></td><td><code>--akds-color-text-warning-default</code></td><td><LiveSwatch cssVar="--akds-color-text-warning-default" light="#A16207" dark="#FACC15" /></td></tr>
+    <tr><td><code>text.success.default</code></td><td><code>--akds-color-text-success-default</code></td><td><LiveSwatch cssVar="--akds-color-text-success-default" light="#15803D" dark="#4ADE80" /></td></tr>
+    <tr><td><code>text.info.default</code></td><td><code>--akds-color-text-info-default</code></td><td><LiveSwatch cssVar="--akds-color-text-info-default" light="#2563EB" dark="#60A5FA" /></td></tr>
+    <tr><td><code>text.on-primary.default</code></td><td><code>--akds-color-text-on-primary-default</code></td><td><LiveSwatch cssVar="--akds-color-text-on-primary-default" light="#FFFFFF" dark="#FFFFFF" /></td></tr>
+    <tr><td><code>text.placeholder.default</code></td><td><code>--akds-color-text-placeholder-default</code></td><td><LiveSwatch cssVar="--akds-color-text-placeholder-default" light="#A3A3A3" dark="#737373" /></td></tr>
+  </tbody>
+</table>
+
+### Border
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>border.default.default</code></td><td><code>--akds-color-border-default-default</code></td><td><LiveSwatch cssVar="--akds-color-border-default-default" light="#E5E5E5" dark="#404040" /></td></tr>
+    <tr><td><code>border.default.hover</code></td><td><code>--akds-color-border-default-hover</code></td><td><LiveSwatch cssVar="--akds-color-border-default-hover" light="#A3A3A3" dark="#737373" /></td></tr>
+    <tr><td><code>border.default.focus</code></td><td><code>--akds-color-border-default-focus</code></td><td><LiveSwatch cssVar="--akds-color-border-default-focus" light="#3B82F6" dark="#60A5FA" /></td></tr>
+    <tr><td><code>border.error.default</code></td><td><code>--akds-color-border-error-default</code></td><td><LiveSwatch cssVar="--akds-color-border-error-default" light="#EF4444" dark="#F87171" /></td></tr>
+    <tr><td><code>border.success.default</code></td><td><code>--akds-color-border-success-default</code></td><td><LiveSwatch cssVar="--akds-color-border-success-default" light="#22C55E" dark="#4ADE80" /></td></tr>
+    <tr><td><code>border.primary.default</code></td><td><code>--akds-color-border-primary-default</code></td><td><LiveSwatch cssVar="--akds-color-border-primary-default" light="#1D4ED8" dark="#3B82F6" /></td></tr>
+  </tbody>
+</table>
+
+### Icon
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>icon.primary.default</code></td><td><code>--akds-color-icon-primary-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-primary-default" light="#171717" dark="#FAFAFA" /></td></tr>
+    <tr><td><code>icon.primary.disabled</code></td><td><code>--akds-color-icon-primary-disabled</code></td><td><LiveSwatch cssVar="--akds-color-icon-primary-disabled" light="#A3A3A3" dark="#525252" /></td></tr>
+    <tr><td><code>icon.secondary.default</code></td><td><code>--akds-color-icon-secondary-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-secondary-default" light="#737373" dark="#A3A3A3" /></td></tr>
+    <tr><td><code>icon.on-primary.default</code></td><td><code>--akds-color-icon-on-primary-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-on-primary-default" light="#FFFFFF" dark="#FFFFFF" /></td></tr>
+    <tr><td><code>icon.error.default</code></td><td><code>--akds-color-icon-error-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-error-default" light="#DC2626" dark="#F87171" /></td></tr>
+    <tr><td><code>icon.warning.default</code></td><td><code>--akds-color-icon-warning-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-warning-default" light="#A16207" dark="#FACC15" /></td></tr>
+    <tr><td><code>icon.success.default</code></td><td><code>--akds-color-icon-success-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-success-default" light="#15803D" dark="#4ADE80" /></td></tr>
+    <tr><td><code>icon.info.default</code></td><td><code>--akds-color-icon-info-default</code></td><td><LiveSwatch cssVar="--akds-color-icon-info-default" light="#2563EB" dark="#60A5FA" /></td></tr>
+  </tbody>
+</table>
+
+### Interaction overlays
+
+Transparent overlays applied on hover and press. Work across any background colour.
+
+<table>
+  <thead>
+    <tr><th>Token</th><th>CSS variable</th><th>Value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>interaction.hover.overlay</code></td><td><code>--akds-color-interaction-hover-overlay</code></td><td><LiveSwatch cssVar="--akds-color-interaction-hover-overlay" light="rgba(0,0,0,0.06)" dark="rgba(255,255,255,0.08)" /></td></tr>
+    <tr><td><code>interaction.pressed.overlay</code></td><td><code>--akds-color-interaction-pressed-overlay</code></td><td><LiveSwatch cssVar="--akds-color-interaction-pressed-overlay" light="rgba(0,0,0,0.10)" dark="rgba(255,255,255,0.14)" /></td></tr>
+    <tr><td><code>interaction.hoverOndark.overlay</code></td><td><code>--akds-color-interaction-hover-on-dark-overlay</code></td><td><LiveSwatch cssVar="--akds-color-interaction-hover-on-dark-overlay" light="rgba(255,255,255,0.10)" dark="rgba(255,255,255,0.10)" /></td></tr>
+    <tr><td><code>interaction.pressedOndark.overlay</code></td><td><code>--akds-color-interaction-pressed-on-dark-overlay</code></td><td><LiveSwatch cssVar="--akds-color-interaction-pressed-on-dark-overlay" light="rgba(255,255,255,0.20)" dark="rgba(255,255,255,0.20)" /></td></tr>
+  </tbody>
+</table>

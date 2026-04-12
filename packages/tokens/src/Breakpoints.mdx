@@ -1,0 +1,50 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Tokens/Breakpoints" />
+
+# Breakpoints
+
+Breakpoint tokens define the responsive grid thresholds. Access them as JS values from `@aknishi/akds-tokens` or via the CSS variables.
+
+---
+
+## Scale
+
+<table>
+  <thead>
+    <tr><th>Name</th><th>CSS variable</th><th>Value</th><th>Typical target</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>xs</code></td><td><code>--akds-breakpoint-xs</code></td><td>320px</td><td>Small phones</td></tr>
+    <tr><td><code>sm</code></td><td><code>--akds-breakpoint-sm</code></td><td>480px</td><td>Phones (landscape) / large phones</td></tr>
+    <tr><td><code>md</code></td><td><code>--akds-breakpoint-md</code></td><td>768px</td><td>Tablets</td></tr>
+    <tr><td><code>lg</code></td><td><code>--akds-breakpoint-lg</code></td><td>1024px</td><td>Small desktops / large tablets</td></tr>
+    <tr><td><code>xl</code></td><td><code>--akds-breakpoint-xl</code></td><td>1280px</td><td>Desktops</td></tr>
+    <tr><td><code>2xl</code></td><td><code>--akds-breakpoint-2xl</code></td><td>1536px</td><td>Large desktops / wide screens</td></tr>
+  </tbody>
+</table>
+
+---
+
+## Usage
+
+### In CSS
+
+```css
+@media (min-width: 768px) {
+  /* tablet and above */
+}
+```
+
+### In JavaScript
+
+```ts
+import { breakpoints } from '@aknishi/akds-tokens';
+import type { Breakpoint } from '@aknishi/akds-tokens';
+
+const tabletWidth = breakpoints.md; // 768
+
+function useBreakpoint(bp: Breakpoint) {
+  return window.matchMedia(`(min-width: ${breakpoints[bp]}px)`).matches;
+}
+```

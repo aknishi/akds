@@ -1,0 +1,204 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+import { Button, Card, CardHeader, CardContent, Text, Flexbox } from '@aknishi/akds-reactkit';
+import { SpeedIcon, PaletteIcon, FlashIcon } from '@aknishi/akds-icons';
+
+export function BrowserChrome({ children }) {
+  return (
+    <div style={{
+      borderRadius: 10,
+      overflow: 'hidden',
+      border: '1px solid var(--akds-color-border-default-default, #E5E5E5)',
+      boxShadow: 'var(--akds-elevation-lg, 0 10px 15px rgba(0,0,0,0.10))',
+      marginBottom: 32,
+    }}>
+      {/* Chrome bar */}
+      <div style={{
+        background: 'var(--akds-color-surface-raised, #FAFAFA)',
+        borderBottom: '1px solid var(--akds-color-border-default-default, #E5E5E5)',
+        padding: '10px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+      }}>
+        <div style={{ display: 'flex', gap: 6 }}>
+          {['#FF5F57', '#FFBD2E', '#28C840'].map((c) => (
+            <div key={c} style={{ width: 12, height: 12, borderRadius: '50%', background: c }} />
+          ))}
+        </div>
+        <div style={{
+          flex: 1,
+          background: 'var(--akds-color-surface-sunken, #F5F5F5)',
+          borderRadius: 6,
+          padding: '4px 12px',
+          fontSize: 12,
+          color: 'var(--akds-color-text-secondary-default, #737373)',
+          fontFamily: 'var(--akds-font-family-mono, monospace)',
+          maxWidth: 320,
+          margin: '0 auto',
+          textAlign: 'center',
+        }}>
+          localhost:5173
+        </div>
+      </div>
+      {/* Viewport */}
+      <div style={{ background: 'var(--akds-color-surface-default, #fff)', overflow: 'hidden' }}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export function TemplateNavbar() {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 16,
+      padding: '12px 32px',
+      background: 'var(--akds-color-surface-default)',
+      borderBottom: '1px solid var(--akds-color-border-default-default)',
+    }}>
+      <span style={{
+        fontSize: 18,
+        fontWeight: 700,
+        color: 'var(--akds-color-text-primary-default)',
+        marginRight: 'auto',
+      }}>
+        my-app
+      </span>
+      <span style={{ fontSize: 14, color: 'var(--akds-color-text-secondary-default)', padding: '4px 10px', borderRadius: 8, fontWeight: 600, color: 'var(--akds-color-text-info-default)' }}>Home</span>
+      <span style={{ fontSize: 14, color: 'var(--akds-color-text-secondary-default)', padding: '4px 10px', borderRadius: 8 }}>About</span>
+      <Button appearance="bordered" emphasis="neutral" size="sm">☾ Dark</Button>
+    </div>
+  );
+}
+
+export function TemplateLanding() {
+  const features = [
+    { Icon: SpeedIcon, title: 'Fast by default', description: 'Powered by Vite — instant server start, lightning-fast HMR, and optimised production builds out of the box.' },
+    { Icon: PaletteIcon, title: 'Design system included', description: 'Every component comes from @aknishi/akds-reactkit, fully token-driven with built-in dark mode support.' },
+    { Icon: FlashIcon, title: 'Routing ready', description: 'React Router v7 is wired up from the start. Add new pages in router.tsx and go.' },
+  ];
+
+  return (
+    <div style={{ maxWidth: 1100, margin: '0 auto', padding: '48px 32px', display: 'flex', flexDirection: 'column', gap: 64 }}>
+      {/* Hero */}
+      <section style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: 20 }}>
+        <Text styleAs="hero" as="h1" style={{ maxWidth: 720 }}>Build faster with akds</Text>
+        <Text styleAs="body" as="p" style={{ maxWidth: 540, color: 'var(--akds-color-text-secondary-default)' }}>
+          A ready-to-go TypeScript + React + Vite starter with the akds design system,
+          routing, and dark mode baked in — so you can focus on what you're building.
+        </Text>
+        <Flexbox gap="sm" style={{ marginTop: 8 }}>
+          <Button appearance="solid" emphasis="accented" size="lg">Get started</Button>
+          <Button appearance="bordered" emphasis="neutral" size="lg">View docs</Button>
+        </Flexbox>
+      </section>
+
+      {/* Features */}
+      <section>
+        <Text styleAs="h2" as="h2" style={{ textAlign: 'center', marginBottom: 32 }}>Everything you need</Text>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+          {features.map(({ Icon, title, description }) => (
+            <Card key={title}>
+              <CardHeader>
+                <Icon style={{ width: 32, height: 32, color: 'var(--akds-color-text-info-default)', marginBottom: 8 }} aria-hidden="true" />
+                <Text styleAs="h4" as="h3">{title}</Text>
+              </CardHeader>
+              <CardContent>
+                <Text styleAs="body" as="p" style={{ color: 'var(--akds-color-text-secondary-default)' }}>{description}</Text>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA strip */}
+      <section style={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, textAlign: 'center',
+        padding: '48px 32px', borderRadius: 'var(--akds-radius-xl)',
+        background: 'var(--akds-color-surface-raised)', border: '1px solid var(--akds-color-border-default-default)',
+      }}>
+        <Text styleAs="h3" as="h2">Ready to ship?</Text>
+        <Text styleAs="body" as="p" style={{ color: 'var(--akds-color-text-secondary-default)' }}>
+          Edit <code style={{ fontFamily: 'var(--akds-font-family-mono)', fontSize: 13, background: 'var(--akds-color-surface-sunken)', padding: '2px 6px', borderRadius: 4 }}>src/pages/LandingPage</code> to make this page your own.
+        </Text>
+        <Button appearance="solid" emphasis="accented" size="md">♡ Like</Button>
+      </section>
+    </div>
+  );
+}
+
+<Meta title="create-akds-app/Overview" />
+
+# create-akds-app
+
+Scaffolds a new **TypeScript + React + Vite** project pre-wired with the akds design system, React Router v7, and a light/dark theme toggle — ready to run in one command.
+
+---
+
+## Installation
+
+```sh
+npm create @aknishi/akds-app <project-name>
+```
+
+Or invoke directly with `npx`:
+
+```sh
+npx @aknishi/create-akds-app <project-name>
+```
+
+Then start the dev server:
+
+```sh
+cd <project-name>
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) to see the app.
+
+---
+
+## What's included
+
+- **TypeScript + React 18 + Vite** — instant HMR and optimised production builds
+- **`@aknishi/akds-reactkit`** — the full component library, auto-styled via CSS variables
+- **`@aknishi/akds-icons`** — inline SVG icon set
+- **`@aknishi/akds-tokens`** — design token CSS variables
+- **React Router v7** — wired up in `src/router.tsx`; add pages without extra config
+- **`ThemeProvider`** — light/dark toggle in the Navbar out of the box
+- **Landing page + About page** — two starter pages to build from
+
+---
+
+## Template structure
+
+```
+<project-name>/
+├── src/
+│   ├── App.tsx                  # Root — ThemeProvider + BrowserRouter
+│   ├── App.css
+│   ├── router.tsx               # Route definitions
+│   ├── main.tsx
+│   ├── components/
+│   │   └── Navbar/              # Sticky header with brand, nav links, theme toggle
+│   └── pages/
+│       ├── LandingPage/         # Hero + feature cards + CTA
+│       └── AboutPage/           # Simple info page
+├── index.html
+├── vite.config.ts
+├── tsconfig.json
+└── package.json
+```
+
+---
+
+## Preview
+
+The landing page rendered with the default template. Toggle dark mode in the Storybook toolbar to see it switch themes.
+
+<BrowserChrome>
+  <TemplateNavbar />
+  <TemplateLanding />
+</BrowserChrome>
