@@ -14,10 +14,14 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "clean": "rm -rf node_modules dist storybook-static .turbo packages/*/node_modules packages/*/dist packages/*/.turbo apps/*/node_modules apps/*/dist apps/*/.turbo"
+    "clean": "rm -rf node_modules dist storybook-static .turbo packages/*/node_modules packages/*/dist packages/*/.turbo apps/*/node_modules apps/*/dist apps/*/.turbo",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "changeset publish"
   },
   "devDependencies": {
     "@aknishi/akds-tokens": "*",
+    "@changesets/cli": "^2.30.0",
     "@rollup/plugin-terser": "^1.0.0",
     "@storybook/addon-a11y": "^10.3.5",
     "@storybook/addon-docs": "^10.3.5",

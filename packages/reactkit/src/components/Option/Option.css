@@ -71,7 +71,6 @@
 .akds-option__checkmark svg {
   width: var(--akds-size-icon-sm);
   height: var(--akds-size-icon-sm);
-  stroke: currentColor;
   display: block;
 }
 

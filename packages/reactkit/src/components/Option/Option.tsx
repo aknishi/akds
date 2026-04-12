@@ -5,6 +5,7 @@ import type { OptionProps } from './Option.types';
 import { OptionContext } from './OptionContext';
 import { RippleBase } from '../RippleBase';
 import type { RippleBaseHandle } from '../RippleBase';
+import { CheckIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-option');
@@ -128,9 +129,7 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
         {children}
         {!ctx.multiple && selected && (
           <span className="akds-option__checkmark" aria-hidden="true">
-            <svg viewBox="0 0 16 16" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="3,8.5 6.5,12 13,4" />
-            </svg>
+            <CheckIcon />
           </span>
         )}
       </li>
