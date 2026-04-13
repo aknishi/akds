@@ -27,3 +27,11 @@
   width: 1.25em;
   height: 1.25em;
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-spinner {
+    animation: none;
+    opacity: 0.7;
+  }
+}

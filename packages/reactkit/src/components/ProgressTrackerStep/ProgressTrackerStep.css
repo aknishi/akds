@@ -122,3 +122,14 @@
 .akds-progress-tracker-step--warning .akds-progress-tracker-step__alert-node {
   color: var(--akds-color-text-warning-default);
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-progress-tracker-step__circle {
+    transition: none;
+  }
+
+  .akds-progress-tracker-step__check-icon {
+    animation: none;
+  }
+}

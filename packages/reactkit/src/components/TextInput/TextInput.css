@@ -134,3 +134,11 @@
 .akds-text-input--disabled .akds-text-input__helper-text {
   color: var(--akds-color-text-secondary-disabled);
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-text-input__control,
+  .akds-text-input__label {
+    transition: none;
+  }
+}

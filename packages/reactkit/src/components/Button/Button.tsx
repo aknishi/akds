@@ -29,6 +29,10 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const isDisabled = disabled || loading;
     const useAriaDisabled = isDisabled && focusableWhenDisabled;
     const rippleRef = React.useRef<RippleBaseHandle>(null);
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
       rippleRef.current?.trigger(e);
@@ -60,7 +64,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {loading && <Spinner />}
         {children}
-        <RippleBase ref={rippleRef} disabled={isDisabled} onDark={appearance === 'solid' && emphasis !== 'neutral'} />
+        {!prefersReducedMotion && (
+          <RippleBase ref={rippleRef} disabled={isDisabled} onDark={appearance === 'solid' && emphasis !== 'neutral'} />
+        )}
       </button>
     );
   },

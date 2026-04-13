@@ -50,3 +50,10 @@
   border-radius: var(--akds-radius-full);
   transition: width 400ms ease;
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-progress-tracker__fill {
+    transition: none;
+  }
+}

@@ -159,3 +159,13 @@
 .akds-dropdown-menu--disabled .akds-dropdown-menu__helper-text {
   color: var(--akds-color-text-secondary-disabled);
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-dropdown-menu__control,
+  .akds-dropdown-menu__value,
+  .akds-dropdown-menu__chevron,
+  .akds-dropdown-menu__label {
+    transition: none;
+  }
+}

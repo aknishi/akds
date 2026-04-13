@@ -121,3 +121,12 @@
   border-color: var(--akds-color-border-default-default) !important;
   background: var(--akds-color-surface-default) !important;
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-radio__indicator,
+  .akds-radio__indicator::after,
+  .akds-radio__dot {
+    transition: none;
+  }
+}

@@ -129,3 +129,15 @@
   color: var(--akds-color-text-primary-default);
   line-height: var(--akds-font-line-height-normal);
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-dialog {
+    animation: none;
+  }
+
+  .akds-dialog__close,
+  .akds-dialog__close::after {
+    transition: none;
+  }
+}
