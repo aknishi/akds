@@ -133,3 +133,11 @@
   border-color: var(--akds-color-border-default-default) !important;
   background: var(--akds-color-surface-default) !important;
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-checkbox__indicator,
+  .akds-checkbox__indicator::after {
+    transition: none;
+  }
+}

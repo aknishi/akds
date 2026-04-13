@@ -29,3 +29,10 @@
 .akds-ripple-base--ondark .akds-ripple-base--ripple {
   background: var(--akds-color-interaction-pressed-ondark-overlay);
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-ripple-base--ripple {
+    animation: none;
+  }
+}

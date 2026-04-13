@@ -44,3 +44,11 @@
 .akds-menu--closing {
   animation: akds-menu-out 120ms ease forwards;
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-menu,
+  .akds-menu--closing {
+    animation: none;
+  }
+}

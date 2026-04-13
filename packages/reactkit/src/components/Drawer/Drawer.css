@@ -221,3 +221,29 @@
   color: var(--akds-color-text-primary-default);
   line-height: var(--akds-font-line-height-normal);
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+/*
+ * Use animation-duration: 0.01ms rather than animation: none so that the
+ * animationend event still fires. Drawer.tsx listens for animationend on the
+ * closing animation to unmount the panel — suppressing the event entirely
+ * would leave the drawer stuck in its closing state.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .akds-drawer--left,
+  .akds-drawer--right,
+  .akds-drawer--top,
+  .akds-drawer--bottom,
+  .akds-drawer--closing.akds-drawer--left,
+  .akds-drawer--closing.akds-drawer--right,
+  .akds-drawer--closing.akds-drawer--top,
+  .akds-drawer--closing.akds-drawer--bottom {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+
+  .akds-drawer__close,
+  .akds-drawer__close::after {
+    transition: none;
+  }
+}

@@ -122,3 +122,27 @@
 .akds-tooltip--hiding.akds-tooltip--right {
   animation: akds-tooltip-out-right 160ms ease-in forwards;
 }
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+/*
+ * The base .akds-tooltip has opacity: 0. Normally the keyframe animation's
+ * `forwards` fill mode sets opacity: 1 when visible. With animation: none the
+ * fill never applies, so we must set opacity explicitly for each state.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .akds-tooltip--visible.akds-tooltip--top,
+  .akds-tooltip--visible.akds-tooltip--bottom,
+  .akds-tooltip--visible.akds-tooltip--left,
+  .akds-tooltip--visible.akds-tooltip--right {
+    animation: none;
+    opacity: 1;
+  }
+
+  .akds-tooltip--hiding.akds-tooltip--top,
+  .akds-tooltip--hiding.akds-tooltip--bottom,
+  .akds-tooltip--hiding.akds-tooltip--left,
+  .akds-tooltip--hiding.akds-tooltip--right {
+    animation: none;
+    opacity: 0;
+  }
+}
