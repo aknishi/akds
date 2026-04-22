@@ -1,5 +1,11 @@
 # @aknishi/akds-reactkit
 
+## 1.0.2
+
+### Patch Changes
+
+- Enable tree-shaking via ESM code splitting and per-component subpath exports
+
 ## 1.0.1
 
 ### Patch Changes

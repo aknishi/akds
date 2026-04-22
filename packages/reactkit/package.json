@@ -1,17 +1,22 @@
 {
   "name": "@aknishi/akds-reactkit",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/akds-reactkit.d.ts",
-      "import": "./dist/akds-reactkit.js",
-      "require": "./dist/akds-reactkit.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./components/*": {
+      "types": "./dist/components/*/index.d.ts",
+      "import": "./dist/components/*/index.js",
+      "require": "./dist/components/*/index.cjs"
     }
   },
-  "main": "./dist/akds-reactkit.cjs",
-  "module": "./dist/akds-reactkit.js",
-  "types": "./dist/akds-reactkit.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
