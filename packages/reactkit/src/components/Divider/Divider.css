@@ -1,0 +1,54 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-divider {
+  border: none;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* ── Variants ───────────────────────────────────────────────────────────── */
+.akds-divider--solid  { --akds-divider-line-style: solid; }
+.akds-divider--dashed { --akds-divider-line-style: dashed; }
+.akds-divider--dotted { --akds-divider-line-style: dotted; }
+
+/* ── Horizontal ─────────────────────────────────────────────────────────── */
+.akds-divider--horizontal {
+  display: block;
+  width: 100%;
+  border-top-width: 1px;
+  border-top-style: var(--akds-divider-line-style, solid);
+  border-top-color: var(--akds-color-border-default-default);
+}
+
+/* ── Vertical ───────────────────────────────────────────────────────────── */
+.akds-divider--vertical {
+  display: inline-block;
+  height: 100%;
+  align-self: stretch;
+  border-left-width: 1px;
+  border-left-style: var(--akds-divider-line-style, solid);
+  border-left-color: var(--akds-color-border-default-default);
+}
+
+/* ── Labeled ────────────────────────────────────────────────────────────── */
+.akds-divider--labeled {
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-scale-03);
+  border: none;
+  width: 100%;
+}
+
+.akds-divider--labeled .akds-divider__line {
+  flex: 1;
+  border-top-width: 1px;
+  border-top-style: var(--akds-divider-line-style, solid);
+  border-top-color: var(--akds-color-border-default-default);
+}
+
+.akds-divider__label-text {
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  color: var(--akds-color-text-secondary-default);
+  white-space: nowrap;
+}

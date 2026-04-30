@@ -1,0 +1,136 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-scale-02);
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-primary-default);
+  line-height: var(--akds-font-line-height-normal);
+}
+
+.akds-switch__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.akds-switch__track {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  border-radius: var(--akds-radius-full);
+  background: var(--akds-color-border-default-default);
+  transition: background 150ms ease;
+  box-sizing: border-box;
+}
+
+.akds-switch__thumb {
+  position: absolute;
+  border-radius: var(--akds-radius-full);
+  background: var(--akds-color-surface-default);
+  box-shadow: var(--akds-elevation-xs);
+  transition: transform 150ms ease, width 100ms ease;
+}
+
+/* Hover overlay */
+.akds-switch__track::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-switch:hover:not(.akds-switch--disabled) .akds-switch__track::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+/* Focus */
+.akds-switch__input:focus-visible ~ .akds-switch__track {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Checked ────────────────────────────────────────────────────────────── */
+.akds-switch__input:checked ~ .akds-switch__track {
+  background: var(--akds-color-background-primary-default);
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────── */
+.akds-switch--sm {
+  font-size: var(--akds-font-size-sm);
+}
+
+.akds-switch--sm .akds-switch__track {
+  width: 28px;
+  height: 16px;
+  padding: 2px;
+}
+
+.akds-switch--sm .akds-switch__thumb {
+  width: 12px;
+  height: 12px;
+}
+
+.akds-switch--sm .akds-switch__input:checked ~ .akds-switch__track .akds-switch__thumb {
+  transform: translateX(12px);
+}
+
+.akds-switch--md .akds-switch__track {
+  width: 36px;
+  height: 20px;
+  padding: 2px;
+}
+
+.akds-switch--md .akds-switch__thumb {
+  width: 16px;
+  height: 16px;
+}
+
+.akds-switch--md .akds-switch__input:checked ~ .akds-switch__track .akds-switch__thumb {
+  transform: translateX(16px);
+}
+
+.akds-switch--lg {
+  font-size: var(--akds-font-size-lg);
+}
+
+.akds-switch--lg .akds-switch__track {
+  width: 44px;
+  height: 24px;
+  padding: 2px;
+}
+
+.akds-switch--lg .akds-switch__thumb {
+  width: 20px;
+  height: 20px;
+}
+
+.akds-switch--lg .akds-switch__input:checked ~ .akds-switch__track .akds-switch__thumb {
+  transform: translateX(20px);
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-switch--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-switch__track,
+  .akds-switch__thumb,
+  .akds-switch__track::after {
+    transition: none;
+  }
+}

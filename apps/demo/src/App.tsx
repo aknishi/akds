@@ -15,9 +15,14 @@ import {
   ProgressTrackerStep,
   ThemeProvider,
   useTheme,
+  Switch,
+  Tag,
+  Divider,
+  Avatar,
 } from '@aknishi/akds-reactkit';
 import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme } from '@aknishi/akds-reactkit';
 import './App.css';
+import AccessibleCarousel from './AccessibleCarousel';
 
 const appearances: ButtonAppearance[] = ['solid', 'transparent', 'bordered'];
 const emphases: ButtonEmphasis[] = ['accented', 'neutral', 'success', 'destructive'];
@@ -55,6 +60,8 @@ function AppContent() {
       </div>
 
       <hr className="demo-divider" />
+
+      <AccessibleCarousel />
 
       {/* Button section */}
       <section className="demo-section">
@@ -251,6 +258,141 @@ function AppContent() {
         <h2 className="demo-section__heading">ProgressTracker</h2>
         <ProgressTrackerDemo />
       </section>
+
+      <hr className="demo-divider" />
+
+      {/* Switch section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Switch</h2>
+
+        <p className="demo-label-heading">Sizes</p>
+        <div className="demo-row">
+          <span className="demo-row__label">sm</span>
+          <Switch label="Small" size="sm" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">md</span>
+          <Switch label="Medium" size="md" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">lg</span>
+          <Switch label="Large" size="lg" />
+        </div>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">off</span>
+          <Switch label="Dark mode" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">on</span>
+          <Switch label="Dark mode" defaultChecked />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <Switch label="Disabled off" disabled />
+          <Switch label="Disabled on" disabled defaultChecked />
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Tag section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Tag</h2>
+
+        <p className="demo-label-heading">Variants</p>
+        <div className="demo-row">
+          <Tag variant="default">Default</Tag>
+          <Tag variant="info">Info</Tag>
+          <Tag variant="success">Success</Tag>
+          <Tag variant="warning">Warning</Tag>
+          <Tag variant="error">Error</Tag>
+        </div>
+
+        <p className="demo-label-heading">Sizes</p>
+        <div className="demo-row" style={{ alignItems: 'center' }}>
+          <span className="demo-row__label">sizes</span>
+          <Tag size="sm">Small</Tag>
+          <Tag size="md">Medium</Tag>
+          <Tag size="lg">Large</Tag>
+        </div>
+
+        <p className="demo-label-heading">Dismissible</p>
+        <div className="demo-row">
+          <span className="demo-row__label">removable</span>
+          <TagDismissDemo />
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Avatar section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Avatar</h2>
+
+        <p className="demo-label-heading">Image</p>
+        <div className="demo-row">
+          <Avatar src="https://i.pravatar.cc/150?img=3" alt="Jane Smith" />
+          <Avatar src="https://i.pravatar.cc/150?img=12" alt="Carlos Rivera" />
+        </div>
+
+        <p className="demo-label-heading">Initials</p>
+        <div className="demo-row">
+          <Avatar name="Adrian Kawanishi" />
+          <Avatar name="Jane Smith" />
+          <Avatar name="Carlos Rivera" />
+          <Avatar name="Mary Jane Watson" />
+          <Avatar name="Priya Patel" />
+        </div>
+
+        <p className="demo-label-heading">Icon fallback</p>
+        <div className="demo-row">
+          <Avatar />
+        </div>
+
+        <p className="demo-label-heading">Sizes</p>
+        <div className="demo-row" style={{ alignItems: 'center' }}>
+          <Avatar name="Adrian Kawanishi" size="sm" />
+          <Avatar name="Adrian Kawanishi" size="md" />
+          <Avatar name="Adrian Kawanishi" size="lg" />
+          <Avatar name="Adrian Kawanishi" size="xl" />
+        </div>
+
+        <p className="demo-label-heading">Color override</p>
+        <div className="demo-row">
+          <Avatar name="X" color="blue" />
+          <Avatar name="X" color="green" />
+          <Avatar name="X" color="purple" />
+          <Avatar name="X" color="orange" />
+          <Avatar name="X" color="red" />
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Divider section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Divider</h2>
+
+        <p className="demo-label-heading">Variants</p>
+        <Divider variant="solid" />
+        <Divider variant="dashed" />
+        <Divider variant="dotted" />
+
+        <p className="demo-label-heading">Labeled</p>
+        <Divider label="or" />
+        <Divider label="Section" variant="dashed" />
+
+        <p className="demo-label-heading">Vertical</p>
+        <div className="demo-row" style={{ alignItems: 'center', height: '32px' }}>
+          <span>Left</span>
+          <Divider orientation="vertical" />
+          <span>Right</span>
+          <Divider orientation="vertical" variant="dashed" />
+          <span>End</span>
+        </div>
+      </section>
     </div>
   );
 }
@@ -360,6 +502,23 @@ function DrawerDemo() {
       <Drawer open={open} onClose={() => setOpen(false)} side={side} title="Drawer">
         <p>Slide-in from {side}. Press Escape or click outside to close.</p>
       </Drawer>
+    </>
+  );
+}
+
+function TagDismissDemo() {
+  const [tags, setTags] = React.useState(['React', 'TypeScript', 'Design system']);
+  return (
+    <>
+      {tags.map(tag => (
+        <Tag
+          key={tag}
+          onDismiss={() => setTags(prev => prev.filter(t => t !== tag))}
+          dismissLabel={`Remove ${tag}`}
+        >
+          {tag}
+        </Tag>
+      ))}
     </>
   );
 }

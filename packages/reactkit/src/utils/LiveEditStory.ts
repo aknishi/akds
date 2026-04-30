@@ -1,6 +1,7 @@
 import { StoryState, makeLiveEditStory } from 'storybook-addon-code-editor';
 import React from 'react';
 import * as ReactKit from '..';
+import * as AkdsIcons from '@aknishi/akds-icons';
 
 export interface LiveEditStoryState extends StoryState {
   component?:
@@ -23,6 +24,7 @@ export function LiveEditStory({ component, availableImports, ...rest }: LiveEdit
       availableImports: {
         'react': React,
         '@aknishi/akds-reactkit': ReactKit,
+        '@aknishi/akds-icons': AkdsIcons,
         ...availableImports,
       },
   });

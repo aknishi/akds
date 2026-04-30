@@ -1,0 +1,46 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+> **Available from v1.0.2**
+
+Displays a user's identity as an image, initials, or icon. Falls back through each variant in order: image → initials → provided icon → default person icon. Initials are derived from the first and last name (up to 3 characters) and a color is deterministically assigned from the name so the same person always gets the same color.
+
+## Usage
+
+```tsx
+import { Avatar } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={AvatarStories} />
+
+## Examples
+
+### Image
+
+<Canvas of={AvatarStories.Image} />
+
+### Initials
+
+<Canvas of={AvatarStories.Initials} />
+
+### Custom icon
+
+<Canvas of={AvatarStories.Icon} />
+
+### Fallback icon
+
+<Canvas of={AvatarStories.FallbackIcon} />
+
+### Sizes
+
+<Canvas of={AvatarStories.Sizes} />
+
+### Colors
+
+<Canvas of={AvatarStories.Colors} />

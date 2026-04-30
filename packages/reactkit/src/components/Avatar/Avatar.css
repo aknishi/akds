@@ -1,0 +1,80 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--akds-radius-full);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--akds-color-background-neutral-default);
+  color: var(--akds-color-text-primary-default);
+  font-family: var(--akds-font-family-sans);
+  font-weight: var(--akds-font-weight-semibold);
+  user-select: none;
+}
+
+.akds-avatar__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.akds-avatar__initials,
+.akds-avatar__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────── */
+.akds-avatar--sm {
+  width: var(--akds-size-component-sm);
+  height: var(--akds-size-component-sm);
+  font-size: var(--akds-font-size-xs);
+}
+
+.akds-avatar--md {
+  width: var(--akds-size-component-md);
+  height: var(--akds-size-component-md);
+  font-size: var(--akds-font-size-sm);
+}
+
+.akds-avatar--lg {
+  width: var(--akds-size-component-lg);
+  height: var(--akds-size-component-lg);
+  font-size: var(--akds-font-size-md);
+}
+
+.akds-avatar--xl {
+  width: var(--akds-size-component-xl);
+  height: var(--akds-size-component-xl);
+  font-size: var(--akds-font-size-lg);
+}
+
+/* ── Color variants ─────────────────────────────────────────────────────── */
+.akds-avatar--blue {
+  background: var(--akds-color-background-primary-default);
+  color: var(--akds-color-text-on-primary-default);
+}
+
+.akds-avatar--green {
+  background: var(--akds-color-background-success-default);
+  color: var(--akds-color-text-on-primary-default);
+}
+
+.akds-avatar--purple {
+  background: var(--akds-primitive-color-purple-600);
+  color: var(--akds-primitive-color-white);
+}
+
+.akds-avatar--orange {
+  background: var(--akds-primitive-color-orange-500);
+  color: var(--akds-primitive-color-white);
+}
+
+.akds-avatar--red {
+  background: var(--akds-color-background-error-default);
+  color: var(--akds-color-text-on-primary-default);
+}
