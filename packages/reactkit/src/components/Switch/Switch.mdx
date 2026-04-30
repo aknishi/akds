@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+> **Available from v1.0.2**
+
+A toggle control for binary on/off settings. Renders an `<input type="checkbox" role="switch">` inside a styled track-and-thumb layout. Supports controlled and uncontrolled usage.
+
+## Usage
+
+```tsx
+import { Switch } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={SwitchStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={SwitchStories.Default} />
+
+### Sizes
+
+<Canvas of={SwitchStories.Sizes} />
+
+### States
+
+<Canvas of={SwitchStories.States} />
+
+### Controlled
+
+<Canvas of={SwitchStories.Controlled} />

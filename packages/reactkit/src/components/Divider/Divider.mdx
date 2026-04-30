@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DividerStories from './Divider.stories';
+
+<Meta of={DividerStories} />
+
+# Divider
+
+> **Available from v1.0.2**
+
+A visual separator between sections of content. Renders a semantic `<hr>` for plain dividers, or a `<div role="separator">` when a text label is provided. Supports horizontal and vertical orientations with solid, dashed, and dotted line styles.
+
+## Usage
+
+```tsx
+import { Divider } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={DividerStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={DividerStories.Default} />
+
+### Variants
+
+<Canvas of={DividerStories.Variants} />
+
+### Labeled
+
+<Canvas of={DividerStories.Labeled} />
+
+### Vertical
+
+<Canvas of={DividerStories.Vertical} />

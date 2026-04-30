@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TagStories from './Tag.stories';
+
+<Meta of={TagStories} />
+
+# Tag
+
+> **Available from v1.0.2**
+
+A compact label used to categorise or annotate content. Supports five semantic variants, three sizes, and an optional dismiss button for removable tags.
+
+## Usage
+
+```tsx
+import { Tag } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TagStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={TagStories.Default} />
+
+### Variants
+
+<Canvas of={TagStories.Variants} />
+
+### Sizes
+
+<Canvas of={TagStories.Sizes} />
+
+### Dismissible
+
+<Canvas of={TagStories.Dismissible} />

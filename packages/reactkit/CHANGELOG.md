@@ -1,5 +1,13 @@
 # @aknishi/akds-reactkit
 
+## 1.1.0
+
+### Minor Changes
+
+- b763b01: Add Avatar
+- Add Switch, Tag, Divider, and Avatar components
+- b763b01: Add Switch, Divider, and Tag
+
 ## 1.0.2
 
 ### Patch Changes

@@ -66,3 +66,15 @@ export type { ProgressTrackerStepProps, ProgressTrackerStepStatus } from './comp
 
 export { ThemeProvider, useTheme, ThemeContext } from './components/ThemeProvider/index.js';
 export type { ThemeProviderProps, Theme, ThemeContextValue } from './components/ThemeProvider/index.js';
+
+export { Avatar } from './components/Avatar/index.js';
+export type { AvatarProps, AvatarSize, AvatarColor } from './components/Avatar/index.js';
+
+export { Switch } from './components/Switch/index.js';
+export type { SwitchProps, SwitchSize } from './components/Switch/index.js';
+
+export { Tag } from './components/Tag/index.js';
+export type { TagProps, TagVariant, TagSize } from './components/Tag/index.js';
+
+export { Divider } from './components/Divider/index.js';
+export type { DividerProps, DividerOrientation, DividerVariant } from './components/Divider/index.js';
