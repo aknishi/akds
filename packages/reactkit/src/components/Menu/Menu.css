@@ -21,6 +21,28 @@
   }
 }
 
+@keyframes akds-menu-in-top {
+  from {
+    opacity: 0;
+    transform: translateY(0) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-6px) scale(1);
+  }
+}
+
+@keyframes akds-menu-out-top {
+  from {
+    opacity: 1;
+    transform: translateY(-6px) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0) scale(0.97);
+  }
+}
+
 /* ── Base ──────────────────────────────────────────────────────────────── */
 .akds-menu {
   display: flex;
@@ -38,11 +60,20 @@
   box-sizing: border-box;
   outline: none;
   transform-origin: top center;
-  animation: akds-menu-in 150ms ease forwards;
+  animation: akds-menu-in 150ms ease-out forwards;
 }
 
 .akds-menu--closing {
-  animation: akds-menu-out 120ms ease forwards;
+  animation: akds-menu-out 120ms ease-in forwards;
+}
+
+/* ── Top placement ─────────────────────────────────────────────────────── */
+.akds-menu--top {
+  animation-name: akds-menu-in-top;
+}
+
+.akds-menu--top.akds-menu--closing {
+  animation-name: akds-menu-out-top;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

@@ -16,7 +16,7 @@ function calcPosition(
   trigger: HTMLElement,
   menu: HTMLElement,
   placement: MenuPlacement,
-): { top: number; left: number } {
+): { top: number; left: number; vertical: 'top' | 'bottom' } {
   const tr = trigger.getBoundingClientRect();
   const mh = menu.getBoundingClientRect().height;
 
@@ -30,7 +30,7 @@ function calcPosition(
   const top = vertical === 'bottom' ? tr.bottom + GAP : tr.top - mh - GAP;
   const left = horizontal === 'left' ? tr.left : tr.right - menu.getBoundingClientRect().width;
 
-  return { top, left };
+  return { top, left, vertical };
 }
 
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
@@ -50,6 +50,9 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   ) {
     const menuRef = React.useRef<HTMLUListElement>(null);
     const [pos, setPos] = React.useState<{ top: number; left: number } | null>(null);
+    const [vertical, setVertical] = React.useState<'top' | 'bottom'>(
+      placement.startsWith('top') ? 'top' : 'bottom',
+    );
     const [mounted, setMounted] = React.useState(open);
     const [closing, setClosing] = React.useState(false);
     const focusedOnOpenRef = React.useRef(false);
@@ -91,6 +94,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       if (!triggerRef?.current || !menuRef.current) return;
       const next = calcPosition(triggerRef.current, menuRef.current, placement);
       setPos(prev => (prev?.top === next.top && prev?.left === next.left ? prev : next));
+      setVertical(next.vertical);
     }, [triggerRef, placement]);
 
     // Calculate position once the menu is mounted in the DOM
@@ -98,6 +102,13 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       if (!mounted || !open || !triggerRef?.current || !menuRef.current) return;
       updatePosition();
     }, [mounted, open, updatePosition]);
+
+    // Inline (non-portal) menus have no viewport-based flip — vertical side
+    // always matches the placement prop directly.
+    React.useEffect(() => {
+      if (triggerRef) return;
+      setVertical(placement.startsWith('top') ? 'top' : 'bottom');
+    }, [triggerRef, placement]);
 
     // Set aria-expanded and aria-controls on the trigger element
     React.useEffect(() => {
@@ -212,7 +223,11 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
           ref={menuRef}
           role="menu"
           id={menuId}
-          className={clsx(withBaseName(), { [withBaseName('closing')]: closing }, className)}
+          className={clsx(
+            withBaseName(),
+            { [withBaseName('closing')]: closing, [withBaseName('top')]: vertical === 'top' },
+            className,
+          )}
           style={
             triggerRef
               ? {
