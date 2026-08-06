@@ -77,47 +77,10 @@
 }
 
 /* ── Close button ──────────────────────────────────────────────────────── */
+/* Pushes the close IconButton to the header's trailing edge when no title
+   is rendered — .akds-dialog__header alone only centers a lone flex child. */
 .akds-dialog__close {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: var(--akds-size-component-sm);
-  height: var(--akds-size-component-sm);
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: var(--akds-radius-md);
-  color: var(--akds-color-icon-secondary-default);
-  cursor: pointer;
-  outline: none;
-  transition: color 150ms ease;
   margin-left: auto;
-}
-
-.akds-dialog__close svg {
-  width: var(--akds-size-icon-md);
-  height: var(--akds-size-icon-md);
-}
-
-.akds-dialog__close:focus-visible {
-  outline: var(--akds-outline-focus);
-  outline-offset: var(--akds-outline-focus-offset);
-}
-
-.akds-dialog__close::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: transparent;
-  pointer-events: none;
-  transition: background 150ms ease;
-}
-
-.akds-dialog__close:hover::after {
-  background: var(--akds-color-interaction-hover-overlay);
 }
 
 /* ── Body ──────────────────────────────────────────────────────────────── */
@@ -134,10 +97,5 @@
 @media (prefers-reduced-motion: reduce) {
   .akds-dialog {
     animation: none;
-  }
-
-  .akds-dialog__close,
-  .akds-dialog__close::after {
-    transition: none;
   }
 }

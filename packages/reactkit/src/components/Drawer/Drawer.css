@@ -168,47 +168,10 @@
 }
 
 /* ── Close button ──────────────────────────────────────────────────────── */
+/* Pushes the close IconButton to the header's trailing edge when no title
+   is rendered — .akds-drawer__header alone only centers a lone flex child. */
 .akds-drawer__close {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: var(--akds-size-component-sm);
-  height: var(--akds-size-component-sm);
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: var(--akds-radius-md);
-  color: var(--akds-color-icon-secondary-default);
-  cursor: pointer;
-  outline: none;
-  transition: color 150ms ease;
   margin-left: auto;
-}
-
-.akds-drawer__close svg {
-  width: var(--akds-size-icon-md);
-  height: var(--akds-size-icon-md);
-}
-
-.akds-drawer__close:focus-visible {
-  outline: var(--akds-outline-focus);
-  outline-offset: var(--akds-outline-focus-offset);
-}
-
-.akds-drawer__close::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: transparent;
-  pointer-events: none;
-  transition: background 150ms ease;
-}
-
-.akds-drawer__close:hover::after {
-  background: var(--akds-color-interaction-hover-overlay);
 }
 
 /* ── Body ──────────────────────────────────────────────────────────────── */
@@ -240,10 +203,5 @@
   .akds-drawer--closing.akds-drawer--bottom {
     animation-duration: 0.01ms;
     animation-iteration-count: 1;
-  }
-
-  .akds-drawer__close,
-  .akds-drawer__close::after {
-    transition: none;
   }
 }
