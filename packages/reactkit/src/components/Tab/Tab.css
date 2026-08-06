@@ -1,0 +1,65 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--akds-spacing-scale-02);
+  padding-inline: var(--akds-spacing-scale-04);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-secondary-default);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border-bottom: 2px solid transparent;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.akds-tab:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+  border-radius: var(--akds-radius-sm);
+}
+
+/* Hover overlay */
+.akds-tab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-tab:hover:not(.akds-tab--disabled) {
+  /* background: var(--akds-color-interaction-hover-overlay); */
+  color: var(--akds-color-text-info-default);
+}
+
+/* ── Active ─────────────────────────────────────────────────────────────── */
+.akds-tab--active {
+  color: var(--akds-color-text-info-default);
+  font-weight: var(--akds-font-weight-small);
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-tab--disabled {
+  color: var(--akds-color-text-primary-disabled) !important;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-tab,
+  .akds-tab::after {
+    transition: none;
+  }
+}

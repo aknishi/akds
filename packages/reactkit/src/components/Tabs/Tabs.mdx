@@ -1,0 +1,36 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TabsStories from './Tabs.stories';
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+> **Available from v1.2.0**
+
+Organises content into switchable panels. Composed of `Tabs` (context provider), `TabList` (the `role="tablist"` wrapper with keyboard navigation), `Tab` (individual trigger buttons), and `TabPanel` (content panels).
+
+Supports both controlled and uncontrolled usage, disabled tabs, and full keyboard navigation (Arrow keys, Home, End).
+
+## Usage
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TabsStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={TabsStories.Default} />
+
+### Controlled
+
+<Canvas of={TabsStories.Controlled} />
+
+### With Disabled Tab
+
+<Canvas of={TabsStories.WithDisabledTab} />

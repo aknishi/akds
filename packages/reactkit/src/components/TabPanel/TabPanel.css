@@ -1,0 +1,15 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-tab-panel {
+  padding: var(--akds-spacing-scale-04);
+  color: var(--akds-color-text-primary-default);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.akds-tab-panel:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+  border-radius: var(--akds-radius-sm);
+}

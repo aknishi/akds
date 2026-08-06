@@ -1,0 +1,26 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-tab-list {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  border-bottom: 1px solid var(--akds-color-border-default-default);
+  box-sizing: border-box;
+}
+
+/* ── Indicator ─────────────────────────────────────────────────────────── */
+.akds-tab-list__indicator {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--akds-color-border-primary-default);
+  transition: transform 200ms ease, width 200ms ease;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akds-tab-list__indicator {
+    transition: none;
+  }
+}
