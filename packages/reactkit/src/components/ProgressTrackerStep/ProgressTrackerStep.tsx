@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import './ProgressTrackerStep.css';
 import type { ProgressTrackerStepProps } from './ProgressTrackerStep.types';
 import { ProgressTrackerStepContext } from './ProgressTrackerStepContext';
+import { ParticleBurst } from '../ParticleBurst';
+import type { ParticleBurstHandle } from '../ParticleBurst';
 import { CheckCircleFilledIcon, WarningFilledIcon, WarningIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils';
 
@@ -14,6 +16,7 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
       label,
       status = 'inactive',
       active = false,
+      celebrateOnComplete = false,
       _stepIndex = 0,
       className,
       ...rest
@@ -28,6 +31,20 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
     const showError = resolvedStatus === 'error';
     const showWarning = resolvedStatus === 'warning';
     const showDot = resolvedStatus === 'active';
+
+    const particleBurstRef = React.useRef<ParticleBurstHandle>(null);
+    const prevStatusRef = React.useRef(resolvedStatus);
+    const prefersReducedMotion =
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    React.useEffect(() => {
+      if (celebrateOnComplete && resolvedStatus === 'complete' && prevStatusRef.current !== 'complete') {
+        particleBurstRef.current?.trigger();
+      }
+      prevStatusRef.current = resolvedStatus;
+    }, [celebrateOnComplete, resolvedStatus]);
 
     return (
       <li
@@ -53,6 +70,13 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
               <CheckCircleFilledIcon
                 className="akds-progress-tracker-step__check-icon"
                 color="success"
+              />
+            )}
+            {showCheck && celebrateOnComplete && !prefersReducedMotion && (
+              <ParticleBurst
+                ref={particleBurstRef}
+                color="var(--akds-color-background-success-default)"
+                spacingFromCenter="10px"
               />
             )}
             {showDot && <div className="akds-progress-tracker-step__dot" />}
