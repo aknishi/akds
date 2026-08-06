@@ -1,0 +1,98 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-accordion-item {
+  border-bottom: 1px solid var(--akds-color-border-default-default);
+  box-sizing: border-box;
+}
+
+.akds-accordion-item__heading {
+  margin: 0;
+  padding: 0;
+}
+
+.akds-accordion-item__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--akds-spacing-scale-04);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-small);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-primary-default);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  text-align: left;
+  box-sizing: border-box;
+  transition: color 150ms ease;
+}
+
+.akds-accordion-item__trigger:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+  border-radius: var(--akds-radius-sm);
+}
+
+/* Hover overlay */
+.akds-accordion-item__trigger::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-accordion-item:not(.akds-accordion-item--disabled) .akds-accordion-item__trigger:hover::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+.akds-accordion-item__title {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Icon ─────────────────────────────────────────────────────────────── */
+.akds-accordion-item__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--akds-color-icon-secondary-default);
+  transition: transform 200ms ease;
+}
+
+.akds-accordion-item--expanded .akds-accordion-item__icon {
+  transform: rotate(180deg);
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
+.akds-accordion-item__panel {
+  overflow: hidden;
+}
+
+.akds-accordion-item__panel-inner {
+  padding: 0 var(--akds-spacing-scale-04) var(--akds-spacing-scale-04);
+  color: var(--akds-color-text-secondary-default);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-accordion-item--disabled .akds-accordion-item__trigger {
+  color: var(--akds-color-text-primary-disabled) !important;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-accordion-item__trigger::after,
+  .akds-accordion-item__icon {
+    transition: none;
+  }
+}
