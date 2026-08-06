@@ -113,7 +113,7 @@
 }
 
 .akds-dropdown-menu__label--floating {
-  top: var(--akds-spacing-scale-01);
+  top: var(--akds-spacing-scale-02);
   transform: translateY(0) scale(0.75);
   font-size: var(--akds-font-size-xs);
   color: var(--akds-color-text-secondary-default);
