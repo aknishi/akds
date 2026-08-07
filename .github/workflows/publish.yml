@@ -16,6 +16,9 @@ jobs:
       packages: write
       pull-requests: write
 
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+
     steps:
       - uses: actions/checkout@v7.0.1
         with:
