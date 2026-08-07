@@ -101,7 +101,7 @@
 .akds-icon-button--bordered.akds-icon-button--neutral {
   background: transparent;
   color: var(--akds-color-text-primary-default);
-  box-shadow: inset 0 0 0 1.5px var(--akds-color-border-default-default);
+  box-shadow: inset 0 0 0 1.5px var(--akds-color-border-neutral-default);
 }
 
 .akds-icon-button--bordered.akds-icon-button--success {

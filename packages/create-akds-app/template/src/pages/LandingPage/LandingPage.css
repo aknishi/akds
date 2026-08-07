@@ -49,7 +49,6 @@
   width: 32px;
   height: 32px;
   color: var(--akds-color-text-info-default);
-  margin-bottom: var(--akds-spacing-100);
 }
 
 .feature-card__description {
@@ -67,7 +66,7 @@
   padding: var(--akds-spacing-layout-2xl) var(--akds-spacing-400);
   border-radius: var(--akds-radius-xl);
   background: var(--akds-color-surface-raised);
-  border: 1px solid var(--akds-color-border-default-default);
+  border: 1px solid var(--akds-color-border-neutral-default);
 }
 
 .landing__cta-strip-sub {

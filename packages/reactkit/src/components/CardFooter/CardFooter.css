@@ -9,5 +9,5 @@
 
 /* ── Divided ─────────────────────────────────────────────────────────────── */
 .akds-card-footer--divided {
-  border-top: 1px solid var(--akds-color-border-default-default);
+  border-top: 1px solid var(--akds-color-border-neutral-default);
 }

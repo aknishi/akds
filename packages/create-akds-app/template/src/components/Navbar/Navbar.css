@@ -6,7 +6,7 @@
   gap: var(--akds-spacing-layout-md);
   padding: var(--akds-spacing-150) var(--akds-spacing-400);
   background: var(--akds-color-surface-default);
-  border-bottom: 1px solid var(--akds-color-border-default-default);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -54,6 +54,6 @@
 }
 
 .navbar__link:focus-visible {
-  outline: 2px solid var(--akds-color-border-default-focus);
+  outline: 2px solid var(--akds-color-border-neutral-focus);
   outline-offset: 2px;
 }

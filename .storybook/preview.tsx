@@ -13,7 +13,7 @@ function ThemeWrapper({ children }: { children: React.ReactNode }) {
         style={{
           padding: '2rem',
           background: isDark ? 'black' : 'white',
-          minHeight: isDark ? '100vh' : 'unset',
+          minHeight: 'unset',
         }}
       >
         {children}
@@ -37,17 +37,17 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
           }
           td, th {
             color: var(--akds-color-text-primary-default) !important;
-            border-color: var(--akds-color-border-default-default) !important;
+            border-color: var(--akds-color-border-neutral-default) !important;
             background: transparent !important;
           }
           tr:nth-child(even) td {
             background: var(--akds-color-surface-sunken) !important;
           }
           table {
-            border-color: var(--akds-color-border-default-default) !important;
+            border-color: var(--akds-color-border-neutral-default) !important;
           }
           hr {
-            border-color: var(--akds-color-border-default-default) !important;
+            border-color: var(--akds-color-border-neutral-default) !important;
           }
           code {
             color: var(--akds-color-text-secondary-default) !important;

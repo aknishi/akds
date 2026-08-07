@@ -32,7 +32,7 @@ export const cssVars = {
       placeholder:  { default: 'var(--akds-color-text-placeholder-default)'  },
     },
     border: {
-      default: { default: 'var(--akds-color-border-default-default)', hover: 'var(--akds-color-border-default-hover)', focus: 'var(--akds-color-border-default-focus)' },
+      neutral: { default: 'var(--akds-color-border-neutral-default)', hover: 'var(--akds-color-border-neutral-hover)', focus: 'var(--akds-color-border-neutral-focus)' },
       error:   { default: 'var(--akds-color-border-error-default)'   },
       success: { default: 'var(--akds-color-border-success-default)' },
       primary: { default: 'var(--akds-color-border-primary-default)', hover: 'var(--akds-color-border-primary-hover)' },

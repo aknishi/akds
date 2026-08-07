@@ -29,7 +29,7 @@
 
 .demo-divider {
   border: none;
-  border-top: 1px solid var(--akds-color-border-default-default);
+  border-top: 1px solid var(--akds-color-border-neutral-default);
   margin: 40px 0;
 }
 

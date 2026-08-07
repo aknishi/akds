@@ -153,7 +153,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--akds-spacing-200) var(--akds-spacing-300);
-  border-bottom: 1px solid var(--akds-color-border-default-default);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
   gap: var(--akds-spacing-150);
   flex-shrink: 0;
 }

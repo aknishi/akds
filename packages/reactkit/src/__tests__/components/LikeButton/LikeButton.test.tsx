@@ -61,7 +61,10 @@ describe('LikeButton', () => {
 
   it('is unliked by default and shows the outline icon', () => {
     const { container } = render(<LikeButton aria-label="Like">Like</LikeButton>);
-    expect(container.querySelector('svg')).not.toHaveAttribute('style');
+    expect(container.querySelector('svg')).toHaveAttribute(
+      'style',
+      expect.stringContaining('var(--akds-color-icon-neutral-default)'),
+    );
   });
 
   it('toggles the icon and calls onClick on click (uncontrolled)', async () => {
@@ -74,11 +77,17 @@ describe('LikeButton', () => {
     const btn = screen.getByRole('button');
 
     await userEvent.click(btn);
-    expect(container.querySelector('svg')).toHaveAttribute('style', expect.stringContaining('color'));
+    expect(container.querySelector('svg')).toHaveAttribute(
+      'style',
+      expect.stringContaining('var(--akds-color-icon-error-default)'),
+    );
     expect(onClick).toHaveBeenCalledTimes(1);
 
     await userEvent.click(btn);
-    expect(container.querySelector('svg')).not.toHaveAttribute('style');
+    expect(container.querySelector('svg')).toHaveAttribute(
+      'style',
+      expect.stringContaining('var(--akds-color-icon-neutral-default)'),
+    );
     expect(onClick).toHaveBeenCalledTimes(2);
   });
 
@@ -91,10 +100,16 @@ describe('LikeButton', () => {
 
   it('respects the controlled liked prop', () => {
     const { container, rerender } = render(<LikeButton liked={false} aria-label="Like">Like</LikeButton>);
-    expect(container.querySelector('svg')).not.toHaveAttribute('style');
+    expect(container.querySelector('svg')).toHaveAttribute(
+      'style',
+      expect.stringContaining('var(--akds-color-icon-neutral-default)'),
+    );
 
     rerender(<LikeButton liked aria-label="Like">Like</LikeButton>);
-    expect(container.querySelector('svg')).toHaveAttribute('style', expect.stringContaining('color'));
+    expect(container.querySelector('svg')).toHaveAttribute(
+      'style',
+      expect.stringContaining('var(--akds-color-icon-error-default)'),
+    );
   });
 
   it('spawns a particle burst when liked but not when unliked', async () => {

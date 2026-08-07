@@ -11,7 +11,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid var(--akds-color-border-default-default);
+  border: 1px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-md);
   background: var(--akds-color-surface-default);
   transition: border-color 150ms ease, box-shadow 150ms ease;
@@ -20,11 +20,11 @@
 }
 
 .akds-text-input__control:focus-within{
-  border-color: var(--akds-color-border-default-focus);
+  border-color: var(--akds-color-border-neutral-focus);
 }
 
 .akds-text-input__control--keyboard-focus {
-  border-color: var(--akds-color-border-default-focus);
+  border-color: var(--akds-color-border-neutral-focus);
   outline: var(--akds-outline-focus);
   outline-offset: var(--akds-outline-focus-offset);
 }
@@ -118,7 +118,7 @@
 .akds-text-input--disabled .akds-text-input__control {
   cursor: not-allowed;
   opacity: 0.5;
-  border-color: var(--akds-color-border-default-default) !important;
+  border-color: var(--akds-color-border-neutral-default) !important;
   outline: none !important;
 }
 

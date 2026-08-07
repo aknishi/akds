@@ -33,7 +33,7 @@
   box-sizing: border-box;
   flex-shrink: 0;
   background: var(--akds-color-surface-default);
-  border: 1.5px solid var(--akds-color-border-default-default);
+  border: 1.5px solid var(--akds-color-border-neutral-default);
   color: transparent;
   transition: background 200ms ease, border-color 200ms ease;
 }

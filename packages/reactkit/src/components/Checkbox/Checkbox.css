@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--akds-color-border-default-default);
+  border: 2px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-xs);
   background: var(--akds-color-surface-default);
   transition: background 150ms ease, border-color 150ms ease;
@@ -130,7 +130,7 @@
 }
 
 .akds-checkbox--disabled .akds-checkbox__indicator {
-  border-color: var(--akds-color-border-default-default) !important;
+  border-color: var(--akds-color-border-neutral-default) !important;
   background: var(--akds-color-surface-default) !important;
 }
 

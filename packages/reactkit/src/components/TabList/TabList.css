@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: row;
   gap: 0;
-  border-bottom: 1px solid var(--akds-color-border-default-default);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
   box-sizing: border-box;
 }
 

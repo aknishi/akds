@@ -5,7 +5,7 @@ import { SIZE_MAP, COLOR_MAP } from '../types.js';
 export interface FilterIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token. Defaults to "default" (inherits currentColor). */
+  /** Applies a semantic color token. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
   color?: IconColor;
 }
 

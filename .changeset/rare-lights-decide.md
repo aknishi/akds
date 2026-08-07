@@ -1,6 +1,5 @@
 ---
 "@aknishi/akds-reactkit": minor
-"@aknishi/akds-tokens": minor
 ---
 
-Spacing token rename and refactor of tokens
+Refactor components with updated spacing and color tokens.

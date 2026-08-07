@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  color: var(--akds-color-text-primary-default);
   width: var(--akds-size-component-sm);
   height: var(--akds-size-component-sm);
   padding: 0;

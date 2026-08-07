@@ -14,5 +14,5 @@
 
 /* ── Divided ─────────────────────────────────────────────────────────────── */
 .akds-card-header--divided {
-  border-bottom: 1px solid var(--akds-color-border-default-default);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
 }

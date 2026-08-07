@@ -36,7 +36,7 @@
 .akds-tag--default {
   background: var(--akds-color-background-neutral-default);
   color: var(--akds-color-text-primary-default);
-  border-color: var(--akds-color-border-default-default);
+  border-color: var(--akds-color-border-neutral-default);
 }
 
 .akds-tag--info {
