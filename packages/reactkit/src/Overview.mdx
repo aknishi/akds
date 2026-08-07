@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Overview" />
+
+# akds
+
+**akds** is a React design system: themeable components, design tokens, and an icon set, built as a monorepo of four packages that are meant to be used together.
+
+---
+
+## Architecture
+
+The packages form a small dependency chain, each layer building on the one below it:
+
+```
+@aknishi/akds-tokens   → design tokens (color, spacing, typography, elevation, breakpoints)
+        ↓
+@aknishi/akds-reactkit → components, styled entirely from those tokens
+@aknishi/akds-icons    → standalone SVG icon components
+        ↓
+@aknishi/create-akds-app → scaffolds a new app pre-wired with all of the above
+```
+
+`akds-tokens` has no dependencies on the other packages — it's just CSS custom properties and matching JS/TS values. `akds-reactkit` and `akds-icons` both consume tokens but are otherwise independent of each other, so an app can use one without the other. `create-akds-app` depends on all three to produce a ready-to-run starter project.
+
+Two apps in this repo exist purely to consume the packages rather than ship their own component code: a full showcase (`apps/demo`) and a minimal manual-testing sandbox (`apps/playground`).
+
+---
+
+## Design principles
+
+- **Token-driven** — every color, spacing, radius, and shadow value in a component traces back to a design token. There are no hardcoded style values, which is what makes theming possible.
+- **Themeable by default** — components read semantic tokens that resolve differently per theme, so light/dark support isn't an afterthought bolted onto each component.
+- **Accessible by default** — semantic HTML, keyboard support, and ARIA attributes are part of a component's contract, not an opt-in.
+- **Tree-shakeable** — both components and icons are imported individually, so an app only pays (in bundle size and injected CSS) for what it actually uses.
+- **Non-breaking evolution** — the component API only grows. Existing props, defaults, and rendered output are never changed in a way that would require consumers to update working code.
+
+---
+
+## The libraries
+
+### `@aknishi/akds-reactkit`
+
+The component library — around 40 components covering inputs, overlays, navigation, feedback, and layout (`Button`, `TextInput`, `Dialog`, `Tabs`, `Combobox`, `Card`, and more). Every component is styled from design tokens and ships with light/dark support out of the box via `ThemeProvider`. Browse individual components under **Reactkit** in the sidebar.
+
+### `@aknishi/akds-tokens`
+
+The design token layer underneath everything else: color, spacing, typography, elevation, and breakpoint values, published both as CSS custom properties and as JS/TS values for use outside of CSS. Semantic tokens (role-based, theme-aware) sit on top of primitive scales, and components always consume the semantic layer. See **Tokens** in the sidebar for the full token reference.
+
+### `@aknishi/akds-icons`
+
+A set of inline SVG icon components generated from Google's Material Symbols (Rounded style), so icons ship as tree-shakeable React components rather than an icon font or CDN dependency. Each icon supports a size scale and semantic color props. Browse the full set under **Icons** in the sidebar.
+
+### `@aknishi/create-akds-app`
+
+A CLI that scaffolds a new TypeScript + React + Vite project pre-wired with `akds-reactkit`, `akds-tokens`, `akds-icons`, routing, and a light/dark theme toggle — so a new app starts from a working baseline instead of an empty one. See **create-akds-app** in the sidebar for what the generated template looks like.
+
+---
+
+## Where to go next
+
+- **Getting Started** — installation, `ThemeProvider` setup, and how to import components and icons.
+- **Theme Provider** — the theming API in depth: controlled vs. uncontrolled mode, `useTheme`.
+- **Tokens** — the full color, spacing, typography, elevation, and breakpoint reference.
+- **Reactkit** — every component, its props, and live examples.
+- **Icons** — the full icon set.
+- **create-akds-app** — the generated project template.
