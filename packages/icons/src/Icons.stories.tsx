@@ -201,7 +201,7 @@ const cellStyle: React.CSSProperties = {
   gap: '8px',
   padding: '12px 8px',
   borderRadius: '8px',
-  border: '1px solid var(--akds-color-border-default-default)',
+  border: '1px solid var(--akds-color-border-neutral-default)',
 };
 
 const labelStyle: React.CSSProperties = {

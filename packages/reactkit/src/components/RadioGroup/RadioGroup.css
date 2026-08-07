@@ -12,20 +12,20 @@
   font-size: var(--akds-font-size-sm);
   font-weight: var(--akds-font-weight-medium);
   color: var(--akds-color-text-secondary-default);
-  margin-bottom: var(--akds-spacing-scale-02);
+  margin-bottom: var(--akds-spacing-100);
   padding: 0;
 }
 
 /* ── Orientation ───────────────────────────────────────────────────────── */
 .akds-radio-group--vertical {
   flex-direction: column;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
 }
 
 .akds-radio-group--horizontal {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: var(--akds-spacing-scale-04);
+  gap: var(--akds-spacing-200);
 }
 
 /* ── Disabled ──────────────────────────────────────────────────────────── */

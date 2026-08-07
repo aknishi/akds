@@ -24,7 +24,8 @@ export interface RippleBaseProps {
   disabled?: boolean;
   /** Whether the ripple base is placed on a dark background. */
   onDark?: boolean;
-
+  /** Custom ripple color. Defaults to `var(--akds-color-interaction-pressed-overlay)` (or the on-dark equivalent when `onDark` is true). */
+  color?: string;
 }
 
 /**
@@ -41,7 +42,7 @@ export interface RippleBaseProps {
  * </button>
  */
 export const RippleBase = React.forwardRef<RippleBaseHandle, RippleBaseProps>(
-  function RippleBase({ disabled = false, onDark = false }, ref) {
+  function RippleBase({ disabled = false, onDark = false, color }, ref) {
     const containerRef = React.useRef<HTMLSpanElement>(null);
     const [ripples, setRipples] = React.useState<Ripple[]>([]);
 
@@ -70,7 +71,12 @@ export const RippleBase = React.forwardRef<RippleBaseHandle, RippleBaseProps>(
       setRipples(prev => prev.filter(r => r.id !== id));
 
     return (
-      <span ref={containerRef} aria-hidden="true" className={clsx(withBaseName(), { [withBaseName('ondark')]: onDark })}>
+      <span
+        ref={containerRef}
+        aria-hidden="true"
+        className={clsx(withBaseName(), { [withBaseName('ondark')]: onDark })}
+        style={color ? ({ '--akds-ripple-base-color': color } as React.CSSProperties) : undefined}
+      >
         {ripples.map(r => (
           <span
             key={r.id}

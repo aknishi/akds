@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  border: 1px solid var(--akds-color-border-default-default);
+  border: 1px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-md);
   background: var(--akds-color-surface-default);
   transition: border-color 150ms ease, box-shadow 150ms ease;
@@ -32,7 +32,7 @@
 }
 
 .akds-dropdown-menu__control--keyboard-focus {
-  border-color: var(--akds-color-border-default-focus);
+  border-color: var(--akds-color-border-neutral-focus);
   outline: var(--akds-outline-focus);
   outline-offset: var(--akds-outline-focus-offset);
 }
@@ -42,10 +42,10 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding-top: var(--akds-spacing-scale-04);
-  padding-bottom: var(--akds-spacing-scale-02);
-  padding-left: var(--akds-spacing-scale-03);
-  padding-right: var(--akds-spacing-scale-03);
+  padding-top: var(--akds-spacing-200);
+  padding-bottom: var(--akds-spacing-100);
+  padding-left: var(--akds-spacing-150);
+  padding-right: var(--akds-spacing-150);
   background: transparent;
   border: none;
   outline: none;
@@ -55,7 +55,7 @@
   font-weight: var(--akds-font-weight-regular);
   color: var(--akds-color-text-primary-default);
   box-sizing: border-box;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   text-align: left;
 }
 
@@ -99,7 +99,7 @@
 /* ── Floating label — mirrors .akds-text-input__label exactly ──────────── */
 .akds-dropdown-menu__label {
   position: absolute;
-  left: var(--akds-spacing-scale-03);
+  left: var(--akds-spacing-150);
   top: 50%;
   transform: translateY(-50%);
   font-size: var(--akds-font-size-md);
@@ -113,7 +113,7 @@
 }
 
 .akds-dropdown-menu__label--floating {
-  top: var(--akds-spacing-scale-01);
+  top: var(--akds-spacing-100);
   transform: translateY(0) scale(0.75);
   font-size: var(--akds-font-size-xs);
   color: var(--akds-color-text-secondary-default);
@@ -122,8 +122,8 @@
 /* ── Helper text — mirrors .akds-text-input__helper-text exactly ───────── */
 .akds-dropdown-menu__helper-text {
   margin: 0;
-  margin-top: var(--akds-spacing-scale-01);
-  padding-left: var(--akds-spacing-scale-03);
+  margin-top: var(--akds-spacing-50);
+  padding-left: var(--akds-spacing-150);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-xs);
   font-weight: var(--akds-font-weight-regular);
@@ -134,7 +134,7 @@
 /* ── Listbox panel — positioned below control, full width ──────────────── */
 .akds-dropdown-menu__listbox {
   position: absolute;
-  top: calc(100% + var(--akds-spacing-scale-01));
+  top: calc(100% + var(--akds-spacing-50));
   left: 0;
   right: 0;
   z-index: 100;
@@ -148,7 +148,7 @@
 .akds-dropdown-menu--disabled .akds-dropdown-menu__control {
   cursor: not-allowed;
   opacity: 0.5;
-  border-color: var(--akds-color-border-default-default) !important;
+  border-color: var(--akds-color-border-neutral-default) !important;
   outline: none !important;
 }
 

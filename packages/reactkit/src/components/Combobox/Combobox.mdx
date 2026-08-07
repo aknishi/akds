@@ -1,0 +1,42 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ComboboxStories from './Combobox.stories';
+
+<Meta of={ComboboxStories} />
+
+# Combobox
+
+> **Available from v1.2.0**
+
+A text input combined with a filterable dropdown list. The user can type to narrow options or click to open the full list. Supports single selection (returns a string) and multiple selection (returns `string[]`).
+
+## Usage
+
+```tsx
+import { Combobox } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ComboboxStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={ComboboxStories.Default} />
+
+### Single Select
+
+<Canvas of={ComboboxStories.SingleSelect} />
+
+### Multi Select
+
+<Canvas of={ComboboxStories.MultiSelect} />
+
+### With Disabled Option
+
+<Canvas of={ComboboxStories.WithDisabledOption} />
+
+### Disabled
+
+<Canvas of={ComboboxStories.Disabled} />

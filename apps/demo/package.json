@@ -11,6 +11,7 @@
   "dependencies": {
     "@aknishi/akds-tokens": "*",
     "@aknishi/akds-reactkit": "*",
+    "@aknishi/akds-icons": "*",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
   },

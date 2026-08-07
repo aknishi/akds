@@ -1,0 +1,40 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AccordionStories from './Accordion.stories';
+
+<Meta of={AccordionStories} />
+
+# Accordion
+
+> **Available from v1.2.0**
+
+Reveals and hides sections of content. Composed of `Accordion` (context provider) and `AccordionItem` (each collapsible section with a trigger button and content panel).
+
+Supports single-expand mode (default) and multi-expand mode via the `multiple` prop. Both controlled and uncontrolled usage are supported.
+
+## Usage
+
+```tsx
+import { Accordion, AccordionItem } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={AccordionStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={AccordionStories.Default} />
+
+### Multiple
+
+<Canvas of={AccordionStories.Multiple} />
+
+### Controlled
+
+<Canvas of={AccordionStories.Controlled} />
+
+### With Disabled Item
+
+<Canvas of={AccordionStories.WithDisabled} />

@@ -1,0 +1,50 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CarouselStories from './Carousel.stories';
+
+<Meta of={CarouselStories} />
+
+# Carousel
+
+> **Available from v1.2.0**
+
+Displays a sequence of slides in a horizontal scrolling container. Accepts any React element as a slide — images, videos, cards, or other interactive content. Slides can auto-scroll with a configurable interval, pause on hover, loop seamlessly, and be navigated manually with overlay buttons or keyboard arrow keys.
+
+## Usage
+
+```tsx
+import { Carousel } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={CarouselStories} />
+
+## Examples
+
+### Default (auto-scroll)
+
+<Canvas of={CarouselStories.Default} />
+
+### Slides per page
+
+When `slidesPerPage` is set the carousel divides its full width equally between the visible slides. Slides shrink and grow with the container.
+
+<Canvas of={CarouselStories.SlidesPerPage} />
+
+### Loop
+
+With `loop` enabled the carousel wraps back to the first slide after the last, with no visible jump.
+
+<Canvas of={CarouselStories.Loop} />
+
+### Manual scroll
+
+Set `autoScroll={false}` to disable auto-scrolling and rely entirely on the nav buttons and keyboard.
+
+<Canvas of={CarouselStories.ManualScroll} />
+
+### Interactive content
+
+Slides can contain any interactive content — buttons, inputs, links. The carousel pauses auto-scroll while any element inside it is hovered or focused.
+
+<Canvas of={CarouselStories.InteractiveContent} />

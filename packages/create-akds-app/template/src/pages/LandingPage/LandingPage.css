@@ -3,10 +3,10 @@
 .landing {
   max-width: 1100px;
   margin: 0 auto;
-  padding: var(--akds-spacing-layout-2xl) var(--akds-spacing-scale-08);
+  padding: var(--akds-spacing-layout-2xl) var(--akds-spacing-400);
   display: flex;
   flex-direction: column;
-  gap: var(--akds-spacing-scale-20);
+  gap: var(--akds-spacing-1000);
 }
 
 /* ── Hero ───────────────────────────────────────────────────────────────── */
@@ -29,27 +29,20 @@
 }
 
 .landing__hero-cta {
-  margin-top: var(--akds-spacing-scale-02);
+  margin-top: var(--akds-spacing-100);
 }
 
 /* ── Features ───────────────────────────────────────────────────────────── */
 
 .landing__section-title {
   text-align: center;
-  margin-bottom: var(--akds-spacing-scale-08);
+  margin-bottom: var(--akds-spacing-400);
 }
 
 .landing__feature-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--akds-spacing-layout-lg);
-}
-
-.feature-card__icon {
-  width: 32px;
-  height: 32px;
-  color: var(--akds-color-text-info-default);
-  margin-bottom: var(--akds-spacing-scale-02);
 }
 
 .feature-card__description {
@@ -64,10 +57,10 @@
   align-items: center;
   gap: var(--akds-spacing-layout-md);
   text-align: center;
-  padding: var(--akds-spacing-layout-2xl) var(--akds-spacing-scale-08);
+  padding: var(--akds-spacing-layout-2xl) var(--akds-spacing-400);
   border-radius: var(--akds-radius-xl);
   background: var(--akds-color-surface-raised);
-  border: 1px solid var(--akds-color-border-default-default);
+  border: 1px solid var(--akds-color-border-neutral-default);
 }
 
 .landing__cta-strip-sub {
@@ -78,6 +71,6 @@
   font-family: var(--akds-font-family-mono);
   font-size: var(--akds-font-size-sm);
   background: var(--akds-color-surface-sunken);
-  padding: 2px var(--akds-spacing-scale-01);
+  padding: 2px var(--akds-spacing-50);
   border-radius: var(--akds-radius-sm);
 }

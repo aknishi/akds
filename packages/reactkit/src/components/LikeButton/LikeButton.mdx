@@ -1,0 +1,39 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as LikeButtonStories from './LikeButton.stories';
+
+<Meta of={LikeButtonStories} />
+
+# Button
+
+> **Available from v1.2.0**
+
+Triggers filled icon on click
+
+Includes a ripple animation on press, a loading state with spinner, and a `focusableWhenDisabled` mode for accessible disabled buttons.
+
+## Usage
+
+```tsx
+import { LikeButton } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={LikeButtonStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={LikeButtonStories.Default} />
+
+### Controlled
+
+<Canvas of={LikeButtonStories.Controlled} />
+
+### Disabled
+
+Note: A good ADA practice is that rather than displaying a disabled button, not showing it at all is best.
+
+<Canvas of={LikeButtonStories.Disabled} />
+

@@ -4,8 +4,7 @@ import clsx from 'clsx';
 import './Dialog.css';
 import type { DialogProps } from './Dialog.types';
 import { CloseIcon } from '@aknishi/akds-icons';
-import { RippleBase } from '../RippleBase';
-import type { RippleBaseHandle } from '../RippleBase';
+import { IconButton } from '../IconButton';
 import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-dialog');
@@ -34,7 +33,6 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     ref,
   ) {
     const panelRef = React.useRef<HTMLDivElement>(null);
-    const closeRippleRef = React.useRef<RippleBaseHandle>(null);
     const titleId = React.useId();
 
     React.useImperativeHandle(ref, () => panelRef.current!);
@@ -107,16 +105,15 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
             {title && (
               <h2 id={titleId} className="akds-dialog__title">{title}</h2>
             )}
-            <button
-              type="button"
+            <IconButton
               className="akds-dialog__close"
+              appearance="transparent"
+              emphasis="neutral"
               onClick={onClose}
-              onPointerDown={e => closeRippleRef.current?.trigger(e)}
               aria-label="Close dialog"
             >
               <CloseIcon />
-              <RippleBase ref={closeRippleRef} />
-            </button>
+            </IconButton>
           </div>
           <div className="akds-dialog__body">{children}</div>
         </div>

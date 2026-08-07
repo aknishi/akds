@@ -2,63 +2,7 @@
   "akds": {
     "spacing": {
       "scale": {
-        "10": {
-          "$type": "number",
-          "$value": 40,
-          "$extensions": {
-            "com.figma.variableId": "VariableID:12:9",
-            "com.figma.scopes": [
-              "GAP"
-            ],
-            "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-10)"
-            },
-            "com.figma.isOverride": true
-          }
-        },
-        "12": {
-          "$type": "number",
-          "$value": 48,
-          "$extensions": {
-            "com.figma.variableId": "VariableID:12:10",
-            "com.figma.scopes": [
-              "GAP"
-            ],
-            "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-12)"
-            },
-            "com.figma.isOverride": true
-          }
-        },
-        "16": {
-          "$type": "number",
-          "$value": 64,
-          "$extensions": {
-            "com.figma.variableId": "VariableID:12:11",
-            "com.figma.scopes": [
-              "GAP"
-            ],
-            "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-16)"
-            },
-            "com.figma.isOverride": true
-          }
-        },
-        "20": {
-          "$type": "number",
-          "$value": 80,
-          "$extensions": {
-            "com.figma.variableId": "VariableID:12:12",
-            "com.figma.scopes": [
-              "GAP"
-            ],
-            "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-20)"
-            },
-            "com.figma.isOverride": true
-          }
-        },
-        "05": {
+        "25": {
           "$type": "number",
           "$value": 2,
           "$extensions": {
@@ -67,12 +11,12 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-05)"
+              "WEB": "var(--akds-spacing-25)"
             },
             "com.figma.isOverride": true
           }
         },
-        "01": {
+        "50": {
           "$type": "number",
           "$value": 4,
           "$extensions": {
@@ -81,12 +25,12 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-01)"
+              "WEB": "var(--akds-spacing-50)"
             },
             "com.figma.isOverride": true
           }
         },
-        "02": {
+        "100": {
           "$type": "number",
           "$value": 8,
           "$extensions": {
@@ -95,12 +39,12 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-02)"
+              "WEB": "var(--akds-spacing-100)"
             },
             "com.figma.isOverride": true
           }
         },
-        "03": {
+        "150": {
           "$type": "number",
           "$value": 12,
           "$extensions": {
@@ -109,12 +53,12 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-03)"
+              "WEB": "var(--akds-spacing-150)"
             },
             "com.figma.isOverride": true
           }
         },
-        "04": {
+        "200": {
           "$type": "number",
           "$value": 16,
           "$extensions": {
@@ -123,12 +67,12 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-04)"
+              "WEB": "var(--akds-spacing-200)"
             },
             "com.figma.isOverride": true
           }
         },
-        "06": {
+        "300": {
           "$type": "number",
           "$value": 24,
           "$extensions": {
@@ -137,12 +81,12 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-06)"
+              "WEB": "var(--akds-spacing-300)"
             },
             "com.figma.isOverride": true
           }
         },
-        "08": {
+        "400": {
           "$type": "number",
           "$value": 32,
           "$extensions": {
@@ -151,7 +95,63 @@
               "GAP"
             ],
             "com.figma.codeSyntax": {
-              "WEB": "var(--akds-spacing-scale-08)"
+              "WEB": "var(--akds-spacing-400)"
+            },
+            "com.figma.isOverride": true
+          }
+        },
+        "500": {
+          "$type": "number",
+          "$value": 40,
+          "$extensions": {
+            "com.figma.variableId": "VariableID:12:9",
+            "com.figma.scopes": [
+              "GAP"
+            ],
+            "com.figma.codeSyntax": {
+              "WEB": "var(--akds-spacing-500)"
+            },
+            "com.figma.isOverride": true
+          }
+        },
+        "600": {
+          "$type": "number",
+          "$value": 48,
+          "$extensions": {
+            "com.figma.variableId": "VariableID:12:10",
+            "com.figma.scopes": [
+              "GAP"
+            ],
+            "com.figma.codeSyntax": {
+              "WEB": "var(--akds-spacing-600)"
+            },
+            "com.figma.isOverride": true
+          }
+        },
+        "800": {
+          "$type": "number",
+          "$value": 64,
+          "$extensions": {
+            "com.figma.variableId": "VariableID:12:11",
+            "com.figma.scopes": [
+              "GAP"
+            ],
+            "com.figma.codeSyntax": {
+              "WEB": "var(--akds-spacing-800)"
+            },
+            "com.figma.isOverride": true
+          }
+        },
+        "1000": {
+          "$type": "number",
+          "$value": 80,
+          "$extensions": {
+            "com.figma.variableId": "VariableID:12:12",
+            "com.figma.scopes": [
+              "GAP"
+            ],
+            "com.figma.codeSyntax": {
+              "WEB": "var(--akds-spacing-1000)"
             },
             "com.figma.isOverride": true
           }

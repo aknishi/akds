@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   Button,
+  IconButton,
+  Carousel,
   TextInput,
   Checkbox,
   Radio,
@@ -19,8 +21,16 @@ import {
   Tag,
   Divider,
   Avatar,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  Accordion,
+  AccordionItem,
+  Combobox,
 } from '@aknishi/akds-reactkit';
-import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme } from '@aknishi/akds-reactkit';
+import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption } from '@aknishi/akds-reactkit';
+import { CloseIcon } from '@aknishi/akds-icons';
 import './App.css';
 import AccessibleCarousel from './AccessibleCarousel';
 
@@ -63,6 +73,63 @@ function AppContent() {
 
       <AccessibleCarousel />
 
+      <hr className="demo-divider" />
+
+      {/* Carousel section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Carousel</h2>
+
+        <p className="demo-label-heading">Auto-scroll (default)</p>
+        <Carousel style={{ marginBottom: 24 }}>
+          {(['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'] as const).map((bg, i) => (
+            <div
+              key={i}
+              style={{ width: 300, height: 180, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 600 }}
+            >
+              Slide {i + 1}
+            </div>
+          ))}
+        </Carousel>
+
+        <p className="demo-label-heading">Slides per page (3) — manual scroll</p>
+        <Carousel slidesPerPage={3} autoScroll={false} style={{ marginBottom: 24 }}>
+          {(['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444'] as const).map((bg, i) => (
+            <div
+              key={i}
+              style={{ height: 160, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 600 }}
+            >
+              {i + 1}
+            </div>
+          ))}
+        </Carousel>
+
+        <p className="demo-label-heading">Infinite loop</p>
+        <Carousel loop autoScrollInterval={2000} style={{ marginBottom: 24 }}>
+          {(['#6366f1', '#ec4899', '#f59e0b', '#10b981'] as const).map((bg, i) => (
+            <div
+              key={i}
+              style={{ width: 300, height: 180, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 600 }}
+            >
+              Slide {i + 1}
+            </div>
+          ))}
+        </Carousel>
+
+        <p className="demo-label-heading">Manual scroll + loop</p>
+        <Carousel autoScroll={false} loop>
+          {(['#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6'] as const).map((bg, i) => (
+            <div
+              key={i}
+              style={{ width: 300, height: 180, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 600 }}
+            >
+              Slide {i + 1}
+            </div>
+          ))}
+        </Carousel>
+      </section>
+
+      <hr className="demo-divider" />
+
       {/* Button section */}
       <section className="demo-section">
         <h2 className="demo-section__heading">Button</h2>
@@ -103,6 +170,59 @@ function AppContent() {
           <Button appearance="solid" emphasis="accented" loading>Saving</Button>
           <Button appearance="bordered" emphasis="neutral" loading>Loading</Button>
           <Button appearance="solid" emphasis="success" loading>Processing</Button>
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* IconButton section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">IconButton</h2>
+
+        {/* By appearance × emphasis */}
+        {appearances.map(appearance => (
+          <div key={appearance} className="demo-section">
+            <p className="demo-label-heading">{appearance}</p>
+            <div className="demo-row">
+              {emphases.map(emphasis => (
+                <IconButton key={emphasis} appearance={appearance} emphasis={emphasis} aria-label="Close">
+                  <CloseIcon />
+                </IconButton>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <hr className="demo-divider" />
+
+        {/* States */}
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <IconButton appearance="solid" emphasis="accented" aria-label="Close">
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <IconButton appearance="solid" emphasis="accented" disabled aria-label="Close">
+            <CloseIcon />
+          </IconButton>
+          <IconButton appearance="bordered" emphasis="neutral" disabled aria-label="Close">
+            <CloseIcon />
+          </IconButton>
+          <IconButton appearance="transparent" emphasis="destructive" disabled aria-label="Close">
+            <CloseIcon />
+          </IconButton>
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">loading</span>
+          <IconButton appearance="solid" emphasis="accented" loading aria-label="Saving">
+            <CloseIcon />
+          </IconButton>
+          <IconButton appearance="bordered" emphasis="neutral" loading aria-label="Saving">
+            <CloseIcon />
+          </IconButton>
         </div>
       </section>
 
@@ -393,6 +513,62 @@ function AppContent() {
           <span>End</span>
         </div>
       </section>
+
+      <hr className="demo-divider" />
+
+      {/* Tabs section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Tabs</h2>
+
+        <p className="demo-label-heading">Default</p>
+        <Tabs defaultActiveTab="overview">
+          <TabList>
+            <Tab value="overview">Overview</Tab>
+            <Tab value="details">Details</Tab>
+            <Tab value="settings">Settings</Tab>
+            <Tab value="disabled" disabled>Disabled</Tab>
+          </TabList>
+          <TabPanel value="overview"><p>Overview content goes here.</p></TabPanel>
+          <TabPanel value="details"><p>Details content goes here.</p></TabPanel>
+          <TabPanel value="settings"><p>Settings content goes here.</p></TabPanel>
+          <TabPanel value="disabled"><p>Disabled panel content.</p></TabPanel>
+        </Tabs>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Accordion section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Accordion</h2>
+
+        <p className="demo-label-heading">Single expand (default)</p>
+        <Accordion defaultExpanded="item1">
+          <AccordionItem value="item1" title="What is akds?">
+            <p>akds is a design system built with React and TypeScript.</p>
+          </AccordionItem>
+          <AccordionItem value="item2" title="How do I install it?">
+            <p>Run <code>npm install @aknishi/akds-reactkit</code> in your project.</p>
+          </AccordionItem>
+          <AccordionItem value="item3" title="Disabled item" disabled>
+            <p>This item cannot be expanded.</p>
+          </AccordionItem>
+        </Accordion>
+
+        <p className="demo-label-heading">Multi expand</p>
+        <Accordion multiple defaultExpanded={['a', 'b']}>
+          <AccordionItem value="a" title="Section A"><p>Content for section A.</p></AccordionItem>
+          <AccordionItem value="b" title="Section B"><p>Content for section B.</p></AccordionItem>
+          <AccordionItem value="c" title="Section C"><p>Content for section C.</p></AccordionItem>
+        </Accordion>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Combobox section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Combobox</h2>
+        <ComboboxDemo />
+      </section>
     </div>
   );
 }
@@ -568,6 +744,57 @@ function ProgressTrackerDemo() {
         <ProgressTrackerStep status="warning" label="Warning" />
       </ProgressTracker>
 
+    </>
+  );
+}
+
+const FRUITS: ComboboxOption[] = [
+  { value: 'apple', label: 'Apple' },
+  { value: 'banana', label: 'Banana' },
+  { value: 'cherry', label: 'Cherry' },
+  { value: 'date', label: 'Date' },
+  { value: 'elderberry', label: 'Elderberry', disabled: true },
+];
+
+const LANGUAGES: ComboboxOption[] = [
+  { value: 'js', label: 'JavaScript' },
+  { value: 'ts', label: 'TypeScript' },
+  { value: 'py', label: 'Python' },
+  { value: 'go', label: 'Go' },
+  { value: 'rust', label: 'Rust' },
+];
+
+function ComboboxDemo() {
+  const [single, setSingle] = React.useState<string>('');
+  const [multi, setMulti] = React.useState<string[]>([]);
+  return (
+    <>
+      <p className="demo-label-heading">Single select</p>
+      <div className="demo-row">
+        <Combobox
+          options={FRUITS}
+          label="Fruit"
+          value={single}
+          onChange={v => setSingle(v as string)}
+          helperText={single ? `Selected: ${single}` : 'Type to filter'}
+        />
+      </div>
+
+      <p className="demo-label-heading">Multi select</p>
+      <div className="demo-row">
+        <Combobox
+          options={LANGUAGES}
+          label="Languages"
+          multiple
+          value={multi}
+          onChange={v => setMulti(v as string[])}
+        />
+      </div>
+
+      <p className="demo-label-heading">Disabled</p>
+      <div className="demo-row">
+        <Combobox options={FRUITS} label="Fruit" disabled defaultValue="apple" />
+      </div>
     </>
   );
 }

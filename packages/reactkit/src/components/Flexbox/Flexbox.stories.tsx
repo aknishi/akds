@@ -41,7 +41,7 @@ const Box = ({ label }) => (
 );
 
 const FlexboxExample = () => (
-  <Flexbox gap="md" align="center" padding="md" style={{ border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-md)' }}>
+  <Flexbox gap="md" align="center" padding="md" style={{ border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-md)' }}>
     <Box label="1" />
     <Box label="2" />
     <Box label="3" />
@@ -61,7 +61,7 @@ const Box = ({ label }) => (
     width: 64, height: 40,
     background: 'var(--akds-color-background-secondary-default)',
     borderRadius: 'var(--akds-radius-sm)',
-    border: '1px solid var(--akds-color-border-default-default)',
+    border: '1px solid var(--akds-color-border-neutral-default)',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
   }}>
     <Text styleAs="caption">{label}</Text>
@@ -120,7 +120,7 @@ const Box = () => (
 const Row = ({ justify, label }) => (
   <Flexbox direction="column" gap="xs">
     <Text styleAs="caption">{label}</Text>
-    <Flexbox justify={justify} py="sm" px="md" gap="sm" style={{ border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-sm)' }}>
+    <Flexbox justify={justify} py="sm" px="md" gap="sm" style={{ border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)' }}>
       <Box /><Box /><Box />
     </Flexbox>
   </Flexbox>
@@ -156,7 +156,7 @@ const Box = ({ height }) => (
 const Row = ({ align, label }) => (
   <Flexbox direction="column" gap="xs">
     <Text styleAs="caption">{label}</Text>
-    <Flexbox align={align} gap="sm" style={{ height: 80, border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-sm)', padding: '0 12px' }}>
+    <Flexbox align={align} gap="sm" style={{ height: 80, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '0 12px' }}>
       <Box height={32} /><Box height={48} /><Box height={24} />
     </Flexbox>
   </Flexbox>
@@ -191,7 +191,7 @@ const Box = ({ n }) => (
 );
 
 const FlexboxExample = () => (
-  <Flexbox wrap gap="sm" style={{ maxWidth: 280, border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-md)', padding: '12px' }}>
+  <Flexbox wrap gap="sm" style={{ maxWidth: 280, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-md)', padding: '12px' }}>
     {Array.from({ length: 9 }, (_, i) => <Box key={i} n={i + 1} />)}
   </Flexbox>
 );
@@ -219,14 +219,14 @@ const FlexboxExample = () => (
     {tokens.map(size => (
       <Flexbox key={size} align="center" gap="md">
         <Text styleAs="caption" style={{ width: 28 }}>{size}</Text>
-        <Flexbox align="center" gap={size} style={{ flex: 1, border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
+        <Flexbox align="center" gap={size} style={{ flex: 1, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
           <Box /><Box /><Box />
         </Flexbox>
       </Flexbox>
     ))}
     <Flexbox align="center" gap="md">
       <Text styleAs="caption" style={{ width: 28 }}>px</Text>
-      <Flexbox align="center" gap="24px" style={{ flex: 1, border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
+      <Flexbox align="center" gap="24px" style={{ flex: 1, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
         <Box /><Box /><Box />
       </Flexbox>
     </Flexbox>
@@ -244,7 +244,7 @@ export const Spacing = LiveEditStory({
 const Outline = ({ children, label }) => (
   <Flexbox direction="column" gap="xs">
     <Text styleAs="caption">{label}</Text>
-    <div style={{ border: '1px dashed var(--akds-color-border-default-default)', borderRadius: 'var(--akds-radius-sm)', display: 'inline-flex' }}>
+    <div style={{ border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', display: 'inline-flex' }}>
       {children}
     </div>
   </Flexbox>

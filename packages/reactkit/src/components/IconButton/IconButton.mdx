@@ -1,0 +1,44 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as IconButtonStories from './IconButton.stories';
+
+<Meta of={IconButtonStories} />
+
+# IconButton
+
+> **Available from v1.2.0**
+
+Triggers an action using a single icon in a 32x32 circular target, for compact controls like toolbars, list rows, and modal chrome (e.g. the close button on Dialog and Drawer). Supports three visual appearances (`solid`, `transparent`, `bordered`) combined with four emphases (`accented`, `neutral`, `success`, `destructive`), plus a loading state with spinner and a `focusableWhenDisabled` mode for accessible disabled buttons.
+
+Because an icon button renders no visible text, its accessible name comes entirely from the `aria-label` prop. `aria-label` is **required** — screen reader users have no other way to learn what the button does, so the type will not compile without it. Write a label that describes the action, not the icon (e.g. `aria-label="Delete item"`, not `aria-label="Trash icon"`).
+
+## Usage
+
+```tsx
+import { IconButton } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={IconButtonStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={IconButtonStories.Default} />
+
+### Appearance
+
+<Canvas of={IconButtonStories.Appearance} />
+
+### Emphasis
+
+<Canvas of={IconButtonStories.Emphasis} />
+
+### Disabled
+
+<Canvas of={IconButtonStories.Disabled} />
+
+### Loading
+
+<Canvas of={IconButtonStories.Loading} />

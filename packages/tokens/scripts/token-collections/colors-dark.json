@@ -1071,7 +1071,7 @@
         }
       },
       "border": {
-        "default": {
+        "neutral": {
           "default": {
             "$type": "color",
             "$value": {
@@ -1090,7 +1090,7 @@
                 "STROKE"
               ],
               "com.figma.codeSyntax": {
-                "WEB": "var(--akds-color-border-default-default)"
+                "WEB": "var(--akds-color-border-neutral-default)"
               },
               "com.figma.aliasData": {
                 "targetVariableId": "VariableID:ea119bfe6b5319806a293bc94f0eff7e01de376a/-1:-1",
@@ -1119,7 +1119,7 @@
                 "STROKE"
               ],
               "com.figma.codeSyntax": {
-                "WEB": "var(--akds-color-border-default-hover)"
+                "WEB": "var(--akds-color-border-neutral-hover)"
               },
               "com.figma.aliasData": {
                 "targetVariableId": "VariableID:6a4093e91b288f2f62eea45556f8f81d26010bb8/-1:-1",
@@ -1148,7 +1148,7 @@
                 "STROKE"
               ],
               "com.figma.codeSyntax": {
-                "WEB": "var(--akds-color-border-default-focus)"
+                "WEB": "var(--akds-color-border-neutral-focus)"
               },
               "com.figma.aliasData": {
                 "targetVariableId": "VariableID:918880fdb24e55977bbe7f705b0d8fa7943c3206/-1:-1",
@@ -1284,6 +1284,30 @@
         }
       },
       "icon": {
+        "neutral": {
+          "default": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                1,
+                1,
+                1
+              ],
+              "alpha": 1,
+              "hex": "#FFFFFF"
+            },
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ],
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-icon-neutral-default)"
+              }
+            }
+          }
+        },
         "primary": {
           "default": {
             "$type": "color",

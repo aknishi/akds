@@ -4,9 +4,9 @@
   display: flex;
   align-items: center;
   gap: var(--akds-spacing-layout-md);
-  padding: var(--akds-spacing-scale-03) var(--akds-spacing-scale-08);
+  padding: var(--akds-spacing-150) var(--akds-spacing-400);
   background: var(--akds-color-surface-default);
-  border-bottom: 1px solid var(--akds-color-border-default-default);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -30,11 +30,11 @@
 
 .navbar__links {
   display: flex;
-  gap: var(--akds-spacing-scale-01);
+  gap: var(--akds-spacing-50);
 }
 
 .navbar__link {
-  padding: var(--akds-spacing-scale-01) var(--akds-spacing-scale-03);
+  padding: var(--akds-spacing-50) var(--akds-spacing-150);
   border-radius: var(--akds-radius-md);
   font-size: var(--akds-font-size-sm);
   font-weight: var(--akds-font-weight-medium);
@@ -54,6 +54,6 @@
 }
 
 .navbar__link:focus-visible {
-  outline: 2px solid var(--akds-color-border-default-focus);
+  outline: 2px solid var(--akds-color-border-neutral-focus);
   outline-offset: 2px;
 }

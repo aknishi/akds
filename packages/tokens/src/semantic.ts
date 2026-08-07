@@ -184,7 +184,7 @@ export const semanticColors = {
     },
   },
   border: {
-    default: {
+    neutral: {
       default: {
         light: '#E5E5E5',
         dark: '#404040',
@@ -222,6 +222,12 @@ export const semanticColors = {
     },
   },
   icon: {
+    neutral: {
+      default: {
+        light: '#5F6368',
+        dark: '#FFFFFF',
+      },
+    },
     primary: {
       default: {
         light: '#171717',

@@ -7,6 +7,8 @@ export interface ProgressTrackerStepProps extends Omit<React.LiHTMLAttributes<HT
   status?: ProgressTrackerStepStatus;
   /** When true, renders the step in active (in-progress) styling, overriding status. */
   active?: boolean;
+  /** When true, plays a small particle-burst animation when the step transitions to 'complete'. Respects `prefers-reduced-motion`. */
+  celebrateOnComplete?: boolean;
   /**
    * @internal Injected by ProgressTracker via React.cloneElement — do not set manually.
    * Zero-based position of this step within the tracker.

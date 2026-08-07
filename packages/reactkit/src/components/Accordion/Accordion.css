@@ -1,0 +1,8 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-accordion {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--akds-color-border-neutral-default);
+  box-sizing: border-box;
+  font-family: var(--akds-font-family-sans);
+}

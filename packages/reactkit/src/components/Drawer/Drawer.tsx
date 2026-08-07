@@ -4,8 +4,7 @@ import clsx from 'clsx';
 import './Drawer.css';
 import type { DrawerProps } from './Drawer.types';
 import { CloseIcon } from '@aknishi/akds-icons';
-import { RippleBase } from '../RippleBase';
-import type { RippleBaseHandle } from '../RippleBase';
+import { IconButton } from '../IconButton';
 import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-drawer');
@@ -40,7 +39,6 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
     const effectiveSide = lastSideRef.current;
 
     const panelRef = React.useRef<HTMLDivElement>(null);
-    const closeRippleRef = React.useRef<RippleBaseHandle>(null);
     const titleId = React.useId();
     const [isClosing, setIsClosing] = React.useState(false);
     const wasOpenRef = React.useRef(false);
@@ -130,16 +128,15 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
             {title && (
               <h2 id={titleId} className="akds-drawer__title">{title}</h2>
             )}
-            <button
-              type="button"
+            <IconButton
               className="akds-drawer__close"
+              appearance="transparent"
+              emphasis="neutral"
               onClick={onClose}
-              onPointerDown={e => closeRippleRef.current?.trigger(e)}
               aria-label="Close drawer"
             >
               <CloseIcon />
-              <RippleBase ref={closeRippleRef} />
-            </button>
+            </IconButton>
           </div>
           <div className="akds-drawer__body">{children}</div>
         </div>

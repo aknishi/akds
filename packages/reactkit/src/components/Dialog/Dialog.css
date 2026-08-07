@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  padding: var(--akds-spacing-scale-04);
+  padding: var(--akds-spacing-200);
   box-sizing: border-box;
 }
 
@@ -19,7 +19,7 @@
   background: var(--akds-color-surface-overlay);
   border-radius: var(--akds-radius-xl);
   box-shadow: var(--akds-elevation-xl);
-  max-height: calc(100vh - var(--akds-spacing-scale-08));
+  max-height: calc(100vh - var(--akds-spacing-400));
   width: 100%;
   box-sizing: border-box;
   animation: akds-dialog-in 150ms ease;
@@ -29,7 +29,7 @@
 @keyframes akds-dialog-in {
   from {
     opacity: 0;
-    transform: scale(0.96) translateY(var(--akds-spacing-scale-02));
+    transform: scale(0.96) translateY(var(--akds-spacing-100));
   }
   to {
     opacity: 1;
@@ -61,9 +61,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--akds-spacing-scale-04) var(--akds-spacing-scale-06);
-  border-bottom: 1px solid var(--akds-color-border-default-default);
-  gap: var(--akds-spacing-scale-03);
+  padding: var(--akds-spacing-200) var(--akds-spacing-300);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+  gap: var(--akds-spacing-150);
   flex-shrink: 0;
 }
 
@@ -77,52 +77,15 @@
 }
 
 /* ── Close button ──────────────────────────────────────────────────────── */
+/* Pushes the close IconButton to the header's trailing edge when no title
+   is rendered — .akds-dialog__header alone only centers a lone flex child. */
 .akds-dialog__close {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  width: var(--akds-size-component-sm);
-  height: var(--akds-size-component-sm);
-  padding: 0;
-  background: transparent;
-  border: none;
-  border-radius: var(--akds-radius-md);
-  color: var(--akds-color-icon-secondary-default);
-  cursor: pointer;
-  outline: none;
-  transition: color 150ms ease;
   margin-left: auto;
-}
-
-.akds-dialog__close svg {
-  width: var(--akds-size-icon-md);
-  height: var(--akds-size-icon-md);
-}
-
-.akds-dialog__close:focus-visible {
-  outline: var(--akds-outline-focus);
-  outline-offset: var(--akds-outline-focus-offset);
-}
-
-.akds-dialog__close::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: transparent;
-  pointer-events: none;
-  transition: background 150ms ease;
-}
-
-.akds-dialog__close:hover::after {
-  background: var(--akds-color-interaction-hover-overlay);
 }
 
 /* ── Body ──────────────────────────────────────────────────────────────── */
 .akds-dialog__body {
-  padding: var(--akds-spacing-scale-06);
+  padding: var(--akds-spacing-300);
   overflow-y: auto;
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
@@ -134,10 +97,5 @@
 @media (prefers-reduced-motion: reduce) {
   .akds-dialog {
     animation: none;
-  }
-
-  .akds-dialog__close,
-  .akds-dialog__close::after {
-    transition: none;
   }
 }

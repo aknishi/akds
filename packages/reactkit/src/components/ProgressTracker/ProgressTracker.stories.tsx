@@ -73,6 +73,7 @@ const Example = () => {
         <ProgressTrackerStep
           status={currentStep > 4 ? 'complete' : 'inactive'}
           label="Map users"
+          celebrateOnComplete
         />
       </ProgressTracker>
       <div style={{ display: 'flex', gap: 8 }}>

@@ -1,0 +1,94 @@
+/* ── Container ───────────────────────────────────────────────────────────── */
+.akds-particle-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Burst ───────────────────────────────────────────────────────────────── */
+.akds-particle-burst__burst {
+  position: absolute;
+  inset: 0;
+}
+
+/* ── Particle ────────────────────────────────────────────────────────────── */
+.akds-particle-burst__particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  border-radius: var(--akds-radius-full);
+  background: var(--particle-burst-color);
+  transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(-1 * var(--particle-burst-spacing)));
+  animation: akds-particle-burst-particle 1000ms ease-out forwards;
+}
+
+/* Angle/size/distance/opacity cycle every 8 particles so any particleCount renders sensibly.
+   Each of the 8 gets a distinct --particle-distance so no two land on the same radius. */
+.akds-particle-burst__particle:nth-child(8n+1) {
+  --particle-angle: 15deg;
+  --particle-size: var(--akds-spacing-50);
+  --particle-distance: calc(var(--akds-spacing-200) + var(--akds-spacing-50));
+  --particle-opacity: 1;
+}
+.akds-particle-burst__particle:nth-child(8n+2) {
+  --particle-angle: 55deg;
+  --particle-size: var(--akds-spacing-25);
+  --particle-distance: var(--akds-spacing-150);
+  --particle-opacity: 0.6;
+}
+.akds-particle-burst__particle:nth-child(8n+3) {
+  --particle-angle: 95deg;
+  --particle-size: var(--akds-spacing-50);
+  --particle-distance: var(--akds-spacing-300);
+  --particle-opacity: 0.9;
+}
+.akds-particle-burst__particle:nth-child(8n+4) {
+  --particle-angle: 140deg;
+  --particle-size: var(--akds-spacing-25);
+  --particle-distance: calc(var(--akds-spacing-150) + var(--akds-spacing-25));
+  --particle-opacity: 0.5;
+}
+.akds-particle-burst__particle:nth-child(8n+5) {
+  --particle-angle: 190deg;
+  --particle-size: var(--akds-spacing-50);
+  --particle-distance: calc(var(--akds-spacing-300) + var(--akds-spacing-25));
+  --particle-opacity: 1;
+}
+.akds-particle-burst__particle:nth-child(8n+6) {
+  --particle-angle: 230deg;
+  --particle-size: var(--akds-spacing-25);
+  --particle-distance: var(--akds-spacing-200);
+  --particle-opacity: 0.7;
+}
+.akds-particle-burst__particle:nth-child(8n+7) {
+  --particle-angle: 275deg;
+  --particle-size: var(--akds-spacing-50);
+  --particle-distance: calc(var(--akds-spacing-200) + var(--akds-spacing-50) + var(--akds-spacing-25));
+  --particle-opacity: 0.8;
+}
+.akds-particle-burst__particle:nth-child(8n+8) {
+  --particle-angle: 320deg;
+  --particle-size: var(--akds-spacing-25);
+  --particle-distance: calc(var(--akds-spacing-200) + var(--akds-spacing-25));
+  --particle-opacity: 0.6;
+}
+
+@keyframes akds-particle-burst-particle {
+  from {
+    transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(-1 * var(--particle-burst-spacing)));
+    opacity: var(--particle-opacity);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(var(--particle-angle)) translateY(calc(-1 * var(--particle-distance)));
+    opacity: 0;
+  }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-particle-burst {
+    display: none;
+  }
+}

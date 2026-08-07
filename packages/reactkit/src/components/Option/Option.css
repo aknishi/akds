@@ -3,10 +3,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   width: 100%;
-  padding-block: var(--akds-spacing-scale-02);
-  padding-inline: var(--akds-spacing-scale-04);
+  padding-block: var(--akds-spacing-100);
+  padding-inline: var(--akds-spacing-200);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-regular);
@@ -87,7 +87,7 @@
   justify-content: center;
   width: var(--akds-size-icon-sm);
   height: var(--akds-size-icon-sm);
-  border: 2px solid var(--akds-color-border-default-default);
+  border: 2px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-xs);
   background: var(--akds-color-surface-default);
   box-sizing: border-box;

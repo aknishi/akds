@@ -1,11 +1,17 @@
 export { Button } from './components/Button/index.js';
 export type { ButtonProps, ButtonAppearance, ButtonEmphasis, ButtonSize } from './components/Button/index.js';
 
+export { IconButton } from './components/IconButton/index.js';
+export type { IconButtonProps, IconButtonAppearance, IconButtonEmphasis } from './components/IconButton/index.js';
+
 export { Spinner } from './components/Spinner/index.js';
 export type { SpinnerProps, SpinnerSize } from './components/Spinner/index.js';
 
 export { RippleBase } from './components/RippleBase/index.js';
 export type { RippleBaseProps, RippleBaseHandle } from './components/RippleBase/index.js';
+
+export { ParticleBurst } from './components/ParticleBurst/index.js';
+export type { ParticleBurstProps, ParticleBurstHandle } from './components/ParticleBurst/index.js';
 
 export { TextInput } from './components/TextInput/index.js';
 export type { TextInputProps } from './components/TextInput/index.js';
@@ -52,6 +58,9 @@ export type { CardContentProps } from './components/CardContent/index.js';
 export { CardFooter } from './components/CardFooter/index.js';
 export type { CardFooterProps } from './components/CardFooter/index.js';
 
+export { LikeButton } from './components/LikeButton/index.js';
+export type { LikeButtonProps } from './components/LikeButton/index.js';
+
 export { Tooltip } from './components/Tooltip/index.js';
 export type { TooltipProps, TooltipPlacement } from './components/Tooltip/index.js';
 
@@ -78,3 +87,27 @@ export type { TagProps, TagVariant, TagSize } from './components/Tag/index.js';
 
 export { Divider } from './components/Divider/index.js';
 export type { DividerProps, DividerOrientation, DividerVariant } from './components/Divider/index.js';
+
+export { Carousel } from './components/Carousel/index.js';
+export type { CarouselProps, CarouselScrollDirection } from './components/Carousel/index.js';
+
+export { Tabs } from './components/Tabs/index.js';
+export type { TabsProps } from './components/Tabs/index.js';
+
+export { TabList } from './components/TabList/index.js';
+export type { TabListProps } from './components/TabList/index.js';
+
+export { Tab } from './components/Tab/index.js';
+export type { TabProps, TabContextValue } from './components/Tab/index.js';
+
+export { TabPanel } from './components/TabPanel/index.js';
+export type { TabPanelProps } from './components/TabPanel/index.js';
+
+export { Accordion } from './components/Accordion/index.js';
+export type { AccordionProps } from './components/Accordion/index.js';
+
+export { AccordionItem } from './components/AccordionItem/index.js';
+export type { AccordionItemProps, AccordionItemContextValue } from './components/AccordionItem/index.js';
+
+export { Combobox } from './components/Combobox/index.js';
+export type { ComboboxProps, ComboboxOption } from './components/Combobox/index.js';

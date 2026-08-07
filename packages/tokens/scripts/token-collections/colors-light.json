@@ -1071,7 +1071,7 @@
         }
       },
       "border": {
-        "default": {
+        "neutral": {
           "default": {
             "$type": "color",
             "$value": {
@@ -1090,7 +1090,7 @@
                 "STROKE"
               ],
               "com.figma.codeSyntax": {
-                "WEB": "var(--akds-color-border-default-default)"
+                "WEB": "var(--akds-color-border-neutral-default)"
               },
               "com.figma.aliasData": {
                 "targetVariableId": "VariableID:9a1cf01faedcab80d01848a6fc71f02de19c664d/-1:-1",
@@ -1119,7 +1119,7 @@
                 "STROKE"
               ],
               "com.figma.codeSyntax": {
-                "WEB": "var(--akds-color-border-default-hover)"
+                "WEB": "var(--akds-color-border-neutral-hover)"
               },
               "com.figma.aliasData": {
                 "targetVariableId": "VariableID:3e3c90441bf60a6348e04c7d05beed7a6fdfce28/-1:-1",
@@ -1148,7 +1148,7 @@
                 "STROKE"
               ],
               "com.figma.codeSyntax": {
-                "WEB": "var(--akds-color-border-default-focus)"
+                "WEB": "var(--akds-color-border-neutral-focus)"
               },
               "com.figma.aliasData": {
                 "targetVariableId": "VariableID:845c86b621cdfe92ecae86334c5a75feccb1ead4/-1:-1",
@@ -1284,6 +1284,30 @@
         }
       },
       "icon": {
+        "neutral": {
+          "default": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.37254901960784315,
+                0.38823529411764707,
+                0.40784313725490196
+              ],
+              "alpha": 1,
+              "hex": "#5F6368"
+            },
+            "$extensions": {
+              "com.figma.scopes": [
+                "SHAPE_FILL",
+                "TEXT_FILL"
+              ],
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-icon-neutral-default)"
+              }
+            }
+          }
+        },
         "primary": {
           "default": {
             "$type": "color",

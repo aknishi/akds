@@ -2,7 +2,7 @@
 .akds-switch {
   display: inline-flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   cursor: pointer;
   user-select: none;
   font-family: var(--akds-font-family-sans);
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   border-radius: var(--akds-radius-full);
-  background: var(--akds-color-border-default-default);
+  background: var(--akds-color-border-neutral-default);
   transition: background 150ms ease;
   box-sizing: border-box;
 }
