@@ -2,7 +2,7 @@
 .akds-card-footer {
   display: flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   padding-inline: var(--akds-spacing-layout-md);
   padding-block: var(--akds-spacing-layout-sm);
 }

@@ -7,8 +7,9 @@ import {
   CardContent,
   Text,
   Flexbox,
+  LikeButton,
 } from '@aknishi/akds-reactkit';
-import { SpeedIcon, PaletteIcon, FlashIcon, FavoriteFilledIcon, FavoriteIcon } from '@aknishi/akds-icons';
+import { SpeedIcon, PaletteIcon, FlashIcon  } from '@aknishi/akds-icons';
 import './LandingPage.css';
 
 const features = [
@@ -77,9 +78,7 @@ export function LandingPage() {
             <Card key={f.title} className="feature-card">
               <CardHeader>
                 {f.icon}
-                <Text styleAs="h4" as="h3">
-                  {f.title}
-                </Text>
+                {f.title}
               </CardHeader>
               <CardContent>
                 <Text styleAs="body" as="p" className="feature-card__description">
@@ -105,10 +104,7 @@ export function LandingPage() {
           size="md"
           onClick={() => setLikes((n) => n + 1)}
         >
-          {likes > 0 ?
-            <FavoriteFilledIcon aria-hidden="true" /> :
-            <FavoriteIcon aria-hidden="true" />
-          } 
+          <LikeButton liked={likes > 0} /> :
           Like
         </Button>
         {likes > 0 && (

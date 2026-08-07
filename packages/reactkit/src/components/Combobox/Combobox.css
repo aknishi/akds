@@ -45,8 +45,8 @@
 
 .akds-combobox__field-wrapper--multiple {
   flex-wrap: wrap;
-  gap: var(--akds-spacing-scale-01);
-  padding: var(--akds-spacing-scale-04) var(--akds-spacing-scale-02) var(--akds-spacing-scale-02) var(--akds-spacing-scale-03);
+  gap: var(--akds-spacing-50);
+  padding: var(--akds-spacing-200) var(--akds-spacing-100) var(--akds-spacing-100) var(--akds-spacing-150);
   box-sizing: border-box;
 }
 
@@ -54,8 +54,8 @@
 .akds-combobox__chip {
   display: inline-flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-01);
-  padding: var(--akds-spacing-scale-05) var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-50);
+  padding: var(--akds-spacing-25) var(--akds-spacing-100);
   border: 1px solid var(--akds-color-border-default-default);
   border-radius: var(--akds-radius-full);
   background: var(--akds-color-background-neutral-default);
@@ -68,7 +68,7 @@
   box-sizing: border-box;
   transition: background 150ms ease;
   background: none;
-  margin-top: var(--akds-spacing-scale-01);
+  margin-top: var(--akds-spacing-50);
 }
 
 .akds-combobox__chip:hover:not(:disabled) {
@@ -101,10 +101,10 @@
   border: none;
   outline: none;
   background: transparent;
-  padding-top: var(--akds-spacing-scale-04);
-  padding-bottom: var(--akds-spacing-scale-02);
-  padding-left: var(--akds-spacing-scale-03);
-  padding-right: var(--akds-spacing-scale-02);
+  padding-top: var(--akds-spacing-200);
+  padding-bottom: var(--akds-spacing-100);
+  padding-left: var(--akds-spacing-150);
+  padding-right: var(--akds-spacing-100);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-regular);
@@ -135,7 +135,7 @@
 /* ── Label ─────────────────────────────────────────────────────────────── */
 .akds-combobox__label {
   position: absolute;
-  left: var(--akds-spacing-scale-03);
+  left: var(--akds-spacing-150);
   top: 50%;
   transform: translateY(-50%);
   font-size: var(--akds-font-size-md);
@@ -149,7 +149,7 @@
 }
 
 .akds-combobox__label--floating {
-  top: var(--akds-spacing-scale-02);
+  top: var(--akds-spacing-100);
   transform: translateY(0) scale(0.75);
   font-size: var(--akds-font-size-xs);
   color: var(--akds-color-text-secondary-default);
@@ -159,7 +159,7 @@
 .akds-combobox__chevron {
   display: flex;
   align-items: center;
-  padding-right: var(--akds-spacing-scale-03);
+  padding-right: var(--akds-spacing-150);
   color: var(--akds-color-icon-secondary-default);
   flex-shrink: 0;
   pointer-events: none;
@@ -167,7 +167,7 @@
 
 /* ── Helper text ───────────────────────────────────────────────────────── */
 .akds-combobox__helper-text {
-  margin: var(--akds-spacing-scale-01) 0 0 var(--akds-spacing-scale-03);
+  margin: var(--akds-spacing-50) 0 0 var(--akds-spacing-150);
   font-size: var(--akds-font-size-sm);
   font-weight: var(--akds-font-weight-regular);
   color: var(--akds-color-text-secondary-default);
@@ -176,13 +176,13 @@
 /* ── Listbox ───────────────────────────────────────────────────────────── */
 .akds-combobox__listbox {
   position: absolute;
-  top: calc(100% + var(--akds-spacing-scale-01));
+  top: calc(100% + var(--akds-spacing-50));
   left: 0;
   right: 0;
   z-index: 100;
   list-style: none;
   margin: 0;
-  padding: var(--akds-spacing-scale-01) 0;
+  padding: var(--akds-spacing-50) 0;
   background: var(--akds-color-surface-overlay);
   border: 1px solid var(--akds-color-border-default-default);
   border-radius: var(--akds-radius-md);
@@ -196,8 +196,8 @@
 .akds-combobox__option {
   display: flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-02);
-  padding: var(--akds-spacing-scale-02) var(--akds-spacing-scale-04);
+  gap: var(--akds-spacing-100);
+  padding: var(--akds-spacing-100) var(--akds-spacing-200);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-regular);
   color: var(--akds-color-text-primary-default);
@@ -241,7 +241,7 @@
 }
 
 .akds-combobox__no-results {
-  padding: var(--akds-spacing-scale-02) var(--akds-spacing-scale-04);
+  padding: var(--akds-spacing-100) var(--akds-spacing-200);
   font-size: var(--akds-font-size-md);
   color: var(--akds-color-text-secondary-default);
 }

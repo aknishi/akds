@@ -44,7 +44,7 @@ export const cssVars = {
     },
   },
   spacing: {
-    scale:  { '05': 'var(--akds-spacing-scale-05)', '01': 'var(--akds-spacing-scale-01)', '02': 'var(--akds-spacing-scale-02)', '03': 'var(--akds-spacing-scale-03)', '04': 'var(--akds-spacing-scale-04)', '06': 'var(--akds-spacing-scale-06)', '08': 'var(--akds-spacing-scale-08)', '10': 'var(--akds-spacing-scale-10)', '12': 'var(--akds-spacing-scale-12)', '16': 'var(--akds-spacing-scale-16)', '20': 'var(--akds-spacing-scale-20)' },
+    scale:  { 25: 'var(--akds-spacing-25)', 50: 'var(--akds-spacing-50)', 100: 'var(--akds-spacing-100)', 150: 'var(--akds-spacing-150)', 200: 'var(--akds-spacing-200)', 300: 'var(--akds-spacing-300)', 400: 'var(--akds-spacing-400)', 500: 'var(--akds-spacing-500)', 600: 'var(--akds-spacing-600)', 800: 'var(--akds-spacing-800)', 1000: 'var(--akds-spacing-1000)' },
     layout: { xs: 'var(--akds-spacing-layout-xs)', sm: 'var(--akds-spacing-layout-sm)', md: 'var(--akds-spacing-layout-md)', lg: 'var(--akds-spacing-layout-lg)', xl: 'var(--akds-spacing-layout-xl)', '2xl': 'var(--akds-spacing-layout-2xl)' },
   },
   radius: { none: 'var(--akds-radius-none)', xs: 'var(--akds-radius-xs)', sm: 'var(--akds-radius-sm)', md: 'var(--akds-radius-md)', lg: 'var(--akds-radius-lg)', xl: 'var(--akds-radius-xl)', '2xl': 'var(--akds-radius-2xl)', full: 'var(--akds-radius-full)' },

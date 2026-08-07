@@ -9,6 +9,4 @@ export interface LikeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
    * For a controlled state. When true it will render in the pressed state.
    */
   liked?: boolean;
-  /** Content rendered inside the button. Required — overrides the optional inherited type. */
-  children: React.ReactNode;
 }

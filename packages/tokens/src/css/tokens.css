@@ -84,17 +84,17 @@
   --akds-primitive-color-orange-950: #431407;
 
   /* ─── Spacing ──────────────────────────────────────────────── */
-  --akds-spacing-scale-10: 40px;
-  --akds-spacing-scale-12: 48px;
-  --akds-spacing-scale-16: 64px;
-  --akds-spacing-scale-20: 80px;
-  --akds-spacing-scale-05: 2px;
-  --akds-spacing-scale-01: 4px;
-  --akds-spacing-scale-02: 8px;
-  --akds-spacing-scale-03: 12px;
-  --akds-spacing-scale-04: 16px;
-  --akds-spacing-scale-06: 24px;
-  --akds-spacing-scale-08: 32px;
+  --akds-spacing-25: 2px;
+  --akds-spacing-50: 4px;
+  --akds-spacing-100: 8px;
+  --akds-spacing-150: 12px;
+  --akds-spacing-200: 16px;
+  --akds-spacing-300: 24px;
+  --akds-spacing-400: 32px;
+  --akds-spacing-500: 40px;
+  --akds-spacing-600: 48px;
+  --akds-spacing-800: 64px;
+  --akds-spacing-1000: 80px;
   --akds-spacing-layout-xs: 4px;
   --akds-spacing-layout-sm: 8px;
   --akds-spacing-layout-md: 16px;

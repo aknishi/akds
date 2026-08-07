@@ -2,7 +2,7 @@
 .akds-tag {
   display: inline-flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-01);
+  gap: var(--akds-spacing-50);
   border-radius: var(--akds-radius-full);
   font-family: var(--akds-font-family-sans);
   font-weight: var(--akds-font-weight-medium);
@@ -19,17 +19,17 @@
 /* ── Sizes ─────────────────────────────────────────────────────────────── */
 .akds-tag--sm {
   font-size: var(--akds-font-size-xs);
-  padding: var(--akds-spacing-scale-05) var(--akds-spacing-scale-02);
+  padding: var(--akds-spacing-25) var(--akds-spacing-100);
 }
 
 .akds-tag--md {
   font-size: var(--akds-font-size-sm);
-  padding: var(--akds-spacing-scale-01) var(--akds-spacing-scale-03);
+  padding: var(--akds-spacing-50) var(--akds-spacing-150);
 }
 
 .akds-tag--lg {
   font-size: var(--akds-font-size-md);
-  padding: var(--akds-spacing-scale-02) var(--akds-spacing-scale-04);
+  padding: var(--akds-spacing-100) var(--akds-spacing-200);
 }
 
 /* ── Variants ──────────────────────────────────────────────────────────── */

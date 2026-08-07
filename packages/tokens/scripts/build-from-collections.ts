@@ -48,7 +48,7 @@ interface FlatToken {
   path:   string[];
   type:   Token['$type'];
   value:  string | number | boolean | ColorValue;
-  cssVar: string; // e.g. "var(--akds-spacing-scale-01)"
+  cssVar: string; // e.g. "var(--akds-spacing-50)"
 }
 
 function flattenTokens(tree: TokenTree, basePath: string[] = []): FlatToken[] {

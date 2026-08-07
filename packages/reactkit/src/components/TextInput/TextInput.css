@@ -33,7 +33,7 @@
 .akds-text-input__start-adornment {
   display: flex;
   align-items: center;
-  padding-left: var(--akds-spacing-scale-03);
+  padding-left: var(--akds-spacing-150);
   color: var(--akds-color-icon-secondary-default);
   flex-shrink: 0;
 }
@@ -52,10 +52,10 @@
   border: none;
   outline: none;
   background: transparent;
-  padding-top: var(--akds-spacing-scale-04);
-  padding-bottom: var(--akds-spacing-scale-02);
-  padding-left: var(--akds-spacing-scale-03);
-  padding-right: var(--akds-spacing-scale-03);
+  padding-top: var(--akds-spacing-200);
+  padding-bottom: var(--akds-spacing-100);
+  padding-left: var(--akds-spacing-150);
+  padding-right: var(--akds-spacing-150);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-light);
@@ -70,7 +70,7 @@
 /* ── Label ─────────────────────────────────────────────────────────────── */
 .akds-text-input__label {
   position: absolute;
-  left: var(--akds-spacing-scale-03);
+  left: var(--akds-spacing-150);
   top: 50%;
   transform: translateY(-50%);
   font-size: var(--akds-font-size-md);
@@ -85,7 +85,7 @@
 
 /* ── Floating label (focused or has value) ─────────────────────────────── */
 .akds-text-input__label--floating {
-  top: var(--akds-spacing-scale-01);
+  top: var(--akds-spacing-50);
   transform: translateY(0) scale(0.75);
   font-size: var(--akds-font-size-sm);
   letter-spacing: 1px;
@@ -96,8 +96,8 @@
 /* ── Helper text ───────────────────────────────────────────────────────── */
 .akds-text-input__helper-text {
   margin: 0;
-  margin-top: var(--akds-spacing-scale-01);
-  padding-left: var(--akds-spacing-scale-03);
+  margin-top: var(--akds-spacing-50);
+  padding-left: var(--akds-spacing-150);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-xs);
   font-weight: var(--akds-font-weight-regular);

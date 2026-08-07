@@ -1,6 +1,6 @@
 /* ── Base ──────────────────────────────────────────────────────────────── */
 .akds-tab-panel {
-  padding: var(--akds-spacing-scale-04);
+  padding: var(--akds-spacing-200);
   color: var(--akds-color-text-primary-default);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);

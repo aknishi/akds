@@ -152,9 +152,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--akds-spacing-scale-04) var(--akds-spacing-scale-06);
+  padding: var(--akds-spacing-200) var(--akds-spacing-300);
   border-bottom: 1px solid var(--akds-color-border-default-default);
-  gap: var(--akds-spacing-scale-03);
+  gap: var(--akds-spacing-150);
   flex-shrink: 0;
 }
 
@@ -176,7 +176,7 @@
 
 /* ── Body ──────────────────────────────────────────────────────────────── */
 .akds-drawer__body {
-  padding: var(--akds-spacing-scale-06);
+  padding: var(--akds-spacing-300);
   overflow-y: auto;
   flex: 1;
   font-family: var(--akds-font-family-sans);

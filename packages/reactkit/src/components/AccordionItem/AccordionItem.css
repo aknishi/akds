@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: var(--akds-spacing-scale-04);
+  padding: var(--akds-spacing-200);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-small);
@@ -74,7 +74,7 @@
 }
 
 .akds-accordion-item__panel-inner {
-  padding: 0 var(--akds-spacing-scale-04) var(--akds-spacing-scale-04);
+  padding: 0 var(--akds-spacing-200) var(--akds-spacing-200);
   color: var(--akds-color-text-secondary-default);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);

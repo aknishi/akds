@@ -4,7 +4,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   font-family: var(--akds-font-family-sans);
   font-weight: var(--akds-font-weight-small);
   line-height: var(--akds-font-line-height-normal);
@@ -54,21 +54,21 @@
 
 /* ── Sizes ─────────────────────────────────────────────────────────────── */
 .akds-button--sm {
-  padding-block: var(--akds-spacing-scale-01);
-  padding-inline: var(--akds-spacing-scale-03);
+  padding-block: var(--akds-spacing-50);
+  padding-inline: var(--akds-spacing-150);
   font-size: var(--akds-font-size-sm);
 }
 
 .akds-button--md {
-  padding-block: var(--akds-spacing-scale-02);
-  padding-inline: var(--akds-spacing-scale-04);
+  padding-block: var(--akds-spacing-100);
+  padding-inline: var(--akds-spacing-200);
   border-radius: var(--akds-radius-lg);
   font-size: var(--akds-font-size-md);
 }
 
 .akds-button--lg {
-  padding-block: var(--akds-spacing-scale-03);
-  padding-inline: var(--akds-spacing-scale-06);
+  padding-block: var(--akds-spacing-150);
+  padding-inline: var(--akds-spacing-300);
   border-radius: var(--akds-radius-xl);
   font-size: var(--akds-font-size-lg);
 }

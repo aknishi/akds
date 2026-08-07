@@ -16,7 +16,6 @@ export const LikeButton = React.forwardRef<HTMLButtonElement, LikeButtonProps>(
       disabled = false,
       focusableWhenDisabled = false,
       className,
-      children,
       onClick,
       onPointerDown,
       ...rest
@@ -70,7 +69,7 @@ export const LikeButton = React.forwardRef<HTMLButtonElement, LikeButtonProps>(
           <ParticleBurst
             ref={particleBurstRef}
             color="red"
-            spacingFromCenter="var(--akds-spacing-scale-01)"
+            spacingFromCenter="var(--akds-spacing-50)"
           />
         )}
       </button>

@@ -38,7 +38,7 @@ export interface ParticleBurstProps {
  *   <ParticleBurst
  *     ref={burstRef}
  *     color="var(--akds-color-background-error-default)"
- *     spacingFromCenter="var(--akds-spacing-scale-01)"
+ *     spacingFromCenter="var(--akds-spacing-50)"
  *   />
  * </button>
  */

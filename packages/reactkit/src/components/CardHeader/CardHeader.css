@@ -2,7 +2,7 @@
 .akds-card-header {
   display: flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   padding: var(--akds-spacing-layout-md);
   font-family: var(--akds-font-family-sans);
   color: var(--akds-color-text-primary-default);

@@ -41,8 +41,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@aknishi/akds-icons": "latest",
-    "@aknishi/akds-tokens": "latest",
+    "@aknishi/akds-icons": "*",
+    "@aknishi/akds-tokens": "*",
     "clsx": "^2.1.0"
   },
   "peerDependencies": {

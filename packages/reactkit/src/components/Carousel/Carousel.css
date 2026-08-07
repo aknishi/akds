@@ -15,7 +15,7 @@
 /* ── Track ──────────────────────────────────────────────────────────────── */
 .akds-carousel__track {
   display: flex;
-  gap: var(--akds-spacing-scale-04);
+  gap: var(--akds-spacing-200);
   will-change: transform;
 }
 
@@ -45,8 +45,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: var(--akds-spacing-scale-10);
-  height: var(--akds-spacing-scale-10);
+  width: var(--akds-spacing-500);
+  height: var(--akds-spacing-500);
   padding: 0;
   border-radius: var(--akds-radius-full);
   border: 1.5px solid var(--akds-color-border-neutral-default);
@@ -82,11 +82,11 @@
 }
 
 .akds-carousel__nav-button--prev {
-  left: var(--akds-spacing-scale-03);
+  left: var(--akds-spacing-150);
 }
 
 .akds-carousel__nav-button--next {
-  right: var(--akds-spacing-scale-03);
+  right: var(--akds-spacing-150);
 }
 
 /* ── Disabled ───────────────────────────────────────────────────────────── */

@@ -115,9 +115,9 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
       const vw = root.getBoundingClientRect().width;
       const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
 
-      // buttonWidth (--akds-spacing-scale-10) + slide gap (--akds-spacing-scale-04)
+      // buttonWidth (--akds-spacing-500) + slide gap (--akds-spacing-200)
       const cs = getComputedStyle(root);
-      const btnWidth = parseFloat(cs.getPropertyValue('--akds-spacing-scale-10').trim()) || 40;
+      const btnWidth = parseFloat(cs.getPropertyValue('--akds-spacing-500').trim()) || 40;
       btnInsetRef.current = btnWidth + gap;
 
       if (slidesPerPage && slidesPerPage > 0) {

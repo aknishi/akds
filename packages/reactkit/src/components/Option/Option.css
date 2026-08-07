@@ -3,10 +3,10 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-02);
+  gap: var(--akds-spacing-100);
   width: 100%;
-  padding-block: var(--akds-spacing-scale-02);
-  padding-inline: var(--akds-spacing-scale-04);
+  padding-block: var(--akds-spacing-100);
+  padding-inline: var(--akds-spacing-200);
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   font-weight: var(--akds-font-weight-regular);

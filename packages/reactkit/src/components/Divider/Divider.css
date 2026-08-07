@@ -33,7 +33,7 @@
 .akds-divider--labeled {
   display: flex;
   align-items: center;
-  gap: var(--akds-spacing-scale-03);
+  gap: var(--akds-spacing-150);
   border: none;
   width: 100%;
 }
