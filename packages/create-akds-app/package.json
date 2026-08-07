@@ -1,6 +1,6 @@
 {
   "name": "@aknishi/create-akds-app",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Scaffold a new TypeScript + React + Vite app with akds design system",
   "type": "module",
   "bin": {
