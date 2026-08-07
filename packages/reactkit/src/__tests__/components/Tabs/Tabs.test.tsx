@@ -141,3 +141,159 @@ describe('Tabs', () => {
     });
   });
 });
+
+function MiddleDisabledFixture() {
+  return (
+    <Tabs defaultActiveTab="a">
+      <TabList>
+        <Tab value="a">Tab A</Tab>
+        <Tab value="b" disabled>Tab B</Tab>
+        <Tab value="c">Tab C</Tab>
+      </TabList>
+      <TabPanel value="a">Panel A</TabPanel>
+      <TabPanel value="b">Panel B</TabPanel>
+      <TabPanel value="c">Panel C</TabPanel>
+    </Tabs>
+  );
+}
+
+describe('TabList', () => {
+  it('renders as a tablist', () => {
+    render(<TabsFixture />);
+    expect(screen.getByRole('tablist')).toBeInTheDocument();
+  });
+
+  it('applies default class', () => {
+    render(<TabsFixture />);
+    expect(screen.getByRole('tablist')).toHaveClass('akds-tab-list');
+  });
+
+  it('merges a custom className with the default class', () => {
+    render(
+      <Tabs defaultActiveTab="a">
+        <TabList className="custom-list">
+          <Tab value="a">Tab A</Tab>
+        </TabList>
+        <TabPanel value="a">Panel A</TabPanel>
+      </Tabs>,
+    );
+    const tablist = screen.getByRole('tablist');
+    expect(tablist).toHaveClass('akds-tab-list');
+    expect(tablist).toHaveClass('custom-list');
+  });
+
+  it('renders the active-tab indicator element', () => {
+    render(<TabsFixture />);
+    expect(screen.getByRole('tablist').querySelector('.akds-tab-list__indicator')).toBeInTheDocument();
+  });
+
+  it('forwards ref to the tablist div', () => {
+    const ref = React.createRef<HTMLDivElement>();
+    render(
+      <Tabs defaultActiveTab="a">
+        <TabList ref={ref}>
+          <Tab value="a">Tab A</Tab>
+        </TabList>
+        <TabPanel value="a">Panel A</TabPanel>
+      </Tabs>,
+    );
+    expect(ref.current).toBeInstanceOf(HTMLDivElement);
+    expect(ref.current).toBe(screen.getByRole('tablist'));
+  });
+
+  it('forwards data attributes', () => {
+    render(
+      <Tabs defaultActiveTab="a">
+        <TabList data-testid="tab-list-root">
+          <Tab value="a">Tab A</Tab>
+        </TabList>
+        <TabPanel value="a">Panel A</TabPanel>
+      </Tabs>,
+    );
+    expect(screen.getByTestId('tab-list-root')).toBeInTheDocument();
+  });
+
+  it('ArrowRight moves focus to and activates the next tab', async () => {
+    const onChange = vi.fn();
+    render(<TabsFixture onChange={onChange} />);
+    screen.getByRole('tab', { name: 'Tab A' }).focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: 'Tab B' })).toHaveFocus();
+    expect(onChange).toHaveBeenCalledWith('b');
+  });
+
+  it('ArrowRight wraps from the last enabled tab to the first', async () => {
+    render(<TabsFixture defaultActiveTab="b" />);
+    screen.getByRole('tab', { name: 'Tab B' }).focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: 'Tab A' })).toHaveFocus();
+  });
+
+  it('ArrowLeft moves focus to and activates the previous tab', async () => {
+    const onChange = vi.fn();
+    render(<TabsFixture defaultActiveTab="b" onChange={onChange} />);
+    screen.getByRole('tab', { name: 'Tab B' }).focus();
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('tab', { name: 'Tab A' })).toHaveFocus();
+    expect(onChange).toHaveBeenCalledWith('a');
+  });
+
+  it('ArrowLeft wraps from the first tab to the last enabled tab', async () => {
+    render(<TabsFixture />);
+    screen.getByRole('tab', { name: 'Tab A' }).focus();
+    await userEvent.keyboard('{ArrowLeft}');
+    expect(screen.getByRole('tab', { name: 'Tab B' })).toHaveFocus();
+  });
+
+  it('Home moves focus to and activates the first tab', async () => {
+    render(<TabsFixture defaultActiveTab="b" />);
+    screen.getByRole('tab', { name: 'Tab B' }).focus();
+    await userEvent.keyboard('{Home}');
+    expect(screen.getByRole('tab', { name: 'Tab A' })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: 'Tab A' })).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it('End moves focus to and activates the last enabled tab', async () => {
+    render(<TabsFixture defaultActiveTab="a" />);
+    screen.getByRole('tab', { name: 'Tab A' }).focus();
+    await userEvent.keyboard('{End}');
+    expect(screen.getByRole('tab', { name: 'Tab B' })).toHaveFocus();
+    expect(screen.getByRole('tab', { name: 'Tab B' })).toHaveAttribute('aria-selected', 'true');
+  });
+
+  it('skips disabled tabs when navigating with arrow keys', async () => {
+    render(<MiddleDisabledFixture />);
+    screen.getByRole('tab', { name: 'Tab A' }).focus();
+    await userEvent.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: 'Tab C' })).toHaveFocus();
+  });
+
+  it('forwards unhandled key events to the onKeyDown prop', async () => {
+    const onKeyDown = vi.fn();
+    render(
+      <Tabs defaultActiveTab="a">
+        <TabList onKeyDown={onKeyDown}>
+          <Tab value="a">Tab A</Tab>
+          <Tab value="b">Tab B</Tab>
+        </TabList>
+        <TabPanel value="a">Panel A</TabPanel>
+        <TabPanel value="b">Panel B</TabPanel>
+      </Tabs>,
+    );
+    screen.getByRole('tab', { name: 'Tab A' }).focus();
+    await userEvent.keyboard('x');
+    expect(onKeyDown).toHaveBeenCalled();
+  });
+
+  describe('axe accessibility', () => {
+    it('has no violations in default state', async () => {
+      const { container } = render(<TabsFixture defaultActiveTab="a" />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+
+    it('has no violations with a disabled tab in the middle', async () => {
+      const { container } = render(<MiddleDisabledFixture />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+});
