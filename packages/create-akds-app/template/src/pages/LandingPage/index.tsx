@@ -14,19 +14,19 @@ import './LandingPage.css';
 
 const features = [
   {
-    icon: <SpeedIcon className="feature-card__icon" aria-hidden="true" />,
+    icon: <SpeedIcon color="info" className="feature-card__icon" aria-hidden="true" />,
     title: 'Fast by default',
     description:
       'Powered by Vite — instant server start, lightning-fast HMR, and optimised production builds out of the box.',
   },
   {
-    icon: <PaletteIcon className="feature-card__icon" aria-hidden="true" />,
+    icon: <PaletteIcon color="info" className="feature-card__icon" aria-hidden="true" />,
     title: 'Design system included',
     description:
       'Every component comes from @aknishi/akds-reactkit, fully token-driven with built-in dark mode support.',
   },
   {
-    icon: <FlashIcon className="feature-card__icon" aria-hidden="true" />,
+    icon: <FlashIcon color="info" className="feature-card__icon" aria-hidden="true" />,
     title: 'Routing ready',
     description:
       'React Router v7 is wired up from the start. Add new pages in router.tsx and go.',
@@ -35,7 +35,6 @@ const features = [
 
 export function LandingPage() {
   const navigate = useNavigate();
-  const [likes, setLikes] = React.useState(0);
 
   return (
     <main className="landing">
@@ -98,20 +97,7 @@ export function LandingPage() {
         <Text styleAs="body" as="p" className="landing__cta-strip-sub">
           Edit <code>src/pages/LandingPage</code> to make this page your own.
         </Text>
-        <Button
-          appearance="solid"
-          emphasis="accented"
-          size="md"
-          onClick={() => setLikes((n) => n + 1)}
-        >
-          <LikeButton liked={likes > 0} /> :
-          Like
-        </Button>
-        {likes > 0 && (
-          <Text styleAs="caption" as="p" className="landing__cta-strip-sub">
-            {likes} {likes === 1 ? 'like' : 'likes'}
-          </Text>
-        )}
+        <LikeButton />
       </section>
     </main>
   );

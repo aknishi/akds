@@ -45,12 +45,6 @@
   gap: var(--akds-spacing-layout-lg);
 }
 
-.feature-card__icon {
-  width: 32px;
-  height: 32px;
-  color: var(--akds-color-text-info-default);
-}
-
 .feature-card__description {
   color: var(--akds-color-text-secondary-default);
 }
