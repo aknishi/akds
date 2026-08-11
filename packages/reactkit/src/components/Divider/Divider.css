@@ -22,7 +22,6 @@
 /* ── Vertical ───────────────────────────────────────────────────────────── */
 .akds-divider--vertical {
   display: inline-block;
-  height: 100%;
   align-self: stretch;
   border-left-width: 1px;
   border-left-style: var(--akds-divider-line-style, solid);
