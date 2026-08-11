@@ -1,0 +1,11 @@
+.package-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.package-card__description {
+  display: block;
+  margin-bottom: var(--akds-spacing-200);
+  color: var(--akds-color-text-secondary-default);
+}

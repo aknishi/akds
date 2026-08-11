@@ -1,0 +1,25 @@
+.component-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.component-card {
+  height: 100%;
+}
+
+.component-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  padding: var(--akds-spacing-300);
+  background: var(--akds-color-surface-sunken);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}
+
+.component-card__description {
+  display: block;
+  margin-top: var(--akds-spacing-50);
+  color: var(--akds-color-text-secondary-default);
+}

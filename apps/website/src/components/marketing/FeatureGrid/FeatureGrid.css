@@ -1,0 +1,26 @@
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--akds-spacing-300);
+}
+
+.feature-grid__card {
+  height: 100%;
+}
+
+.feature-grid__icon {
+  width: var(--akds-size-component-md);
+  height: var(--akds-size-component-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--akds-radius-lg);
+  background: color-mix(in srgb, var(--akds-color-background-info-default) 14%, transparent);
+  margin-bottom: var(--akds-spacing-200);
+}
+
+.feature-grid__description {
+  display: block;
+  margin-top: var(--akds-spacing-100);
+  color: var(--akds-color-text-secondary-default);
+}

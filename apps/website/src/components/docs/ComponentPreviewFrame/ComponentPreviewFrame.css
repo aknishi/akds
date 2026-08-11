@@ -1,0 +1,13 @@
+.component-preview-frame {
+  background: var(--akds-color-surface-sunken);
+}
+
+.component-preview-frame__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--akds-spacing-300);
+  min-height: 120px;
+  padding: var(--akds-spacing-400);
+}

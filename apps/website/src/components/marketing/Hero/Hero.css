@@ -1,0 +1,18 @@
+.hero {
+  position: relative;
+  padding-block: var(--akds-spacing-layout-2xl);
+  overflow: hidden;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+}
+
+.hero__subhead {
+  display: block;
+  margin-top: var(--akds-spacing-200);
+  max-width: 620px;
+  color: var(--akds-color-text-secondary-default);
+}

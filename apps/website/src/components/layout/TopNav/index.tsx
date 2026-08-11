@@ -1,0 +1,72 @@
+import React from 'react';
+import { NavLink } from 'react-router';
+import { Button, IconButton, useTheme } from '@aknishi/akds-reactkit';
+import { HamburgerIcon } from '../HamburgerIcon';
+import './TopNav.css';
+
+export interface TopNavProps {
+  onMenuClick: () => void;
+}
+
+const TOP_LINKS = [
+  { label: 'Components', to: '/components' },
+  { label: 'Tokens', to: '/tokens' },
+  { label: 'Guidelines', to: '/guidelines/design' },
+  { label: 'Packages', to: '/packages' },
+];
+
+export function TopNav({ onMenuClick }: TopNavProps) {
+  const { theme, setTheme } = useTheme();
+  const isDark = theme === 'dark';
+  const [scrolled, setScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 4);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <header className={`top-nav${scrolled ? ' top-nav--scrolled' : ''}`}>
+      <div className="top-nav__inner">
+        <IconButton
+          appearance="transparent"
+          emphasis="neutral"
+          className="top-nav__menu-button"
+          aria-label="Open navigation menu"
+          onClick={onMenuClick}
+        >
+          <HamburgerIcon />
+        </IconButton>
+
+        <NavLink to="/" className="top-nav__brand">
+          AKDS
+        </NavLink>
+
+        <nav className="top-nav__links" aria-label="Primary navigation">
+          {TOP_LINKS.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) => `top-nav__link${isActive ? ' top-nav__link--active' : ''}`}
+            >
+              {link.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="top-nav__actions">
+          <Button
+            appearance="bordered"
+            emphasis="neutral"
+            size="sm"
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+          >
+            {isDark ? 'Light mode' : 'Dark mode'}
+          </Button>
+        </div>
+      </div>
+    </header>
+  );
+}

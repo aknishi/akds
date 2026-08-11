@@ -1,0 +1,80 @@
+.landing-section__eyebrow {
+  display: block;
+  text-align: center;
+  color: var(--akds-color-text-secondary-default);
+  text-transform: uppercase;
+  letter-spacing: var(--akds-font-letter-spacing-wide);
+  margin-bottom: var(--akds-spacing-300);
+}
+
+.landing-section__intro {
+  max-width: 720px;
+}
+
+.landing-section__spacer {
+  height: var(--akds-spacing-400);
+}
+
+.landing-section__cta-link {
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  color: var(--akds-color-text-info-default);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.landing-marquee-section {
+  padding-block: var(--akds-spacing-layout-lg);
+}
+
+.landing-components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--akds-spacing-300);
+}
+
+.landing-packages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--akds-spacing-300);
+}
+
+.landing-guidelines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--akds-spacing-300);
+}
+
+.landing-guidelines-grid__link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.landing-guidelines-grid__card {
+  height: 100%;
+}
+
+.landing-guidelines-grid__description {
+  display: block;
+  margin-top: var(--akds-spacing-100);
+  color: var(--akds-color-text-secondary-default);
+}
+
+.landing-cta {
+  padding-block: var(--akds-spacing-layout-2xl);
+}
+
+.landing-cta__content {
+  max-width: 600px;
+  text-align: center;
+}
+
+.landing-cta__title {
+  color: var(--akds-color-text-on-primary-default);
+}
+
+.landing-cta__github-button {
+  color: var(--akds-color-text-on-primary-default) !important;
+  box-shadow: inset 0 0 0 1.5px var(--akds-color-text-on-primary-default) !important;
+}

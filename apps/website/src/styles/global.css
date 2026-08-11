@@ -1,0 +1,55 @@
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--akds-font-family-sans), sans-serif;
+  font-size: var(--akds-font-size-md);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-primary-default);
+  background: var(--akds-color-surface-default);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  scrollbar-color: var(--akds-color-border-neutral-default) transparent;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+code,
+pre {
+  font-family: var(--akds-font-family-mono), monospace;
+}
+
+/* ── Site-only typography override ────────────────────────────────────── */
+/* Text's `hero` styleAs tops out at --akds-font-size-6xl; the landing hero
+   needs to scale further on very large viewports. */
+.site-hero-title {
+  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+}
+
+/* ── Focus ─────────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}

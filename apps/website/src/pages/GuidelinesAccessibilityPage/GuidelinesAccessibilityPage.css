@@ -1,0 +1,11 @@
+.a11y-guidelines-page {
+  max-width: 860px;
+}
+
+.a11y-guidelines-page__lede,
+.a11y-guidelines-page__section-lede {
+  display: block;
+  color: var(--akds-color-text-secondary-default);
+  margin-top: var(--akds-spacing-100);
+  margin-bottom: var(--akds-spacing-200);
+}

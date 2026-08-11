@@ -1,0 +1,22 @@
+.packages-page {
+  max-width: 780px;
+}
+
+.packages-page__lede {
+  display: block;
+  color: var(--akds-color-text-secondary-default);
+}
+
+.packages-page__description {
+  display: block;
+  margin-bottom: var(--akds-spacing-200);
+  color: var(--akds-color-text-secondary-default);
+}
+
+.packages-page__label {
+  display: block;
+  margin-bottom: var(--akds-spacing-50);
+  color: var(--akds-color-text-secondary-default);
+  text-transform: uppercase;
+  letter-spacing: var(--akds-font-letter-spacing-wide);
+}

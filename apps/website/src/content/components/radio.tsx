@@ -1,0 +1,59 @@
+import { Radio, RadioGroup } from '@aknishi/akds-reactkit';
+import type { ComponentEntry } from './types';
+
+export const radio: ComponentEntry = {
+  slug: 'radio',
+  name: 'Radio',
+  category: 'Inputs',
+  summary: 'A single radio input, typically composed inside RadioGroup which manages shared name and selection.',
+  sourcePath: 'packages/reactkit/src/components/Radio',
+  examples: [
+    {
+      title: 'RadioGroup',
+      render: () => (
+        <RadioGroup name="plan" defaultValue="pro" legend="Plan">
+          <Radio label="Free" value="free" />
+          <Radio label="Pro" value="pro" />
+          <Radio label="Enterprise" value="enterprise" />
+        </RadioGroup>
+      ),
+      code: `<RadioGroup name="plan" defaultValue="pro" legend="Plan">
+  <Radio label="Free" value="free" />
+  <Radio label="Pro" value="pro" />
+  <Radio label="Enterprise" value="enterprise" />
+</RadioGroup>`,
+    },
+    {
+      title: 'Horizontal orientation',
+      render: () => (
+        <RadioGroup name="size-horizontal" defaultValue="md" orientation="horizontal">
+          <Radio label="Small" value="sm" />
+          <Radio label="Medium" value="md" />
+          <Radio label="Large" value="lg" />
+        </RadioGroup>
+      ),
+      code: `<RadioGroup name="size" orientation="horizontal">
+  <Radio label="Small" value="sm" />
+  <Radio label="Medium" value="md" />
+  <Radio label="Large" value="lg" />
+</RadioGroup>`,
+    },
+  ],
+  accessibilityNotes: [
+    'RadioGroup renders a native <fieldset>, with legend rendered as a real <legend> — the accessible name for the whole group.',
+    'name, disabled, and onChange set on RadioGroup are inherited by every child Radio unless a Radio explicitly overrides them.',
+    'Arrow-key navigation between radios in the same group is native browser behavior, not custom JS.',
+  ],
+  props: [
+    { name: 'name', type: 'string', description: 'Shared name for all child Radio inputs. Required on RadioGroup for form association.' },
+    { name: 'value', type: 'string | number', description: 'The currently selected value (controlled), set on RadioGroup.' },
+    { name: 'legend', type: 'React.ReactNode', description: 'Accessible label rendered as a <legend> on RadioGroup.' },
+    { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Layout direction of the radio options, set on RadioGroup.' },
+    { name: 'label', type: 'React.ReactNode', description: 'The label text rendered next to an individual Radio.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Sets the size of the radio indicator.' },
+  ],
+  doDont: [
+    { do: 'Wrap Radio options in a RadioGroup for a real <fieldset>/<legend> pairing.', dont: "Don't use a single standalone Radio for a binary choice — use Switch or Checkbox instead." },
+  ],
+  related: ['checkbox', 'switch'],
+};
