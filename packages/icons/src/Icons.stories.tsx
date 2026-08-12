@@ -192,6 +192,23 @@ const GROUPS: { category: string; icons: IconEntry[] }[] = [
       { name: 'PriceTagFilledIcon', Component: Icons.PriceTagFilledIcon, tags: ['label', 'price', 'cost', 'sell', 'shop', 'tag'] },
     ],
   },
+  {
+    category: 'Theme & Weather',
+    icons: [
+      { name: 'SunnyIcon', Component: Icons.SunnyIcon, tags: ['light', 'sun', 'day', 'brightness', 'weather'] },
+      { name: 'SunnyFilledIcon', Component: Icons.SunnyFilledIcon, tags: ['light', 'sun', 'day', 'brightness', 'weather'] },
+      { name: 'DarkModeIcon', Component: Icons.DarkModeIcon, tags: ['dark', 'night', 'theme', 'moon'] },
+      { name: 'DarkModeFilledIcon', Component: Icons.DarkModeFilledIcon, tags: ['dark', 'night', 'theme', 'moon'] },
+    ],
+  },
+  {
+    category: 'Food & Drink',
+    icons: [
+      { name: 'LunchDiningIcon', Component: Icons.LunchDiningIcon, tags: ['food', 'burger', 'meal', 'restaurant', 'eat'] },
+      { name: 'LocalBarIcon', Component: Icons.LocalBarIcon, tags: ['drink', 'cocktail', 'bar', 'alcohol', 'beverage'] },
+      { name: 'IceCreamIcon', Component: Icons.IceCreamIcon, tags: ['food', 'dessert', 'sweet', 'cone', 'sundae'] },
+    ],
+  },
 ];
 
 const cellStyle: React.CSSProperties = {

@@ -159,6 +159,17 @@ const ICONS: Record<string, string> = {
   PublicFilledIcon: 'public-fill',
   PriceTagIcon: 'sell',
   PriceTagFilledIcon: 'sell-fill',
+
+  // Theme & Weather
+  SunnyIcon: 'sunny',
+  SunnyFilledIcon: 'sunny-fill',
+  DarkModeIcon: 'dark_mode',
+  DarkModeFilledIcon: 'dark_mode-fill',
+
+  // Food & Drink
+  LunchDiningIcon: 'lunch_dining',
+  LocalBarIcon: 'local_bar',
+  IceCreamIcon: 'icecream',
 };
 
 function extractPath(svgContent: string): string {
