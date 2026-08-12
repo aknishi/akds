@@ -23,6 +23,10 @@ export default defineConfig({
         'src/test/**',
         'src/utils/LiveEditStory.ts',
       ],
+      thresholds: {
+        perFile: true,
+        'src/components/**': { statements: 80 },
+      },
     },
   },
 });
