@@ -4,6 +4,7 @@ import type { ComponentEntry } from './types';
 import { button } from './button';
 import { iconButton } from './icon-button';
 import { likeButton } from './like-button';
+import { toggleButton } from './toggle-button';
 
 // Inputs
 import { checkbox } from './checkbox';
@@ -12,6 +13,7 @@ import { dropdownMenu } from './dropdown-menu';
 import { radio } from './radio';
 import { switchEntry } from './switch';
 import { textInput } from './text-input';
+import { toggleGroup } from './toggle-group';
 
 // Layout
 import { card } from './card';
@@ -39,20 +41,18 @@ import { text } from './text';
 // System
 import { themeProvider } from './theme-provider';
 
-// Primitives
-import { particleBurst } from './particle-burst';
-import { rippleBase } from './ripple-base';
-
 export const componentRegistry: ComponentEntry[] = [
   button,
   iconButton,
   likeButton,
+  toggleButton,
   checkbox,
   combobox,
   dropdownMenu,
   radio,
   switchEntry,
   textInput,
+  toggleGroup,
   card,
   divider,
   flexbox,
@@ -69,8 +69,6 @@ export const componentRegistry: ComponentEntry[] = [
   tag,
   text,
   themeProvider,
-  particleBurst,
-  rippleBase,
 ];
 
 export function getComponentBySlug(slug: string): ComponentEntry | undefined {

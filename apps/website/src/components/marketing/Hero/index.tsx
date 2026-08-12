@@ -4,11 +4,21 @@ import { Button, Flexbox, Tag, Text } from '@aknishi/akds-reactkit';
 import { GradientBackground } from '../GradientBackground';
 import { PageContainer } from '../../layout/PageContainer';
 import { staggerContainer, staggerItem } from '../../../lib/motion';
+import { useMediaQuery } from '../../../lib/useMediaQuery';
+import { componentRegistry } from '../../../content/components/registry';
 import './Hero.css';
 
-const TRUST_TAGS = ['27 components', 'Two-layer tokens', 'Built-in dark mode', 'Accessible by default'];
+const TRUST_TAGS = [
+  `${componentRegistry.length} components`,
+  'Two-layer tokens',
+  'Built-in dark mode',
+  'Accessible by default',
+];
 
 export function Hero() {
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const ctaSize = isDesktop ? 'lg' : 'md';
+
   return (
     <div className="hero">
       <GradientBackground />
@@ -16,7 +26,7 @@ export function Hero() {
         <motion.div variants={staggerContainer} initial="hidden" animate="visible">
           <motion.div variants={staggerItem}>
             <Text as="h1" styleAs="hero" className="site-hero-title">
-              A design system built for design, product, and engineering.
+              A scalable design system that thinks through the details, so your users don't have to.
             </Text>
           </motion.div>
 
@@ -30,12 +40,12 @@ export function Hero() {
           <motion.div variants={staggerItem}>
             <Flexbox gap="md" wrap mt={4}>
               <NavLink to="/getting-started">
-                <Button appearance="solid" emphasis="accented" size="lg">
+                <Button appearance="solid" emphasis="accented" size={ctaSize}>
                   Get started
                 </Button>
               </NavLink>
               <NavLink to="/components">
-                <Button appearance="bordered" emphasis="neutral" size="lg">
+                <Button appearance="bordered" emphasis="neutral" size={ctaSize}>
                   Browse components
                 </Button>
               </NavLink>

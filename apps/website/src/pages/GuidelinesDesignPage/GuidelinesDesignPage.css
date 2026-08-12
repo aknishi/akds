@@ -6,8 +6,6 @@
 .design-guidelines-page__section-lede {
   display: block;
   color: var(--akds-color-text-secondary-default);
-  margin-top: var(--akds-spacing-100);
-  margin-bottom: var(--akds-spacing-200);
 }
 
 .design-guidelines-page__principles-grid {

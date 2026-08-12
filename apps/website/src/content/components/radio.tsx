@@ -7,6 +7,7 @@ export const radio: ComponentEntry = {
   category: 'Inputs',
   summary: 'A single radio input, typically composed inside RadioGroup which manages shared name and selection.',
   sourcePath: 'packages/reactkit/src/components/Radio',
+  storybookId: 'reactkit-radio--docs',
   examples: [
     {
       title: 'RadioGroup',
@@ -55,5 +56,5 @@ export const radio: ComponentEntry = {
   doDont: [
     { do: 'Wrap Radio options in a RadioGroup for a real <fieldset>/<legend> pairing.', dont: "Don't use a single standalone Radio for a binary choice — use Switch or Checkbox instead." },
   ],
-  related: ['checkbox', 'switch'],
+  related: ['checkbox', 'switch', 'toggle-group'],
 };

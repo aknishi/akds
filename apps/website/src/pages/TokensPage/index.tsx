@@ -41,7 +41,7 @@ export function TokensPage() {
         </Text>
       </Flexbox>
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           1. Primitive layer
         </Text>
@@ -49,7 +49,7 @@ export function TokensPage() {
           Context-free color ramps — seven hues, eleven steps each (50–950) — plus white and black. Primitives never
           appear directly in component CSS.
         </Text>
-        <Flexbox direction="column" gap="md" mt={2}>
+        <Flexbox direction="column" gap="md">
           {PRIMITIVE_SCALES.map((scale) => (
             <div key={scale} className="tokens-page__scale-row">
               <Text styleAs="label" className="tokens-page__scale-name">
@@ -68,11 +68,11 @@ export function TokensPage() {
             </div>
           ))}
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           2. Semantic layer
         </Text>
@@ -85,11 +85,11 @@ export function TokensPage() {
             <TokenSwatch key={item.role} varName={`--akds-color-${item.role}`} label={item.description} />
           ))}
         </div>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           3. Naming convention
         </Text>
@@ -106,11 +106,11 @@ export function TokensPage() {
             </Flexbox>
           </CardContent>
         </Card>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           4. Theming — pure CSS cascade
         </Text>
@@ -124,11 +124,11 @@ export function TokensPage() {
             code={`:root {\n  --akds-color-surface-default: #FFFFFF; /* light default */\n}\n\n[data-theme='dark'] {\n  --akds-color-surface-default: #171717; /* explicit override */\n}\n\n@media (prefers-color-scheme: dark) {\n  :root:not([data-theme='light']) {\n    --akds-color-surface-default: #171717; /* OS-driven */\n  }\n}`}
           />
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           5. Spacing, typography &amp; elevation
         </Text>
@@ -156,7 +156,7 @@ export function TokensPage() {
 
           <div>
             <Text styleAs="label">Type scale</Text>
-            <Flexbox direction="column" gap="xs">
+            <Flexbox direction="column" gap="xs" mt={1}>
               {Object.entries(typography.fontSize).map(([key, value]) => (
                 <Text key={key} styleAs="body" style={{ fontSize: value }}>
                   {key} — {value}px — The quick brown fox
@@ -176,11 +176,11 @@ export function TokensPage() {
             </Flexbox>
           </div>
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           6. Distribution
         </Text>
@@ -194,7 +194,7 @@ export function TokensPage() {
             code={"import { semanticColors, spacing, cssVars } from '@aknishi/akds-tokens';"}
           />
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Text styleAs="caption" className="tokens-page__breakpoints-note">
         Breakpoints: {Object.entries(breakpoints).map(([key, value]) => `${key} ${value}px`).join(' · ')}

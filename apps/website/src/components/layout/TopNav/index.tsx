@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router';
-import { Button, IconButton, useTheme } from '@aknishi/akds-reactkit';
-import { HamburgerIcon } from '../HamburgerIcon';
+import { IconButton, ToggleButton, ToggleGroup, useTheme } from '@aknishi/akds-reactkit';
+import { DarkModeFilledIcon, DarkModeIcon, MenuIcon, OpenInNewIcon, SunnyFilledIcon, SunnyIcon } from '@aknishi/akds-icons';
+import { STORYBOOK_URL } from '../../../content/storybook';
 import './TopNav.css';
 
 export interface TopNavProps {
@@ -37,7 +38,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
           aria-label="Open navigation menu"
           onClick={onMenuClick}
         >
-          <HamburgerIcon />
+          <MenuIcon />
         </IconButton>
 
         <NavLink to="/" className="top-nav__brand">
@@ -54,17 +55,26 @@ export function TopNav({ onMenuClick }: TopNavProps) {
               {link.label}
             </NavLink>
           ))}
+          <a href={STORYBOOK_URL} target="_blank" rel="noreferrer" className="top-nav__link top-nav__link--external">
+            Storybook <OpenInNewIcon size="sm" />
+          </a>
         </nav>
 
         <div className="top-nav__actions">
-          <Button
-            appearance="bordered"
-            emphasis="neutral"
+          <ToggleGroup
             size="sm"
-            onClick={() => setTheme(isDark ? 'light' : 'dark')}
+            value={isDark ? 'dark' : 'light'}
+            onChange={(value) => setTheme(value === 'dark' ? 'dark' : 'light')}
           >
-            {isDark ? 'Light mode' : 'Dark mode'}
-          </Button>
+            <ToggleButton value="light">
+              {isDark ? <SunnyIcon /> : <SunnyFilledIcon />}
+              Light
+            </ToggleButton>
+            <ToggleButton value="dark">
+              {isDark ? <DarkModeFilledIcon /> : <DarkModeIcon />}
+              Dark
+            </ToggleButton>
+          </ToggleGroup>
         </div>
       </div>
     </header>

@@ -8,6 +8,7 @@ export const iconButton: ComponentEntry = {
   category: 'Actions',
   summary: 'An icon-only button — same appearance/emphasis system as Button, but requires an aria-label.',
   sourcePath: 'packages/reactkit/src/components/IconButton',
+  storybookId: 'reactkit-buttons-iconbutton--docs',
   examples: [
     {
       title: 'Appearances',

@@ -11,8 +11,8 @@ const PRIMITIVE_SWATCHES = [
 ];
 
 const SEMANTIC_SWATCHES = [
-  { label: 'background-primary-default', var: '--akds-color-background-primary-default' },
-  { label: 'background-info-default', var: '--akds-color-background-info-default' },
+  { label: 'color-background-primary-default', var: '--akds-color-background-primary-default' },
+  { label: 'color-background-info-default', var: '--akds-color-background-info-default' },
 ];
 
 export function TokenTeaser() {
@@ -28,32 +28,37 @@ export function TokenTeaser() {
         </Text>
       </Flexbox>
 
-      <Flexbox align="center" gap="lg" wrap padding={3} className="token-teaser__diagram">
-        <Flexbox direction="column" gap="sm">
+      <Flexbox align="flex-start" gap="lg" padding={3} className="token-teaser__diagram">
+        <Flexbox direction="column" align="center" gap="md">
           <Text styleAs="caption" className="token-teaser__row-label">
             Primitive
           </Text>
-          <Flexbox gap="sm">
+          <Flexbox gap="md">
             {PRIMITIVE_SWATCHES.map((swatch) => (
-              <div key={swatch.var} className="token-teaser__swatch" style={{ background: `var(${swatch.var})` }} />
+              <Flexbox key={swatch.var} direction="column" align="center" gap="xs" className="token-teaser__swatch-group">
+                <div className="token-teaser__swatch" style={{ background: `var(${swatch.var})` }} />
+                <Text styleAs="caption" className="token-teaser__swatch-label">
+                  {swatch.label}
+                </Text>
+              </Flexbox>
             ))}
           </Flexbox>
         </Flexbox>
 
         <ArrowForwardIcon size="lg" color="default" className="token-teaser__arrow" />
 
-        <Flexbox direction="column" gap="sm">
+        <Flexbox direction="column" align="center" gap="md">
           <Text styleAs="caption" className="token-teaser__row-label">
             Semantic
           </Text>
-          <Flexbox gap="sm">
+          <Flexbox gap="md">
             {SEMANTIC_SWATCHES.map((swatch) => (
-              <div
-                key={swatch.var}
-                className="token-teaser__swatch token-teaser__swatch--lg"
-                style={{ background: `var(${swatch.var})` }}
-                title={swatch.label}
-              />
+              <Flexbox key={swatch.var} direction="column" align="center" gap="xs" className="token-teaser__swatch-group">
+                <div className="token-teaser__swatch" style={{ background: `var(${swatch.var})` }} />
+                <Text styleAs="caption" className="token-teaser__swatch-label">
+                  {swatch.label}
+                </Text>
+              </Flexbox>
             ))}
           </Flexbox>
         </Flexbox>

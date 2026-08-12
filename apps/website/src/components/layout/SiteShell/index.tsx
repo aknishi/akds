@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet, useLocation } from 'react-router';
+import { useLocation, useOutlet } from 'react-router';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TopNav } from '../TopNav';
 import { Sidebar } from '../Sidebar';
@@ -9,8 +9,13 @@ import { PageContainer } from '../PageContainer';
 
 export function SiteShell() {
   const location = useLocation();
+  const outlet = useOutlet();
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
   const showSidebar = location.pathname !== '/';
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="site-shell">
@@ -28,13 +33,7 @@ export function SiteShell() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
             >
-              {showSidebar ? (
-                <PageContainer>
-                  <Outlet />
-                </PageContainer>
-              ) : (
-                <Outlet />
-              )}
+              {showSidebar ? <PageContainer>{outlet}</PageContainer> : outlet}
             </motion.div>
           </AnimatePresence>
         </main>

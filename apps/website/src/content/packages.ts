@@ -4,6 +4,7 @@ export interface PackageEntry {
   description: string;
   install: string;
   usage?: string;
+  storybookId?: string;
 }
 
 export const packages: PackageEntry[] = [
@@ -24,6 +25,7 @@ function App() {
     </ThemeProvider>
   );
 }`,
+    storybookId: 'overview--docs',
   },
   {
     name: '@aknishi/akds-tokens',
@@ -33,6 +35,7 @@ function App() {
     install: 'npm install @aknishi/akds-tokens',
     usage: `import '@aknishi/akds-tokens/css';
 import { spacing, semanticColors } from '@aknishi/akds-tokens';`,
+    storybookId: 'tokens-tokens-colors--docs',
   },
   {
     name: '@aknishi/akds-icons',
@@ -43,6 +46,7 @@ import { spacing, semanticColors } from '@aknishi/akds-tokens';`,
     usage: `import { SearchIcon } from '@aknishi/akds-icons';
 
 <SearchIcon size="md" />`,
+    storybookId: 'icons-overview--docs',
   },
   {
     name: '@aknishi/create-akds-app',
@@ -53,5 +57,6 @@ import { spacing, semanticColors } from '@aknishi/akds-tokens';`,
     usage: `npx @aknishi/create-akds-app my-app
 cd my-app
 npm run dev`,
+    storybookId: 'create-akds-app-overview--docs',
   },
 ];

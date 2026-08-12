@@ -22,6 +22,7 @@ export const drawer: ComponentEntry = {
   category: 'Feedback & Overlay',
   summary: 'A panel that slides in from an edge of the screen — used for filters, navigation, and secondary content.',
   sourcePath: 'packages/reactkit/src/components/Drawer',
+  storybookId: 'reactkit-drawer--docs',
   examples: [
     {
       title: 'Basic',

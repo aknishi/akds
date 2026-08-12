@@ -7,6 +7,7 @@ export const checkbox: ComponentEntry = {
   category: 'Inputs',
   summary: 'A labeled checkbox input with support for indeterminate state and three sizes.',
   sourcePath: 'packages/reactkit/src/components/Checkbox',
+  storybookId: 'reactkit-checkbox--docs',
   examples: [
     {
       title: 'Basic',

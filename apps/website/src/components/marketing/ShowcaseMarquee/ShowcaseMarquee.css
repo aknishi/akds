@@ -17,3 +17,9 @@
   min-width: 160px;
   padding: var(--akds-spacing-200);
 }
+
+.showcase-marquee__card .akds-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

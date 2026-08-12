@@ -7,6 +7,7 @@ export const accordion: ComponentEntry = {
   category: 'Navigation & Disclosure',
   summary: 'A collapsible group container, composed of AccordionItem children that share expand/collapse state.',
   sourcePath: 'packages/reactkit/src/components/Accordion',
+  storybookId: 'reactkit-accordion--docs',
   examples: [
     {
       title: 'Single expand',

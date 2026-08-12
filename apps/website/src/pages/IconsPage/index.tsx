@@ -30,28 +30,28 @@ export function IconsPage() {
         </Text>
       </Flexbox>
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Usage
         </Text>
-        <Flexbox direction="column" gap="sm" mt={2}>
+        <Flexbox direction="column" gap="sm">
           <CodeBlock
             language="tsx"
             code={"import { HomeIcon } from '@aknishi/akds-icons';\n\n<HomeIcon size=\"md\" color=\"default\" />"}
           />
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Sizes
         </Text>
         <Text styleAs="body" className="icons-page__section-lede">
           Five token-based sizes, from <code>xs</code> (12px) to <code>xl</code> (32px).
         </Text>
-        <Flexbox align="center" gap="lg" mt={2}>
+        <Flexbox align="center" gap="lg">
           {SIZES.map((size) => (
             <Flexbox key={size} direction="column" align="center" gap="xs">
               <Icons.HomeIcon size={size} />
@@ -61,18 +61,18 @@ export function IconsPage() {
             </Flexbox>
           ))}
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Colors
         </Text>
         <Text styleAs="body" className="icons-page__section-lede">
           Semantic color tokens keep icons theme-aware without hardcoded hex values.
         </Text>
-        <Flexbox align="center" gap="lg" mt={2}>
+        <Flexbox align="center" gap="lg">
           {COLORS.map((color) => (
             <Flexbox key={color} direction="column" align="center" gap="xs">
               <Icons.InfoFilledIcon size="lg" color={color} />
@@ -82,11 +82,46 @@ export function IconsPage() {
             </Flexbox>
           ))}
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
+        <Text as="h2" styleAs="h3">
+          Custom colors
+        </Text>
+        <Text styleAs="body" className="icons-page__section-lede">
+          Beyond the semantic keywords, <code>color</code> also accepts any CSS color value — a hex code,{' '}
+          <code>rgb()</code>, or a CSS variable.
+        </Text>
+        <Flexbox align="center" gap="lg">
+          <Flexbox direction="column" align="center" gap="xs">
+            <Icons.InfoFilledIcon size="lg" color="#ec4899" />
+            <Text styleAs="caption" className="icons-page__swatch-label">
+              #ec4899
+            </Text>
+          </Flexbox>
+          <Flexbox direction="column" align="center" gap="xs">
+            <Icons.InfoFilledIcon size="lg" color="rgb(37, 99, 235)" />
+            <Text styleAs="caption" className="icons-page__swatch-label">
+              rgb(37, 99, 235)
+            </Text>
+          </Flexbox>
+          <Flexbox direction="column" align="center" gap="xs">
+            <Icons.InfoFilledIcon size="lg" color="var(--akds-color-icon-warning-default)" />
+            <Text styleAs="caption" className="icons-page__swatch-label">
+              var(--akds-color-icon-warning-default)
+            </Text>
+          </Flexbox>
+        </Flexbox>
+        <Flexbox direction="column" gap="sm">
+          <CodeBlock language="tsx" code={'<InfoFilledIcon color="#ec4899" />'} />
+        </Flexbox>
+      </Flexbox>
+
+      <Divider />
+
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           All icons
         </Text>
@@ -117,7 +152,7 @@ export function IconsPage() {
             ))}
           </div>
         )}
-      </section>
+      </Flexbox>
     </Flexbox>
   );
 }

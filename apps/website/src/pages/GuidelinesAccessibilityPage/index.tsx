@@ -31,7 +31,7 @@ export function GuidelinesAccessibilityPage() {
         </Text>
       </Flexbox>
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Color &amp; contrast
         </Text>
@@ -39,11 +39,11 @@ export function GuidelinesAccessibilityPage() {
           Semantic text and background token pairs are chosen to meet WCAG contrast requirements. See the full
           palette on the <NavLink to="/tokens">token architecture</NavLink> page.
         </Text>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Keyboard &amp; focus
         </Text>
@@ -52,11 +52,11 @@ export function GuidelinesAccessibilityPage() {
           <code>:focus-visible</code> ring, styled from <code>--akds-outline-focus</code>, is required on every
           focusable element and is never removed without an equivalent replacement.
         </Text>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Focus management for disabled controls
         </Text>
@@ -77,11 +77,11 @@ export function GuidelinesAccessibilityPage() {
 // Renders aria-disabled="true" instead of the native disabled
 // attribute, and blocks the click handler via preventDefault().`}
         />
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Loading &amp; async state
         </Text>
@@ -103,11 +103,11 @@ export function GuidelinesAccessibilityPage() {
             </CardContent>
           </Card>
         </ComponentPreviewFrame>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Labeling rules
         </Text>
@@ -123,11 +123,11 @@ aria-disabled={isDisabled || undefined}
 aria-busy={loading || undefined}`}
           />
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Motion &amp; animation
         </Text>
@@ -136,11 +136,11 @@ aria-busy={loading || undefined}`}
             <ReducedMotionStatus />
           </CardContent>
         </Card>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Testing &amp; tooling
         </Text>
@@ -149,11 +149,11 @@ aria-busy={loading || undefined}`}
           default state and every meaningful variant (disabled, loading, error) — accessibility regressions fail CI,
           they don't ship silently.
         </Text>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Reporting an issue
         </Text>
@@ -164,7 +164,7 @@ aria-busy={loading || undefined}`}
           </a>
           .
         </Text>
-      </section>
+      </Flexbox>
     </Flexbox>
   );
 }

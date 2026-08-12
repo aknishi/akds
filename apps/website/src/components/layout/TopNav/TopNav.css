@@ -72,6 +72,12 @@
   color: var(--akds-color-text-info-default);
 }
 
+.top-nav__link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-50);
+}
+
 .top-nav__actions {
   margin-left: auto;
   display: flex;

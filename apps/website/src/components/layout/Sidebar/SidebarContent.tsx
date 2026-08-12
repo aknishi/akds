@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRightIcon } from '@aknishi/akds-icons';
 import { navConfig } from '../../../content/navConfig';
 import { componentRegistry } from '../../../content/components/registry';
 import { CATEGORY_ORDER } from '../../../content/components/types';
@@ -61,7 +62,7 @@ export function SidebarContent() {
                   transition={{ duration: 0.15 }}
                   aria-hidden="true"
                 >
-                  ›
+                  <ChevronRightIcon size="sm" />
                 </motion.span>
               </button>
               <AnimatePresence initial={false}>

@@ -7,6 +7,7 @@ export const menu: ComponentEntry = {
   category: 'Navigation & Disclosure',
   summary: 'A floating list of actions (MenuItem children), positioned relative to a trigger with automatic flip.',
   sourcePath: 'packages/reactkit/src/components/Menu',
+  storybookId: 'reactkit-menu--docs',
   examples: [
     {
       title: 'Basic',

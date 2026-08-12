@@ -1,11 +1,21 @@
 .component-card-link {
   display: block;
+  height: 100%;
   text-decoration: none;
   color: inherit;
 }
 
+.component-card-link > div {
+  height: 100%;
+}
+
 .component-card {
   height: 100%;
+  transition: box-shadow 150ms ease;
+}
+
+.component-card-link:hover .component-card {
+  box-shadow: var(--akds-elevation-md);
 }
 
 .component-card__preview {

@@ -1,3 +1,14 @@
 .getting-started-page {
   max-width: 760px;
 }
+
+.getting-started-page__storybook-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-50);
+  width: fit-content;
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  color: var(--akds-color-text-info-default);
+  text-decoration: none;
+}

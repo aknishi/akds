@@ -58,8 +58,7 @@
 .sidebar-content__active-pill {
   position: absolute;
   inset: 0;
-  background: var(--akds-color-background-info-default);
-  opacity: 0.12;
+  background: #E7F0FE;
   border-radius: var(--akds-radius-md);
   z-index: -1;
 }

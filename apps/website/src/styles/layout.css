@@ -31,7 +31,6 @@
 
 .site-shell__main {
   min-width: 0;
-  padding-block: var(--akds-spacing-layout-xl);
 }
 
 .site-shell__main--docs {

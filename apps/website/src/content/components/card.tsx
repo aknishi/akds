@@ -7,6 +7,7 @@ export const card: ComponentEntry = {
   category: 'Layout',
   summary: 'A bordered surface container, composed with CardHeader, CardContent, and CardFooter slots.',
   sourcePath: 'packages/reactkit/src/components/Card',
+  storybookId: 'reactkit-card--docs',
   examples: [
     {
       title: 'Composed',

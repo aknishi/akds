@@ -7,6 +7,7 @@ export const switchEntry: ComponentEntry = {
   category: 'Inputs',
   summary: 'A toggle switch for binary on/off settings, with an optional inline label.',
   sourcePath: 'packages/reactkit/src/components/Switch',
+  storybookId: 'reactkit-switch--docs',
   examples: [
     {
       title: 'Basic',

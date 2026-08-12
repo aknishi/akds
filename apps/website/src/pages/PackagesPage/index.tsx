@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, Flexbox, Tag, Text } from '@aknishi/akds-reactkit';
+import { OpenInNewIcon } from '@aknishi/akds-icons';
 import { CodeBlock } from '../../components/docs/CodeBlock';
 import { packages } from '../../content/packages';
+import { storybookDocsUrl } from '../../content/storybook';
 import './PackagesPage.css';
 
 
@@ -21,11 +23,23 @@ export function PackagesPage() {
         {packages.map((pkg) => (
           <Card key={pkg.name}>
             <CardHeader>
-              <Flexbox align="center" gap="sm" wrap>
-                <Text as="h2" styleAs="h4">
-                  {pkg.name}
-                </Text>
-                <Tag variant="default">{pkg.tagline}</Tag>
+              <Flexbox align="center" justify="space-between" gap="sm" wrap>
+                <Flexbox align="center" gap="sm" wrap>
+                  <Text as="h2" styleAs="h4">
+                    {pkg.name}
+                  </Text>
+                  <Tag variant="default">{pkg.tagline}</Tag>
+                </Flexbox>
+                {pkg.storybookId && (
+                  <a
+                    href={storybookDocsUrl(pkg.storybookId)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="packages-page__storybook-link"
+                  >
+                    Open in Storybook <OpenInNewIcon size="sm" />
+                  </a>
+                )}
               </Flexbox>
             </CardHeader>
             <CardContent>

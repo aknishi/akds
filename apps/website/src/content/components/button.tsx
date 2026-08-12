@@ -8,6 +8,7 @@ export const button: ComponentEntry = {
   summary:
     'The primary trigger for actions. Supports three appearances, four emphasis levels, three sizes, loading and disabled states.',
   sourcePath: 'packages/reactkit/src/components/Button',
+  storybookId: 'reactkit-buttons-button--docs',
   examples: [
     {
       title: 'Appearances',
@@ -86,5 +87,5 @@ export const button: ComponentEntry = {
     { do: 'Use emphasis to convey intent (destructive for delete actions).', dont: "Don't rely on color alone — pair destructive actions with clear copy too." },
     { do: 'Use loading for actions with network latency.', dont: "Don't disable a button without feedback when an action is in flight." },
   ],
-  related: ['icon-button', 'like-button'],
+  related: ['icon-button', 'like-button', 'toggle-button'],
 };

@@ -16,6 +16,7 @@ export const carousel: ComponentEntry = {
   category: 'Data Display & Content',
   summary: 'An auto-scrolling, loopable slide container for showcasing a sequence of content.',
   sourcePath: 'packages/reactkit/src/components/Carousel',
+  storybookId: 'reactkit-carousel--docs',
   examples: [
     {
       title: 'Auto-scroll with loop',

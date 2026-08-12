@@ -14,6 +14,7 @@ export const combobox: ComponentEntry = {
   category: 'Inputs',
   summary: 'A searchable, typed select — single or multi-select — built from a plain options array.',
   sourcePath: 'packages/reactkit/src/components/Combobox',
+  storybookId: 'reactkit-combobox--docs',
   examples: [
     {
       title: 'Single select',

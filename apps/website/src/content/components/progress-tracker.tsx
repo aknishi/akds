@@ -7,6 +7,7 @@ export const progressTracker: ComponentEntry = {
   category: 'Navigation & Disclosure',
   summary: 'A numbered step tracker for multi-step flows, composed of ProgressTrackerStep children.',
   sourcePath: 'packages/reactkit/src/components/ProgressTracker',
+  storybookId: 'reactkit-progresstracker--docs',
   examples: [
     {
       title: 'Basic',

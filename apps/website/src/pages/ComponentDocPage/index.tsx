@@ -2,6 +2,7 @@ import { NavLink, useParams } from 'react-router';
 import { Card, CardContent, Flexbox, Tag, Text } from '@aknishi/akds-reactkit';
 import { OpenInNewIcon, InfoIcon } from '@aknishi/akds-icons';
 import { getComponentBySlug, componentRegistry } from '../../content/components/registry';
+import { storybookDocsUrl } from '../../content/storybook';
 import { ComponentPreviewFrame } from '../../components/docs/ComponentPreviewFrame';
 import { CodeBlock } from '../../components/docs/CodeBlock';
 import { PropsTable } from '../../components/docs/PropsTable';
@@ -44,14 +45,24 @@ export function ComponentDocPage() {
         <Text styleAs="body" className="component-doc-page__summary">
           {entry.summary}
         </Text>
-        <a
-          href={`${REPO_BASE}/${entry.sourcePath}`}
-          target="_blank"
-          rel="noreferrer"
-          className="component-doc-page__source-link"
-        >
-          View source <OpenInNewIcon size="sm" />
-        </a>
+        <Flexbox gap="md" wrap>
+          <a
+            href={`${REPO_BASE}/${entry.sourcePath}`}
+            target="_blank"
+            rel="noreferrer"
+            className="component-doc-page__source-link"
+          >
+            View source <OpenInNewIcon size="sm" />
+          </a>
+          <a
+            href={storybookDocsUrl(entry.storybookId)}
+            target="_blank"
+            rel="noreferrer"
+            className="component-doc-page__source-link"
+          >
+            Open in Storybook <OpenInNewIcon size="sm" />
+          </a>
+        </Flexbox>
       </Flexbox>
 
       {entry.isPrimitive && (

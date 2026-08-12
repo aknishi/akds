@@ -36,6 +36,7 @@ export const dialog: ComponentEntry = {
   category: 'Feedback & Overlay',
   summary: 'A modal dialog for focused tasks and confirmations, rendered above a backdrop.',
   sourcePath: 'packages/reactkit/src/components/Dialog',
+  storybookId: 'reactkit-dialog--docs',
   examples: [
     {
       title: 'Basic',

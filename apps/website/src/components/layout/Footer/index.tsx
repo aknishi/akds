@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router';
 import { Divider, Flexbox, Text } from '@aknishi/akds-reactkit';
+import { OpenInNewIcon } from '@aknishi/akds-icons';
 import { PageContainer } from '../PageContainer';
+import { STORYBOOK_URL } from '../../../content/storybook';
 import './Footer.css';
 
 const FOOTER_LINKS = [
@@ -25,6 +27,14 @@ export function Footer() {
                 {link.label}
               </NavLink>
             ))}
+            <a
+              href={STORYBOOK_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="site-footer__link site-footer__link--external"
+            >
+              Storybook <OpenInNewIcon size="sm" />
+            </a>
           </Flexbox>
         </Flexbox>
       </PageContainer>

@@ -48,7 +48,7 @@ export function GuidelinesDesignPage() {
         </Text>
       </Flexbox>
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Principles
         </Text>
@@ -66,11 +66,11 @@ export function GuidelinesDesignPage() {
             </Card>
           ))}
         </div>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Color usage
         </Text>
@@ -83,11 +83,11 @@ export function GuidelinesDesignPage() {
             <TokenSwatch key={item.role} varName={`--akds-color-${item.role}`} label={item.description} />
           ))}
         </div>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Typography
         </Text>
@@ -105,11 +105,11 @@ export function GuidelinesDesignPage() {
           <Text styleAs="label">Label — used for form labels and compact UI text.</Text>
           <Text styleAs="caption">Caption — smaller, muted, for metadata and helper text.</Text>
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Spacing &amp; layout
         </Text>
@@ -124,11 +124,11 @@ export function GuidelinesDesignPage() {
             </div>
           ))}
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Elevation
         </Text>
@@ -143,11 +143,11 @@ export function GuidelinesDesignPage() {
             </div>
           ))}
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Iconography
         </Text>
@@ -159,11 +159,11 @@ export function GuidelinesDesignPage() {
             <Icon key={index} size="lg" color="default" />
           ))}
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Do's and don'ts
         </Text>
@@ -171,11 +171,11 @@ export function GuidelinesDesignPage() {
           <DoDontPanel pair={{ do: 'Reference tokens via var(--akds-*) or the JS token exports.', dont: "Don't hardcode hex values like #3B82F6 in component or page CSS." }} />
           <DoDontPanel pair={{ do: 'Build layouts from Flexbox spacing props.', dont: "Don't hand-tune pixel margins that drift from the spacing scale." }} />
         </Flexbox>
-      </section>
+      </Flexbox>
 
       <Divider />
 
-      <section>
+      <Flexbox as="section" direction="column" gap={1}>
         <Text as="h2" styleAs="h3">
           Theming
         </Text>
@@ -183,7 +183,7 @@ export function GuidelinesDesignPage() {
           Light and dark values live under the same CSS variable name — see the full cascade explanation on the{' '}
           <NavLink to="/tokens">token architecture</NavLink> page.
         </Text>
-      </section>
+      </Flexbox>
     </Flexbox>
   );
 }

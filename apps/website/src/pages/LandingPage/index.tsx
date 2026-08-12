@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router';
-import { Avatar, Button, Card, CardContent, Flexbox, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip } from '@aknishi/akds-reactkit';
+import { Avatar, Button, Card, CardContent, Flexbox, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
 import { Hero } from '../../components/marketing/Hero';
 import { Section } from '../../components/marketing/Section';
 import { ShowcaseMarquee } from '../../components/marketing/ShowcaseMarquee';
@@ -8,6 +8,7 @@ import { TokenTeaser } from '../../components/marketing/TokenTeaser';
 import { PackageCard } from '../../components/marketing/PackageCard';
 import { ComponentCard } from '../../components/docs/ComponentCard';
 import { packages } from '../../content/packages';
+import { componentRegistry } from '../../content/components/registry';
 import './LandingPage.css';
 import '../../styles/gradients.css';
 
@@ -74,11 +75,13 @@ const COMPONENT_PREVIEWS = [
     name: 'Tooltip',
     description: 'Hover and focus tooltips on any trigger.',
     preview: (
-      <Tooltip content="Helpful context">
-        <Button appearance="transparent" emphasis="neutral">
-          Hover me
-        </Button>
-      </Tooltip>
+      <Flexbox mt={2} style={{ marginBottom: 'calc(-1 * var(--akds-spacing-200))' }}>
+        <Tooltip content="Helpful context">
+          <Button appearance="transparent" emphasis="neutral">
+            Hover me
+          </Button>
+        </Tooltip>
+      </Flexbox>
     ),
   },
 ];
@@ -102,16 +105,13 @@ export function LandingPage() {
       <Hero />
 
       <Section className="landing-marquee-section">
-        <Text styleAs="caption" className="landing-section__eyebrow">
-          Built with real akds components
-        </Text>
         <ShowcaseMarquee />
       </Section>
 
       <Section>
         <Flexbox direction="column" gap="sm" className="landing-section__intro">
           <Text as="h2" styleAs="h2">
-            Why teams standardize on AKDS
+            Features
           </Text>
         </Flexbox>
         <div className="landing-section__spacer" />
@@ -125,7 +125,7 @@ export function LandingPage() {
       <Section>
         <Flexbox justify="space-between" align="baseline" wrap gap="md" className="landing-section__intro">
           <Text as="h2" styleAs="h2">
-            27 components, one design language
+            {componentRegistry.length} components, one design language
           </Text>
           <NavLink to="/components" className="landing-section__cta-link">
             View all components →
@@ -180,7 +180,7 @@ export function LandingPage() {
 
       <section className="landing-cta gradient-band">
         <Flexbox direction="column" align="center" gap="md" mx="auto" px="lg" className="landing-cta__content">
-          <Text as="h2" styleAs="h2" className="landing-cta__title">
+          <Text as="h2" styleAs="h2" className="landing-cta__title" data-theme="dark"> 
             Ready to build with AKDS?
           </Text>
           <Flexbox gap="md" wrap justify="center">
@@ -190,7 +190,7 @@ export function LandingPage() {
               </Button>
             </NavLink>
             <a href="https://github.com/aknishi/akds" target="_blank" rel="noreferrer">
-              <Button appearance="bordered" emphasis="neutral" className="landing-cta__github-button">
+              <Button appearance="bordered" emphasis="neutral" className="landing-cta__github-button" data-theme="dark">
                 View on GitHub
               </Button>
             </a>

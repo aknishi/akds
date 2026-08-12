@@ -13,6 +13,7 @@ export const likeButton: ComponentEntry = {
   category: 'Actions',
   summary: 'A toggleable "like" button with a celebratory particle-burst animation on activation.',
   sourcePath: 'packages/reactkit/src/components/LikeButton',
+  storybookId: 'reactkit-buttons-likebutton--docs',
   examples: [
     {
       title: 'Controlled',
@@ -40,5 +41,5 @@ export const likeButton: ComponentEntry = {
   doDont: [
     { do: 'Use LikeButton for lightweight, reversible reactions.', dont: "Don't use LikeButton for destructive or non-reversible actions — the celebratory animation implies a positive, low-stakes toggle." },
   ],
-  related: ['button', 'particle-burst'],
+  related: ['button'],
 };

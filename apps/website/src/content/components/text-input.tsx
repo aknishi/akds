@@ -8,6 +8,7 @@ export const textInput: ComponentEntry = {
   category: 'Inputs',
   summary: 'A text field with a floating label, helper text, error state, and optional start adornment.',
   sourcePath: 'packages/reactkit/src/components/TextInput',
+  storybookId: 'reactkit-textinput--docs',
   examples: [
     {
       title: 'Basic',

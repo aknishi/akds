@@ -7,6 +7,7 @@ export const tooltip: ComponentEntry = {
   category: 'Feedback & Overlay',
   summary: 'A hover/focus tooltip attached to a single trigger element, with configurable placement.',
   sourcePath: 'packages/reactkit/src/components/Tooltip',
+  storybookId: 'reactkit-tooltip--docs',
   examples: [
     {
       title: 'Placements',

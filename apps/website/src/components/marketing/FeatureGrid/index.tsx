@@ -1,5 +1,12 @@
 import { Card, CardContent, Text } from '@aknishi/akds-reactkit';
-import { PaletteIcon, VerifiedUserIcon, GridViewIcon, AppsIcon } from '@aknishi/akds-icons';
+import {
+  PaletteIcon,
+  VerifiedUserIcon,
+  GridViewIcon,
+  AppsIcon,
+  ResponsiveLayoutIcon,
+  AnimationIcon,
+} from '@aknishi/akds-icons';
 import './FeatureGrid.css';
 
 const FEATURES = [
@@ -11,7 +18,7 @@ const FEATURES = [
   {
     icon: VerifiedUserIcon,
     title: 'Accessible',
-    description: 'Every component ships with semantic HTML, keyboard support, and an axe test suite.',
+    description: 'Every component ships with semantic HTML, keyboard support, screen reader support, and an axe test suite.',
   },
   {
     icon: GridViewIcon,
@@ -22,6 +29,16 @@ const FEATURES = [
     icon: AppsIcon,
     title: 'Composable',
     description: 'Compound components like Tabs and Menu share state through context, not prop drilling.',
+  },
+  {
+    icon: ResponsiveLayoutIcon,
+    title: 'Responsive',
+    description: 'Layouts adapt fluidly from mobile to desktop using the same token-driven breakpoints.',
+  },
+  {
+    icon: AnimationIcon,
+    title: 'Micro-animations',
+    description: 'Components bring delightful, animated interactions to every UI interaction, bringing pages to life.',
   },
 ];
 

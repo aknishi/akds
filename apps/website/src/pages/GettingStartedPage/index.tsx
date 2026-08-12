@@ -1,6 +1,8 @@
 import { Card, CardContent, Flexbox, Text } from '@aknishi/akds-reactkit';
+import { OpenInNewIcon } from '@aknishi/akds-icons';
 import { CodeBlock } from '../../components/docs/CodeBlock';
 import { packages } from '../../content/packages';
+import { STORYBOOK_URL } from '../../content/storybook';
 import './GettingStartedPage.css';
 
 const reactkit = packages[0];
@@ -51,6 +53,14 @@ export function GettingStartedPage() {
           Browse the full component library, learn how the token system is structured, and read the design and
           accessibility guidelines that every akds component follows.
         </Text>
+        <a
+          href={STORYBOOK_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="getting-started-page__storybook-link"
+        >
+          Explore every component and variant in Storybook <OpenInNewIcon size="sm" />
+        </a>
       </Flexbox>
     </Flexbox>
   );

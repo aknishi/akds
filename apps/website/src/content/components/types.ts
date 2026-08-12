@@ -47,6 +47,7 @@ export interface ComponentEntry {
   summary: string;
   isPrimitive?: boolean;
   sourcePath: string;
+  storybookId: string;
   examples: ComponentExample[];
   accessibilityNotes: string[];
   props: PropRow[];

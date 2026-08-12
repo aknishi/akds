@@ -7,6 +7,7 @@ export const divider: ComponentEntry = {
   category: 'Layout',
   summary: 'A horizontal or vertical rule, with an optional centered text label.',
   sourcePath: 'packages/reactkit/src/components/Divider',
+  storybookId: 'reactkit-divider--docs',
   examples: [
     {
       title: 'Variants',

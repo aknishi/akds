@@ -42,10 +42,15 @@ pre {
 }
 
 /* ── Site-only typography override ────────────────────────────────────── */
-/* Text's `hero` styleAs tops out at --akds-font-size-6xl; the landing hero
-   needs to scale further on very large viewports. */
-.site-hero-title {
-  font-size: clamp(2.5rem, 6vw + 1rem, 5.5rem);
+/* The landing hero copy is a full sentence rather than a short tagline, so it
+   needs a smaller ceiling than Text's `hero` styleAs (--akds-font-size-6xl)
+   to avoid wrapping into an unbalanced block, and a smaller floor on narrow
+   viewports so it doesn't dominate the screen. Compound selector needed:
+   .akds-text--hero and .site-hero-title are both single classes with equal
+   specificity, so whichever rule loads later in the bundle wins — same
+   collision as the Flexbox spacing issue documented in apps/website/CLAUDE.md. */
+.akds-text--hero.site-hero-title {
+  font-size: clamp(1.75rem, 4vw + 1rem, 3.5rem);
 }
 
 /* ── Focus ─────────────────────────────────────────────────────────────── */
