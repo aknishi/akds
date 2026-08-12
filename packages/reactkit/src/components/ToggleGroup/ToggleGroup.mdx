@@ -1,0 +1,42 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ToggleGroupStories from './ToggleGroup.stories';
+
+<Meta of={ToggleGroupStories} />
+
+# ToggleGroup
+
+> **Available from v1.3.0**
+
+A segmented control wrapping two or more `ToggleButton` components, where only one option can be selected at a time. Renders as an inset, rounded track with a white pill that slides behind the selected option, animating toward whichever side the new selection is on. Propagates `size` and `disabled` to every child `ToggleButton`, and supports full keyboard navigation (Arrow keys, Home, End).
+
+## Usage
+
+```tsx
+import { ToggleGroup, ToggleButton } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ToggleGroupStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={ToggleGroupStories.Default} />
+
+### Controlled
+
+<Canvas of={ToggleGroupStories.Controlled} />
+
+### Sizes
+
+<Canvas of={ToggleGroupStories.Sizes} />
+
+### With Disabled Option
+
+<Canvas of={ToggleGroupStories.WithDisabledOption} />
+
+### Disabled
+
+<Canvas of={ToggleGroupStories.Disabled} />

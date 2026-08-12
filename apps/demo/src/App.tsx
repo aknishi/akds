@@ -28,6 +28,8 @@ import {
   Accordion,
   AccordionItem,
   Combobox,
+  ToggleButton,
+  ToggleGroup,
 } from '@aknishi/akds-reactkit';
 import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption } from '@aknishi/akds-reactkit';
 import { CloseIcon } from '@aknishi/akds-icons';
@@ -568,6 +570,60 @@ function AppContent() {
       <section className="demo-section">
         <h2 className="demo-section__heading">Combobox</h2>
         <ComboboxDemo />
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* ToggleButton / ToggleGroup section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">ToggleButton / ToggleGroup</h2>
+
+        <p className="demo-label-heading">Standalone</p>
+        <div className="demo-row">
+          <ToggleButton defaultPressed>Bold</ToggleButton>
+          <ToggleButton>Italic</ToggleButton>
+          <ToggleButton disabled>Underline</ToggleButton>
+        </div>
+
+        <p className="demo-label-heading">Colors</p>
+        <div className="demo-row">
+          <ToggleButton color="neutral" defaultPressed>Neutral</ToggleButton>
+          <ToggleButton color="primary" defaultPressed>Primary</ToggleButton>
+          <ToggleButton color="success" defaultPressed>Success</ToggleButton>
+          <ToggleButton color="error" defaultPressed>Error</ToggleButton>
+        </div>
+
+        <p className="demo-label-heading">Grouped</p>
+        <div className="demo-row">
+          <ToggleGroup defaultValue="drinks">
+            <ToggleButton value="drinks">🍸 Drinks</ToggleButton>
+            <ToggleButton value="food">🍔 Food</ToggleButton>
+          </ToggleGroup>
+        </div>
+
+        <p className="demo-label-heading">Sizes</p>
+        <div className="demo-row">
+          <ToggleGroup size="sm" defaultValue="list">
+            <ToggleButton value="list">List</ToggleButton>
+            <ToggleButton value="grid">Grid</ToggleButton>
+          </ToggleGroup>
+          <ToggleGroup size="md" defaultValue="list">
+            <ToggleButton value="list">List</ToggleButton>
+            <ToggleButton value="grid">Grid</ToggleButton>
+          </ToggleGroup>
+          <ToggleGroup size="lg" defaultValue="list">
+            <ToggleButton value="list">List</ToggleButton>
+            <ToggleButton value="grid">Grid</ToggleButton>
+          </ToggleGroup>
+        </div>
+
+        <p className="demo-label-heading">Disabled</p>
+        <div className="demo-row">
+          <ToggleGroup defaultValue="drinks" disabled>
+            <ToggleButton value="drinks">Drinks</ToggleButton>
+            <ToggleButton value="food">Food</ToggleButton>
+          </ToggleGroup>
+        </div>
       </section>
     </div>
   );

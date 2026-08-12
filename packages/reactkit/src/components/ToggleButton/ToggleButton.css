@@ -1,0 +1,138 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-toggle-button {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--akds-spacing-100);
+  font-family: var(--akds-font-family-sans);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-primary-default);
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  border-radius: var(--akds-radius-full);
+  transform: scale(1);
+  transform-origin: 50% 50% 0px;
+  transition: background 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 100ms ease;
+}
+
+.akds-toggle-button:active:not(.akds-toggle-button--disabled) {
+  transform: scale(0.96);
+  transition-duration: 50ms;
+}
+
+.akds-toggle-button:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* Hover overlay layer — sits on top via ::after pseudo-element */
+.akds-toggle-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-toggle-button:hover:not(.akds-toggle-button--disabled)::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────── */
+.akds-toggle-button--sm {
+  padding-block: var(--akds-spacing-50);
+  padding-inline: var(--akds-spacing-150);
+  font-size: var(--akds-font-size-sm);
+}
+
+.akds-toggle-button--md {
+  padding-block: var(--akds-spacing-100);
+  padding-inline: var(--akds-spacing-200);
+  font-size: var(--akds-font-size-md);
+}
+
+.akds-toggle-button--lg {
+  padding-block: var(--akds-spacing-150);
+  padding-inline: var(--akds-spacing-300);
+  font-size: var(--akds-font-size-lg);
+}
+
+/* ── Standalone ────────────────────────────────────────────────────────── */
+/* Independent toggle buttons show pressed state as a tinted fill in the
+   chosen semantic color — a distinct affordance from both the solid Button
+   fill and the grouped sliding-pill look, since there is no shared track to
+   communicate selection. Foreground color reuses the same text color tokens
+   as the Text component's `color` prop for visual consistency. */
+.akds-toggle-button--standalone {
+  box-shadow: inset 0 0 0 1.5px var(--akds-color-border-neutral-default);
+}
+
+.akds-toggle-button--standalone.akds-toggle-button--active {
+  box-shadow: none;
+  font-weight: var(--akds-font-weight-medium);
+}
+
+.akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--primary {
+  background: var(--akds-primitive-color-blue-100);
+  color: var(--akds-color-text-info-default);
+}
+
+.akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--success {
+  background: var(--akds-primitive-color-green-100);
+  color: var(--akds-color-text-success-default);
+}
+
+.akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--error {
+  background: var(--akds-primitive-color-red-100);
+  color: var(--akds-color-text-error-default);
+}
+
+.akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--neutral {
+  background: var(--akds-primitive-color-neutral-100);
+  color: var(--akds-color-text-primary-default);
+}
+
+/* ── Grouped ───────────────────────────────────────────────────────────── */
+.akds-toggle-button--grouped {
+  color: var(--akds-color-text-secondary-default);
+}
+
+.akds-toggle-button--grouped.akds-toggle-button--active {
+  color: var(--akds-color-text-primary-default);
+  font-weight: var(--akds-font-weight-medium);
+}
+
+/* The sliding pill already communicates selection — suppress the hover
+   overlay here so it doesn't dim the white pill underneath. */
+.akds-toggle-button--grouped.akds-toggle-button--active:hover:not(.akds-toggle-button--disabled)::after {
+  background: transparent;
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-toggle-button--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-toggle-button,
+  .akds-toggle-button::after {
+    transition: none;
+  }
+
+  .akds-toggle-button:active:not(.akds-toggle-button--disabled) {
+    transform: none;
+    transition: none;
+  }
+}

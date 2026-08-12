@@ -3,7 +3,7 @@ import { IconButton } from './IconButton';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof IconButton> = {
-  title: 'Reactkit/IconButton',
+  title: 'Reactkit/Buttons/IconButton',
   component: IconButton,
   argTypes: {
     appearance: { control: 'select', options: ['solid', 'transparent', 'bordered'] },

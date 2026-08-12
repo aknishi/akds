@@ -1,0 +1,39 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-toggle-group {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  gap: var(--akds-spacing-25);
+  padding: var(--akds-spacing-50);
+  background: var(--akds-color-background-neutral-default);
+  border-radius: var(--akds-radius-full);
+  box-shadow: inset 0 var(--akds-spacing-25) var(--akds-spacing-50) var(--akds-color-interaction-pressed-overlay);
+  box-sizing: border-box;
+}
+
+/* ── Indicator ─────────────────────────────────────────────────────────── */
+.akds-toggle-group__indicator {
+  position: absolute;
+  top: var(--akds-spacing-50);
+  bottom: var(--akds-spacing-50);
+  left: 0;
+  z-index: 0;
+  background: var(--akds-color-surface-default);
+  border-radius: var(--akds-radius-full);
+  box-shadow: var(--akds-elevation-xs);
+  transition: transform 200ms ease, width 200ms ease;
+  pointer-events: none;
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-toggle-group--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-toggle-group__indicator {
+    transition: none;
+  }
+}

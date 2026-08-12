@@ -3,7 +3,7 @@ import { Button } from './Button';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof Button> = {
-  title: 'Reactkit/Button',
+  title: 'Reactkit/Buttons/Button',
   component: Button,
   argTypes: {
     appearance: { control: 'select', options: ['solid', 'transparent', 'bordered'] },
