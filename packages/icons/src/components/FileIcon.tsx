@@ -1,21 +1,27 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP } from '../types.js';
+import { SIZE_MAP, SEMANTIC_ICON_COLORS } from '../types.js';
 import '../Icon.css';
 
 export interface FileIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
-  color?: IconColor;
+  /** Applies a semantic color token (`default` | `error` | `warning` | `success` | `info`) via the akds-icon--{color} class. Any other CSS color value (hex, rgb(), a CSS variable, etc.) is applied as a custom color instead. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  color?: IconColor | React.CSSProperties['color'];
 }
 
 export const FileIcon = React.forwardRef<SVGSVGElement, FileIconProps>(
-  function FileIcon({ size = 'md', color = 'default', className, ...props }, ref) {
+  function FileIcon({ size = 'md', color = 'default', className, style, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
-      .filter(Boolean)
-      .join(' ');
+    const isSemantic = (SEMANTIC_ICON_COLORS as readonly string[]).includes(color as string);
+    const classes = [
+      'akds-icon',
+      isSemantic ? (color !== 'default' ? `akds-icon--${color}` : null) : 'akds-icon--custom',
+      className,
+    ].filter(Boolean).join(' ');
+    const mergedStyle = isSemantic
+      ? style
+      : ({ '--akds-icon-custom-color': color, ...style } as React.CSSProperties);
     return (
       <svg
         ref={ref}
@@ -27,6 +33,7 @@ export const FileIcon = React.forwardRef<SVGSVGElement, FileIconProps>(
         aria-hidden="true"
         focusable="false"
         className={classes}
+        style={mergedStyle}
         {...props}
       >
         <path d="M349-250h262q12.75 0 21.38-8.68 8.62-8.67 8.62-21.5 0-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75 0-21.37 8.68-8.63 8.67-8.63 21.5 0 12.82 8.63 21.32 8.62 8.5 21.37 8.5Zm0-170h262q12.75 0 21.38-8.68 8.62-8.67 8.62-21.5 0-12.82-8.62-21.32-8.63-8.5-21.38-8.5H349q-12.75 0-21.37 8.68-8.63 8.67-8.63 21.5 0 12.82 8.63 21.32 8.62 8.5 21.37 8.5ZM220-80q-24 0-42-18t-18-42v-680q0-24 18-42t42-18h336q12.44 0 23.72 5T599-862l183 183q8 8 13 19.28 5 11.28 5 23.72v496q0 24-18 42t-42 18H220Zm331-584v-156H220v680h520v-494H581q-12.75 0-21.37-8.63Q551-651.25 551-664ZM220-820v186-186 680-680Z" />

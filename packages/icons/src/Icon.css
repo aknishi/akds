@@ -17,3 +17,7 @@
 .akds-icon--info {
   color: var(--akds-color-icon-info-default);
 }
+
+.akds-icon--custom {
+  color: var(--akds-icon-custom-color);
+}

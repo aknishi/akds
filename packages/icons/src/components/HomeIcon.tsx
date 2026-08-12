@@ -1,21 +1,27 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP } from '../types.js';
+import { SIZE_MAP, SEMANTIC_ICON_COLORS } from '../types.js';
 import '../Icon.css';
 
 export interface HomeIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
-  color?: IconColor;
+  /** Applies a semantic color token (`default` | `error` | `warning` | `success` | `info`) via the akds-icon--{color} class. Any other CSS color value (hex, rgb(), a CSS variable, etc.) is applied as a custom color instead. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  color?: IconColor | React.CSSProperties['color'];
 }
 
 export const HomeIcon = React.forwardRef<SVGSVGElement, HomeIconProps>(
-  function HomeIcon({ size = 'md', color = 'default', className, ...props }, ref) {
+  function HomeIcon({ size = 'md', color = 'default', className, style, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
-      .filter(Boolean)
-      .join(' ');
+    const isSemantic = (SEMANTIC_ICON_COLORS as readonly string[]).includes(color as string);
+    const classes = [
+      'akds-icon',
+      isSemantic ? (color !== 'default' ? `akds-icon--${color}` : null) : 'akds-icon--custom',
+      className,
+    ].filter(Boolean).join(' ');
+    const mergedStyle = isSemantic
+      ? style
+      : ({ '--akds-icon-custom-color': color, ...style } as React.CSSProperties);
     return (
       <svg
         ref={ref}
@@ -27,6 +33,7 @@ export const HomeIcon = React.forwardRef<SVGSVGElement, HomeIconProps>(
         aria-hidden="true"
         focusable="false"
         className={classes}
+        style={mergedStyle}
         {...props}
       >
         <path d="M220-180h150v-220q0-12.75 8.63-21.38Q387.25-430 400-430h160q12.75 0 21.38 8.62Q590-412.75 590-400v220h150v-390L480-765 220-570v390Zm-60 0v-390q0-14.25 6.38-27 6.37-12.75 17.62-21l260-195q15.68-12 35.84-12Q500-825 516-813l260 195q11.25 8.25 17.63 21 6.37 12.75 6.37 27v390q0 24.75-17.62 42.37Q764.75-120 740-120H560q-12.75 0-21.37-8.63Q530-137.25 530-150v-220H430v220q0 12.75-8.62 21.37Q412.75-120 400-120H220q-24.75 0-42.37-17.63Q160-155.25 160-180Zm320-293Z" />

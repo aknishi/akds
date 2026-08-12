@@ -1,21 +1,27 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP } from '../types.js';
+import { SIZE_MAP, SEMANTIC_ICON_COLORS } from '../types.js';
 import '../Icon.css';
 
 export interface DashboardFilledIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
-  color?: IconColor;
+  /** Applies a semantic color token (`default` | `error` | `warning` | `success` | `info`) via the akds-icon--{color} class. Any other CSS color value (hex, rgb(), a CSS variable, etc.) is applied as a custom color instead. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  color?: IconColor | React.CSSProperties['color'];
 }
 
 export const DashboardFilledIcon = React.forwardRef<SVGSVGElement, DashboardFilledIconProps>(
-  function DashboardFilledIcon({ size = 'md', color = 'default', className, ...props }, ref) {
+  function DashboardFilledIcon({ size = 'md', color = 'default', className, style, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
-      .filter(Boolean)
-      .join(' ');
+    const isSemantic = (SEMANTIC_ICON_COLORS as readonly string[]).includes(color as string);
+    const classes = [
+      'akds-icon',
+      isSemantic ? (color !== 'default' ? `akds-icon--${color}` : null) : 'akds-icon--custom',
+      className,
+    ].filter(Boolean).join(' ');
+    const mergedStyle = isSemantic
+      ? style
+      : ({ '--akds-icon-custom-color': color, ...style } as React.CSSProperties);
     return (
       <svg
         ref={ref}
@@ -27,6 +33,7 @@ export const DashboardFilledIcon = React.forwardRef<SVGSVGElement, DashboardFill
         aria-hidden="true"
         focusable="false"
         className={classes}
+        style={mergedStyle}
         {...props}
       >
         <path d="M540-570q-12.75 0-21.37-8.63Q510-587.25 510-600v-210q0-12.75 8.63-21.38Q527.25-840 540-840h270q12.75 0 21.38 8.62Q840-822.75 840-810v210q0 12.75-8.62 21.37Q822.75-570 810-570H540ZM150-450q-12.75 0-21.37-8.63Q120-467.25 120-480v-330q0-12.75 8.63-21.38Q137.25-840 150-840h270q12.75 0 21.38 8.62Q450-822.75 450-810v330q0 12.75-8.62 21.37Q432.75-450 420-450H150Zm390 330q-12.75 0-21.37-8.63Q510-137.25 510-150v-330q0-12.75 8.63-21.38Q527.25-510 540-510h270q12.75 0 21.38 8.62Q840-492.75 840-480v330q0 12.75-8.62 21.37Q822.75-120 810-120H540Zm-390 0q-12.75 0-21.37-8.63Q120-137.25 120-150v-210q0-12.75 8.63-21.38Q137.25-390 150-390h270q12.75 0 21.38 8.62Q450-372.75 450-360v210q0 12.75-8.62 21.37Q432.75-120 420-120H150Z" />

@@ -1,21 +1,27 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP } from '../types.js';
+import { SIZE_MAP, SEMANTIC_ICON_COLORS } from '../types.js';
 import '../Icon.css';
 
 export interface CancelFilledIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
-  color?: IconColor;
+  /** Applies a semantic color token (`default` | `error` | `warning` | `success` | `info`) via the akds-icon--{color} class. Any other CSS color value (hex, rgb(), a CSS variable, etc.) is applied as a custom color instead. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  color?: IconColor | React.CSSProperties['color'];
 }
 
 export const CancelFilledIcon = React.forwardRef<SVGSVGElement, CancelFilledIconProps>(
-  function CancelFilledIcon({ size = 'md', color = 'default', className, ...props }, ref) {
+  function CancelFilledIcon({ size = 'md', color = 'default', className, style, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
-      .filter(Boolean)
-      .join(' ');
+    const isSemantic = (SEMANTIC_ICON_COLORS as readonly string[]).includes(color as string);
+    const classes = [
+      'akds-icon',
+      isSemantic ? (color !== 'default' ? `akds-icon--${color}` : null) : 'akds-icon--custom',
+      className,
+    ].filter(Boolean).join(' ');
+    const mergedStyle = isSemantic
+      ? style
+      : ({ '--akds-icon-custom-color': color, ...style } as React.CSSProperties);
     return (
       <svg
         ref={ref}
@@ -27,6 +33,7 @@ export const CancelFilledIcon = React.forwardRef<SVGSVGElement, CancelFilledIcon
         aria-hidden="true"
         focusable="false"
         className={classes}
+        style={mergedStyle}
         {...props}
       >
         <path d="m480-438 129 129q9 9 21 9t21-9q9-9 9-21t-9-21L522-480l129-129q9-9 9-21t-9-21q-9-9-21-9t-21 9L480-522 351-651q-9-9-21-9t-21 9q-9 9-9 21t9 21l129 129-129 129q-9 9-9 21t9 21q9 9 21 9t21-9l129-129Zm0 358q-82 0-155-31.5t-127.5-86Q143-252 111.5-325T80-480q0-83 31.5-156t86-127Q252-817 325-848.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 82-31.5 155T763-197.5q-54 54.5-127 86T480-80Z" />

@@ -1,21 +1,27 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP } from '../types.js';
+import { SIZE_MAP, SEMANTIC_ICON_COLORS } from '../types.js';
 import '../Icon.css';
 
 export interface LockOpenIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
-  color?: IconColor;
+  /** Applies a semantic color token (`default` | `error` | `warning` | `success` | `info`) via the akds-icon--{color} class. Any other CSS color value (hex, rgb(), a CSS variable, etc.) is applied as a custom color instead. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  color?: IconColor | React.CSSProperties['color'];
 }
 
 export const LockOpenIcon = React.forwardRef<SVGSVGElement, LockOpenIconProps>(
-  function LockOpenIcon({ size = 'md', color = 'default', className, ...props }, ref) {
+  function LockOpenIcon({ size = 'md', color = 'default', className, style, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
-      .filter(Boolean)
-      .join(' ');
+    const isSemantic = (SEMANTIC_ICON_COLORS as readonly string[]).includes(color as string);
+    const classes = [
+      'akds-icon',
+      isSemantic ? (color !== 'default' ? `akds-icon--${color}` : null) : 'akds-icon--custom',
+      className,
+    ].filter(Boolean).join(' ');
+    const mergedStyle = isSemantic
+      ? style
+      : ({ '--akds-icon-custom-color': color, ...style } as React.CSSProperties);
     return (
       <svg
         ref={ref}
@@ -27,6 +33,7 @@ export const LockOpenIcon = React.forwardRef<SVGSVGElement, LockOpenIconProps>(
         aria-hidden="true"
         focusable="false"
         className={classes}
+        style={mergedStyle}
         {...props}
       >
         <path d="M220-80q-24.75 0-42.37-17.63Q160-115.25 160-140v-434q0-24.75 17.63-42.38Q195.25-634 220-634h390v-96q0-54.17-37.92-92.08Q534.17-860 480-860q-47.6 0-83.3 30-35.7 30-44.7 75-2 11-11 18t-20.72 7Q307-730 299-740q-8-10-6-23 11-67 63.5-112T480-920q78.85 0 134.42 55.58Q670-808.85 670-730v96h70q24.75 0 42.38 17.62Q800-598.75 800-574v434q0 24.75-17.62 42.37Q764.75-80 740-80H220Zm0-60h520v-434H220v434Zm314.5-162.03Q557-324.06 557-355q0-30-22.67-54.5t-54.5-24.5q-31.83 0-54.33 24.5t-22.5 55q0 30.5 22.67 52.5t54.5 22q31.83 0 54.33-22.03ZM220-140v-434 434Z" />

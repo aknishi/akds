@@ -9,7 +9,7 @@ import * as IconStories from './Icons.stories';
 
 `@aknishi/akds-icons` delivers [Material Symbols](https://fonts.google.com/icons) (Rounded style) as individual inline SVG React components. Each icon is its own module — only the icons you import are included in your bundle.
 
-No font file, no CDN dependency. Icons inherit `color: currentColor` by default and accept a `size` prop using the design token scale.
+No font file, no CDN dependency. Icons render with `fill="currentColor"`, apply the neutral icon color token by default, and accept a `size` prop using the design token scale.
 
 ## Installation
 
@@ -48,7 +48,7 @@ Every icon accepts the same props:
   </thead>
   <tbody>
     <tr><td><code>size</code></td><td><code>'xs' | 'sm' | 'md' | 'lg' | 'xl'</code></td><td><code>'md'</code></td><td>Maps to icon size tokens: 12 / 16 / 20 / 24 / 32px</td></tr>
-    <tr><td><code>color</code></td><td><code>'default' | 'error' | 'warning' | 'success' | 'info'</code></td><td><code>'default'</code></td><td>Applies a semantic color token. <code>'default'</code> inherits <code>currentColor</code>.</td></tr>
+    <tr><td><code>color</code></td><td><code>'default' | 'error' | 'warning' | 'success' | 'info' | string</code></td><td><code>'default'</code></td><td>Applies a semantic color token, or any custom CSS color value (hex, <code>rgb()</code>, a CSS variable, etc.) when the value isn't one of the semantic keywords.</td></tr>
     <tr><td><code>aria-label</code></td><td><code>string</code></td><td>—</td><td>Set when the icon conveys meaning without surrounding text</td></tr>
     <tr><td><code>aria-hidden</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Icons are hidden from screen readers by default</td></tr>
     <tr><td><code>ref</code></td><td><code>React.Ref&lt;SVGSVGElement&gt;</code></td><td>—</td><td>Forwarded to the root <code>&lt;svg&gt;</code> element</td></tr>
@@ -75,13 +75,24 @@ import { WarningIcon, ErrorIcon, InfoFilledIcon, CheckCircleFilledIcon } from '@
     <tr><th>Value</th><th>Usage</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>'default'</code></td><td>Inherits <code>currentColor</code> from the surrounding context</td></tr>
+    <tr><td><code>'default'</code></td><td>Neutral icon color (<code>var(--akds-color-icon-neutral-default)</code>)</td></tr>
     <tr><td><code>'error'</code></td><td>Destructive actions, error states</td></tr>
     <tr><td><code>'warning'</code></td><td>Warnings, caution states</td></tr>
     <tr><td><code>'success'</code></td><td>Confirmations, success states</td></tr>
     <tr><td><code>'info'</code></td><td>Informational, neutral emphasis</td></tr>
   </tbody>
 </table>
+
+## Custom colors
+
+Pass any other CSS color value — a hex code, `rgb()`, a named color, or a CSS variable — to `color` when none of the semantic keywords fit. Icons detect that the value isn't one of the five semantic keywords and apply it as a custom color instead, by setting the `--akds-icon-custom-color` CSS variable and adding the `akds-icon--custom` class.
+
+```tsx
+import { FavoriteFilledIcon, StarFilledIcon } from '@aknishi/akds-icons';
+
+<FavoriteFilledIcon size="md" color="#ff6600" />
+<StarFilledIcon size="md" color="var(--my-brand-color)" />
+```
 
 ---
 
@@ -96,3 +107,7 @@ import { WarningIcon, ErrorIcon, InfoFilledIcon, CheckCircleFilledIcon } from '@
 ## Semantic Colors
 
 <Canvas of={IconStories.SemanticColors} />
+
+## Custom Colors
+
+<Canvas of={IconStories.CustomColor} />

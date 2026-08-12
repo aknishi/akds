@@ -8,3 +8,5 @@ export const SIZE_MAP: Record<IconSize, number> = {
   lg: 24,
   xl: 32,
 };
+
+export const SEMANTIC_ICON_COLORS: readonly IconColor[] = ['default', 'error', 'warning', 'success', 'info'];

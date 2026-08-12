@@ -338,3 +338,20 @@ const Example = () => (
 export default Example;
 `,
 });
+
+export const CustomColor = LiveEditStory({
+  component: ArrowBackIcon,
+  code: `import { FavoriteFilledIcon, StarFilledIcon, PaletteFilledIcon } from '@aknishi/akds-icons';
+import { Flexbox } from '@aknishi/akds-reactkit';
+
+const Example = () => (
+  <Flexbox direction="row" gap="md">
+    <FavoriteFilledIcon size="lg" color="#ff6600" />
+    <StarFilledIcon size="lg" color="rebeccapurple" />
+    <PaletteFilledIcon size="lg" color="rgb(16, 124, 65)" />
+  </Flexbox>
+);
+
+export default Example;
+`,
+});
