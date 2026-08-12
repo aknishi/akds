@@ -1,18 +1,21 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP, COLOR_MAP } from '../types.js';
+import { SIZE_MAP } from '../types.js';
+import '../Icon.css';
 
 export interface PersonAddFilledIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
   color?: IconColor;
 }
 
 export const PersonAddFilledIcon = React.forwardRef<SVGSVGElement, PersonAddFilledIconProps>(
-  function PersonAddFilledIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+  function PersonAddFilledIcon({ size = 'md', color = 'default', className, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const fill = COLOR_MAP[color];
+    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <svg
         ref={ref}
@@ -23,7 +26,7 @@ export const PersonAddFilledIcon = React.forwardRef<SVGSVGElement, PersonAddFill
         fill="currentColor"
         aria-hidden="true"
         focusable="false"
-        style={fill ? { color: fill, ...style } : style}
+        className={classes}
         {...props}
       >
         <path d="M730-530H630q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h100v-100q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v100h100q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H790v100q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37v-100Zm-478 7q-42-42-42-108t42-108q42-42 108-42t108 42q42 42 42 108t-42 108q-42 42-108 42t-108-42ZM40-220v-34q0-35 17.5-63.5T108-360q75-33 133.34-46.5t118.5-13.5Q420-420 478-406.5T611-360q33 15 51 43t18 63v34q0 24.75-17.62 42.37Q644.75-160 620-160H100q-24.75 0-42.37-17.63Q40-195.25 40-220Z" />

@@ -1,18 +1,21 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP, COLOR_MAP } from '../types.js';
+import { SIZE_MAP } from '../types.js';
+import '../Icon.css';
 
 export interface ContactSupportIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
   color?: IconColor;
 }
 
 export const ContactSupportIcon = React.forwardRef<SVGSVGElement, ContactSupportIconProps>(
-  function ContactSupportIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+  function ContactSupportIcon({ size = 'md', color = 'default', className, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const fill = COLOR_MAP[color];
+    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <svg
         ref={ref}
@@ -23,7 +26,7 @@ export const ContactSupportIcon = React.forwardRef<SVGSVGElement, ContactSupport
         fill="currentColor"
         aria-hidden="true"
         focusable="false"
-        style={fill ? { color: fill, ...style } : style}
+        className={classes}
         {...props}
       >
         <path d="M505-190h-40q-143 0-244-101T120-535q0-143 101.5-244T467-880q71 0 131.5 25.5T704-783q45 46 70.5 108.5T800-538q0 131-68 245T557-108q-7 5-15 5t-15-3q-7-3-11.5-9.5T510-130l-5-60Zm60 2q82-69 128.5-162.5T740-538q0-124-77.5-203T467-820q-120 0-203.5 83.5T180-535q0 118 83.5 201.5T465-250h100v62Zm-71-126q11-11 11-27t-11-27q-11-11-27-11t-27 11q-11 11-11 27t11 27q11 11 27 11t27-11ZM370-634q10 4 19.5 0t16.5-13q9-13 24.5-20.5T469-675q26 0 44.5 14t18.5 39q0 19-10.5 38.5T485-538q-23 23-33.5 40.5T441-466q0 11 6.5 19t17.5 8q11 0 18.5-7t9.5-18q3-11 11.5-24t25.5-30q29-29 41-53.5t12-50.5q0-47-33-75t-81-28q-29 0-60.5 13.5T362-670q-6 11-4 21.5t12 14.5Zm90 130Z" />

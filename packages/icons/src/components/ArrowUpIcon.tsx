@@ -1,18 +1,21 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP, COLOR_MAP } from '../types.js';
+import { SIZE_MAP } from '../types.js';
+import '../Icon.css';
 
 export interface ArrowUpIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
   color?: IconColor;
 }
 
 export const ArrowUpIcon = React.forwardRef<SVGSVGElement, ArrowUpIconProps>(
-  function ArrowUpIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+  function ArrowUpIcon({ size = 'md', color = 'default', className, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const fill = COLOR_MAP[color];
+    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <svg
         ref={ref}
@@ -23,7 +26,7 @@ export const ArrowUpIcon = React.forwardRef<SVGSVGElement, ArrowUpIconProps>(
         fill="currentColor"
         aria-hidden="true"
         focusable="false"
-        style={fill ? { color: fill, ...style } : style}
+        className={classes}
         {...props}
       >
         <path d="M450-686 223-459q-9 9-21 9t-21-9q-9-9-9-21t9-21l278-278q5-5 10-7t11-2q6 0 11 2t10 7l278 278q9 9 9 21t-9 21q-9 9-21 9t-21-9L510-686v496q0 13-8.5 21.5T480-160q-13 0-21.5-8.5T450-190v-496Z" />

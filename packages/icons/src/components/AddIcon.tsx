@@ -1,18 +1,21 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP, COLOR_MAP } from '../types.js';
+import { SIZE_MAP } from '../types.js';
+import '../Icon.css';
 
 export interface AddIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
   color?: IconColor;
 }
 
 export const AddIcon = React.forwardRef<SVGSVGElement, AddIconProps>(
-  function AddIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+  function AddIcon({ size = 'md', color = 'default', className, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const fill = COLOR_MAP[color];
+    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <svg
         ref={ref}
@@ -23,7 +26,7 @@ export const AddIcon = React.forwardRef<SVGSVGElement, AddIconProps>(
         fill="currentColor"
         aria-hidden="true"
         focusable="false"
-        style={fill ? { color: fill, ...style } : style}
+        className={classes}
         {...props}
       >
         <path d="M450-450H230q-12.75 0-21.37-8.68-8.63-8.67-8.63-21.5 0-12.82 8.63-21.32 8.62-8.5 21.37-8.5h220v-220q0-12.75 8.68-21.38 8.67-8.62 21.5-8.62 12.82 0 21.32 8.62 8.5 8.63 8.5 21.38v220h220q12.75 0 21.38 8.68 8.62 8.67 8.62 21.5 0 12.82-8.62 21.32-8.63 8.5-21.38 8.5H510v220q0 12.75-8.68 21.37-8.67 8.63-21.5 8.63-12.82 0-21.32-8.63-8.5-8.62-8.5-21.37v-220Z" />

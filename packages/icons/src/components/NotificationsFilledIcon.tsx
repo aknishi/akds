@@ -1,18 +1,21 @@
 import React from 'react';
 import type { IconSize, IconColor } from '../types.js';
-import { SIZE_MAP, COLOR_MAP } from '../types.js';
+import { SIZE_MAP } from '../types.js';
+import '../Icon.css';
 
 export interface NotificationsFilledIconProps extends Omit<React.SVGProps<SVGSVGElement>, 'width' | 'height' | 'color'> {
   /** Controls the size of the icon using design token sizes. Defaults to "md" (20px). */
   size?: IconSize;
-  /** Applies a semantic color token. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
+  /** Applies a semantic color token via the akds-icon--{color} class. Defaults to "default" (var(--akds-color-icon-neutral-default)). */
   color?: IconColor;
 }
 
 export const NotificationsFilledIcon = React.forwardRef<SVGSVGElement, NotificationsFilledIconProps>(
-  function NotificationsFilledIcon({ size = 'md', color = 'default', style, ...props }, ref) {
+  function NotificationsFilledIcon({ size = 'md', color = 'default', className, ...props }, ref) {
     const px = SIZE_MAP[size];
-    const fill = COLOR_MAP[color];
+    const classes = ['akds-icon', color !== 'default' ? `akds-icon--${color}` : null, className]
+      .filter(Boolean)
+      .join(' ');
     return (
       <svg
         ref={ref}
@@ -23,7 +26,7 @@ export const NotificationsFilledIcon = React.forwardRef<SVGSVGElement, Notificat
         fill="currentColor"
         aria-hidden="true"
         focusable="false"
-        style={fill ? { color: fill, ...style } : style}
+        className={classes}
         {...props}
       >
         <path d="M190-200q-13 0-21.5-8.5T160-230q0-13 8.5-21.5T190-260h50v-304q0-84 49.5-150.5T420-798v-22q0-25 17.5-42.5T480-880q25 0 42.5 17.5T540-820v22q81 17 130.5 83.5T720-564v304h50q13 0 21.5 8.5T800-230q0 13-8.5 21.5T770-200H190ZM480-80q-33 0-56.5-23.5T400-160h160q0 33-23.5 56.5T480-80Z" />

@@ -1,0 +1,19 @@
+.akds-icon {
+  color: var(--akds-color-icon-neutral-default);
+}
+
+.akds-icon--error {
+  color: var(--akds-color-icon-error-default);
+}
+
+.akds-icon--warning {
+  color: var(--akds-color-icon-warning-default);
+}
+
+.akds-icon--success {
+  color: var(--akds-color-icon-success-default);
+}
+
+.akds-icon--info {
+  color: var(--akds-color-icon-info-default);
+}
