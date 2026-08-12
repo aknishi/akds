@@ -56,6 +56,24 @@ describe('Text', () => {
     }
   });
 
+  it('applies no color modifier class by default', () => {
+    render(<Text>Body</Text>);
+    const el = screen.getByText('Body');
+    expect(el.className).not.toMatch(/akds-text--(primary|success|error|neutral)\b/);
+  });
+
+  it('applies the correct modifier class for each color', () => {
+    const colors: Array<NonNullable<Parameters<typeof Text>[0]['color']>> = [
+      'primary', 'success', 'error', 'neutral',
+    ];
+
+    for (const color of colors) {
+      const { unmount } = render(<Text color={color}>{color}</Text>);
+      expect(screen.getByText(color)).toHaveClass(`akds-text--${color}`);
+      unmount();
+    }
+  });
+
   it('overrides the element when as prop is provided', () => {
     render(<Text styleAs="h1" as="span">Heading as span</Text>);
     expect(screen.getByText('Heading as span').tagName).toBe('SPAN');

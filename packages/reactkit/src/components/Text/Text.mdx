@@ -7,7 +7,7 @@ import * as TextStories from './Text.stories';
 
 > **Available from v1.0.0**
 
-A typography primitive that maps a `styleAs` variant to the correct font size, weight, and line-height tokens. Decouples visual style from the rendered HTML element — use `as` to override the tag while keeping the intended style.
+A typography primitive that maps a `styleAs` variant to the correct font size, weight, and line-height tokens. Decouples visual style from the rendered HTML element — use `as` to override the tag while keeping the intended style. Use `color` to apply a semantic text color independent of the typography style.
 
 ## Usage
 
@@ -28,6 +28,10 @@ import { Text } from '@aknishi/akds-reactkit';
 ### Body Styles
 
 <Canvas of={TextStories.BodyStyles} />
+
+### Colors
+
+<Canvas of={TextStories.Colors} />
 
 ### As Override
 
