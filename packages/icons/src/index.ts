@@ -127,6 +127,8 @@ export { GridViewFilledIcon } from './components/GridViewFilledIcon.js';
 export type { GridViewFilledIconProps } from './components/GridViewFilledIcon.js';
 export { HomeIcon } from './components/HomeIcon.js';
 export type { HomeIconProps } from './components/HomeIcon.js';
+export { MenuIcon } from './components/MenuIcon.js';
+export type { MenuIconProps } from './components/MenuIcon.js';
 export { MoreVertIcon } from './components/MoreVertIcon.js';
 export type { MoreVertIconProps } from './components/MoreVertIcon.js';
 export { SettingsIcon } from './components/SettingsIcon.js';

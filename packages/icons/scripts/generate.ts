@@ -94,6 +94,7 @@ const ICONS: Record<string, string> = {
   GridViewIcon: 'grid_view',
   GridViewFilledIcon: 'grid_view-fill',
   HomeIcon: 'home',
+  MenuIcon: 'menu',
   MoreVertIcon: 'more_vert',
   SettingsIcon: 'settings',
   SettingsFilledIcon: 'settings-fill',
