@@ -63,6 +63,8 @@ const GROUPS: { category: string; icons: IconEntry[] }[] = [
     category: 'Actions',
     icons: [
       { name: 'AddIcon', Component: Icons.AddIcon, tags: ['plus', 'create', 'new', 'insert'] },
+      { name: 'AnimationIcon', Component: Icons.AnimationIcon, tags: ['motion', 'transition', 'movement', 'keyframe', 'micro-interaction'] },
+      { name: 'AnimationFilledIcon', Component: Icons.AnimationFilledIcon, tags: ['motion', 'transition', 'movement', 'keyframe', 'micro-interaction'] },
       { name: 'BlockIcon', Component: Icons.BlockIcon, tags: ['ban', 'forbidden', 'disable', 'stop', 'prohibit'] },
       { name: 'CancelIcon', Component: Icons.CancelIcon, tags: ['close', 'remove', 'clear', 'x', 'dismiss'] },
       { name: 'CancelFilledIcon', Component: Icons.CancelFilledIcon, tags: ['close', 'remove', 'clear', 'x', 'dismiss'] },
@@ -106,6 +108,8 @@ const GROUPS: { category: string; icons: IconEntry[] }[] = [
       { name: 'GridViewFilledIcon', Component: Icons.GridViewFilledIcon, tags: ['tiles', 'layout', 'gallery', 'mosaic'] },
       { name: 'HomeIcon', Component: Icons.HomeIcon, tags: ['house', 'main', 'start', 'landing'] },
       { name: 'MoreVertIcon', Component: Icons.MoreVertIcon, tags: ['overflow', 'kebab', 'dots', 'options', 'menu', 'ellipsis'] },
+      { name: 'ResponsiveLayoutIcon', Component: Icons.ResponsiveLayoutIcon, tags: ['responsive', 'devices', 'breakpoint', 'adaptive', 'mobile', 'desktop'] },
+      { name: 'ResponsiveLayoutFilledIcon', Component: Icons.ResponsiveLayoutFilledIcon, tags: ['responsive', 'devices', 'breakpoint', 'adaptive', 'mobile', 'desktop'] },
       { name: 'SettingsIcon', Component: Icons.SettingsIcon, tags: ['gear', 'cog', 'preferences', 'configure', 'options'] },
       { name: 'SettingsFilledIcon', Component: Icons.SettingsFilledIcon, tags: ['gear', 'cog', 'preferences', 'configure', 'options'] },
       { name: 'SmartphoneIcon', Component: Icons.SmartphoneIcon, tags: ['mobile', 'phone', 'device', 'cell'] },
@@ -227,6 +231,7 @@ const labelStyle: React.CSSProperties = {
   textAlign: 'center',
   fontFamily: 'monospace',
   wordBreak: 'break-all',
+  maxWidth: '100%',
 };
 
 export const AllIcons: Story = {
@@ -265,7 +270,7 @@ export const AllIcons: Story = {
               {icons.map(({ name, Component }) => (
                 <div key={name} style={cellStyle}>
                   <Component size="lg" />
-                  <Text styleAs="label">{name.replace(/Icon$/, '')}</Text>
+                  <Text styleAs="label" style={labelStyle}>{name.replace(/Icon$/, '')}</Text>
                 </div>
               ))}
             </div>
