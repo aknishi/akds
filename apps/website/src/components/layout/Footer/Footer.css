@@ -1,0 +1,19 @@
+.site-footer {
+  margin-top: var(--akds-spacing-layout-2xl);
+}
+
+.site-footer__link {
+  font-size: var(--akds-font-size-sm);
+  color: var(--akds-color-text-secondary-default);
+  text-decoration: none;
+}
+
+.site-footer__link:hover {
+  color: var(--akds-color-text-primary-default);
+}
+
+.site-footer__link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-50);
+}

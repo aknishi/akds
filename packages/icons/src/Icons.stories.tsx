@@ -107,6 +107,7 @@ const GROUPS: { category: string; icons: IconEntry[] }[] = [
       { name: 'GridViewIcon', Component: Icons.GridViewIcon, tags: ['tiles', 'layout', 'gallery', 'mosaic'] },
       { name: 'GridViewFilledIcon', Component: Icons.GridViewFilledIcon, tags: ['tiles', 'layout', 'gallery', 'mosaic'] },
       { name: 'HomeIcon', Component: Icons.HomeIcon, tags: ['house', 'main', 'start', 'landing'] },
+      { name: 'MenuIcon', Component: Icons.MenuIcon, tags: ['hamburger', 'nav', 'drawer', 'toggle', 'list'] },
       { name: 'MoreVertIcon', Component: Icons.MoreVertIcon, tags: ['overflow', 'kebab', 'dots', 'options', 'menu', 'ellipsis'] },
       { name: 'ResponsiveLayoutIcon', Component: Icons.ResponsiveLayoutIcon, tags: ['responsive', 'devices', 'breakpoint', 'adaptive', 'mobile', 'desktop'] },
       { name: 'ResponsiveLayoutFilledIcon', Component: Icons.ResponsiveLayoutFilledIcon, tags: ['responsive', 'devices', 'breakpoint', 'adaptive', 'mobile', 'desktop'] },
