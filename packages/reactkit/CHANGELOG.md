@@ -1,5 +1,24 @@
 # @aknishi/akds-reactkit
 
+## 1.3.0
+
+### Minor Changes
+
+- b896785: Toggle - New ToggleButton and ToggleGroup components
+- 0fd4581: Text - Add color with semantic color values
+- e95add0: Flexbox - Extend gap and spacing properties to accept numbers that resolve to spacing tokens
+
+### Patch Changes
+
+- ec71798: Flexbox - Resolve issue with spacing propagating to Flexbox children
+- e95add0: Divider - Fix vertical divider to always have parent height even when it isn't explicit
+- Updated dependencies [0d17e56]
+- Updated dependencies [511d6e5]
+- Updated dependencies [0495add]
+- Updated dependencies [6eb09fe]
+- Updated dependencies [a2b7320]
+  - @aknishi/akds-icons@1.2.0
+
 ## 1.2.0
 
 ### Minor Changes
