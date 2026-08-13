@@ -11,6 +11,7 @@ const meta: Meta<typeof Text> = {
       options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'body', 'label', 'caption'],
     },
     as: { control: 'text' },
+    color: { control: 'select', options: ['primary', 'success', 'error', 'neutral'] },
   },
 };
 
@@ -45,6 +46,23 @@ const TextExample = () => (
     <Text styleAs="body">Body — the default text style for paragraphs.</Text>
     <Text styleAs="label">Label — used for form labels and UI labels.</Text>
     <Text styleAs="caption">Caption — supplementary text at a smaller size.</Text>
+  </Flexbox>
+);
+
+export default TextExample;
+`,
+});
+
+export const Colors = LiveEditStory({
+  component: Text,
+  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
+
+const TextExample = () => (
+  <Flexbox direction="column" gap="sm">
+    <Text color="neutral">Neutral — the default text color.</Text>
+    <Text color="primary">Primary — used to draw attention to key text.</Text>
+    <Text color="success">Success — indicates a positive state.</Text>
+    <Text color="error">Error — indicates a problem or failure.</Text>
   </Flexbox>
 );
 

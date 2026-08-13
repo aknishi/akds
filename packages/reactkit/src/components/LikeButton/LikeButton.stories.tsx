@@ -3,7 +3,7 @@ import { LikeButton } from './LikeButton';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof LikeButton> = {
-  title: 'Reactkit/LikeButton',
+  title: 'Reactkit/Buttons/LikeButton',
   component: LikeButton,
   argTypes: {
     disabled: { control: 'boolean' },

@@ -1,0 +1,25 @@
+.showcase-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+
+.showcase-marquee__track {
+  display: flex;
+  gap: var(--akds-spacing-300);
+  width: max-content;
+}
+
+.showcase-marquee__card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 160px;
+  padding: var(--akds-spacing-200);
+}
+
+.showcase-marquee__card .akds-card-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

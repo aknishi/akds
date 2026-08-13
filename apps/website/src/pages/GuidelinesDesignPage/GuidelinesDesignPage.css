@@ -1,0 +1,71 @@
+.design-guidelines-page {
+  max-width: 860px;
+}
+
+.design-guidelines-page__lede,
+.design-guidelines-page__section-lede {
+  display: block;
+  color: var(--akds-color-text-secondary-default);
+}
+
+.design-guidelines-page__principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--akds-spacing-300);
+}
+
+.design-guidelines-page__principle-description {
+  display: block;
+  margin-top: var(--akds-spacing-100);
+  color: var(--akds-color-text-secondary-default);
+}
+
+.design-guidelines-page__color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--akds-spacing-300);
+}
+
+.design-guidelines-page__spacing-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--akds-spacing-50);
+}
+
+.design-guidelines-page__spacing-box {
+  height: 24px;
+  background: var(--akds-color-background-primary-default);
+  border-radius: var(--akds-radius-xs);
+}
+
+.design-guidelines-page__spacing-box--xs {
+  width: var(--akds-spacing-layout-xs);
+}
+.design-guidelines-page__spacing-box--sm {
+  width: var(--akds-spacing-layout-sm);
+}
+.design-guidelines-page__spacing-box--md {
+  width: var(--akds-spacing-layout-md);
+}
+.design-guidelines-page__spacing-box--lg {
+  width: var(--akds-spacing-layout-lg);
+}
+.design-guidelines-page__spacing-box--xl {
+  width: var(--akds-spacing-layout-xl);
+}
+.design-guidelines-page__spacing-box--2xl {
+  width: var(--akds-spacing-layout-2xl);
+}
+
+.design-guidelines-page__elevation-box {
+  width: 96px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--akds-radius-lg);
+  background: var(--akds-color-surface-raised);
+  font-size: var(--akds-font-size-xs);
+  color: var(--akds-color-text-secondary-default);
+}

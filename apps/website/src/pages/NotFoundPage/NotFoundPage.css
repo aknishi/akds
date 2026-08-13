@@ -1,0 +1,8 @@
+.not-found-page {
+  text-align: center;
+}
+
+.not-found-page__cta {
+  display: inline-block;
+  margin-top: var(--akds-spacing-300);
+}

@@ -8,4 +8,5 @@ export default defineConfig({
   external: ['react'],
   splitting: true,
   treeshake: true,
+  injectStyle: true,
 });

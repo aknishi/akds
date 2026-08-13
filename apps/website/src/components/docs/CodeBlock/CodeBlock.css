@@ -1,0 +1,36 @@
+.code-block {
+  border-radius: var(--akds-radius-lg);
+  background: var(--akds-color-surface-sunken);
+  border: 1px solid var(--akds-color-border-neutral-default);
+  overflow: hidden;
+}
+
+.code-block__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--akds-spacing-100) var(--akds-spacing-200);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}
+
+.code-block__language {
+  font-family: var(--akds-font-family-mono), monospace;
+  font-size: var(--akds-font-size-xs);
+  color: var(--akds-color-text-secondary-default);
+  text-transform: uppercase;
+  letter-spacing: var(--akds-font-letter-spacing-wide);
+}
+
+.code-block__pre {
+  margin: 0;
+  padding: var(--akds-spacing-200);
+  overflow-x: auto;
+}
+
+.code-block__pre code {
+  font-family: var(--akds-font-family-mono), monospace;
+  font-size: var(--akds-font-size-sm);
+  line-height: var(--akds-font-line-height-relaxed);
+  color: var(--akds-color-text-primary-default);
+  white-space: pre;
+}

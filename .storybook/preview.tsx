@@ -32,10 +32,13 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
           body, .sbdocs-wrapper {
             background: ${isDark ? '#000' : '#fff'} !important;
           }
-          h1, h2, h3, h4, h5, h6, p, li, strong, em {
+          h1:not([class*="akds-"]), h2:not([class*="akds-"]), h3:not([class*="akds-"]),
+          h4:not([class*="akds-"]), h5:not([class*="akds-"]), h6:not([class*="akds-"]),
+          p:not([class*="akds-"]), li:not([class*="akds-"]), strong:not([class*="akds-"]),
+          em:not([class*="akds-"]) {
             color: var(--akds-color-text-primary-default) !important;
           }
-          td, th {
+          td:not([class*="akds-"]), th:not([class*="akds-"]) {
             color: var(--akds-color-text-primary-default) !important;
             border-color: var(--akds-color-border-neutral-default) !important;
             background: transparent !important;

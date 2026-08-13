@@ -1,0 +1,8 @@
+.carousel-entry-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  border-radius: var(--akds-radius-lg);
+  background: var(--akds-color-background-secondary-default);
+}

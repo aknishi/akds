@@ -121,7 +121,9 @@ const Row = ({ justify, label }) => (
   <Flexbox direction="column" gap="xs">
     <Text styleAs="caption">{label}</Text>
     <Flexbox justify={justify} py="sm" px="md" gap="sm" style={{ border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)' }}>
-      <Box /><Box /><Box />
+      <Box />
+      <Box />
+      <Box />
     </Flexbox>
   </Flexbox>
 );
@@ -145,9 +147,10 @@ export const AlignItems = LiveEditStory({
   component: Flexbox,
   code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
 
-const Box = ({ height }) => (
+const Box = () => (
   <div style={{
-    width: 40, height,
+    minHeight: 40,
+    width: 40,
     background: 'var(--akds-color-background-primary-default)',
     borderRadius: 'var(--akds-radius-sm)',
   }} />
@@ -156,8 +159,8 @@ const Box = ({ height }) => (
 const Row = ({ align, label }) => (
   <Flexbox direction="column" gap="xs">
     <Text styleAs="caption">{label}</Text>
-    <Flexbox align={align} gap="sm" style={{ height: 80, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '0 12px' }}>
-      <Box height={32} /><Box height={48} /><Box height={24} />
+    <Flexbox align={align} gap="sm" style={{ height: 80, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '0 12px', width: '100%' }}>
+      <Box /><Box /><Box />
     </Flexbox>
   </Flexbox>
 );
@@ -202,7 +205,7 @@ export default FlexboxExample;
 
 export const Gap = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
+  code: `import { Flexbox, Text, Divider } from '@aknishi/akds-reactkit';
 
 const Box = () => (
   <div style={{
@@ -212,24 +215,33 @@ const Box = () => (
   }} />
 );
 
-const tokens = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'];
+const Row = ({ label, gap }) => (
+  <Flexbox align="center" gap="md">
+    <Text styleAs="caption" style={{ width: 56 }}>{label}</Text>
+    <Flexbox align="center" gap={gap} style={{ border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
+      <Box /><Box /><Box />
+    </Flexbox>
+  </Flexbox>
+);
+
+const Column = ({ title, rows }) => (
+  <Flexbox direction="column" gap="sm">
+    <Text styleAs="h6" as="span">{title}</Text>
+    {rows.map(row => <Row key={row.label} {...row} />)}
+  </Flexbox>
+);
+
+const predefinedSizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl'].map(size => ({ label: size, gap: size }));
+const tokenScalingFactors = [0.25, 0.5, 1, 1.5, 2, 3].map(value => ({ label: String(value), gap: value }));
+const explicitValues = ['16px', '24px', '1rem', '1.5rem', '2em'].map(value => ({ label: value, gap: value }));
 
 const FlexboxExample = () => (
-  <Flexbox direction="column" gap="md">
-    {tokens.map(size => (
-      <Flexbox key={size} align="center" gap="md">
-        <Text styleAs="caption" style={{ width: 28 }}>{size}</Text>
-        <Flexbox align="center" gap={size} style={{ flex: 1, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
-          <Box /><Box /><Box />
-        </Flexbox>
-      </Flexbox>
-    ))}
-    <Flexbox align="center" gap="md">
-      <Text styleAs="caption" style={{ width: 28 }}>px</Text>
-      <Flexbox align="center" gap="24px" style={{ flex: 1, border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)', padding: '8px' }}>
-        <Box /><Box /><Box />
-      </Flexbox>
-    </Flexbox>
+  <Flexbox justify="space-around" align="flex-start">
+    <Column title="Predefined sizes" rows={predefinedSizes} />
+    <Divider orientation="vertical" />
+    <Column title="Token scaling factor" rows={tokenScalingFactors} />
+    <Divider orientation="vertical" />
+    <Column title="Explicit value" rows={explicitValues} />
   </Flexbox>
 );
 
@@ -239,8 +251,9 @@ export default FlexboxExample;
 
 export const Spacing = LiveEditStory({
   component: Flexbox,
-  code: `import { Flexbox, Text } from '@aknishi/akds-reactkit';
+  code: `import { Flexbox, Text, Divider } from '@aknishi/akds-reactkit';
 
+// Example components -------------------------------------------------
 const Outline = ({ children, label }) => (
   <Flexbox direction="column" gap="xs">
     <Text styleAs="caption">{label}</Text>
@@ -261,23 +274,50 @@ const Inner = () => (
   </div>
 );
 
+const Column = ({ title, rows }) => (
+  <Flexbox direction="column" gap="sm">
+    <Text styleAs="h6" as="span">{title}</Text>
+    {rows.map(row => (
+      <Outline key={row.label} label={row.label}>
+        <Flexbox {...row.props}><Inner /></Flexbox>
+      </Outline>
+    ))}
+  </Flexbox>
+);
+
+// ---------------------------------------------------------------- 
+
+const predefinedSizes = [
+  { label: 'padding="md"', props: { padding: 'md' } },
+  { label: 'px="lg" py="sm"', props: { px: 'lg', py: 'sm' } },
+  { label: 'pt="lg" pb="xs" pl="xl" pr="sm"', props: { pt: 'lg', pb: 'xs', pl: 'xl', pr: 'sm' } },
+  { label: 'margin="md"', props: { margin: 'md' } },
+  { label: 'mx="xl" my="sm"', props: { mx: 'xl', my: 'sm' } },
+];
+
+const tokenScalingFactors = [
+  { label: 'padding={2}', props: { padding: 2 } },
+  { label: 'px={3} py={1}', props: { px: 3, py: 1 } },
+  { label: 'pt={3} pb={0.5} pl={4} pr={1}', props: { pt: 3, pb: 0.5, pl: 4, pr: 1 } },
+  { label: 'margin={2}', props: { margin: 2 } },
+  { label: 'mx={4} my={1}', props: { mx: 4, my: 1 } },
+];
+
+const explicitValues = [
+  { label: 'padding="16px"', props: { padding: '16px' } },
+  { label: 'px="1.5rem" py="0.5rem"', props: { px: '1.5rem', py: '0.5rem' } },
+  { label: 'pt="2rem" pb="4px" pl="2em" pr="8px"', props: { pt: '2rem', pb: '4px', pl: '2em', pr: '8px' } },
+  { label: 'margin="16px"', props: { margin: '16px' } },
+  { label: 'mx="2rem" my="8px"', props: { mx: '2rem', my: '8px' } },
+];
+
 const FlexboxExample = () => (
-  <Flexbox direction="column" gap="lg">
-    <Outline label='padding="md"'>
-      <Flexbox padding="md"><Inner /></Flexbox>
-    </Outline>
-    <Outline label='px="lg" py="sm"'>
-      <Flexbox px="lg" py="sm"><Inner /></Flexbox>
-    </Outline>
-    <Outline label='pt="lg" pb="xs" pl="xl" pr="sm"'>
-      <Flexbox pt="lg" pb="xs" pl="xl" pr="sm"><Inner /></Flexbox>
-    </Outline>
-    <Outline label='margin="md" (note outer gap)'>
-      <Flexbox margin="md"><Inner /></Flexbox>
-    </Outline>
-    <Outline label='mx="xl" my="sm"'>
-      <Flexbox mx="xl" my="sm"><Inner /></Flexbox>
-    </Outline>
+  <Flexbox justify="space-around" align="flex-start" >
+    <Column title="Predefined sizes" rows={predefinedSizes} />
+    <Divider variant="solid" orientation="vertical" />
+    <Column title="Token scaling factor" rows={tokenScalingFactors} />
+    <Divider orientation="vertical" />
+    <Column title="Explicit value" rows={explicitValues} />
   </Flexbox>
 );
 

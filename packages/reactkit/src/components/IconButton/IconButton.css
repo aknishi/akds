@@ -30,6 +30,11 @@
   outline-offset: var(--akds-outline-focus-offset);
 }
 
+/* Two-class selector outweighs the icon's own single-class default (.akds-icon), so the icon follows the button's variant color without !important. */
+.akds-icon-button > .akds-icon {
+  color: inherit;
+}
+
 /* Hover overlay layer — sits on top via ::after pseudo-element */
 .akds-icon-button::after {
   content: '';

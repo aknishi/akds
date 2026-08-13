@@ -9,10 +9,4 @@ export const SIZE_MAP: Record<IconSize, number> = {
   xl: 32,
 };
 
-export const COLOR_MAP: Record<IconColor, string | undefined> = {
-  default: 'var(--akds-color-icon-neutral-default)',
-  error: 'var(--akds-color-icon-error-default)',
-  warning: 'var(--akds-color-icon-warning-default)',
-  success: 'var(--akds-color-icon-success-default)',
-  info: 'var(--akds-color-icon-info-default)',
-};
+export const SEMANTIC_ICON_COLORS: readonly IconColor[] = ['default', 'error', 'warning', 'success', 'info'];

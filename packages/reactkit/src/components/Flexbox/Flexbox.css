@@ -1,3 +1,83 @@
+/* ── Custom property registration ───────────────────────────────────────── */
+/* inherits: false stops a parent Flexbox's vars from leaking into a nested
+   child Flexbox that doesn't set its own value for the same prop. */
+@property --akds-flexbox-justify {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-align {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-wrap {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-direction {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-gap {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-padding {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-pt {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-pr {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-pb {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-pl {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-px {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-py {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-margin {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-mt {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-mr {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-mb {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-ml {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-mx {
+  syntax: '*';
+  inherits: false;
+}
+@property --akds-flexbox-my {
+  syntax: '*';
+  inherits: false;
+}
+
 /* ── Base ────────────────────────────────────────────────────────────────── */
 .akds-flexbox {
   display: flex;

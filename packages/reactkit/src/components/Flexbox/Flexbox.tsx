@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './Flexbox.css';
-import type { FlexboxProps, FlexboxSpacingSize } from './Flexbox.types';
+import type { FlexboxProps, FlexboxSpacing, FlexboxSpacingSize } from './Flexbox.types';
 import { makePrefixer } from '../../utils/makePrefixer';
 
 const withBaseName = makePrefixer('akds-flexbox');
@@ -15,8 +15,11 @@ const spacingTokens: Record<FlexboxSpacingSize, string> = {
   '2xl': 'var(--akds-spacing-layout-2xl)',
 };
 
-function resolveSpacing(value: string | undefined): string | undefined {
-  if (!value) return undefined;
+function resolveSpacing(value: FlexboxSpacing | undefined): string | undefined {
+  if (value === undefined) return undefined;
+  if (typeof value === 'number') {
+    return `var(--akds-spacing-${Math.round(value * 100)})`;
+  }
   return spacingTokens[value as FlexboxSpacingSize] ?? value;
 }
 
@@ -26,7 +29,7 @@ export const Flexbox = React.forwardRef<HTMLElement, FlexboxProps>(
       justify,
       align,
       wrap,
-      direction,
+      direction = 'row',
       gap,
       padding,
       pt,

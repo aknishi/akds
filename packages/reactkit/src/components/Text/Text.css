@@ -79,3 +79,20 @@
   letter-spacing: var(--akds-font-letter-spacing-normal);
   color: var(--akds-color-text-secondary-default);
 }
+
+/* ── Colors ──────────────────────────────────────────────────────────────── */
+.akds-text--primary {
+  color: var(--akds-color-text-info-default);
+}
+
+.akds-text--success {
+  color: var(--akds-color-text-success-default);
+}
+
+.akds-text--error {
+  color: var(--akds-color-text-error-default);
+}
+
+.akds-text--neutral {
+  color: var(--akds-color-text-primary-default);
+}

@@ -1,0 +1,15 @@
+.components-index-page__lede {
+  display: block;
+  color: var(--akds-color-text-secondary-default);
+  max-width: 640px;
+}
+
+.components-index-page__category-title {
+  margin-bottom: var(--akds-spacing-200);
+}
+
+.components-index-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--akds-spacing-300);
+}

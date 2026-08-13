@@ -1,0 +1,42 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ToggleButtonStories from './ToggleButton.stories';
+
+<Meta of={ToggleButtonStories} />
+
+# ToggleButton
+
+> **Available from v1.3.0**
+
+A button that toggles between a pressed and unpressed state. Used standalone (e.g. formatting toolbar buttons like Bold or Italic) it renders as an outlined button that fills with a tinted semantic color when pressed, controlled via the `color` prop. Placed inside a `ToggleGroup` it instead becomes one option in a single-select segmented control, picks up that component's sliding-pill selection styling automatically, and ignores the `color` prop.
+
+## Usage
+
+```tsx
+import { ToggleButton } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ToggleButtonStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={ToggleButtonStories.Default} />
+
+### Pressed
+
+<Canvas of={ToggleButtonStories.Pressed} />
+
+### Sizes
+
+<Canvas of={ToggleButtonStories.Sizes} />
+
+### Colors
+
+<Canvas of={ToggleButtonStories.Colors} />
+
+### Disabled
+
+<Canvas of={ToggleButtonStories.Disabled} />

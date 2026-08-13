@@ -75,6 +75,16 @@ describe('Flexbox', () => {
     expect(screen.getByTestId('flex').style.getPropertyValue('--akds-flexbox-gap')).toBe('12px');
   });
 
+  it.each([
+    [1, 'var(--akds-spacing-100)'],
+    [1.5, 'var(--akds-spacing-150)'],
+    [0.25, 'var(--akds-spacing-25)'],
+    [8, 'var(--akds-spacing-800)'],
+  ])('resolves numeric gap %s to the correct hundredth token', (value, expected) => {
+    render(<Flexbox gap={value} data-testid="flex">Content</Flexbox>);
+    expect(screen.getByTestId('flex').style.getPropertyValue('--akds-flexbox-gap')).toBe(expected);
+  });
+
   describe('padding props', () => {
     it('sets padding shorthand via CSS custom property', () => {
       render(<Flexbox padding="md" data-testid="flex">Content</Flexbox>);
@@ -116,6 +126,13 @@ describe('Flexbox', () => {
       const el = screen.getByTestId('flex');
       expect(el.style.getPropertyValue('--akds-flexbox-padding')).toBe('16px');
       expect(el.style.getPropertyValue('--akds-flexbox-pt')).toBe('8px');
+    });
+
+    it('accepts numeric values for padding props', () => {
+      render(<Flexbox padding={2} pt={1.5} data-testid="flex">Content</Flexbox>);
+      const el = screen.getByTestId('flex');
+      expect(el.style.getPropertyValue('--akds-flexbox-padding')).toBe('var(--akds-spacing-200)');
+      expect(el.style.getPropertyValue('--akds-flexbox-pt')).toBe('var(--akds-spacing-150)');
     });
   });
 
@@ -160,6 +177,13 @@ describe('Flexbox', () => {
       const el = screen.getByTestId('flex');
       expect(el.style.getPropertyValue('--akds-flexbox-margin')).toBe('auto');
       expect(el.style.getPropertyValue('--akds-flexbox-mt')).toBe('8px');
+    });
+
+    it('accepts numeric values for margin props', () => {
+      render(<Flexbox margin={3} mt={0.5} data-testid="flex">Content</Flexbox>);
+      const el = screen.getByTestId('flex');
+      expect(el.style.getPropertyValue('--akds-flexbox-margin')).toBe('var(--akds-spacing-300)');
+      expect(el.style.getPropertyValue('--akds-flexbox-mt')).toBe('var(--akds-spacing-50)');
     });
   });
 

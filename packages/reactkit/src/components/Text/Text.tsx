@@ -24,6 +24,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
     {
       styleAs = 'body',
       as,
+      color,
       className,
       children,
       ...rest
@@ -35,7 +36,7 @@ export const Text = React.forwardRef<HTMLElement, TextProps>(
     return (
       <Component
         ref={ref}
-        className={clsx(withBaseName(), withBaseName(styleAs), className)}
+        className={clsx(withBaseName(), withBaseName(styleAs), color && withBaseName(color), className)}
         {...rest}
       >
         {children}

@@ -44,7 +44,7 @@ export { Drawer } from './components/Drawer/index.js';
 export type { DrawerProps, DrawerSide, DrawerSize } from './components/Drawer/index.js';
 
 export { Text } from './components/Text/index.js';
-export type { TextProps, TextStyleAs } from './components/Text/index.js';
+export type { TextProps, TextStyleAs, TextColor } from './components/Text/index.js';
 
 export { Card } from './components/Card/index.js';
 export type { CardProps } from './components/Card/index.js';
@@ -111,3 +111,9 @@ export type { AccordionItemProps, AccordionItemContextValue } from './components
 
 export { Combobox } from './components/Combobox/index.js';
 export type { ComboboxProps, ComboboxOption } from './components/Combobox/index.js';
+
+export { ToggleButton } from './components/ToggleButton/index.js';
+export type { ToggleButtonProps, ToggleButtonSize, ToggleButtonColor, ToggleButtonContextValue } from './components/ToggleButton/index.js';
+
+export { ToggleGroup } from './components/ToggleGroup/index.js';
+export type { ToggleGroupProps, ToggleGroupSize } from './components/ToggleGroup/index.js';

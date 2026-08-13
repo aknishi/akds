@@ -1,0 +1,84 @@
+/* ── Mesh gradient background ──────────────────────────────────────────── */
+/* Decorative page chrome only (not a reusable component) — one deliberate
+   exception to semantic-only color: the third blob reaches into a primitive
+   hue since no purple/orange semantic background role exists. */
+:root {
+  --website-mesh-opacity: 0.35;
+}
+
+[data-theme='dark'] {
+  --website-mesh-opacity: 0.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --website-mesh-opacity: 0.5;
+  }
+}
+
+.gradient-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.gradient-background__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: var(--website-mesh-opacity);
+  will-change: transform;
+}
+
+.gradient-background__blob--primary {
+  top: -10%;
+  left: -5%;
+  width: 45vw;
+  height: 45vw;
+  min-width: 320px;
+  min-height: 320px;
+  background: radial-gradient(circle, var(--akds-color-background-primary-default) 0%, transparent 70%);
+}
+
+.gradient-background__blob--info {
+  top: 10%;
+  right: -10%;
+  width: 40vw;
+  height: 40vw;
+  min-width: 280px;
+  min-height: 280px;
+  background: radial-gradient(circle, var(--akds-color-background-info-default) 0%, transparent 70%);
+}
+
+.gradient-background__blob--accent {
+  bottom: -15%;
+  left: 25%;
+  width: 35vw;
+  height: 35vw;
+  min-width: 260px;
+  min-height: 260px;
+  background: radial-gradient(circle, var(--akds-primitive-color-purple-400) 0%, transparent 70%);
+}
+
+.gradient-background__base {
+  position: absolute;
+  inset: 0;
+  background: var(--akds-color-surface-sunken);
+}
+
+.gradient-band {
+  background: linear-gradient(
+    135deg,
+    var(--akds-color-background-primary-default) 0%,
+    var(--akds-primitive-color-purple-600) 100%
+  );
+  color: var(--akds-color-text-on-primary-default);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-background__blob {
+    transition: none !important;
+  }
+}

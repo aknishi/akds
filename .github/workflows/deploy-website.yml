@@ -1,0 +1,56 @@
+name: Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: deploy-website
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: '@aknishi'
+
+      - name: Install dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build tokens
+        run: npm run build
+        working-directory: packages/tokens
+
+      - name: Generate and build icons
+        run: npm run generate && npm run build
+        working-directory: packages/icons
+
+      - name: Build reactkit
+        run: npm run build
+        working-directory: packages/reactkit
+
+      - name: Build website
+        run: npm run build
+        working-directory: apps/website
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Deploy to Vercel
+        working-directory: apps/website
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel deploy dist --prod --yes --token=$VERCEL_TOKEN

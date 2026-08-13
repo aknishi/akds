@@ -123,6 +123,14 @@ describe('Accordion', () => {
     expect(screen.getByRole('button', { name: 'B' })).toHaveAttribute('aria-expanded', 'true');
   });
 
+  it('AccordionItem without an Accordion parent defaults to collapsed and ignores toggle', async () => {
+    render(<AccordionItem value="a" title="Standalone">Content</AccordionItem>);
+    const btn = screen.getByRole('button', { name: 'Standalone' });
+    expect(btn).toHaveAttribute('aria-expanded', 'false');
+    await userEvent.click(btn);
+    expect(btn).toHaveAttribute('aria-expanded', 'false');
+  });
+
   it('forwards ref to root div', () => {
     const ref = React.createRef<HTMLDivElement>();
     render(<Accordion ref={ref}><AccordionItem value="a" title="A">C</AccordionItem></Accordion>);
