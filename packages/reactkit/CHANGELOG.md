@@ -1,5 +1,16 @@
 # @aknishi/akds-reactkit
 
+## 1.3.1
+
+### Patch Changes
+
+- 26883a4: ProgressTracker - Fix icon colors for error and warning step states
+- 26883a4: CardContent now defaults its children to body text typography, so plain text no longer needs to be wrapped in a Text component
+- 26883a4: Fix Combobox multiselect menu not opening on focus when an option is already selected, add left/right arrow key navigation between chips, make the entire control — including the chevron — clickable with a pointer cursor to open the menu, and populate + select the input text with the current selection on focus in single-select mode so it can be quickly edited or erased
+- 26883a4: Refactor chevron down icons for Accordion, DropdownMenu, and Combobox
+- Updated dependencies [26883a4]
+  - @aknishi/akds-icons@1.3.0
+
 ## 1.3.0
 
 ### Minor Changes

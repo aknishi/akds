@@ -1,5 +1,11 @@
 # @aknishi/akds-icons
 
+## 1.3.0
+
+### Minor Changes
+
+- 26883a4: Add KeyboardArrow direction icons
+
 ## 1.2.0
 
 ### Minor Changes
