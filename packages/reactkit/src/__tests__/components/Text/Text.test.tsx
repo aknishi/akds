@@ -25,7 +25,7 @@ describe('Text', () => {
   });
 
   it('renders as the correct semantic element for each styleAs', () => {
-    const cases: Array<[Parameters<typeof Text>[0]['styleAs'], string]> = [
+    const cases: Array<[NonNullable<Parameters<typeof Text>[0]['styleAs']>, string]> = [
       ['h1', 'H1'],
       ['h2', 'H2'],
       ['h3', 'H3'],
@@ -39,7 +39,7 @@ describe('Text', () => {
 
     for (const [styleAs, tag] of cases) {
       const { unmount } = render(<Text styleAs={styleAs}>{styleAs}</Text>);
-      expect(screen.getByText(styleAs!).tagName).toBe(tag);
+      expect(screen.getByText(styleAs).tagName).toBe(tag);
       unmount();
     }
   });
