@@ -18,7 +18,7 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Card,
-  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button, Flexbox } from '@aknishi/akds-reactkit';
+  code: `import { Card, CardHeader, CardContent, CardFooter, Button, Flexbox } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card style={{ width: 360 }}>
@@ -26,9 +26,7 @@ const CardExample = () => (
       Card Title
     </CardHeader>
     <CardContent>
-      <Text styleAs="body">
-        This is the main body content of the card. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </Text>
+      This is the main body content of the card. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </CardContent>
     <CardFooter>
       <Flexbox justify="flex-end" gap={'sm'} style={{ width: '100%' }}>
@@ -45,7 +43,7 @@ export default CardExample;
 
 export const Borderless = LiveEditStory({
   component: Card,
-  code: `import { Card, CardHeader, CardContent, CardFooter, Text, Button, Flexbox } from '@aknishi/akds-reactkit';
+  code: `import { Card, CardHeader, CardContent, CardFooter, Button, Flexbox } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card borderless style={{ width: 360 }}>
@@ -53,7 +51,7 @@ const CardExample = () => (
       Borderless card
     </CardHeader>
     <CardContent>
-      <Text styleAs="body">No border and no dividers — clean and minimal.</Text>
+      No border and no dividers — clean and minimal.
     </CardContent>
     <CardFooter>
       <Flexbox justify="flex-end" gap={'sm'} style={{ width: '100%' }}>
@@ -69,12 +67,12 @@ export default CardExample;
 
 export const ContentOnly = LiveEditStory({
   component: Card,
-  code: `import { Card, CardContent, Text } from '@aknishi/akds-reactkit';
+  code: `import { Card, CardContent } from '@aknishi/akds-reactkit';
 
 const CardExample = () => (
   <Card style={{ width: 360 }}>
     <CardContent>
-      <Text styleAs="body">A card with only content — header and footer are optional.</Text>
+      A card with only content — header and footer are optional.
     </CardContent>
   </Card>
 );

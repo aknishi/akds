@@ -1,10 +1,11 @@
-import { Carousel, Text } from '@aknishi/akds-reactkit';
+import { Button, Card, CardContent, CardFooter, CardHeader, Carousel, Text } from '@aknishi/akds-reactkit';
 import './carousel.css';
 import type { ComponentEntry } from './types';
 
-function CarouselSlide({ label }: { label: string }) {
+function CarouselSlide({ label, fixedWidth }: { label: string; fixedWidth?: boolean }) {
+  const className = fixedWidth ? 'carousel-entry-slide carousel-entry-slide--fixed-width' : 'carousel-entry-slide';
   return (
-    <div className="carousel-entry-slide">
+    <div className={className}>
       <Text styleAs="label">{label}</Text>
     </div>
   );
@@ -18,6 +19,46 @@ export const carousel: ComponentEntry = {
   sourcePath: 'packages/reactkit/src/components/Carousel',
   storybookId: 'reactkit-carousel--docs',
   examples: [
+    {
+      title: 'Default',
+      render: () => (
+        <Carousel>
+          <CarouselSlide label="Slide 1" fixedWidth />
+          <CarouselSlide label="Slide 2" fixedWidth />
+          <CarouselSlide label="Slide 3" fixedWidth />
+          <CarouselSlide label="Slide 4" fixedWidth />
+          <CarouselSlide label="Slide 5" fixedWidth />
+        </Carousel>
+      ),
+      code: `<Carousel>
+  <Slide style={{ width: 200 }}>Slide 1</Slide>
+  <Slide style={{ width: 200 }}>Slide 2</Slide>
+  <Slide style={{ width: 200 }}>Slide 3</Slide>
+  <Slide style={{ width: 200 }}>Slide 4</Slide>
+  <Slide style={{ width: 200 }}>Slide 5</Slide>
+</Carousel>`,
+    },
+    {
+      title: 'Slides per page',
+      render: () => (
+        <Carousel slidesPerPage={3} autoScroll={false}>
+          <CarouselSlide label="1" />
+          <CarouselSlide label="2" />
+          <CarouselSlide label="3" />
+          <CarouselSlide label="4" />
+          <CarouselSlide label="5" />
+          <CarouselSlide label="6" />
+        </Carousel>
+      ),
+      code: `<Carousel slidesPerPage={3} autoScroll={false}>
+  <Slide>1</Slide>
+  <Slide>2</Slide>
+  <Slide>3</Slide>
+  <Slide>4</Slide>
+  <Slide>5</Slide>
+  <Slide>6</Slide>
+</Carousel>`,
+    },
     {
       title: 'Auto-scroll with loop',
       render: () => (
@@ -33,6 +74,98 @@ export const carousel: ComponentEntry = {
   <Slide>Slide 2</Slide>
   <Slide>Slide 3</Slide>
   <Slide>Slide 4</Slide>
+</Carousel>`,
+    },
+    {
+      title: 'Manual scroll',
+      render: () => (
+        <Carousel autoScroll={false}>
+          <CarouselSlide label="Slide 1" fixedWidth />
+          <CarouselSlide label="Slide 2" fixedWidth />
+          <CarouselSlide label="Slide 3" fixedWidth />
+          <CarouselSlide label="Slide 4" fixedWidth />
+          <CarouselSlide label="Slide 5" fixedWidth />
+        </Carousel>
+      ),
+      code: `<Carousel autoScroll={false}>
+  <Slide style={{ width: 200 }}>Slide 1</Slide>
+  <Slide style={{ width: 200 }}>Slide 2</Slide>
+  <Slide style={{ width: 200 }}>Slide 3</Slide>
+  <Slide style={{ width: 200 }}>Slide 4</Slide>
+  <Slide style={{ width: 200 }}>Slide 5</Slide>
+</Carousel>`,
+    },
+    {
+      title: 'Interactive content',
+      render: () => (
+        <Carousel autoScroll={false}>
+          <Card className="carousel-entry-card">
+            <CardHeader>Card One</CardHeader>
+            <CardContent>Interactive content inside carousel slides.</CardContent>
+            <CardFooter>
+              <Button size="sm" appearance="bordered" emphasis="neutral">
+                Learn more
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card className="carousel-entry-card">
+            <CardHeader>Card Two</CardHeader>
+            <CardContent>Each slide can contain any React component.</CardContent>
+            <CardFooter>
+              <Button size="sm" appearance="bordered" emphasis="neutral">
+                Get started
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card className="carousel-entry-card">
+            <CardHeader>Card Three</CardHeader>
+            <CardContent>Buttons and inputs work normally inside slides.</CardContent>
+            <CardFooter>
+              <Button size="sm" appearance="bordered" emphasis="neutral">
+                View details
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card className="carousel-entry-card">
+            <CardHeader>Card Four</CardHeader>
+            <CardContent>Hover the carousel to pause auto-scroll.</CardContent>
+            <CardFooter>
+              <Button size="sm" appearance="bordered" emphasis="neutral">
+                Explore
+              </Button>
+            </CardFooter>
+          </Card>
+        </Carousel>
+      ),
+      code: `<Carousel autoScroll={false}>
+  <Card style={{ width: 280 }}>
+    <CardHeader>Card One</CardHeader>
+    <CardContent>Interactive content inside carousel slides.</CardContent>
+    <CardFooter>
+      <Button size="sm" appearance="bordered" emphasis="neutral">Learn more</Button>
+    </CardFooter>
+  </Card>
+  <Card style={{ width: 280 }}>
+    <CardHeader>Card Two</CardHeader>
+    <CardContent>Each slide can contain any React component.</CardContent>
+    <CardFooter>
+      <Button size="sm" appearance="bordered" emphasis="neutral">Get started</Button>
+    </CardFooter>
+  </Card>
+  <Card style={{ width: 280 }}>
+    <CardHeader>Card Three</CardHeader>
+    <CardContent>Buttons and inputs work normally inside slides.</CardContent>
+    <CardFooter>
+      <Button size="sm" appearance="bordered" emphasis="neutral">View details</Button>
+    </CardFooter>
+  </Card>
+  <Card style={{ width: 280 }}>
+    <CardHeader>Card Four</CardHeader>
+    <CardContent>Hover the carousel to pause auto-scroll.</CardContent>
+    <CardFooter>
+      <Button size="sm" appearance="bordered" emphasis="neutral">Explore</Button>
+    </CardFooter>
+  </Card>
 </Carousel>`,
     },
   ],

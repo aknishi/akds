@@ -17,12 +17,15 @@
   position: relative;
   display: flex;
   align-items: center;
+  gap: var(--akds-spacing-100);
+  width: 100%;
   border: 1px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-md);
   background: var(--akds-color-surface-default);
   transition: border-color 150ms ease, box-shadow 150ms ease;
   min-height: var(--akds-size-component-lg);
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .akds-combobox__control:focus-within {
@@ -160,7 +163,6 @@
   display: flex;
   align-items: center;
   padding-right: var(--akds-spacing-150);
-  color: var(--akds-color-icon-secondary-default);
   flex-shrink: 0;
   pointer-events: none;
 }

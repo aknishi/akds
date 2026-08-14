@@ -50,6 +50,10 @@ const ICONS: Record<string, string> = {
   ChevronLeftIcon: 'chevron_left',
   ChevronRightIcon: 'chevron_right',
   ChevronUpIcon: 'keyboard_arrow_up',
+  KeyboardArrowDownIcon: 'keyboard_arrow_down',
+  KeyboardArrowLeftIcon: 'keyboard_arrow_left',
+  KeyboardArrowRightIcon: 'keyboard_arrow_right',
+  KeyboardArrowUpIcon: 'keyboard_arrow_up',
 
   // Actions
   AddIcon: 'add',

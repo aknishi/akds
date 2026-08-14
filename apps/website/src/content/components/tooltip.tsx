@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@aknishi/akds-reactkit';
+import { Button, Flexbox, Tooltip } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
 
 export const tooltip: ComponentEntry = {
@@ -12,10 +12,20 @@ export const tooltip: ComponentEntry = {
     {
       title: 'Placements',
       render: () => (
-        <>
+        <Flexbox justify='space-around' gap="xl" align="center" wrap style={{width: '100%'}}>
           <Tooltip content="Top tooltip" placement="top">
             <Button appearance="bordered" emphasis="neutral">
               Top
+            </Button>
+          </Tooltip>
+          <Tooltip content="Bottom tooltip" placement="bottom">
+            <Button appearance="bordered" emphasis="neutral">
+              Bottom
+            </Button>
+          </Tooltip>
+          <Tooltip content="Left tooltip" placement="left">
+            <Button appearance="bordered" emphasis="neutral">
+              Left
             </Button>
           </Tooltip>
           <Tooltip content="Right tooltip" placement="right">
@@ -23,11 +33,22 @@ export const tooltip: ComponentEntry = {
               Right
             </Button>
           </Tooltip>
-        </>
+        </Flexbox>
       ),
-      code: `<Tooltip content="Top tooltip" placement="top">
-  <Button appearance="bordered" emphasis="neutral">Top</Button>
-</Tooltip>`,
+      code: `<Flexbox gap="lg" align="center">
+  <Tooltip content="Top tooltip" placement="top">
+    <Button appearance="bordered" emphasis="neutral">Top</Button>
+  </Tooltip>
+  <Tooltip content="Bottom tooltip" placement="bottom">
+    <Button appearance="bordered" emphasis="neutral">Bottom</Button>
+  </Tooltip>
+  <Tooltip content="Left tooltip" placement="left">
+    <Button appearance="bordered" emphasis="neutral">Left</Button>
+  </Tooltip>
+  <Tooltip content="Right tooltip" placement="right">
+    <Button appearance="bordered" emphasis="neutral">Right</Button>
+  </Tooltip>
+</Flexbox>`,
     },
   ],
   accessibilityNotes: [

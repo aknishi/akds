@@ -1,4 +1,5 @@
 import { Avatar } from '@aknishi/akds-reactkit';
+import { ApartmentIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 export const avatar: ComponentEntry = {
@@ -9,6 +10,11 @@ export const avatar: ComponentEntry = {
   sourcePath: 'packages/reactkit/src/components/Avatar',
   storybookId: 'reactkit-avatar--docs',
   examples: [
+    {
+      title: 'Image',
+      render: () => <Avatar src="https://i.pravatar.cc/150?img=3" alt="Jane Smith" />,
+      code: `<Avatar src="https://i.pravatar.cc/150?img=3" alt="Jane Smith" />`,
+    },
     {
       title: 'Initials & sizes',
       render: () => (
@@ -25,9 +31,31 @@ export const avatar: ComponentEntry = {
 <Avatar name="Katherine Johnson" size="xl" />`,
     },
     {
+      title: 'Colors',
+      render: () => (
+        <>
+          <Avatar name="Blue" color="blue" />
+          <Avatar name="Green" color="green" />
+          <Avatar name="Purple" color="purple" />
+          <Avatar name="Orange" color="orange" />
+          <Avatar name="Red" color="red" />
+        </>
+      ),
+      code: `<Avatar name="Blue" color="blue" />
+<Avatar name="Green" color="green" />
+<Avatar name="Purple" color="purple" />
+<Avatar name="Orange" color="orange" />
+<Avatar name="Red" color="red" />`,
+    },
+    {
+      title: 'Custom icon',
+      render: () => <Avatar icon={<ApartmentIcon />} aria-label="Apartment" />,
+      code: `<Avatar icon={<ApartmentIcon />} aria-label="Apartment" />`,
+    },
+    {
       title: 'Fallback icon',
-      render: () => <Avatar size="lg" />,
-      code: `<Avatar size="lg" />`,
+      render: () => <Avatar aria-label="Unknown user" />,
+      code: `<Avatar aria-label="Unknown user" />`,
     },
   ],
   accessibilityNotes: [

@@ -66,20 +66,32 @@
   justify-content: center;
   width: var(--akds-size-icon-md);
   height: var(--akds-size-icon-md);
-  background: var(--akds-color-interaction-hover-overlay);
+  background: transparent;
   border: none;
   border-radius: var(--akds-radius-full);
   padding: 0;
   cursor: pointer;
   color: inherit;
-  opacity: 0.7;
-  transition: opacity 150ms ease, background 150ms ease;
+  transition: background 150ms ease;
   flex-shrink: 0;
 }
 
-.akds-tag__dismiss:hover {
-  opacity: 1;
-  background: var(--akds-color-interaction-pressed-overlay);
+.akds-tag--default .akds-tag__dismiss:hover {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+.akds-tag--info .akds-tag__dismiss:hover,
+.akds-tag--success .akds-tag__dismiss:hover,
+.akds-tag--warning .akds-tag__dismiss:hover,
+.akds-tag--error .akds-tag__dismiss:hover {
+  background: var(--akds-color-interaction-hover-ondark-overlay);
+}
+
+.akds-tag--info .akds-tag__dismiss,
+.akds-tag--success .akds-tag__dismiss,
+.akds-tag--warning .akds-tag__dismiss,
+.akds-tag--error .akds-tag__dismiss {
+  color: var(--akds-color-icon-on-primary-default);
 }
 
 .akds-tag__dismiss:focus-visible {

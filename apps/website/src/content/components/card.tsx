@@ -18,9 +18,7 @@ export const card: ComponentEntry = {
               Plan usage
             </Text>
           </CardHeader>
-          <CardContent>
-            <Text styleAs="body">You've used 8 of 10 seats this month.</Text>
-          </CardContent>
+          <CardContent>You've used 8 of 10 seats this month.</CardContent>
           <CardFooter>
             <Button appearance="bordered" emphasis="neutral" size="sm">
               Manage
@@ -32,9 +30,7 @@ export const card: ComponentEntry = {
   <CardHeader>
     <Text as="h3" styleAs="h5">Plan usage</Text>
   </CardHeader>
-  <CardContent>
-    <Text styleAs="body">You've used 8 of 10 seats this month.</Text>
-  </CardContent>
+  <CardContent>You've used 8 of 10 seats this month.</CardContent>
   <CardFooter>
     <Button appearance="bordered" emphasis="neutral" size="sm">Manage</Button>
   </CardFooter>
@@ -44,15 +40,11 @@ export const card: ComponentEntry = {
       title: 'Borderless',
       render: () => (
         <Card borderless>
-          <CardContent>
-            <Text styleAs="body">A borderless card, useful when the surrounding layout already provides separation.</Text>
-          </CardContent>
+          <CardContent>A borderless card, useful when the surrounding layout already provides separation.</CardContent>
         </Card>
       ),
       code: `<Card borderless>
-  <CardContent>
-    <Text styleAs="body">...</Text>
-  </CardContent>
+  <CardContent>...</CardContent>
 </Card>`,
     },
   ],

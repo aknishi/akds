@@ -4,7 +4,7 @@ import '../Menu/Menu.css';
 import '../Option/Option.css';
 import './DropdownMenu.css';
 import type { DropdownMenuProps } from './DropdownMenu.types';
-import { ChevronDownIcon } from '@aknishi/akds-icons';
+import { KeyboardArrowDownIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils';
 import { OptionContext } from '../Option/OptionContext';
 import type { OptionContextValue } from '../Option/OptionContext';
@@ -223,7 +223,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
               {displayText || (placeholder ?? '\u00A0')}
             </span>
             <span className="akds-dropdown-menu__chevron" aria-hidden="true">
-              <ChevronDownIcon />
+              <KeyboardArrowDownIcon size="md" color="var(--akds-color-icon-secondary-default)" />
             </span>
           </button>
           {label && (

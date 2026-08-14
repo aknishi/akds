@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './AccordionItem.css';
 import type { AccordionItemProps } from './AccordionItem.types';
+import { KeyboardArrowDownIcon } from '@aknishi/akds-icons';
 import { AccordionItemContext } from './AccordionItemContext';
 import { RippleBase } from '../RippleBase';
 import type { RippleBaseHandle } from '../RippleBase';
@@ -60,15 +61,7 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
           >
             <span className={withBaseName.el('title')}>{title}</span>
             <span className={withBaseName.el('icon')} aria-hidden="true">
-              <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-                <polyline
-                  points="3,6 8,11 13,6"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  stroke="currentColor"
-                />
-              </svg>
+              <KeyboardArrowDownIcon size="md" color="var(--akds-color-icon-secondary-default)" />
             </span>
             <RippleBase ref={rippleRef} disabled={disabled} />
           </button>

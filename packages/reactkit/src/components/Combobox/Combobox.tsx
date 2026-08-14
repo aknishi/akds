@@ -2,12 +2,13 @@ import React from 'react';
 import clsx from 'clsx';
 import './Combobox.css';
 import type { ComboboxProps, ComboboxOption } from './Combobox.types';
-import { CloseIcon } from '@aknishi/akds-icons';
+import { CloseIcon, KeyboardArrowDownIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils/makePrefixer';
 
 const withBaseName = makePrefixer('akds-combobox');
 
 const OPTION_SELECTOR = '[role="option"]:not([aria-disabled="true"])';
+const CHIP_SELECTOR = '[data-combobox-chip]:not(:disabled)';
 
 function toArray(v: string | string[] | undefined): string[] {
   if (v === undefined) return [];
@@ -25,17 +26,20 @@ interface ComboboxChipProps {
   label: string;
   disabled?: boolean;
   onDelete: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLButtonElement>) => void;
 }
 
 // Internal only for now — not part of the public component surface.
-function ComboboxChip({ label, disabled, onDelete }: ComboboxChipProps) {
+function ComboboxChip({ label, disabled, onDelete, onKeyDown }: ComboboxChipProps) {
   return (
     <button
       type="button"
+      data-combobox-chip
       className={withBaseName.el('chip')}
       disabled={disabled}
       onMouseDown={e => e.preventDefault()}
       onClick={onDelete}
+      onKeyDown={onKeyDown}
       aria-label={`Remove ${label}`}
     >
       <span className={withBaseName.el('chip-label')}>{label}</span>
@@ -71,6 +75,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
     const [open, setOpen] = React.useState(false);
     const [inputValue, setInputValue] = React.useState('');
+    const [isAutoFilled, setIsAutoFilled] = React.useState(false);
     const [focused, setFocused] = React.useState(false);
     const [keyboardFocused, setKeyboardFocused] = React.useState(false);
     const pointerActive = React.useRef(false);
@@ -83,14 +88,15 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
     const containerRef = React.useRef<HTMLDivElement>(null);
     const inputRef = React.useRef<HTMLInputElement>(null);
     const listboxRef = React.useRef<HTMLUListElement>(null);
+    const fieldWrapperRef = React.useRef<HTMLDivElement>(null);
 
     React.useImperativeHandle(ref, () => containerRef.current!);
 
     const filteredOptions = React.useMemo(() => {
-      const q = inputValue.trim().toLowerCase();
+      const q = isAutoFilled ? '' : inputValue.trim().toLowerCase();
       if (!q) return options;
       return options.filter(o => o.label.toLowerCase().includes(q));
-    }, [options, inputValue]);
+    }, [options, inputValue, isAutoFilled]);
 
     const isLabelFloating = open || focused || resolvedSelected.length > 0 || inputValue.length > 0;
 
@@ -112,6 +118,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
         setInputValue('');
         inputRef.current?.blur();
       }
+      setIsAutoFilled(false);
       commitSelection(next);
     };
 
@@ -133,6 +140,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(e.target.value);
+      setIsAutoFilled(false);
       if (!open) setOpen(true);
     };
 
@@ -140,7 +148,12 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
       setFocused(true);
       setKeyboardFocused(!pointerActive.current);
       pointerActive.current = false;
-      if (!open && (e.target.value || resolvedSelected.length === 0)) setOpen(true);
+      if (!multiple && resolvedSelected.length > 0) {
+        setInputValue(getDisplayLabel(options, resolvedSelected));
+        setIsAutoFilled(true);
+        e.target.select();
+      }
+      if (!open && (multiple || e.target.value || resolvedSelected.length === 0)) setOpen(true);
     };
 
     const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -156,6 +169,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           commitSelection(next);
         }
         setInputValue('');
+        setIsAutoFilled(false);
       }
     };
 
@@ -163,10 +177,38 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
       pointerActive.current = true;
     };
 
+    const getChips = () =>
+      Array.from(fieldWrapperRef.current?.querySelectorAll<HTMLElement>(CHIP_SELECTOR) ?? []);
+
+    const handleChipKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      const chips = getChips();
+      const idx = chips.indexOf(e.currentTarget);
+      if (e.key === 'ArrowLeft') {
+        chips[idx - 1]?.focus();
+      } else if (idx < chips.length - 1) {
+        chips[idx + 1]?.focus();
+      } else {
+        inputRef.current?.focus();
+      }
+    };
+
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Escape') {
         setOpen(false);
         setInputValue('');
+        setIsAutoFilled(false);
+      } else if (
+        e.key === 'ArrowLeft' &&
+        multiple &&
+        resolvedSelected.length > 0 &&
+        e.currentTarget.selectionStart === 0 &&
+        e.currentTarget.selectionEnd === 0
+      ) {
+        e.preventDefault();
+        const chips = getChips();
+        chips[chips.length - 1]?.focus();
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         setOpen(true);
@@ -217,11 +259,24 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           e.preventDefault();
           setOpen(false);
           setInputValue('');
+          setIsAutoFilled(false);
           inputRef.current?.focus();
           break;
         case 'Tab':
           setOpen(false);
           break;
+      }
+    };
+
+    const handleControlMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (disabled) return;
+      const target = e.target as HTMLElement;
+      if (target.closest(CHIP_SELECTOR) || target === inputRef.current) return;
+      e.preventDefault();
+      if (document.activeElement === inputRef.current) {
+        setOpen(true);
+      } else {
+        inputRef.current?.focus();
       }
     };
 
@@ -253,15 +308,20 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
         )}
         {...rest}
       >
-        <div className={clsx(
-          withBaseName.el('control'),
-          { [withBaseName.el('control') + '--open']: open },
-          { [withBaseName.el('control') + '--keyboard-focus']: keyboardFocused },
-        )}>
-          <div className={clsx(
-            withBaseName.el('field-wrapper'),
-            { [withBaseName.el('field-wrapper') + '--multiple']: multiple },
-          )}>
+        <div
+          className={clsx(
+            withBaseName.el('control'),
+            { [withBaseName.el('control') + '--open']: open },
+            { [withBaseName.el('control') + '--keyboard-focus']: keyboardFocused },
+          )}
+          onMouseDown={handleControlMouseDown}
+        >
+          <div
+            ref={fieldWrapperRef}
+            className={clsx(
+              withBaseName.el('field-wrapper'),
+              { [withBaseName.el('field-wrapper') + '--multiple']: multiple },
+            )}>
             {multiple && resolvedSelected.map(v => {
               const opt = options.find(o => o.value === v);
               return (
@@ -270,6 +330,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                   label={opt ? opt.label : v}
                   disabled={disabled}
                   onDelete={() => handleRemoveChip(v)}
+                  onKeyDown={handleChipKeyDown}
                 />
               );
             })}
@@ -313,15 +374,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             )}
           </div>
           <span className={withBaseName.el('chevron')} aria-hidden="true">
-            <svg viewBox="0 0 16 16" fill="none" width="16" height="16">
-              <polyline
-                points="3,6 8,11 13,6"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                stroke="currentColor"
-              />
-            </svg>
+            <KeyboardArrowDownIcon size="md" color="var(--akds-color-icon-secondary-default)" />
           </span>
         </div>
 

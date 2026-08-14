@@ -40,7 +40,7 @@ export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
             onClick={onDismiss}
             aria-label={dismissLabel}
           >
-            <CloseIcon aria-hidden="true" className="akds-tag__dismiss-icon" />
+            <CloseIcon aria-hidden="true" color="currentColor" className="akds-tag__dismiss-icon" />
           </button>
         )}
       </span>

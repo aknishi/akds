@@ -1,5 +1,46 @@
-import { ProgressTracker, ProgressTrackerStep } from '@aknishi/akds-reactkit';
+import React from 'react';
+import { Button, Flexbox, ProgressTracker, ProgressTrackerStep } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+
+const TOTAL_STEPS = 4;
+
+function InteractiveProgressTrackerExample() {
+  const [currentStep, setCurrentStep] = React.useState(1);
+  return (
+    <Flexbox direction="column" gap="lg" align="flex-start">
+      <ProgressTracker currentStep={currentStep}>
+        <ProgressTrackerStep status={currentStep > 1 ? 'complete' : 'inactive'} label="Account" />
+        <ProgressTrackerStep status={currentStep > 2 ? 'complete' : 'inactive'} label="Shipping" />
+        <ProgressTrackerStep status={currentStep > 3 ? 'complete' : 'inactive'} label="Payment" />
+        <ProgressTrackerStep
+          status={currentStep > 4 ? 'complete' : 'inactive'}
+          label="Review"
+          celebrateOnComplete
+        />
+      </ProgressTracker>
+      <Flexbox gap="sm">
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          size="sm"
+          onClick={() => setCurrentStep((s) => Math.max(1, s - 1))}
+          disabled={currentStep <= 1}
+        >
+          Back
+        </Button>
+        <Button
+          appearance="solid"
+          emphasis="accented"
+          size="sm"
+          onClick={() => setCurrentStep((s) => Math.min(TOTAL_STEPS + 1, s + 1))}
+          disabled={currentStep > TOTAL_STEPS}
+        >
+          {currentStep >= TOTAL_STEPS ? 'Finish' : 'Next'}
+        </Button>
+      </Flexbox>
+    </Flexbox>
+  );
+}
 
 export const progressTracker: ComponentEntry = {
   slug: 'progress-tracker',
@@ -36,6 +77,47 @@ export const progressTracker: ComponentEntry = {
         </ProgressTracker>
       ),
       code: `<ProgressTrackerStep label="Validate" status="error" />`,
+    },
+    {
+      title: 'Interactive',
+      description: 'Step through the flow to see the fill and status transitions animate, including the celebrateOnComplete burst on the final step.',
+      render: () => <InteractiveProgressTrackerExample />,
+      code: `function Example() {
+  const TOTAL_STEPS = 4;
+  const [currentStep, setCurrentStep] = React.useState(1);
+  return (
+    <>
+      <ProgressTracker currentStep={currentStep}>
+        <ProgressTrackerStep status={currentStep > 1 ? 'complete' : 'inactive'} label="Account" />
+        <ProgressTrackerStep status={currentStep > 2 ? 'complete' : 'inactive'} label="Shipping" />
+        <ProgressTrackerStep status={currentStep > 3 ? 'complete' : 'inactive'} label="Payment" />
+        <ProgressTrackerStep
+          status={currentStep > 4 ? 'complete' : 'inactive'}
+          label="Review"
+          celebrateOnComplete
+        />
+      </ProgressTracker>
+      <Button
+        appearance="bordered"
+        emphasis="neutral"
+        size="sm"
+        onClick={() => setCurrentStep(s => Math.max(1, s - 1))}
+        disabled={currentStep <= 1}
+      >
+        Back
+      </Button>
+      <Button
+        appearance="solid"
+        emphasis="accented"
+        size="sm"
+        onClick={() => setCurrentStep(s => Math.min(TOTAL_STEPS + 1, s + 1))}
+        disabled={currentStep > TOTAL_STEPS}
+      >
+        {currentStep >= TOTAL_STEPS ? 'Finish' : 'Next'}
+      </Button>
+    </>
+  );
+}`,
     },
   ],
   accessibilityNotes: [
