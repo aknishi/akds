@@ -1,5 +1,6 @@
-.component-preview-frame {
+.component-preview-frame.akds-card {
   background: var(--akds-color-surface-sunken);
+  overflow: visible;
 }
 
 .component-preview-frame__inner {

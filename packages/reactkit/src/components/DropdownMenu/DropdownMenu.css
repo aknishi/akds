@@ -82,14 +82,8 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  color: var(--akds-color-icon-secondary-default);
   transition: transform 150ms ease;
   margin-top: -6px;
-}
-
-.akds-dropdown-menu__chevron svg {
-  width: var(--akds-size-icon-sm);
-  height: var(--akds-size-icon-sm);
 }
 
 .akds-dropdown-menu__trigger[aria-expanded="true"] .akds-dropdown-menu__chevron {

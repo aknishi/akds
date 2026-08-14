@@ -12,14 +12,16 @@ export const accordion: ComponentEntry = {
     {
       title: 'Single expand',
       render: () => (
-        <Accordion defaultExpanded="shipping">
-          <AccordionItem value="shipping" title="Shipping">
-            <Text styleAs="body">Orders ship within 2 business days.</Text>
-          </AccordionItem>
-          <AccordionItem value="returns" title="Returns">
-            <Text styleAs="body">Returns are accepted within 30 days.</Text>
-          </AccordionItem>
-        </Accordion>
+        <div style={{ minWidth: '300px' }}>
+          <Accordion defaultExpanded="shipping">
+            <AccordionItem value="shipping" title="Shipping">
+              <Text styleAs="body">Orders ship within 2 business days.</Text>
+            </AccordionItem>
+            <AccordionItem value="returns" title="Returns">
+              <Text styleAs="body">Returns are accepted within 30 days.</Text>
+            </AccordionItem>
+          </Accordion>
+        </div>
       ),
       code: `<Accordion defaultExpanded="shipping">
   <AccordionItem value="shipping" title="Shipping">
@@ -33,14 +35,16 @@ export const accordion: ComponentEntry = {
     {
       title: 'Multiple expand',
       render: () => (
-        <Accordion multiple defaultExpanded={['a', 'b']}>
-          <AccordionItem value="a" title="Section A">
-            <Text styleAs="body">Content A.</Text>
-          </AccordionItem>
-          <AccordionItem value="b" title="Section B">
-            <Text styleAs="body">Content B.</Text>
-          </AccordionItem>
-        </Accordion>
+        <div style={{ minWidth: '300px' }}>
+          <Accordion multiple defaultExpanded={['a', 'b']}>
+            <AccordionItem value="a" title="Section A">
+              <Text styleAs="body">Content A.</Text>
+            </AccordionItem>
+            <AccordionItem value="b" title="Section B">
+              <Text styleAs="body">Content B.</Text>
+            </AccordionItem>
+          </Accordion>
+        </div>
       ),
       code: `<Accordion multiple defaultExpanded={['a', 'b']}>
   <AccordionItem value="a" title="Section A">...</AccordionItem>

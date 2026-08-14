@@ -1,5 +1,17 @@
+import React from 'react';
 import { DropdownMenu, Option } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+
+function DropdownMenuExample() {
+  const [selected, setSelected] = React.useState('open');
+  return (
+    <DropdownMenu label="Status" placeholder="Select status" selected={selected} onChange={value => setSelected(value as string)}>
+      <Option value="open">Open</Option>
+      <Option value="in-progress">In progress</Option>
+      <Option value="closed">Closed</Option>
+    </DropdownMenu>
+  );
+}
 
 export const dropdownMenu: ComponentEntry = {
   slug: 'dropdown-menu',
@@ -11,18 +23,17 @@ export const dropdownMenu: ComponentEntry = {
   examples: [
     {
       title: 'Basic',
-      render: () => (
-        <DropdownMenu label="Status" placeholder="Select status" selected="open">
-          <Option value="open">Open</Option>
-          <Option value="in-progress">In progress</Option>
-          <Option value="closed">Closed</Option>
-        </DropdownMenu>
-      ),
-      code: `<DropdownMenu label="Status" placeholder="Select status" selected="open">
-  <Option value="open">Open</Option>
-  <Option value="in-progress">In progress</Option>
-  <Option value="closed">Closed</Option>
-</DropdownMenu>`,
+      render: () => <DropdownMenuExample />,
+      code: `function Example() {
+  const [selected, setSelected] = React.useState('open');
+  return (
+    <DropdownMenu label="Status" placeholder="Select status" selected={selected} onChange={setSelected}>
+      <Option value="open">Open</Option>
+      <Option value="in-progress">In progress</Option>
+      <Option value="closed">Closed</Option>
+    </DropdownMenu>
+  );
+}`,
     },
   ],
   accessibilityNotes: [

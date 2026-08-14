@@ -1,5 +1,21 @@
 # @akds/website
 
+## 1.1.0
+
+### Minor Changes
+
+- 19bc308: Landing page updates
+
+### Patch Changes
+
+- Updated dependencies [26883a4]
+- Updated dependencies [26883a4]
+- Updated dependencies [26883a4]
+- Updated dependencies [26883a4]
+- Updated dependencies [26883a4]
+  - @aknishi/akds-icons@1.3.0
+  - @aknishi/akds-reactkit@1.3.1
+
 ## 1.0.0
 
 ### Major Changes

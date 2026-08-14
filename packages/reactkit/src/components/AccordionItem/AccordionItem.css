@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--akds-spacing-100);
   width: 100%;
   padding: var(--akds-spacing-200);
   font-family: var(--akds-font-family-sans);
@@ -60,7 +61,6 @@
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  color: var(--akds-color-icon-secondary-default);
   transition: transform 200ms ease;
 }
 

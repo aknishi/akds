@@ -57,6 +57,10 @@ const GROUPS: { category: string; icons: IconEntry[] }[] = [
       { name: 'ChevronRightIcon', Component: Icons.ChevronRightIcon, tags: ['right', 'next', 'navigate', 'caret'] },
       { name: 'ChevronUpIcon', Component: Icons.ChevronUpIcon, tags: ['up', 'collapse', 'navigate', 'caret'] },
       { name: 'ChevronDownIcon', Component: Icons.ChevronDownIcon, tags: ['down', 'expand', 'dropdown', 'navigate', 'caret'] },
+      { name: 'KeyboardArrowLeftIcon', Component: Icons.KeyboardArrowLeftIcon, tags: ['left', 'previous', 'navigate', 'caret'] },
+      { name: 'KeyboardArrowRightIcon', Component: Icons.KeyboardArrowRightIcon, tags: ['right', 'next', 'navigate', 'caret'] },
+      { name: 'KeyboardArrowUpIcon', Component: Icons.KeyboardArrowUpIcon, tags: ['up', 'collapse', 'navigate', 'caret'] },
+      { name: 'KeyboardArrowDownIcon', Component: Icons.KeyboardArrowDownIcon, tags: ['down', 'expand', 'dropdown', 'navigate', 'caret'] },
     ],
   },
   {

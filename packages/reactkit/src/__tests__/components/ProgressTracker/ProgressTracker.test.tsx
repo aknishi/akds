@@ -199,7 +199,7 @@ describe('ProgressTrackerStep', () => {
     // step 0 is active (currentStep=1 → activeIndex=0), status "complete" is overridden
     const steps = container.querySelectorAll('.akds-progress-tracker-step');
     expect(steps[0]).toHaveClass('akds-progress-tracker-step--active');
-    expect(steps[0].querySelector('.akds-progress-tracker-step__check-icon')).not.toBeInTheDocument();
+    expect(steps[0]!.querySelector('.akds-progress-tracker-step__check-icon')).not.toBeInTheDocument();
   });
 
   it('forwards ref to the li element', () => {

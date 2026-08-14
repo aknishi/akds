@@ -1,4 +1,4 @@
-import { Text } from '@aknishi/akds-reactkit';
+import { Flexbox, Text } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
 
 export const text: ComponentEntry = {
@@ -10,47 +10,82 @@ export const text: ComponentEntry = {
   storybookId: 'reactkit-text--docs',
   examples: [
     {
-      title: 'Scale',
+      title: 'Headings',
       render: () => (
-        <>
-          <Text as="h2" styleAs="h2">
-            Heading 2
-          </Text>
-          <Text styleAs="body">Body text — the default paragraph style.</Text>
-          <Text styleAs="caption">Caption text — smaller, muted.</Text>
-        </>
+        <Flexbox direction="column" gap="sm">
+          <Text styleAs="hero">Hero heading</Text>
+          <Text styleAs="h1">Heading 1</Text>
+          <Text styleAs="h2">Heading 2</Text>
+          <Text styleAs="h3">Heading 3</Text>
+          <Text styleAs="h4">Heading 4</Text>
+          <Text styleAs="h5">Heading 5</Text>
+          <Text styleAs="h6">Heading 6</Text>
+        </Flexbox>
       ),
-      code: `<Text as="h2" styleAs="h2">Heading 2</Text>
-<Text styleAs="body">Body text — the default paragraph style.</Text>
-<Text styleAs="caption">Caption text — smaller, muted.</Text>`,
+      code: `<Flexbox direction="column" gap="sm">
+  <Text styleAs="hero">Hero heading</Text>
+  <Text styleAs="h1">Heading 1</Text>
+  <Text styleAs="h2">Heading 2</Text>
+  <Text styleAs="h3">Heading 3</Text>
+  <Text styleAs="h4">Heading 4</Text>
+  <Text styleAs="h5">Heading 5</Text>
+  <Text styleAs="h6">Heading 6</Text>
+</Flexbox>`,
+    },
+    {
+      title: 'Body styles',
+      render: () => (
+        <Flexbox direction="column" gap="sm">
+          <Text styleAs="body">Body — the default text style for paragraphs.</Text>
+          <Text styleAs="label">Label — used for form labels and UI labels.</Text>
+          <Text styleAs="caption">Caption — supplementary text at a smaller size.</Text>
+        </Flexbox>
+      ),
+      code: `<Flexbox direction="column" gap="sm">
+  <Text styleAs="body">Body — the default text style for paragraphs.</Text>
+  <Text styleAs="label">Label — used for form labels and UI labels.</Text>
+  <Text styleAs="caption">Caption — supplementary text at a smaller size.</Text>
+</Flexbox>`,
+    },
+    {
+      title: 'Colors',
+      description: 'color applies a semantic text color independent of styleAs.',
+      render: () => (
+        <Flexbox direction="column" gap="sm">
+          <Text color="neutral">Neutral — the default text color.</Text>
+          <Text color="primary">Primary — used to draw attention to key text.</Text>
+          <Text color="success">Success — indicates a positive state.</Text>
+          <Text color="error">Error — indicates a problem or failure.</Text>
+        </Flexbox>
+      ),
+      code: `<Flexbox direction="column" gap="sm">
+  <Text color="neutral">Neutral — the default text color.</Text>
+  <Text color="primary">Primary — used to draw attention to key text.</Text>
+  <Text color="success">Success — indicates a positive state.</Text>
+  <Text color="error">Error — indicates a problem or failure.</Text>
+</Flexbox>`,
     },
     {
       title: 'Style vs. element override',
-      description: 'as lets a heading-styled element render as a <div>, or vice versa, without changing the visual style.',
+      description: 'as lets a visual style render on a different element than its default, without changing the visual style.',
       render: () => (
-        <Text as="div" styleAs="h4">
-          Styled like an h4, rendered as a div
-        </Text>
+        <Flexbox direction="column" gap="sm">
+          <Text styleAs="h3" as="span">
+            h3 style rendered as a span
+          </Text>
+          <Text styleAs="caption" as="p">
+            Caption style rendered as a paragraph
+          </Text>
+          <Text styleAs="label" as="label">
+            Label style rendered as a label element
+          </Text>
+        </Flexbox>
       ),
-      code: `<Text as="div" styleAs="h4">
-  Styled like an h4, rendered as a div
-</Text>`,
-    },
-    {
-      title: 'Color',
-      description: 'color applies a semantic text color independent of styleAs.',
-      render: () => (
-        <>
-          <Text color="primary">Primary text</Text>
-          <Text color="success">Success text</Text>
-          <Text color="error">Error text</Text>
-          <Text color="neutral">Neutral text</Text>
-        </>
-      ),
-      code: `<Text color="primary">Primary text</Text>
-<Text color="success">Success text</Text>
-<Text color="error">Error text</Text>
-<Text color="neutral">Neutral text</Text>`,
+      code: `<Flexbox direction="column" gap="sm">
+  <Text styleAs="h3" as="span">h3 style rendered as a span</Text>
+  <Text styleAs="caption" as="p">Caption style rendered as a paragraph</Text>
+  <Text styleAs="label" as="label">Label style rendered as a label element</Text>
+</Flexbox>`,
     },
   ],
   accessibilityNotes: [

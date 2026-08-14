@@ -1,12 +1,21 @@
-import { Button, useTheme } from '@aknishi/akds-reactkit';
+import { ToggleButton, ToggleGroup, useTheme } from '@aknishi/akds-reactkit';
+import { DarkModeFilledIcon, DarkModeIcon, SunnyFilledIcon, SunnyIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 function ThemeReadout() {
   const { theme, setTheme } = useTheme();
+  const isDark = theme === 'dark';
   return (
-    <Button appearance="bordered" emphasis="neutral" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-      Current theme: {theme} — toggle
-    </Button>
+    <ToggleGroup size="sm" value={isDark ? 'dark' : 'light'} onChange={(value) => setTheme(value === 'dark' ? 'dark' : 'light')}>
+      <ToggleButton value="light">
+        {isDark ? <SunnyIcon /> : <SunnyFilledIcon />}
+        Light
+      </ToggleButton>
+      <ToggleButton value="dark">
+        {isDark ? <DarkModeFilledIcon /> : <DarkModeIcon />}
+        Dark
+      </ToggleButton>
+    </ToggleGroup>
   );
 }
 
@@ -25,10 +34,18 @@ export const themeProvider: ComponentEntry = {
       render: () => <ThemeReadout />,
       code: `function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const isDark = theme === 'dark';
   return (
-    <Button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-      Current theme: {theme} — toggle
-    </Button>
+    <ToggleGroup size="sm" value={isDark ? 'dark' : 'light'} onChange={(value) => setTheme(value === 'dark' ? 'dark' : 'light')}>
+      <ToggleButton value="light">
+        {isDark ? <SunnyIcon /> : <SunnyFilledIcon />}
+        Light
+      </ToggleButton>
+      <ToggleButton value="dark">
+        {isDark ? <DarkModeFilledIcon /> : <DarkModeIcon />}
+        Dark
+      </ToggleButton>
+    </ToggleGroup>
   );
 }
 

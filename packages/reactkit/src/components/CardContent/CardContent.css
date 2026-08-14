@@ -2,6 +2,12 @@
 .akds-card-content {
   flex: 1;
   padding: var(--akds-spacing-layout-md);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-light);
+  line-height: var(--akds-font-line-height-normal);
+  letter-spacing: var(--akds-font-letter-spacing-normal);
+  color: var(--akds-color-text-primary-default);
 }
 
 .akds-card--borderless .akds-card-content {

@@ -19,21 +19,21 @@ export default meta;
 
 export const Default = LiveEditStory({
   component: Carousel,
-  code: `import { Carousel } from '@aknishi/akds-reactkit';
+  code: `import { Carousel, Text } from '@aknishi/akds-reactkit';
 
-const slide = (label, bg) => (
-  <div style={{ height: 200, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 24, fontWeight: 600, width: 320 }}>
-    {label}
+const slide = (label) => (
+  <div style={{ height: 200, width: 320, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--akds-color-background-secondary-default)', borderRadius: 'var(--akds-radius-lg)' }}>
+    <Text styleAs="label">{label}</Text>
   </div>
 );
 
 const Example = () => (
   <Carousel>
-    {slide('Slide 1', '#6366f1')}
-    {slide('Slide 2', '#ec4899')}
-    {slide('Slide 3', '#f59e0b')}
-    {slide('Slide 4', '#10b981')}
-    {slide('Slide 5', '#3b82f6')}
+    {slide('Slide 1')}
+    {slide('Slide 2')}
+    {slide('Slide 3')}
+    {slide('Slide 4')}
+    {slide('Slide 5')}
   </Carousel>
 );
 
@@ -43,22 +43,22 @@ export default Example;
 
 export const SlidesPerPage = LiveEditStory({
   component: Carousel,
-  code: `import { Carousel } from '@aknishi/akds-reactkit';
+  code: `import { Carousel, Text } from '@aknishi/akds-reactkit';
 
-const slide = (label, bg) => (
-  <div style={{ height: 200, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20, fontWeight: 600 }}>
-    {label}
+const slide = (label) => (
+  <div style={{ height: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--akds-color-background-secondary-default)', borderRadius: 'var(--akds-radius-lg)' }}>
+    <Text styleAs="label">{label}</Text>
   </div>
 );
 
 const Example = () => (
   <Carousel slidesPerPage={3} autoScroll={false}>
-    {slide('1', '#6366f1')}
-    {slide('2', '#ec4899')}
-    {slide('3', '#f59e0b')}
-    {slide('4', '#10b981')}
-    {slide('5', '#3b82f6')}
-    {slide('6', '#ef4444')}
+    {slide('1')}
+    {slide('2')}
+    {slide('3')}
+    {slide('4')}
+    {slide('5')}
+    {slide('6')}
   </Carousel>
 );
 
@@ -68,20 +68,20 @@ export default Example;
 
 export const Loop = LiveEditStory({
   component: Carousel,
-  code: `import { Carousel } from '@aknishi/akds-reactkit';
+  code: `import { Carousel, Text } from '@aknishi/akds-reactkit';
 
-const slide = (label, bg) => (
-  <div style={{ height: 200, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 24, fontWeight: 600, width: 320 }}>
-    {label}
+const slide = (label) => (
+  <div style={{ height: 200, width: 320, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--akds-color-background-secondary-default)', borderRadius: 'var(--akds-radius-lg)' }}>
+    <Text styleAs="label">{label}</Text>
   </div>
 );
 
 const Example = () => (
   <Carousel loop autoScrollInterval={2000}>
-    {slide('Slide 1', '#6366f1')}
-    {slide('Slide 2', '#ec4899')}
-    {slide('Slide 3', '#f59e0b')}
-    {slide('Slide 4', '#10b981')}
+    {slide('Slide 1')}
+    {slide('Slide 2')}
+    {slide('Slide 3')}
+    {slide('Slide 4')}
   </Carousel>
 );
 
@@ -91,21 +91,21 @@ export default Example;
 
 export const ManualScroll = LiveEditStory({
   component: Carousel,
-  code: `import { Carousel } from '@aknishi/akds-reactkit';
+  code: `import { Carousel, Text } from '@aknishi/akds-reactkit';
 
-const slide = (label, bg) => (
-  <div style={{ height: 200, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 24, fontWeight: 600, width: 320 }}>
-    {label}
+const slide = (label) => (
+  <div style={{ height: 200, width: 320, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--akds-color-background-secondary-default)', borderRadius: 'var(--akds-radius-lg)' }}>
+    <Text styleAs="label">{label}</Text>
   </div>
 );
 
 const Example = () => (
   <Carousel autoScroll={false}>
-    {slide('Slide 1', '#6366f1')}
-    {slide('Slide 2', '#ec4899')}
-    {slide('Slide 3', '#f59e0b')}
-    {slide('Slide 4', '#10b981')}
-    {slide('Slide 5', '#3b82f6')}
+    {slide('Slide 1')}
+    {slide('Slide 2')}
+    {slide('Slide 3')}
+    {slide('Slide 4')}
+    {slide('Slide 5')}
   </Carousel>
 );
 

@@ -56,12 +56,12 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
         <span className="akds-progress-tracker-step__label">{label}</span>
         {showError && (
           <div className="akds-progress-tracker-step__alert-node" aria-hidden="true">
-            <WarningFilledIcon className="akds-progress-tracker-step__alert-icon" />
+            <WarningFilledIcon color="error" className="akds-progress-tracker-step__alert-icon" />
           </div>
         )}
         {showWarning && (
           <div className="akds-progress-tracker-step__alert-node" aria-hidden="true">
-            <WarningIcon className="akds-progress-tracker-step__alert-icon" />
+            <WarningIcon color="warning" className="akds-progress-tracker-step__alert-icon" />
           </div>
         )}
         {!showError && !showWarning && (

@@ -39,6 +39,12 @@
   gap: var(--akds-spacing-300);
 }
 
+@media (max-width: 600px) {
+  .landing-packages-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .landing-guidelines-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -63,6 +69,12 @@
 
 .landing-cta {
   padding-block: var(--akds-spacing-layout-2xl);
+}
+
+@media (max-width: 600px) {
+  .landing-cta {
+    padding-block: var(--akds-spacing-layout-xl);
+  }
 }
 
 .landing-cta__content {

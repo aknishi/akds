@@ -99,7 +99,7 @@ describe('Menu', () => {
         </Menu>,
       );
       const items = screen.getAllByRole('menuitem');
-      items[0].focus();
+      items[0]!.focus();
       await userEvent.keyboard('{ArrowDown}');
       expect(items[1]).toHaveFocus();
     });
@@ -113,7 +113,7 @@ describe('Menu', () => {
         </Menu>,
       );
       const items = screen.getAllByRole('menuitem');
-      items[2].focus();
+      items[2]!.focus();
       await userEvent.keyboard('{ArrowDown}');
       expect(items[0]).toHaveFocus();
     });
@@ -127,7 +127,7 @@ describe('Menu', () => {
         </Menu>,
       );
       const items = screen.getAllByRole('menuitem');
-      items[2].focus();
+      items[2]!.focus();
       await userEvent.keyboard('{ArrowUp}');
       expect(items[1]).toHaveFocus();
     });
@@ -141,7 +141,7 @@ describe('Menu', () => {
         </Menu>,
       );
       const items = screen.getAllByRole('menuitem');
-      items[0].focus();
+      items[0]!.focus();
       await userEvent.keyboard('{ArrowUp}');
       expect(items[2]).toHaveFocus();
     });
@@ -155,7 +155,7 @@ describe('Menu', () => {
         </Menu>,
       );
       const items = screen.getAllByRole('menuitem');
-      items[2].focus();
+      items[2]!.focus();
       await userEvent.keyboard('{Home}');
       expect(items[0]).toHaveFocus();
     });
@@ -169,7 +169,7 @@ describe('Menu', () => {
         </Menu>,
       );
       const items = screen.getAllByRole('menuitem');
-      items[0].focus();
+      items[0]!.focus();
       await userEvent.keyboard('{End}');
       expect(items[2]).toHaveFocus();
     });
@@ -182,7 +182,7 @@ describe('Menu', () => {
           <Option>Copy</Option>
         </Menu>,
       );
-      screen.getAllByRole('menuitem')[0].focus();
+      screen.getAllByRole('menuitem')[0]!.focus();
       await userEvent.keyboard('{ArrowDown}');
       expect(onKeyDown).toHaveBeenCalled();
     });

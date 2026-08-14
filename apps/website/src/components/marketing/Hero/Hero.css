@@ -4,10 +4,28 @@
   overflow: hidden;
 }
 
+@media (max-width: 600px) {
+  .hero {
+    padding-block: var(--akds-spacing-layout-xl);
+  }
+}
+
 .hero__content {
   position: relative;
   z-index: 1;
-  max-width: 780px;
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: var(--akds-spacing-layout-lg);
+}
+
+.hero__text {
+  order: 2;
+  min-width: 0;
+  max-width: 620px;
 }
 
 .hero__subhead {
@@ -15,4 +33,45 @@
   margin-top: var(--akds-spacing-200);
   max-width: 620px;
   color: var(--akds-color-text-secondary-default);
+}
+
+.hero__visual {
+  order: 1;
+  max-width: 480px;
+  margin-inline: auto;
+}
+
+.hero__visual-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* A fixed 400px image column next to shrinking text doesn't leave enough
+   room for text between 600 and 1016px, so the image is hidden in that
+   band rather than forcing either side to a cramped size. */
+@media (min-width: 600px) and (max-width: 1015.98px) {
+  .hero__visual {
+    display: none;
+  }
+}
+
+/* Fixed width, not a fraction/percentage: from here down to 1016px the
+   text column (minmax(0, 1fr)) is what shrinks as the viewport narrows,
+   the image stays put. */
+@media (min-width: 1016px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr) 400px;
+  }
+
+  .hero__text {
+    order: 1;
+  }
+
+  .hero__visual {
+    order: 2;
+    display: block;
+    max-width: none;
+    margin-inline: 0;
+  }
 }
