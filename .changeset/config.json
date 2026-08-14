@@ -7,9 +7,12 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
+  "privatePackages": {
+    "version": true,
+    "tag": false
+  },
   "ignore": [
-    "@aknishi/create-akds-app",
-    "@akds/website"
+    "@aknishi/create-akds-app"
   ]
 }
 
