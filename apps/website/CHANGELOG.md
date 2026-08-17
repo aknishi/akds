@@ -1,5 +1,11 @@
 # @akds/website
 
+## 1.2.0
+
+### Minor Changes
+
+- 49214cc: Add new akds logo and favicon
+
 ## 1.1.0
 
 ### Minor Changes
