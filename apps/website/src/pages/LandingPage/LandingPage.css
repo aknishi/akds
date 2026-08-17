@@ -33,10 +33,18 @@
   gap: var(--akds-spacing-300);
 }
 
+.landing-components-grid__item {
+  height: 100%;
+}
+
 .landing-packages-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: var(--akds-spacing-300);
+}
+
+.landing-packages-grid__item {
+  height: 100%;
 }
 
 @media (max-width: 600px) {
@@ -51,8 +59,13 @@
   gap: var(--akds-spacing-300);
 }
 
+.landing-guidelines-grid__item {
+  height: 100%;
+}
+
 .landing-guidelines-grid__link {
   display: block;
+  height: 100%;
   text-decoration: none;
   color: inherit;
 }

@@ -42,7 +42,14 @@ export function TopNav({ onMenuClick }: TopNavProps) {
         </IconButton>
 
         <NavLink to="/" className="top-nav__brand">
-          AKDS
+          <img
+            src={isDark ? '/AKLogo-dark.svg' : '/AKLogo.svg'}
+            alt=""
+            className="top-nav__brand-logo"
+          />
+          <span className="top-nav__brand-text">
+            <span className="top-nav__brand-tagline">design system</span>
+          </span>
         </NavLink>
 
         <nav className="top-nav__links" aria-label="Primary navigation">
@@ -66,13 +73,13 @@ export function TopNav({ onMenuClick }: TopNavProps) {
             value={isDark ? 'dark' : 'light'}
             onChange={(value) => setTheme(value === 'dark' ? 'dark' : 'light')}
           >
-            <ToggleButton value="light">
+            <ToggleButton value="light" aria-label="Light mode">
               {isDark ? <SunnyIcon /> : <SunnyFilledIcon />}
-              Light
+              <span className="top-nav__toggle-label">Light</span>
             </ToggleButton>
-            <ToggleButton value="dark">
+            <ToggleButton value="dark" aria-label="Dark mode">
               {isDark ? <DarkModeFilledIcon /> : <DarkModeIcon />}
-              Dark
+              <span className="top-nav__toggle-label">Dark</span>
             </ToggleButton>
           </ToggleGroup>
         </div>

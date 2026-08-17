@@ -1,7 +1,9 @@
+import { motion } from 'framer-motion';
 import { Flexbox, Text } from '@aknishi/akds-reactkit';
 import { ComponentCard } from '../../components/docs/ComponentCard';
 import { componentRegistry } from '../../content/components/registry';
 import { CATEGORY_ORDER } from '../../content/components/types';
+import { staggerContainer, staggerItem } from '../../lib/motion';
 import './ComponentsIndexPage.css';
 
 export function ComponentsIndexPage() {
@@ -27,17 +29,24 @@ export function ComponentsIndexPage() {
           <Text as="h2" styleAs="h4" className="components-index-page__category-title">
             {category}
           </Text>
-          <div className="components-index-page__grid">
+          <motion.div
+            className="components-index-page__grid"
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+          >
             {items.map((entry) => (
-              <ComponentCard
-                key={entry.slug}
-                slug={entry.slug}
-                name={entry.name}
-                description={entry.summary}
-                preview={<Text styleAs="label">{entry.name}</Text>}
-              />
+              <motion.div key={entry.slug} className="components-index-page__grid-item" variants={staggerItem}>
+                <ComponentCard
+                  slug={entry.slug}
+                  name={entry.name}
+                  description={entry.summary}
+                  preview={<Text styleAs="label">{entry.name}</Text>}
+                />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </Flexbox>
       ))}
     </Flexbox>
