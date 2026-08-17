@@ -2,7 +2,37 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Overview" />
 
-# akds
+<div className="akds-overview-brand">
+  <img src="/AKLogo.svg" alt="" className="akds-overview-brand__logo akds-overview-brand__logo--light" />
+  <img src="/AKLogo-dark.svg" alt="" className="akds-overview-brand__logo akds-overview-brand__logo--dark" />
+  <span className="akds-overview-brand__tagline">design system</span>
+</div>
+
+<style>{`
+  .akds-overview-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .akds-overview-brand__logo {
+    height: 40px;
+    width: 40px;
+    display: block;
+  }
+  .akds-overview-brand__logo--dark {
+    display: none;
+  }
+  :root[data-theme='dark'] .akds-overview-brand__logo--light {
+    display: none;
+  }
+  :root[data-theme='dark'] .akds-overview-brand__logo--dark {
+    display: block;
+  }
+  .akds-overview-brand__tagline {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+`}</style>
 
 **akds** is a React design system: themeable components, design tokens, and an icon set, built as a monorepo of four packages that are meant to be used together.
 

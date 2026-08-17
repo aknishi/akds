@@ -14,6 +14,14 @@
   gap: var(--akds-spacing-300);
 }
 
+.design-guidelines-page__principle-item {
+  height: 100%;
+}
+
+.design-guidelines-page__principle-card {
+  height: 100%;
+}
+
 .design-guidelines-page__principle-description {
   display: block;
   margin-top: var(--akds-spacing-100);

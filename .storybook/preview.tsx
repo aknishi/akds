@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Preview } from '@storybook/react-vite';
 import { useDarkMode } from 'storybook-dark-mode';
+import { themes } from 'storybook/theming';
 import { ThemeProvider } from '@aknishi/akds-reactkit';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
 
@@ -74,6 +75,20 @@ export const parameters: Preview['parameters'] = {
   layout: 'fullscreen',
   darkMode: {
     current: 'light',
+    dark: {
+      ...themes.dark,
+      brandTitle: 'AKDS Storybook',
+      brandUrl: 'https://akds-storybook.com',
+      brandImage: '/AKLogo-lockup-dark.svg',
+      brandTarget: '_self',
+    },
+    light: {
+      ...themes.normal,
+      brandTitle: 'AKDS Storybook',
+      brandUrl: 'https://akds-storybook.com',
+      brandImage: '/AKLogo-lockup.svg',
+      brandTarget: '_self',
+    },
   },
   controls: { disable: true },
   actions: { disable: true },

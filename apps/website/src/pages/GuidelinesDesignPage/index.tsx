@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { motion } from 'framer-motion';
 import { elevation } from '@aknishi/akds-tokens';
 import { Card, CardContent, Divider, Flexbox, Text } from '@aknishi/akds-reactkit';
 import {
@@ -11,6 +12,7 @@ import {
 } from '@aknishi/akds-icons';
 import { TokenSwatch } from '../../components/docs/TokenSwatch';
 import { DoDontPanel } from '../../components/docs/DoDontPanel';
+import { staggerContainer, staggerItem } from '../../lib/motion';
 import './GuidelinesDesignPage.css';
 
 
@@ -52,20 +54,32 @@ export function GuidelinesDesignPage() {
         <Text as="h2" styleAs="h3">
           Principles
         </Text>
-        <div className="design-guidelines-page__principles-grid">
+        <motion.div
+          className="design-guidelines-page__principles-grid"
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {PRINCIPLES.map((principle) => (
-            <Card key={principle.title}>
-              <CardContent>
-                <Text as="h3" styleAs="label">
-                  {principle.title}
-                </Text>
-                <Text styleAs="body" className="design-guidelines-page__principle-description">
-                  {principle.description}
-                </Text>
-              </CardContent>
-            </Card>
+            <motion.div
+              key={principle.title}
+              variants={staggerItem}
+              className="design-guidelines-page__principle-item"
+            >
+              <Card className="design-guidelines-page__principle-card">
+                <CardContent>
+                  <Text as="h3" styleAs="label">
+                    {principle.title}
+                  </Text>
+                  <Text styleAs="body" className="design-guidelines-page__principle-description">
+                    {principle.description}
+                  </Text>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Flexbox>
 
       <Divider />

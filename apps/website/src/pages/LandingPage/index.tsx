@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router';
+import { motion } from 'framer-motion';
 import { Avatar, Button, Card, CardContent, Flexbox, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
 import { Hero } from '../../components/marketing/Hero';
 import { Section } from '../../components/marketing/Section';
@@ -9,6 +10,7 @@ import { PackageCard } from '../../components/marketing/PackageCard';
 import { ComponentCard } from '../../components/docs/ComponentCard';
 import { packages } from '../../content/packages';
 import { componentRegistry } from '../../content/components/registry';
+import { staggerContainer, staggerItem } from '../../lib/motion';
 import './LandingPage.css';
 import '../../styles/gradients.css';
 
@@ -132,11 +134,13 @@ export function LandingPage() {
           </NavLink>
         </Flexbox>
         <div className="landing-section__spacer" />
-        <div className="landing-components-grid">
+        <motion.div className="landing-components-grid" variants={staggerContainer}>
           {COMPONENT_PREVIEWS.map((item) => (
-            <ComponentCard key={item.slug} slug={item.slug} name={item.name} description={item.description} preview={item.preview} />
+            <motion.div key={item.slug} className="landing-components-grid__item" variants={staggerItem}>
+              <ComponentCard slug={item.slug} name={item.name} description={item.description} preview={item.preview} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Section>
 
       <Section>
@@ -146,11 +150,13 @@ export function LandingPage() {
           </Text>
         </Flexbox>
         <div className="landing-section__spacer" />
-        <div className="landing-packages-grid">
+        <motion.div className="landing-packages-grid" variants={staggerContainer}>
           {packages.map((pkg) => (
-            <PackageCard key={pkg.name} pkg={pkg} />
+            <motion.div key={pkg.name} className="landing-packages-grid__item" variants={staggerItem}>
+              <PackageCard pkg={pkg} />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Section>
 
       <Section>
@@ -160,22 +166,24 @@ export function LandingPage() {
           </Text>
         </Flexbox>
         <div className="landing-section__spacer" />
-        <div className="landing-guidelines-grid">
+        <motion.div className="landing-guidelines-grid" variants={staggerContainer}>
           {GUIDELINE_LINKS.map((link) => (
-            <NavLink key={link.to} to={link.to} className="landing-guidelines-grid__link">
-              <Card className="landing-guidelines-grid__card">
-                <CardContent>
-                  <Text as="h3" styleAs="h4">
-                    {link.title}
-                  </Text>
-                  <Text styleAs="body" className="landing-guidelines-grid__description">
-                    {link.description}
-                  </Text>
-                </CardContent>
-              </Card>
-            </NavLink>
+            <motion.div key={link.to} className="landing-guidelines-grid__item" variants={staggerItem}>
+              <NavLink to={link.to} className="landing-guidelines-grid__link">
+                <Card className="landing-guidelines-grid__card">
+                  <CardContent>
+                    <Text as="h3" styleAs="h4">
+                      {link.title}
+                    </Text>
+                    <Text styleAs="body" className="landing-guidelines-grid__description">
+                      {link.description}
+                    </Text>
+                  </CardContent>
+                </Card>
+              </NavLink>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </Section>
 
       <section className="landing-cta gradient-band">

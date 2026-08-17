@@ -4,6 +4,10 @@
   gap: var(--akds-spacing-300);
 }
 
+.feature-grid__card-wrapper {
+  height: 100%;
+}
+
 .feature-grid__card {
   height: 100%;
 }
