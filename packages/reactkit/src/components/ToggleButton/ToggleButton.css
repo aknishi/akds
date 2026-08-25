@@ -24,7 +24,7 @@
 }
 
 .akds-toggle-button:active:not(.akds-toggle-button--disabled) {
-  transform: scale(0.96);
+  transform: scale(0.94);
   transition-duration: 50ms;
 }
 

@@ -34,6 +34,7 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
 
     const particleBurstRef = React.useRef<ParticleBurstHandle>(null);
     const prevStatusRef = React.useRef(resolvedStatus);
+    const justCompleted = resolvedStatus === 'complete' && prevStatusRef.current !== 'complete';
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
       typeof window.matchMedia === 'function' &&
@@ -68,7 +69,10 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
           <div className="akds-progress-tracker-step__circle" aria-hidden="true">
             {showCheck && (
               <CheckCircleFilledIcon
-                className="akds-progress-tracker-step__check-icon"
+                className={clsx(
+                  'akds-progress-tracker-step__check-icon',
+                  { 'akds-progress-tracker-step__check-icon--pop': justCompleted },
+                )}
                 color="success"
               />
             )}

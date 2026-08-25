@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import '../Menu/Menu.css';
 import './Combobox.css';
 import type { ComboboxProps, ComboboxOption } from './Combobox.types';
 import { CloseIcon, KeyboardArrowDownIcon } from '@aknishi/akds-icons';
@@ -389,7 +390,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
             role="listbox"
             aria-multiselectable={multiple || undefined}
             aria-label={label ?? ariaLabel}
-            className={withBaseName.el('listbox')}
+            className={clsx('akds-menu', withBaseName.el('listbox'))}
             onKeyDown={handleListboxKeyDown}
           >
             {filteredOptions.length === 0 ? (

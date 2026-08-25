@@ -101,7 +101,7 @@
   }
 }
 
-.akds-progress-tracker-step__check-icon {
+.akds-progress-tracker-step__check-icon--pop {
   animation: akds-pt-check-in 200ms ease forwards;
 }
 
@@ -129,7 +129,7 @@
     transition: none;
   }
 
-  .akds-progress-tracker-step__check-icon {
+  .akds-progress-tracker-step__check-icon--pop {
     animation: none;
   }
 }

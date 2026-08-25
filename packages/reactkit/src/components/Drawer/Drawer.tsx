@@ -45,7 +45,13 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
 
     React.useImperativeHandle(ref, () => panelRef.current!);
 
-    React.useEffect(() => {
+    // useLayoutEffect (not useEffect): this must resolve before the browser
+    // paints. With useEffect, the render where `open` first flips false
+    // commits with isClosing still false and returns null — the browser
+    // paints that empty frame — and only then does the effect fire and
+    // remount the drawer as a brand-new node already mid-close-animation,
+    // producing a visible flash/pop.
+    React.useLayoutEffect(() => {
       if (open) {
         wasOpenRef.current = true;
         setIsClosing(false);

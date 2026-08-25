@@ -91,19 +91,19 @@
 
 /* ── Visible ──────────────────────────────────────────────────────────────── */
 .akds-tooltip--visible.akds-tooltip--top {
-  animation: akds-tooltip-in-top 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: akds-tooltip-in-top 140ms ease-out forwards;
 }
 
 .akds-tooltip--visible.akds-tooltip--bottom {
-  animation: akds-tooltip-in-bottom 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: akds-tooltip-in-bottom 140ms ease-out forwards;
 }
 
 .akds-tooltip--visible.akds-tooltip--left {
-  animation: akds-tooltip-in-left 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: akds-tooltip-in-left 140ms ease-out forwards;
 }
 
 .akds-tooltip--visible.akds-tooltip--right {
-  animation: akds-tooltip-in-right 320ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: akds-tooltip-in-right 140ms ease-out forwards;
 }
 
 /* ── Hiding ──────────────────────────────────────────────────────────────── */

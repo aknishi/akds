@@ -45,15 +45,27 @@ export const Sizes = LiveEditStory({
 import { Flexbox, Dialog, Button } from '@aknishi/akds-reactkit';
 
 const DialogExample = () => {
-  const [size, setSize] = React.useState(null);
+  // size and open are separate state: size only changes when a size button
+  // is clicked, and stays put while the dialog closes. Tying size to the
+  // same state that drives "open" (e.g. open={size !== null}) clears size
+  // the instant onClose fires, so the dialog loses its --sm/--md/--lg class
+  // mid-close and visibly snaps to its default width during the animation.
+  const [size, setSize] = React.useState('sm');
+  const [open, setOpen] = React.useState(false);
+
+  const openWithSize = (nextSize) => {
+    setSize(nextSize);
+    setOpen(true);
+  };
+
   return (
     <>
       <Flexbox gap="sm">
-        <Button onClick={() => setSize('sm')}>Small</Button>
-        <Button onClick={() => setSize('md')}>Medium</Button>
-        <Button onClick={() => setSize('lg')}>Large</Button>
+        <Button onClick={() => openWithSize('sm')}>Small</Button>
+        <Button onClick={() => openWithSize('md')}>Medium</Button>
+        <Button onClick={() => openWithSize('lg')}>Large</Button>
       </Flexbox>
-      <Dialog open={size !== null} onClose={() => setSize(null)} title="Dialog" size={size}>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Dialog" size={size}>
         <p>A dialog with size "{size}".</p>
       </Dialog>
     </>

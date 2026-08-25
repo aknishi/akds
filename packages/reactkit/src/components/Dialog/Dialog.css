@@ -37,6 +37,21 @@
   }
 }
 
+@keyframes akds-dialog-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.97) translateY(var(--akds-spacing-100));
+  }
+}
+
+.akds-dialog--closing {
+  animation: akds-dialog-out 120ms ease-in forwards;
+}
+
 /* ── Sizes ─────────────────────────────────────────────────────────────── */
 .akds-dialog--sm {
   max-width: 400px;
@@ -94,8 +109,16 @@
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
+/*
+ * Use animation-duration: 0.01ms rather than animation: none so that the
+ * animationend event still fires. Dialog.tsx listens for animationend on the
+ * closing animation to unmount the panel — suppressing the event entirely
+ * would leave the dialog stuck in its closing state.
+ */
 @media (prefers-reduced-motion: reduce) {
-  .akds-dialog {
-    animation: none;
+  .akds-dialog,
+  .akds-dialog--closing {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
   }
 }
