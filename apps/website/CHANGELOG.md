@@ -1,5 +1,20 @@
 # @akds/website
 
+## 1.2.0
+
+### Minor Changes
+
+- 49214cc: Add new akds logo and favicon
+- 6ba5637: Update component index page and mobile sidebar links to display component index and storybook links.
+
+### Patch Changes
+
+- Updated dependencies [6ba5637]
+- Updated dependencies [6ba5637]
+- Updated dependencies [2ef4fa6]
+- Updated dependencies [6ba5637]
+  - @aknishi/akds-reactkit@1.4.0
+
 ## 1.1.0
 
 ### Minor Changes
