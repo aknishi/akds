@@ -37,6 +37,11 @@ export const dialog: ComponentEntry = {
   summary: 'A modal dialog for focused tasks and confirmations, rendered above a backdrop.',
   sourcePath: 'packages/reactkit/src/components/Dialog',
   storybookId: 'reactkit-dialog--docs',
+  preview: (
+    <Button appearance="bordered" emphasis="neutral">
+      Open dialog
+    </Button>
+  ),
   examples: [
     {
       title: 'Basic',

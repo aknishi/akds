@@ -45,6 +45,8 @@ export interface ComponentEntry {
   name: string;
   category: ComponentCategory;
   summary: string;
+  /** Small, non-interactive visual shown in the component's index/landing card. */
+  preview: React.ReactNode;
   isPrimitive?: boolean;
   sourcePath: string;
   storybookId: string;

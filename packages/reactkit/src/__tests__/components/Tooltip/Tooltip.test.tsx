@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
@@ -109,6 +109,39 @@ describe('Tooltip', () => {
       </Tooltip>,
     );
     expect(screen.getByRole('tooltip', { hidden: true })).toHaveClass('akds-tooltip--top');
+  });
+
+  it('renders visible when open is controlled true', () => {
+    render(
+      <Tooltip content="Controlled tip" open>
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    expect(screen.getByRole('tooltip')).toHaveClass('akds-tooltip--visible');
+  });
+
+  it('renders hidden when open is controlled false, ignoring hover', async () => {
+    const user = userEvent.setup();
+    render(
+      <Tooltip content="Controlled tip" open={false}>
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    await user.hover(screen.getByRole('button'));
+    expect(screen.getByRole('tooltip', { hidden: true })).not.toHaveClass('akds-tooltip--visible');
+  });
+
+  it('calls onOpenChange on hover/unhover without managing its own visibility when controlled', async () => {
+    const user = userEvent.setup();
+    const onOpenChange = vi.fn();
+    render(
+      <Tooltip content="Controlled tip" open={false} onOpenChange={onOpenChange}>
+        <button>Trigger</button>
+      </Tooltip>,
+    );
+    await user.hover(screen.getByRole('button'));
+    expect(onOpenChange).toHaveBeenCalledWith(true);
+    expect(screen.getByRole('tooltip', { hidden: true })).not.toHaveClass('akds-tooltip--visible');
   });
 
   describe('axe accessibility', () => {

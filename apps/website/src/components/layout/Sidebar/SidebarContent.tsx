@@ -1,10 +1,11 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRightIcon } from '@aknishi/akds-icons';
+import { ChevronRightIcon, OpenInNewIcon } from '@aknishi/akds-icons';
 import { navConfig } from '../../../content/navConfig';
 import { componentRegistry } from '../../../content/components/registry';
 import { CATEGORY_ORDER } from '../../../content/components/types';
+import { STORYBOOK_URL } from '../../../content/storybook';
 import './Sidebar.css';
 
 export function SidebarContent() {
@@ -34,6 +35,20 @@ export function SidebarContent() {
 
   return (
     <nav className="sidebar-content" aria-label="Site navigation">
+      {/* Only visible below the 1024px breakpoint where TopNav's own links are hidden —
+          without these, the components index and Storybook are unreachable on mobile. */}
+      <div className="sidebar-content__mobile-primary">
+        <SidebarLink to="/components" label="All components" />
+        <a
+          href={STORYBOOK_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="sidebar-content__link sidebar-content__link--external"
+        >
+          Storybook <OpenInNewIcon size="sm" />
+        </a>
+      </div>
+
       {navConfig.map((group) => (
         <div className="sidebar-content__group" key={group.label}>
           <div className="sidebar-content__group-label">{group.label}</div>

@@ -8,6 +8,12 @@ export const radio: ComponentEntry = {
   summary: 'A single radio input, typically composed inside RadioGroup which manages shared name and selection.',
   sourcePath: 'packages/reactkit/src/components/Radio',
   storybookId: 'reactkit-radio--docs',
+  preview: (
+    <RadioGroup name="preview-plan" defaultValue="pro" legend="Plan">
+      <Radio label="Free" value="free" />
+      <Radio label="Pro" value="pro" />
+    </RadioGroup>
+  ),
   examples: [
     {
       title: 'RadioGroup',

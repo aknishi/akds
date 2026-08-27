@@ -22,6 +22,12 @@ export const toggleGroup: ComponentEntry = {
     'A segmented control wrapping two or more ToggleButton children, where only one option can be selected at a time.',
   sourcePath: 'packages/reactkit/src/components/ToggleGroup',
   storybookId: 'reactkit-toggle-togglegroup--docs',
+  preview: (
+    <ToggleGroup defaultValue="day">
+      <ToggleButton value="day">Day</ToggleButton>
+      <ToggleButton value="week">Week</ToggleButton>
+    </ToggleGroup>
+  ),
   examples: [
     {
       title: 'Controlled',

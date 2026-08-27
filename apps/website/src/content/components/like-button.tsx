@@ -14,6 +14,7 @@ export const likeButton: ComponentEntry = {
   summary: 'A toggleable "like" button with a celebratory particle-burst animation on activation.',
   sourcePath: 'packages/reactkit/src/components/LikeButton',
   storybookId: 'reactkit-buttons-likebutton--docs',
+  preview: <LikeButton liked aria-label="Like this post" />,
   examples: [
     {
       title: 'Controlled',

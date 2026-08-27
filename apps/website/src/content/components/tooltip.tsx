@@ -1,4 +1,5 @@
-import { Button, Flexbox, Tooltip } from '@aknishi/akds-reactkit';
+import { Button, Flexbox, IconButton, Tooltip } from '@aknishi/akds-reactkit';
+import { CopyIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 export const tooltip: ComponentEntry = {
@@ -8,6 +9,21 @@ export const tooltip: ComponentEntry = {
   summary: 'A hover/focus tooltip attached to a single trigger element, with configurable placement.',
   sourcePath: 'packages/reactkit/src/components/Tooltip',
   storybookId: 'reactkit-tooltip--docs',
+  preview: (
+    // Tooltip is absolutely positioned above the trigger and isn't counted by the
+    // preview container's flex centering, so the pair reads as too high without a nudge.
+    // The nudge goes on a wrapper *outside* Tooltip, not on the trigger itself — margin
+    // on the trigger would grow Tooltip's own auto-sized wrapper (margin counts toward a
+    // flex item's contribution to its container's size), which would push the pill's
+    // anchor point up and visibly detach it from the trigger.
+    <div style={{ marginTop: 'var(--akds-spacing-200)' }}>
+      <Tooltip content="Copy" open>
+        <IconButton appearance="transparent" emphasis="neutral" aria-label="Copy">
+          <CopyIcon />
+        </IconButton>
+      </Tooltip>
+    </div>
+  ),
   examples: [
     {
       title: 'Placements',

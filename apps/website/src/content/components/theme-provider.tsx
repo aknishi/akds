@@ -27,6 +27,7 @@ export const themeProvider: ComponentEntry = {
     'The light/dark theme context provider. Wrap your app root once — every akds component and token reads from it automatically.',
   sourcePath: 'packages/reactkit/src/components/ThemeProvider',
   storybookId: 'theme-provider--docs',
+  preview: <ThemeReadout />,
   examples: [
     {
       title: 'Reading the current theme',

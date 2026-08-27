@@ -49,6 +49,13 @@ export const progressTracker: ComponentEntry = {
   summary: 'A numbered step tracker for multi-step flows, composed of ProgressTrackerStep children.',
   sourcePath: 'packages/reactkit/src/components/ProgressTracker',
   storybookId: 'reactkit-progresstracker--docs',
+  preview: (
+    <ProgressTracker currentStep={2}>
+      <ProgressTrackerStep label="Account" status="complete" />
+      <ProgressTrackerStep label="Shipping" active />
+      <ProgressTrackerStep label="Payment" status="inactive" />
+    </ProgressTracker>
+  ),
   examples: [
     {
       title: 'Basic',

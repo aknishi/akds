@@ -8,6 +8,13 @@ export const flexbox: ComponentEntry = {
   summary: 'A flex-container layout primitive with design-token-aware gap, padding, and margin shorthand props.',
   sourcePath: 'packages/reactkit/src/components/Flexbox',
   storybookId: 'reactkit-flexbox--docs',
+  preview: (
+    <Flexbox gap="sm" wrap>
+      <Tag>One</Tag>
+      <Tag>Two</Tag>
+      <Tag>Three</Tag>
+    </Flexbox>
+  ),
   examples: [
     {
       title: 'Gap & wrap',

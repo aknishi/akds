@@ -22,7 +22,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 96px;
+  height: 188px;
+  overflow: hidden;
   padding: var(--akds-spacing-300);
   background: var(--akds-color-surface-sunken);
   border-bottom: 1px solid var(--akds-color-border-neutral-default);

@@ -25,6 +25,12 @@ export const toggleButton: ComponentEntry = {
     'A button that toggles between pressed and unpressed. Standalone it fills with a semantic color when pressed; inside a ToggleGroup it becomes a segmented-control option instead.',
   sourcePath: 'packages/reactkit/src/components/ToggleButton',
   storybookId: 'reactkit-toggle-togglebutton--docs',
+  preview: (
+    <Flexbox gap="sm" align="center">
+      <ToggleButton defaultPressed>Bold</ToggleButton>
+      <ToggleButton>Italic</ToggleButton>
+    </Flexbox>
+  ),
   examples: [
     {
       title: 'Controlled',

@@ -8,6 +8,13 @@ export const menu: ComponentEntry = {
   summary: 'A floating list of actions (MenuItem children), positioned relative to a trigger with automatic flip.',
   sourcePath: 'packages/reactkit/src/components/Menu',
   storybookId: 'reactkit-menu--docs',
+  preview: (
+    <Menu open>
+      <MenuItem>Cut</MenuItem>
+      <MenuItem>Copy</MenuItem>
+      <MenuItem>Paste</MenuItem>
+    </Menu>
+  ),
   examples: [
     {
       title: 'Basic',

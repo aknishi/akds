@@ -8,6 +8,11 @@ export const card: ComponentEntry = {
   summary: 'A bordered surface container, composed with CardHeader, CardContent, and CardFooter slots.',
   sourcePath: 'packages/reactkit/src/components/Card',
   storybookId: 'reactkit-card--docs',
+  preview: (
+    <Card>
+      <CardContent>Plan usage</CardContent>
+    </Card>
+  ),
   examples: [
     {
       title: 'Composed',

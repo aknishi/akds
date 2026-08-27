@@ -29,6 +29,29 @@ export default TooltipExample;
 `,
 });
 
+export const Controlled = LiveEditStory({
+  component: Tooltip,
+  code: `import React from 'react';
+import { Flexbox, Tooltip, Button } from '@aknishi/akds-reactkit';
+
+const TooltipExample = () => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <Flexbox direction="column" align="center" gap="md" padding="xl">
+      <Tooltip content="This is a controlled tooltip" open={open} onOpenChange={setOpen}>
+        <Button>Hover or focus me</Button>
+      </Tooltip>
+      <Button appearance="bordered" emphasis="neutral" onClick={() => setOpen((prev) => !prev)}>
+        Toggle programmatically
+      </Button>
+    </Flexbox>
+  );
+};
+
+export default TooltipExample;
+`,
+});
+
 export const Placements = LiveEditStory({
   component: Tooltip,
   code: `import { Flexbox, Tooltip, Button } from '@aknishi/akds-reactkit';

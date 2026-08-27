@@ -20,6 +20,12 @@ export const dropdownMenu: ComponentEntry = {
   summary: 'A select-style trigger that opens a Menu of Option children — the fixed-option counterpart to Combobox.',
   sourcePath: 'packages/reactkit/src/components/DropdownMenu',
   storybookId: 'reactkit-dropdownmenu--docs',
+  preview: (
+    <DropdownMenu label="Status" selected="open">
+      <Option value="open">Open</Option>
+      <Option value="closed">Closed</Option>
+    </DropdownMenu>
+  ),
   examples: [
     {
       title: 'Basic',
