@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router';
 import { motion } from 'framer-motion';
-import { Avatar, Button, Card, CardContent, Flexbox, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
+import { Avatar, Button, Card, CardContent, Flexbox, IconButton, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
+import { CopyIcon } from '@aknishi/akds-icons';
 import { Hero } from '../../components/marketing/Hero';
 import { Section } from '../../components/marketing/Section';
 import { ShowcaseMarquee } from '../../components/marketing/ShowcaseMarquee';
@@ -77,13 +78,16 @@ const COMPONENT_PREVIEWS = [
     name: 'Tooltip',
     description: 'Hover and focus tooltips on any trigger.',
     preview: (
-      <Flexbox mt={2} style={{ marginBottom: 'calc(-1 * var(--akds-spacing-200))' }}>
-        <Tooltip content="Helpful context">
-          <Button appearance="transparent" emphasis="neutral">
-            Hover me
-          </Button>
+      // Margin nudges the whole (icon + pill) unit down for vertical centering — it
+      // goes on a wrapper outside Tooltip, not on the trigger, because margin on the
+      // trigger inflates Tooltip's own auto-sized wrapper and detaches the pill from it.
+      <div style={{ marginTop: 'var(--akds-spacing-200)' }}>
+        <Tooltip content="Copy" open>
+          <IconButton appearance="transparent" emphasis="neutral" aria-label="Copy">
+            <CopyIcon />
+          </IconButton>
         </Tooltip>
-      </Flexbox>
+      </div>
     ),
   },
 ];

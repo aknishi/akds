@@ -23,7 +23,7 @@
 }
 
 .akds-like-button:active:not(.akds-like-button--disabled) {
-  transform: scale(0.9);
+  transform: scale(0.94);
   transition-duration: 50ms;
 }
 

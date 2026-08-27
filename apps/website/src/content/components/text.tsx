@@ -8,6 +8,12 @@ export const text: ComponentEntry = {
   summary: 'The typography primitive — maps a visual style to a semantic HTML element, with an override escape hatch.',
   sourcePath: 'packages/reactkit/src/components/Text',
   storybookId: 'reactkit-text--docs',
+  preview: (
+    <Flexbox direction="column" gap="xs">
+      <Text styleAs="h5">Heading</Text>
+      <Text styleAs="body">Body text</Text>
+    </Flexbox>
+  ),
   examples: [
     {
       title: 'Headings',

@@ -70,7 +70,6 @@ export const AccordionItem = React.forwardRef<HTMLDivElement, AccordionItemProps
           id={panelId}
           role="region"
           aria-labelledby={triggerId}
-          hidden={!expanded}
           className={withBaseName.el('panel')}
         >
           <div className={withBaseName.el('panel-inner')}>{children}</div>

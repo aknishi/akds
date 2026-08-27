@@ -9,6 +9,7 @@ export const avatar: ComponentEntry = {
   summary: 'A user avatar rendered from an image, derived initials, or an icon fallback.',
   sourcePath: 'packages/reactkit/src/components/Avatar',
   storybookId: 'reactkit-avatar--docs',
+  preview: <Avatar name="Ada Lovelace" size="lg" />,
   examples: [
     {
       title: 'Image',

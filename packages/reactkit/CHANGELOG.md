@@ -1,5 +1,25 @@
 # @aknishi/akds-reactkit
 
+## 1.4.0
+
+### Minor Changes
+
+- 6ba5637: Add controlled usage to Tooltip via new optional `open`/`onOpenChange` props. When omitted, Tooltip behaves exactly as before (hover/focus manage visibility internally); when `open` is provided, visibility is fully controlled by the consumer and hover/focus/blur report requested changes through `onOpenChange` instead of toggling directly.
+
+### Patch Changes
+
+- 6ba5637: Fix insufficient contrast on standalone ToggleButton's pressed state in dark mode. The tinted fill background was pinned to a fixed light primitive color that never adapted for dark mode, while its text color did — producing near-white text on a near-white background for all four color variants (neutral, primary, success, error). The background is now derived from the same theme-aware text color via `color-mix()`, so it stays a correctly-contrasted tint in both themes.
+- 6ba5637: Fix Accordion not filling its container width when placed inside a flex or grid layout — it now sets `width: 100%` explicitly instead of relying on default block sizing, which flex/grid items don't inherit.
+- 2ef4fa6: Fix motion inconsistencies found by a design-motion-principles audit:
+
+  - Dialog now animates out instead of unmounting instantly, mirroring Drawer's enter/exit pattern
+  - AccordionItem's panel animates expand/collapse (height + fade) instead of snapping via the `hidden` attribute
+  - Tooltip's entrance uses a calm ease-out instead of a bouncy overshoot curve, and runs faster (320ms → 140ms)
+  - Combobox's listbox now animates in, matching DropdownMenu's existing entrance
+  - ProgressTrackerStep's check-icon pop only plays on a genuine complete transition, not on every mount of an already-complete step
+  - Unified the active-press scale to `0.94` across Button, IconButton, LikeButton, and ToggleButton
+  - Fixed a flash/pop on close for Dialog and Drawer caused by a `useEffect`-timing race (switched to `useLayoutEffect`)
+
 ## 1.3.1
 
 ### Patch Changes

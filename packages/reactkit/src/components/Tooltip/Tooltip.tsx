@@ -12,37 +12,54 @@ export const Tooltip: React.FC<TooltipProps> = function Tooltip({
   content,
   children,
   placement = 'top',
+  open,
+  onOpenChange,
 }) {
-  const [visible, setVisible] = React.useState(false);
+  const isControlled = open !== undefined;
+  const [internalVisible, setInternalVisible] = React.useState(false);
   const [hiding, setHiding] = React.useState(false);
   const hideTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const wasVisibleRef = React.useRef(false);
   const tooltipId = React.useId();
 
   const child = React.Children.only(children);
+  const visible = open ?? internalVisible;
 
-  const show = () => {
-    if (hideTimerRef.current) {
-      clearTimeout(hideTimerRef.current);
-      hideTimerRef.current = null;
-    }
-    setHiding(false);
-    setVisible(true);
-  };
-
-  const hide = () => {
-    setVisible(false);
-    setHiding(true);
-    hideTimerRef.current = setTimeout(() => {
+  // Drives the hiding grace-period animation off visibility transitions, rather than
+  // from the event handlers directly, so controlled and uncontrolled usage animate the same way.
+  React.useLayoutEffect(() => {
+    if (visible) {
+      if (hideTimerRef.current) {
+        clearTimeout(hideTimerRef.current);
+        hideTimerRef.current = null;
+      }
       setHiding(false);
-      hideTimerRef.current = null;
-    }, HIDE_DURATION);
-  };
+      wasVisibleRef.current = true;
+    } else if (wasVisibleRef.current) {
+      wasVisibleRef.current = false;
+      setHiding(true);
+      hideTimerRef.current = setTimeout(() => {
+        setHiding(false);
+        hideTimerRef.current = null;
+      }, HIDE_DURATION);
+    }
+  }, [visible]);
 
   React.useEffect(() => {
     return () => {
       if (hideTimerRef.current) clearTimeout(hideTimerRef.current);
     };
   }, []);
+
+  const show = () => {
+    if (!isControlled) setInternalVisible(true);
+    onOpenChange?.(true);
+  };
+
+  const hide = () => {
+    if (!isControlled) setInternalVisible(false);
+    onOpenChange?.(false);
+  };
 
   const handleMouseEnter = (e: React.MouseEvent) => {
     show();

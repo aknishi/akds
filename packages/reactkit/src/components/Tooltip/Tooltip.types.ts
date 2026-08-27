@@ -9,4 +9,8 @@ export interface TooltipProps {
   children: React.ReactElement;
   /** Controls which side of the trigger the tooltip appears on. Defaults to 'top'. */
   placement?: TooltipPlacement;
+  /** Controlled visibility. When provided, hover/focus/blur no longer toggle the tooltip directly — pair with onOpenChange. */
+  open?: boolean;
+  /** Called when hover/focus/blur on the trigger would change visibility. Required to react to those events when open is controlled. */
+  onOpenChange?: (open: boolean) => void;
 }

@@ -9,6 +9,11 @@ export const button: ComponentEntry = {
     'The primary trigger for actions. Supports three appearances, four emphasis levels, three sizes, loading and disabled states.',
   sourcePath: 'packages/reactkit/src/components/Button',
   storybookId: 'reactkit-buttons-button--docs',
+  preview: (
+    <Button appearance="solid" emphasis="accented">
+      Button
+    </Button>
+  ),
   examples: [
     {
       title: 'Appearances',

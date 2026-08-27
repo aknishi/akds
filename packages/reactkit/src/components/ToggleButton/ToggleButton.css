@@ -24,7 +24,7 @@
 }
 
 .akds-toggle-button:active:not(.akds-toggle-button--disabled) {
-  transform: scale(0.96);
+  transform: scale(0.94);
   transition-duration: 50ms;
 }
 
@@ -82,23 +82,28 @@
   font-weight: var(--akds-font-weight-medium);
 }
 
+/* The tint background is derived from the same semantic text token via color-mix()
+   instead of a fixed light primitive, because the primitives never adapted for dark
+   mode — pairing a fixed-light primitive with a text token that turns near-white in
+   dark mode produced white-on-white text. Mixing the (theme-aware) text color into
+   the (theme-aware) surface color keeps the tint correct in both themes. */
 .akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--primary {
-  background: var(--akds-primitive-color-blue-100);
+  background: color-mix(in srgb, var(--akds-color-text-info-default) 14%, var(--akds-color-surface-default));
   color: var(--akds-color-text-info-default);
 }
 
 .akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--success {
-  background: var(--akds-primitive-color-green-100);
+  background: color-mix(in srgb, var(--akds-color-text-success-default) 14%, var(--akds-color-surface-default));
   color: var(--akds-color-text-success-default);
 }
 
 .akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--error {
-  background: var(--akds-primitive-color-red-100);
+  background: color-mix(in srgb, var(--akds-color-text-error-default) 14%, var(--akds-color-surface-default));
   color: var(--akds-color-text-error-default);
 }
 
 .akds-toggle-button--standalone.akds-toggle-button--active.akds-toggle-button--neutral {
-  background: var(--akds-primitive-color-neutral-100);
+  background: color-mix(in srgb, var(--akds-color-text-primary-default) 14%, var(--akds-color-surface-default));
   color: var(--akds-color-text-primary-default);
 }
 

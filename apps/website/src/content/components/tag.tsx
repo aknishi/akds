@@ -19,6 +19,7 @@ export const tag: ComponentEntry = {
   summary: 'A small status or label chip, with an optional dismiss button.',
   sourcePath: 'packages/reactkit/src/components/Tag',
   storybookId: 'reactkit-tag--docs',
+  preview: <Tag variant="info">In progress</Tag>,
   examples: [
     {
       title: 'Variants',

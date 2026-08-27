@@ -9,6 +9,14 @@ export const tabs: ComponentEntry = {
     'A compound component set (Tabs, TabList, Tab, TabPanel) that shares active-tab state through context — no manual wiring required.',
   sourcePath: 'packages/reactkit/src/components/Tabs',
   storybookId: 'reactkit-tabs--docs',
+  preview: (
+    <Tabs defaultActiveTab="one">
+      <TabList>
+        <Tab value="one">One</Tab>
+        <Tab value="two">Two</Tab>
+      </TabList>
+    </Tabs>
+  ),
   examples: [
     {
       title: 'Basic',

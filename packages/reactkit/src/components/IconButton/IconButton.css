@@ -21,7 +21,7 @@
 }
 
 .akds-icon-button:active:not(.akds-icon-button--disabled) {
-  transform: scale(0.9);
+  transform: scale(0.94);
   transition-duration: 50ms;
 }
 

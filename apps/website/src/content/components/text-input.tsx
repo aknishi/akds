@@ -9,6 +9,7 @@ export const textInput: ComponentEntry = {
   summary: 'A text field with a floating label, helper text, error state, and optional start adornment.',
   sourcePath: 'packages/reactkit/src/components/TextInput',
   storybookId: 'reactkit-textinput--docs',
+  preview: <TextInput label="Email" />,
   examples: [
     {
       title: 'Basic',

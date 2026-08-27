@@ -34,8 +34,25 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
   ) {
     const panelRef = React.useRef<HTMLDivElement>(null);
     const titleId = React.useId();
+    const [isClosing, setIsClosing] = React.useState(false);
+    const wasOpenRef = React.useRef(false);
 
     React.useImperativeHandle(ref, () => panelRef.current!);
+
+    // useLayoutEffect (not useEffect): this must resolve before the browser
+    // paints. With useEffect, the render where `open` first flips false
+    // commits with isClosing still false and returns null — the browser
+    // paints that empty frame — and only then does the effect fire and
+    // remount the dialog as a brand-new node already mid-close-animation,
+    // producing a visible flash/pop.
+    React.useLayoutEffect(() => {
+      if (open) {
+        wasOpenRef.current = true;
+        setIsClosing(false);
+      } else if (wasOpenRef.current) {
+        setIsClosing(true);
+      }
+    }, [open]);
 
     // Focus first focusable element when opened
     React.useEffect(() => {
@@ -85,7 +102,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
       return () => { document.body.style.overflow = prev; };
     }, [open]);
 
-    if (!open) return null;
+    if (!open && !isClosing) return null;
 
     return ReactDOM.createPortal(
       <div
@@ -98,7 +115,8 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}
           aria-label={!title ? ariaLabel : undefined}
-          className={clsx(withBaseName(), withBaseName(size), className)}
+          className={clsx(withBaseName(), withBaseName(size), { [withBaseName('closing')]: isClosing }, className)}
+          onAnimationEnd={() => { if (isClosing) setIsClosing(false); }}
           onClick={e => e.stopPropagation()}
         >
           <div className="akds-dialog__header">

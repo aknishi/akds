@@ -18,6 +18,12 @@ export const carousel: ComponentEntry = {
   summary: 'An auto-scrolling, loopable slide container for showcasing a sequence of content.',
   sourcePath: 'packages/reactkit/src/components/Carousel',
   storybookId: 'reactkit-carousel--docs',
+  preview: (
+    <Carousel autoScroll={false} hideButtons>
+      <CarouselSlide label="Slide 1" fixedWidth />
+      <CarouselSlide label="Slide 2" fixedWidth />
+    </Carousel>
+  ),
   examples: [
     {
       title: 'Default',

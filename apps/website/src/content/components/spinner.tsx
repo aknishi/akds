@@ -8,6 +8,7 @@ export const spinner: ComponentEntry = {
   summary: 'A loading indicator, used inside Button/IconButton loading states or standalone for async content.',
   sourcePath: 'packages/reactkit/src/components/Spinner',
   storybookId: 'reactkit-spinner--docs',
+  preview: <Spinner size="lg" />,
   examples: [
     {
       title: 'Sizes',

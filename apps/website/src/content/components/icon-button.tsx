@@ -9,6 +9,11 @@ export const iconButton: ComponentEntry = {
   summary: 'An icon-only button — same appearance/emphasis system as Button, but requires an aria-label.',
   sourcePath: 'packages/reactkit/src/components/IconButton',
   storybookId: 'reactkit-buttons-iconbutton--docs',
+  preview: (
+    <IconButton appearance="solid" emphasis="accented" aria-label="Settings">
+      <SettingsIcon />
+    </IconButton>
+  ),
   examples: [
     {
       title: 'Appearances',

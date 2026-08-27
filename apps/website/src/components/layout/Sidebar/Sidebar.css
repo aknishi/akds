@@ -20,6 +20,26 @@
   gap: var(--akds-spacing-layout-lg);
 }
 
+.sidebar-content__mobile-primary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--akds-spacing-50);
+  padding-bottom: var(--akds-spacing-layout-lg);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}
+
+@media (min-width: 1024px) {
+  .sidebar-content__mobile-primary {
+    display: none;
+  }
+}
+
+.sidebar-content__link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-50);
+}
+
 .sidebar-content__group-label {
   font-size: var(--akds-font-size-xs);
   font-weight: var(--akds-font-weight-semibold);

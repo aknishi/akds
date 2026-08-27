@@ -69,11 +69,28 @@
 }
 
 /* ── Panel ─────────────────────────────────────────────────────────────── */
+/*
+ * grid-template-rows: 0fr → 1fr animates to the content's intrinsic height
+ * without measuring it in JS. visibility (not display) hides the collapsed
+ * panel — it's removed from the accessibility tree and the tab order just
+ * like the `hidden` attribute was, but unlike `hidden` it can be animated.
+ */
 .akds-accordion-item__panel {
+  display: grid;
+  grid-template-rows: 0fr;
   overflow: hidden;
+  visibility: hidden;
+  transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms;
+}
+
+.akds-accordion-item--expanded .akds-accordion-item__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 200ms ease-out, visibility 0s linear 0s;
 }
 
 .akds-accordion-item__panel-inner {
+  min-height: 0;
   padding: 0 var(--akds-spacing-200) var(--akds-spacing-200);
   color: var(--akds-color-text-secondary-default);
   font-family: var(--akds-font-family-sans);
@@ -92,7 +109,8 @@
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .akds-accordion-item__trigger::after,
-  .akds-accordion-item__icon {
+  .akds-accordion-item__icon,
+  .akds-accordion-item__panel {
     transition: none;
   }
 }

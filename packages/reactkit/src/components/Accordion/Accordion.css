@@ -2,6 +2,7 @@
 .akds-accordion {
   display: flex;
   flex-direction: column;
+  width: 100%;
   border-top: 1px solid var(--akds-color-border-neutral-default);
   box-sizing: border-box;
   font-family: var(--akds-font-family-sans);
