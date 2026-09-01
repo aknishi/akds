@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { DropdownMenu } from '../../../components/DropdownMenu/DropdownMenu';
@@ -307,28 +307,28 @@ describe('DropdownMenu', () => {
   describe('trigger keyboard navigation', () => {
     it('opens listbox on ArrowDown', async () => {
       setup();
-      screen.getByRole('button', { name: 'Fruit' }).focus();
+      act(() => { screen.getByRole('button', { name: 'Fruit' }).focus(); });
       await userEvent.keyboard('{ArrowDown}');
       expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
     it('opens listbox on ArrowUp', async () => {
       setup();
-      screen.getByRole('button', { name: 'Fruit' }).focus();
+      act(() => { screen.getByRole('button', { name: 'Fruit' }).focus(); });
       await userEvent.keyboard('{ArrowUp}');
       expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
     it('opens listbox on Enter', async () => {
       setup();
-      screen.getByRole('button', { name: 'Fruit' }).focus();
+      act(() => { screen.getByRole('button', { name: 'Fruit' }).focus(); });
       await userEvent.keyboard('{Enter}');
       expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
 
     it('opens listbox on Space', async () => {
       setup();
-      screen.getByRole('button', { name: 'Fruit' }).focus();
+      act(() => { screen.getByRole('button', { name: 'Fruit' }).focus(); });
       await userEvent.keyboard(' ');
       expect(screen.getByRole('listbox')).toBeInTheDocument();
     });
