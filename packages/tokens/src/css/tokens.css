@@ -234,6 +234,7 @@
 
 /* ─── Dark mode — explicit attribute ────────────────────────────── */
 [data-theme="dark"] {
+  --akds-color-interaction-focus-outline: #FFFFFF;
   --akds-color-background-primary-default: #3B82F6;
   --akds-color-background-primary-hover: #60A5FA;
   --akds-color-background-primary-active: #93C5FD;
@@ -294,6 +295,7 @@
 /* ─── Dark mode — OS preference (respects explicit light override) */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    --akds-color-interaction-focus-outline: #FFFFFF;
     --akds-color-background-primary-default: #3B82F6;
     --akds-color-background-primary-hover: #60A5FA;
     --akds-color-background-primary-active: #93C5FD;

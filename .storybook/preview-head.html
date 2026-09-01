@@ -7,3 +7,14 @@
   rel="stylesheet"
 />
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+<style>
+  /* Seeds a height:100% chain so the ThemeWrapper background can fill the
+     full standalone story viewport (html here resolves against the actual
+     iframe viewport). In the docs-embedded mini preview there's no such
+     ancestor height, so this safely falls back to auto/content-sized
+     instead of forcing a viewport-height block the way 100vh would. */
+  html, body, #storybook-root {
+    height: 100%;
+  }
+</style>
