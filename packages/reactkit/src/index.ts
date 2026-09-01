@@ -1,6 +1,9 @@
 export { Button } from './components/Button/index.js';
 export type { ButtonProps, ButtonAppearance, ButtonEmphasis, ButtonSize } from './components/Button/index.js';
 
+export { AIButton } from './components/AIButton/index.js';
+export type { AIButtonProps, AIButtonSize } from './components/AIButton/index.js';
+
 export { IconButton } from './components/IconButton/index.js';
 export type { IconButtonProps, IconButtonAppearance, IconButtonEmphasis } from './components/IconButton/index.js';
 

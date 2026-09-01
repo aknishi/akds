@@ -1,6 +1,7 @@
 import type { ComponentEntry } from './types';
 
 // Actions
+import { aiButton } from './ai-button';
 import { button } from './button';
 import { iconButton } from './icon-button';
 import { likeButton } from './like-button';
@@ -42,6 +43,7 @@ import { text } from './text';
 import { themeProvider } from './theme-provider';
 
 export const componentRegistry: ComponentEntry[] = [
+  aiButton,
   button,
   iconButton,
   likeButton,

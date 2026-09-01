@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router';
 import { motion } from 'framer-motion';
-import { Avatar, Button, Card, CardContent, Flexbox, IconButton, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
-import { CopyIcon } from '@aknishi/akds-icons';
+import { AIButton, Avatar, Button, Card, CardContent, Flexbox, IconButton, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
+import { CopyIcon, ChevronRightIcon } from '@aknishi/akds-icons';
 import { Hero } from '../../components/marketing/Hero';
 import { Section } from '../../components/marketing/Section';
 import { ShowcaseMarquee } from '../../components/marketing/ShowcaseMarquee';
@@ -52,16 +52,6 @@ const COMPONENT_PREVIEWS = [
     ),
   },
   {
-    slug: 'dialog',
-    name: 'Dialog',
-    description: 'Modal dialog with configurable sizes.',
-    preview: (
-      <Button appearance="bordered" emphasis="neutral">
-        Open dialog
-      </Button>
-    ),
-  },
-  {
     slug: 'avatar',
     name: 'Avatar',
     description: 'Image, initials, or icon fallback.',
@@ -89,6 +79,12 @@ const COMPONENT_PREVIEWS = [
         </Tooltip>
       </div>
     ),
+  },
+  {
+    slug: 'ai-button',
+    name: 'AIButton',
+    description: 'Triggers AI generation with an animated loading state.',
+    preview: <AIButton loading>Generate</AIButton>,
   },
 ];
 
@@ -129,13 +125,10 @@ export function LandingPage() {
       </Section>
 
       <Section>
-        <Flexbox justify="space-between" align="baseline" wrap gap="md" className="landing-section__intro">
+        <Flexbox direction="column" gap="sm" className="landing-section__intro">
           <Text as="h2" styleAs="h2">
             {componentRegistry.length} components, one design language
           </Text>
-          <NavLink to="/components" className="landing-section__cta-link">
-            View all components →
-          </NavLink>
         </Flexbox>
         <div className="landing-section__spacer" />
         <motion.div className="landing-components-grid" variants={staggerContainer}>
@@ -144,6 +137,17 @@ export function LandingPage() {
               <ComponentCard slug={item.slug} name={item.name} description={item.description} preview={item.preview} />
             </motion.div>
           ))}
+          <motion.div className="landing-components-grid__item" variants={staggerItem}>
+            <NavLink to="/components" className="component-card-link">
+              <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.15 }}>
+                <Card className="component-card landing-view-all-card">
+                  <Text as="span" styleAs="h5" className="landing-view-all-card__text">
+                    View all components catalog &rarr;
+                  </Text>
+                </Card>
+              </motion.div>
+            </NavLink>
+          </motion.div>
         </motion.div>
       </Section>
 

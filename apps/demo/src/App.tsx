@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Button,
+  AIButton,
   IconButton,
   Carousel,
   TextInput,
@@ -623,6 +624,27 @@ function AppContent() {
             <ToggleButton value="drinks">Drinks</ToggleButton>
             <ToggleButton value="food">Food</ToggleButton>
           </ToggleGroup>
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* AIButton section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">AIButton</h2>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <AIButton>Generate</AIButton>
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <AIButton disabled>Generate</AIButton>
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">loading</span>
+          <AIButton loading>Generate</AIButton>
         </div>
       </section>
     </div>

@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AIButtonStories from './AIButton.stories';
+
+<Meta of={AIButtonStories} />
+
+# AIButton
+
+> **Available from v1.5.0**
+
+Triggers generation of AI content, such as images or text. Replaces its label with `loadingLabel` while `loading` is true. If `loading` is omitted, the button enters its loading state on click and stays there — pass `loading` explicitly to control when it clears.
+
+## Usage
+
+```tsx
+import { AIButton } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={AIButtonStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={AIButtonStories.Default} />
+
+### Disabled
+
+<Canvas of={AIButtonStories.Disabled} />
+
+### Loading
+
+<Canvas of={AIButtonStories.Loading} />
+
+### Controlled
+
+<Canvas of={AIButtonStories.Controlled} />
