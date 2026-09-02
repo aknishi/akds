@@ -1,0 +1,22 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Reactkit/Table/Datagrid" />
+
+# Datagrid
+
+> **Planned — not yet available**
+
+Datagrid will be a separate `@aknishi/akds-datagrid` package for interactive, large-scale tabular data — built on [TanStack Table](https://tanstack.com/table) for its headless logic layer, and rendered with this package's `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td` primitives.
+
+## Planned features
+
+- Column sorting
+- Column and global filtering
+- Pagination
+- Row selection
+- Column resizing, reordering, and pinning (beyond the resizable columns already available on `Th`)
+- Virtualized rendering for large datasets
+
+## What to use today
+
+For static or simple tabular data — a props table, a summary list, a small dataset with no sorting or filtering — use [Basic Table](/docs/reactkit-table-basic-table--docs) instead. It has no dependency on this future package and covers column alignment, striping, a footer row, and resizable columns.

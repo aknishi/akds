@@ -129,3 +129,24 @@ export type { AlertProps, AlertEmphasis, AlertVariant } from './components/Alert
 
 export { AlertTitle } from './components/AlertTitle/index.js';
 export type { AlertTitleProps } from './components/AlertTitle/index.js';
+
+export { Table } from './components/Table/index.js';
+export type { TableProps } from './components/Table/index.js';
+
+export { Thead } from './components/Thead/index.js';
+export type { TheadProps } from './components/Thead/index.js';
+
+export { Tbody } from './components/Tbody/index.js';
+export type { TbodyProps } from './components/Tbody/index.js';
+
+export { Tfoot } from './components/Tfoot/index.js';
+export type { TfootProps } from './components/Tfoot/index.js';
+
+export { Tr } from './components/Tr/index.js';
+export type { TrProps } from './components/Tr/index.js';
+
+export { Th } from './components/Th/index.js';
+export type { ThProps, ThAlign } from './components/Th/index.js';
+
+export { Td } from './components/Td/index.js';
+export type { TdProps, TdAlign } from './components/Td/index.js';

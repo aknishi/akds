@@ -1,0 +1,15 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-tbody {
+  display: table-row-group;
+}
+
+/* ── Last row ────────────────────────────────────────────────────────────── */
+.akds-tbody .akds-tr:last-child .akds-td,
+.akds-tbody .akds-tr:last-child .akds-th {
+  border-bottom: none;
+}
+
+/* ── Striped ─────────────────────────────────────────────────────────────── */
+.akds-tbody--striped .akds-tr:nth-child(even) {
+  background-color: var(--akds-color-surface-sunken);
+}

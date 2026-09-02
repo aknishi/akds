@@ -1,0 +1,22 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-td {
+  padding: var(--akds-spacing-150) var(--akds-spacing-200);
+  color: var(--akds-color-text-primary-default);
+  vertical-align: top;
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}
+
+.akds-td code {
+  font-family: var(--akds-font-family-mono), monospace;
+  font-size: var(--akds-font-size-xs);
+  color: var(--akds-color-text-info-default);
+}
+
+/* ── Align ───────────────────────────────────────────────────────────────── */
+.akds-td--center {
+  text-align: center;
+}
+
+.akds-td--right {
+  text-align: right;
+}

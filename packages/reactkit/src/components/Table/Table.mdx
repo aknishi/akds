@@ -1,0 +1,48 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TableStories from './Table.stories';
+
+<Meta of={TableStories} />
+
+# Basic Table
+
+> **Available from v1.5.0**
+
+A semantic HTML table for displaying tabular data, styled to match the design system's documentation tables. Compose with `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, and `Td` subcomponents. `Th` supports optional column resizing — draggable and keyboard-operable — in both uncontrolled (`defaultWidth`) and controlled (`width` + `onWidthChange`) forms.
+
+This is a lightweight, presentational table for static or simple tabular data. It does not include sorting, filtering, or pagination — those data-grid features are planned for a separate `Datagrid` package built on TanStack Table.
+
+## Usage
+
+```tsx
+import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TableStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={TableStories.Default} />
+
+### Alignment
+
+<Canvas of={TableStories.Alignment} />
+
+### Resizable Columns
+
+<Canvas of={TableStories.ResizableColumns} />
+
+### Resizable Columns (Controlled)
+
+<Canvas of={TableStories.ResizableColumnsControlled} />
+
+### Striped
+
+<Canvas of={TableStories.Striped} />
+
+### With Footer
+
+<Canvas of={TableStories.WithFooter} />

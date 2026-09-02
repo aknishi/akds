@@ -63,7 +63,7 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
             border-color: var(--akds-color-border-neutral-default) !important;
             background: transparent !important;
           }
-          tr:nth-child(even) td {
+          tr:nth-child(even) td:not([class*="akds-"]) {
             background: var(--akds-color-surface-sunken) !important;
           }
           table {

@@ -40,6 +40,7 @@ import { tooltip } from './tooltip';
 // Data Display & Content
 import { avatar } from './avatar';
 import { carousel } from './carousel';
+import { table } from './table';
 import { tag } from './tag';
 import { text } from './text';
 
@@ -74,6 +75,7 @@ export const componentRegistry: ComponentEntry[] = [
   tooltip,
   avatar,
   carousel,
+  table,
   tag,
   text,
   themeProvider,

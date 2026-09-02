@@ -1,0 +1,14 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-tfoot {
+  display: table-footer-group;
+}
+
+.akds-tfoot .akds-td,
+.akds-tfoot .akds-th {
+  border-top: 1px solid var(--akds-color-border-neutral-default);
+  border-bottom: none;
+}
+
+.akds-tfoot .akds-th {
+  background-color: transparent;
+}

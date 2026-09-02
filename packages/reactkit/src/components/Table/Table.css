@@ -1,0 +1,21 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-table__wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: var(--akds-radius-lg);
+}
+
+.akds-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--akds-color-surface-default);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-sm);
+  color: var(--akds-color-text-primary-default);
+}
+
+/* Resizable columns need a fixed layout — each column's width is then governed
+   by its header cell's own width instead of being recalculated from content. */
+.akds-table:has(.akds-th--resizable) {
+  table-layout: fixed;
+}
