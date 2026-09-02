@@ -53,6 +53,10 @@ export const semanticColors = {
         light: '#FEF2F2',
         dark: '#450A0A',
       },
+      strong: {
+        light: '#D92323',
+        dark: '#D92323',
+      },
     },
     warning: {
       default: {
@@ -66,6 +70,10 @@ export const semanticColors = {
       surface: {
         light: '#FEFCE8',
         dark: '#422006',
+      },
+      strong: {
+        light: '#A16207',
+        dark: '#A16207',
       },
     },
     success: {
@@ -81,6 +89,10 @@ export const semanticColors = {
         light: '#F0FDF4',
         dark: '#052E16',
       },
+      strong: {
+        light: '#15803D',
+        dark: '#15803D',
+      },
     },
     info: {
       default: {
@@ -94,6 +106,10 @@ export const semanticColors = {
       surface: {
         light: '#EFF6FF',
         dark: '#172554',
+      },
+      strong: {
+        light: '#2563EB',
+        dark: '#2563EB',
       },
     },
     neutral: {

@@ -324,6 +324,24 @@
                 "WEB": "var(--akds-color-background-error-surface)"
               }
             }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.850980392156863,
+                0.137254901960784,
+                0.137254901960784
+              ],
+              "alpha": 1,
+              "hex": "#D92323"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-error-strong)"
+              }
+            }
           }
         },
         "warning": {
@@ -402,6 +420,24 @@
             "$extensions": {
               "com.figma.codeSyntax": {
                 "WEB": "var(--akds-color-background-warning-surface)"
+              }
+            }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.631372549019608,
+                0.384313725490196,
+                0.027450980392157
+              ],
+              "alpha": 1,
+              "hex": "#A16207"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-warning-strong)"
               }
             }
           }
@@ -484,6 +520,24 @@
                 "WEB": "var(--akds-color-background-success-surface)"
               }
             }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.082352941176471,
+                0.501960784313725,
+                0.23921568627451
+              ],
+              "alpha": 1,
+              "hex": "#15803D"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-success-strong)"
+              }
+            }
           }
         },
         "info": {
@@ -562,6 +616,24 @@
             "$extensions": {
               "com.figma.codeSyntax": {
                 "WEB": "var(--akds-color-background-info-surface)"
+              }
+            }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.145098039215686,
+                0.388235294117647,
+                0.92156862745098
+              ],
+              "alpha": 1,
+              "hex": "#2563EB"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-info-strong)"
               }
             }
           }
