@@ -28,6 +28,7 @@ import { progressTracker } from './progress-tracker';
 import { tabs } from './tabs';
 
 // Feedback
+import { alert } from './alert';
 import { spinner } from './spinner';
 import { toast } from './toast';
 
@@ -67,6 +68,7 @@ export const componentRegistry: ComponentEntry[] = [
   tabs,
   dialog,
   drawer,
+  alert,
   spinner,
   toast,
   tooltip,

@@ -33,9 +33,11 @@ import {
   ToggleGroup,
   ToastProvider,
   useToast,
+  Alert,
+  AlertTitle,
 } from '@aknishi/akds-reactkit';
-import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption } from '@aknishi/akds-reactkit';
-import { CloseIcon } from '@aknishi/akds-icons';
+import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption, AlertEmphasis, AlertVariant } from '@aknishi/akds-reactkit';
+import { CloseIcon, MoreVertIcon, StarFilledIcon } from '@aknishi/akds-icons';
 import './App.css';
 import AccessibleCarousel from './AccessibleCarousel';
 
@@ -659,6 +661,14 @@ function AppContent() {
         <h2 className="demo-section__heading">Toast</h2>
         <ToastDemo />
       </section>
+
+      <hr className="demo-divider" />
+
+      {/* Alert section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Alert</h2>
+        <AlertDemo />
+      </section>
     </div>
   );
 }
@@ -952,6 +962,122 @@ function ToastDemo() {
         >
           No auto-dismiss
         </Button>
+      </div>
+    </>
+  );
+}
+
+const alertEmphases: AlertEmphasis[] = ['info', 'success', 'warning', 'error'];
+
+const ALERT_MESSAGE: Record<AlertEmphasis, string> = {
+  info: 'A new version of the app is available.',
+  success: 'Your changes were saved successfully.',
+  warning: 'Your storage is almost full.',
+  error: 'Failed to save changes. Please try again.',
+};
+
+function AlertDemo() {
+  const [dismissed, setDismissed] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const menuTriggerRef = React.useRef<HTMLButtonElement>(null);
+
+  return (
+    <>
+      <p className="demo-label-heading">Emphasis</p>
+      <div className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+        {alertEmphases.map(emphasis => (
+          <Alert key={emphasis} emphasis={emphasis}>
+            {ALERT_MESSAGE[emphasis]}
+          </Alert>
+        ))}
+      </div>
+
+      <p className="demo-label-heading">Variant</p>
+      {(['default', 'filled'] as AlertVariant[]).map(variant => (
+        <div key={variant} className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+          {alertEmphases.map(emphasis => (
+            <Alert key={emphasis} variant={variant} emphasis={emphasis}>
+              {ALERT_MESSAGE[emphasis]}
+            </Alert>
+          ))}
+        </div>
+      ))}
+
+      <p className="demo-label-heading">With title</p>
+      <div className="demo-row">
+        <Alert emphasis="warning">
+          <AlertTitle>Storage almost full</AlertTitle>
+          You have used 95% of your available storage. Free up space or upgrade your plan.
+        </Alert>
+      </div>
+
+      <p className="demo-label-heading">Custom / hidden icon</p>
+      <div className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+        <Alert emphasis="success" icon={<StarFilledIcon size="md" />}>
+          You&apos;ve unlocked a new achievement.
+        </Alert>
+        <Alert emphasis="info" icon={false}>
+          No icon is rendered for this alert.
+        </Alert>
+      </div>
+
+      <p className="demo-label-heading">With action</p>
+      <div className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+        {dismissed ? (
+          <Button appearance="bordered" emphasis="neutral" onClick={() => setDismissed(false)}>
+            Reset
+          </Button>
+        ) : (
+          <Alert
+            emphasis="warning"
+            action={
+              <IconButton
+                appearance="transparent"
+                emphasis="neutral"
+                aria-label="Dismiss"
+                onClick={() => setDismissed(true)}
+              >
+                <CloseIcon size="sm" />
+              </IconButton>
+            }
+          >
+            Your session will expire in 5 minutes.
+          </Alert>
+        )}
+
+        <div style={{ position: 'relative' }}>
+          <Alert
+            emphasis="info"
+            action={
+              <IconButton
+                ref={menuTriggerRef}
+                appearance="transparent"
+                emphasis="neutral"
+                aria-label="More options"
+                onClick={() => setMenuOpen(o => !o)}
+              >
+                <MoreVertIcon size="sm" />
+              </IconButton>
+            }
+          >
+            A new version of the app is available.
+          </Alert>
+          <Menu open={menuOpen} onOpenChange={setMenuOpen} triggerRef={menuTriggerRef}>
+            <MenuItem onClick={() => setMenuOpen(false)}>Refresh now</MenuItem>
+            <MenuItem onClick={() => setMenuOpen(false)}>Remind me later</MenuItem>
+          </Menu>
+        </div>
+
+        <Alert
+          emphasis="error"
+          action={
+            <Button appearance="bordered" emphasis="neutral" size="sm">
+              Retry
+            </Button>
+          }
+        >
+          Failed to save changes.
+        </Alert>
       </div>
     </>
   );

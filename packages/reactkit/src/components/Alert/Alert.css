@@ -1,0 +1,122 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-alert {
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--akds-spacing-150);
+  padding: var(--akds-spacing-100) var(--akds-spacing-200);
+  border-radius: var(--akds-radius-lg);
+  font-family: var(--akds-font-family-sans);
+  animation: akds-alert-in 200ms ease-out;
+}
+
+@keyframes akds-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Icon ──────────────────────────────────────────────────────────────── */
+.akds-alert__icon {
+  display: flex;
+  flex-shrink: 0;
+  width: var(--akds-size-icon-md);
+  height: var(--akds-size-icon-md);
+  margin-top: var(--akds-spacing-100);
+  margin-bottom: var(--akds-spacing-100);
+}
+
+.akds-alert__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Two-class selector outweighs the icon's own single-class default (.akds-icon), so the icon follows the alert's color without !important. */
+.akds-alert__icon > .akds-icon {
+  color: inherit;
+}
+
+/* ── Content ───────────────────────────────────────────────────────────── */
+.akds-alert__content {
+  flex: 1;
+  min-width: 0;
+  margin-top: var(--akds-spacing-100);
+  margin-bottom: var(--akds-spacing-100);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  word-break: break-word;
+}
+
+/* ── Action ────────────────────────────────────────────────────────────── */
+.akds-alert__action {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  /* Lets the action's own hit area (e.g. an IconButton) grow past the
+     alert's reduced padding without stretching a single-line alert taller —
+     its edge lands flush with the alert's padding instead of adding to it. */
+  margin-right: calc(-1 * var(--akds-spacing-100));
+  /* Optical nudge to center the action against the first line of text. */
+  margin-top: calc(var(--akds-spacing-25) + 1px);
+}
+
+/* ── Emphasis — default variant ────────────────────────────────────────── */
+.akds-alert--default.akds-alert--info {
+  background: var(--akds-color-background-info-surface);
+  color: var(--akds-color-text-info-default);
+}
+
+.akds-alert--default.akds-alert--success {
+  background: var(--akds-color-background-success-surface);
+  color: var(--akds-color-text-success-default);
+}
+
+.akds-alert--default.akds-alert--warning {
+  background: var(--akds-color-background-warning-surface);
+  color: var(--akds-color-text-warning-default);
+}
+
+.akds-alert--default.akds-alert--error {
+  background: var(--akds-color-background-error-surface);
+  color: var(--akds-color-text-error-default);
+}
+
+/* ── Emphasis — filled ─────────────────────────────────────────────────── */
+/* All four use a "strong" background rather than -default — -default varies
+   per theme (dark mode uses lighter tints meant for dark neutral surfaces)
+   and fails contrast with white text in several cases (as low as 1.92:1 for
+   warning). The -strong tokens are theme-invariant and each clear 4.5:1+
+   with white. */
+.akds-alert--filled.akds-alert--info {
+  background: var(--akds-color-background-info-strong);
+  color: var(--akds-color-text-on-primary-default);
+}
+
+.akds-alert--filled.akds-alert--success {
+  background: var(--akds-color-background-success-strong);
+  color: var(--akds-color-text-on-primary-default);
+}
+
+.akds-alert--filled.akds-alert--warning {
+  background: var(--akds-color-background-warning-strong);
+  color: var(--akds-color-text-on-primary-default);
+}
+
+.akds-alert--filled.akds-alert--error {
+  background: var(--akds-color-background-error-strong);
+  color: var(--akds-color-text-on-primary-default);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-alert {
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
+  }
+}

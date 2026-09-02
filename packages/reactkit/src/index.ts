@@ -123,3 +123,9 @@ export type { ToggleGroupProps, ToggleGroupSize } from './components/ToggleGroup
 
 export { ToastProvider, useToast, ToastContext } from './components/Toast/index.js';
 export type { ToastProviderProps, ToastOptions, ToastEmphasis, ToastPlacement, ToastContextValue } from './components/Toast/index.js';
+
+export { Alert } from './components/Alert/index.js';
+export type { AlertProps, AlertEmphasis, AlertVariant } from './components/Alert/index.js';
+
+export { AlertTitle } from './components/AlertTitle/index.js';
+export type { AlertTitleProps } from './components/AlertTitle/index.js';

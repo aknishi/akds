@@ -1,0 +1,9 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-alert-title {
+  display: block;
+  margin-bottom: var(--akds-spacing-50);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-bold);
+  line-height: var(--akds-font-line-height-tight);
+  color: inherit;
+}
