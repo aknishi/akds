@@ -27,10 +27,13 @@ import { menu } from './menu';
 import { progressTracker } from './progress-tracker';
 import { tabs } from './tabs';
 
-// Feedback & Overlay
+// Feedback
+import { spinner } from './spinner';
+import { toast } from './toast';
+
+// Overlay
 import { dialog } from './dialog';
 import { drawer } from './drawer';
-import { spinner } from './spinner';
 import { tooltip } from './tooltip';
 
 // Data Display & Content
@@ -65,6 +68,7 @@ export const componentRegistry: ComponentEntry[] = [
   dialog,
   drawer,
   spinner,
+  toast,
   tooltip,
   avatar,
   carousel,

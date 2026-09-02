@@ -5,7 +5,7 @@ import type { ComponentEntry } from './types';
 export const tooltip: ComponentEntry = {
   slug: 'tooltip',
   name: 'Tooltip',
-  category: 'Feedback & Overlay',
+  category: 'Overlay',
   summary: 'A hover/focus tooltip attached to a single trigger element, with configurable placement.',
   sourcePath: 'packages/reactkit/src/components/Tooltip',
   storybookId: 'reactkit-tooltip--docs',

@@ -31,6 +31,8 @@ import {
   Combobox,
   ToggleButton,
   ToggleGroup,
+  ToastProvider,
+  useToast,
 } from '@aknishi/akds-reactkit';
 import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption } from '@aknishi/akds-reactkit';
 import { CloseIcon } from '@aknishi/akds-icons';
@@ -46,7 +48,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme} onThemeChange={setTheme}>
-      <AppContent />
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
     </ThemeProvider>
   );
 }
@@ -647,6 +651,14 @@ function AppContent() {
           <AIButton loading>Generate</AIButton>
         </div>
       </section>
+
+      <hr className="demo-divider" />
+
+      {/* Toast section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Toast</h2>
+        <ToastDemo />
+      </section>
     </div>
   );
 }
@@ -872,6 +884,74 @@ function ComboboxDemo() {
       <p className="demo-label-heading">Disabled</p>
       <div className="demo-row">
         <Combobox options={FRUITS} label="Fruit" disabled defaultValue="apple" />
+      </div>
+    </>
+  );
+}
+
+function ToastDemo() {
+  const { show } = useToast();
+  let count = 0;
+
+  return (
+    <>
+      <p className="demo-label-heading">Emphasis</p>
+      <div className="demo-row">
+        <Button emphasis="accented" onClick={() => show({ emphasis: 'accented', message: 'A new version is available.' })}>
+          Accented
+        </Button>
+        <Button emphasis="neutral" onClick={() => show({ emphasis: 'neutral', message: 'Link copied to clipboard.' })}>
+          Neutral
+        </Button>
+        <Button emphasis="success" onClick={() => show({ emphasis: 'success', message: 'Payment was successfully received.' })}>
+          Success
+        </Button>
+        <Button emphasis="destructive" onClick={() => show({ emphasis: 'destructive', message: 'Failed to upload file.' })}>
+          Destructive
+        </Button>
+      </div>
+
+      <p className="demo-label-heading">Placement</p>
+      <div className="demo-row">
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          onClick={() => { count += 1; show({ placement: 'bottom-left', message: `Notification #${count}` }); }}
+        >
+          Bottom left
+        </Button>
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          onClick={() => { count += 1; show({ placement: 'bottom-center', message: `Notification #${count}` }); }}
+        >
+          Bottom center
+        </Button>
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          onClick={() => { count += 1; show({ placement: 'bottom-right', message: `Notification #${count}` }); }}
+        >
+          Bottom right
+        </Button>
+      </div>
+
+      <p className="demo-label-heading">Duration</p>
+      <div className="demo-row">
+        <Button
+          appearance="transparent"
+          emphasis="neutral"
+          onClick={() => show({ message: 'Dismisses after 2 seconds.', duration: 2000 })}
+        >
+          Custom duration
+        </Button>
+        <Button
+          appearance="transparent"
+          emphasis="neutral"
+          onClick={() => show({ message: 'Stays until you close it.', autoDismiss: false })}
+        >
+          No auto-dismiss
+        </Button>
       </div>
     </>
   );

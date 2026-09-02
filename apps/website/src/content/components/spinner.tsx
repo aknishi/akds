@@ -4,7 +4,7 @@ import type { ComponentEntry } from './types';
 export const spinner: ComponentEntry = {
   slug: 'spinner',
   name: 'Spinner',
-  category: 'Feedback & Overlay',
+  category: 'Feedback',
   summary: 'A loading indicator, used inside Button/IconButton loading states or standalone for async content.',
   sourcePath: 'packages/reactkit/src/components/Spinner',
   storybookId: 'reactkit-spinner--docs',
