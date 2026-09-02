@@ -1,0 +1,8 @@
+.all-tokens-page {
+  max-width: 860px;
+}
+
+.all-tokens-page__lede {
+  display: block;
+  color: var(--akds-color-text-secondary-default);
+}

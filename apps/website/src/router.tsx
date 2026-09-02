@@ -5,6 +5,7 @@ import { GettingStartedPage } from './pages/GettingStartedPage';
 import { ComponentsIndexPage } from './pages/ComponentsIndexPage';
 import { ComponentDocPage } from './pages/ComponentDocPage';
 import { TokensPage } from './pages/TokensPage';
+import { AllTokensPage } from './pages/AllTokensPage';
 import { IconsPage } from './pages/IconsPage';
 import { PackagesPage } from './pages/PackagesPage';
 import { GuidelinesDesignPage } from './pages/GuidelinesDesignPage';
@@ -20,6 +21,7 @@ export function AppRouter() {
         <Route path="/components" element={<ComponentsIndexPage />} />
         <Route path="/components/:slug" element={<ComponentDocPage />} />
         <Route path="/tokens" element={<TokensPage />} />
+        <Route path="/tokens/all" element={<AllTokensPage />} />
         <Route path="/icons" element={<IconsPage />} />
         <Route path="/packages" element={<PackagesPage />} />
         <Route path="/guidelines/design" element={<GuidelinesDesignPage />} />
