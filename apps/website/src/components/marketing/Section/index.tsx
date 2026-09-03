@@ -8,14 +8,26 @@ export interface SectionProps {
   children: React.ReactNode;
   className?: string;
   contained?: boolean;
+  /**
+   * Reveals the section with a scroll-triggered fade instead of rendering it
+   * immediately. Reserve this for the one or two moments on a page that earn
+   * a reveal — applying it to every section flattens hierarchy instead of
+   * creating it. Defaults to false.
+   */
+  animated?: boolean;
 }
 
-export function Section({ children, className, contained = true }: SectionProps) {
+export function Section({ children, className, contained = true, animated = false }: SectionProps) {
   const content = contained ? <PageContainer>{children}</PageContainer> : children;
+  const sectionClassName = `marketing-section${className ? ` ${className}` : ''}`;
+
+  if (!animated) {
+    return <section className={sectionClassName}>{content}</section>;
+  }
 
   return (
     <motion.section
-      className={`marketing-section${className ? ` ${className}` : ''}`}
+      className={sectionClassName}
       variants={fadeUp}
       initial="hidden"
       whileInView="visible"

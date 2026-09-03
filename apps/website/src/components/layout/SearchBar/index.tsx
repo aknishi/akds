@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
+import { AnimatePresence, motion } from 'framer-motion';
 import { TextInput } from '@aknishi/akds-reactkit';
 import { SearchIcon } from '@aknishi/akds-icons';
 import { searchSite } from '../../../content/searchIndex';
@@ -7,6 +8,7 @@ import type { SearchItem } from '../../../content/searchIndex';
 import './SearchBar.css';
 
 const LISTBOX_ID = 'site-search-listbox';
+const IS_APPLE = typeof navigator !== 'undefined' && /mac|iphone|ipad/i.test(navigator.platform ?? navigator.userAgent);
 
 export function SearchBar() {
   const navigate = useNavigate();
@@ -32,6 +34,19 @@ export function SearchBar() {
     document.addEventListener('mousedown', handlePointerDown);
     return () => document.removeEventListener('mousedown', handlePointerDown);
   }, [open]);
+
+  // Cmd/Ctrl+K focuses search from anywhere on the site, matching the
+  // accelerator power users expect from a dev-tool docs site.
+  React.useEffect(() => {
+    const handleShortcut = (event: KeyboardEvent) => {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        containerRef.current?.querySelector('input')?.focus();
+      }
+    };
+    document.addEventListener('keydown', handleShortcut);
+    return () => document.removeEventListener('keydown', handleShortcut);
+  }, []);
 
   const selectItem = (item: SearchItem) => {
     navigate(item.path);
@@ -90,29 +105,46 @@ export function SearchBar() {
         autoComplete="off"
         wrapperClassName="site-search__input site-search__input--pill"
       />
-      {showListbox && (
-        <ul id={LISTBOX_ID} role="listbox" className="site-search__listbox" aria-label="Search results">
-          {results.length === 0 ? (
-            <li className="site-search__empty">No results for &ldquo;{query.trim()}&rdquo;</li>
-          ) : (
-            results.map((item, index) => (
-              <li
-                key={item.id}
-                id={`${LISTBOX_ID}-${item.id}`}
-                role="option"
-                aria-selected={index === activeIndex}
-                className={`site-search__option${index === activeIndex ? ' site-search__option--active' : ''}`}
-                onMouseDown={(event) => event.preventDefault()}
-                onMouseEnter={() => setActiveIndex(index)}
-                onClick={() => selectItem(item)}
-              >
-                <span className="site-search__option-label">{item.label}</span>
-                <span className="site-search__option-group">{item.group}</span>
-              </li>
-            ))
-          )}
-        </ul>
+      {!query && (
+        <span className="site-search__shortcut-hint" aria-hidden="true">
+          {IS_APPLE ? '⌘K' : 'Ctrl K'}
+        </span>
       )}
+      <AnimatePresence>
+        {showListbox && (
+          <motion.ul
+            id={LISTBOX_ID}
+            role="listbox"
+            className="site-search__listbox"
+            aria-label="Search results"
+            initial={{ opacity: 0, y: -4, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -4, scale: 0.97 }}
+            transition={{ duration: 0.14, ease: 'easeOut' }}
+            style={{ transformOrigin: 'top center' }}
+          >
+            {results.length === 0 ? (
+              <li className="site-search__empty">No results for &ldquo;{query.trim()}&rdquo;</li>
+            ) : (
+              results.map((item, index) => (
+                <li
+                  key={item.id}
+                  id={`${LISTBOX_ID}-${item.id}`}
+                  role="option"
+                  aria-selected={index === activeIndex}
+                  className={`site-search__option${index === activeIndex ? ' site-search__option--active' : ''}`}
+                  onMouseDown={(event) => event.preventDefault()}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onClick={() => selectItem(item)}
+                >
+                  <span className="site-search__option-label">{item.label}</span>
+                  <span className="site-search__option-group">{item.group}</span>
+                </li>
+              ))
+            )}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

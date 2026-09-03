@@ -34,6 +34,20 @@
   color: var(--akds-color-text-placeholder-default);
 }
 
+.site-search__shortcut-hint {
+  position: absolute;
+  top: 50%;
+  right: var(--akds-spacing-150);
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-family: var(--akds-font-family-mono), monospace;
+  font-size: var(--akds-font-size-2xs);
+  color: var(--akds-color-text-placeholder-default);
+  border: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: var(--akds-radius-sm);
+  padding: 1px var(--akds-spacing-50);
+}
+
 /* Overwrite TextInput's default control height/shape to match the
    theme toggle's pill-shaped, shorter footprint in the top nav. */
 .site-search__input--pill .akds-text-input__control {

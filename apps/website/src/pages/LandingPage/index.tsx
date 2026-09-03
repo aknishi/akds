@@ -11,7 +11,6 @@ import { PackageCard } from '../../components/marketing/PackageCard';
 import { ComponentCard } from '../../components/docs/ComponentCard';
 import { packages } from '../../content/packages';
 import { componentRegistry } from '../../content/components/registry';
-import { staggerContainer, staggerItem } from '../../lib/motion';
 import './LandingPage.css';
 import '../../styles/gradients.css';
 
@@ -106,8 +105,12 @@ export function LandingPage() {
     <>
       <Hero />
 
-      <Section className="landing-marquee-section">
+      <Section className="landing-marquee-section" animated>
         <ShowcaseMarquee />
+      </Section>
+
+      <Section animated>
+        <TokenTeaser />
       </Section>
 
       <Section>
@@ -121,23 +124,19 @@ export function LandingPage() {
       </Section>
 
       <Section>
-        <TokenTeaser />
-      </Section>
-
-      <Section>
         <Flexbox direction="column" gap="sm" className="landing-section__intro">
           <Text as="h2" styleAs="h2">
             {componentRegistry.length} components, one design language
           </Text>
         </Flexbox>
         <div className="landing-section__spacer" />
-        <motion.div className="landing-components-grid" variants={staggerContainer}>
+        <div className="landing-components-grid">
           {COMPONENT_PREVIEWS.map((item) => (
-            <motion.div key={item.slug} className="landing-components-grid__item" variants={staggerItem}>
+            <div key={item.slug} className="landing-components-grid__item">
               <ComponentCard slug={item.slug} name={item.name} description={item.description} preview={item.preview} />
-            </motion.div>
+            </div>
           ))}
-          <motion.div className="landing-components-grid__item" variants={staggerItem}>
+          <div className="landing-components-grid__item">
             <NavLink to="/components" className="component-card-link">
               <motion.div whileHover={{ y: -4 }} transition={{ duration: 0.15 }}>
                 <Card className="component-card landing-view-all-card">
@@ -147,8 +146,8 @@ export function LandingPage() {
                 </Card>
               </motion.div>
             </NavLink>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </Section>
 
       <Section>
@@ -158,13 +157,13 @@ export function LandingPage() {
           </Text>
         </Flexbox>
         <div className="landing-section__spacer" />
-        <motion.div className="landing-packages-grid" variants={staggerContainer}>
+        <div className="landing-packages-grid">
           {packages.map((pkg) => (
-            <motion.div key={pkg.name} className="landing-packages-grid__item" variants={staggerItem}>
+            <div key={pkg.name} className="landing-packages-grid__item">
               <PackageCard pkg={pkg} />
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </Section>
 
       <Section>
@@ -174,9 +173,9 @@ export function LandingPage() {
           </Text>
         </Flexbox>
         <div className="landing-section__spacer" />
-        <motion.div className="landing-guidelines-grid" variants={staggerContainer}>
+        <div className="landing-guidelines-grid">
           {GUIDELINE_LINKS.map((link) => (
-            <motion.div key={link.to} className="landing-guidelines-grid__item" variants={staggerItem}>
+            <div key={link.to} className="landing-guidelines-grid__item">
               <NavLink to={link.to} className="landing-guidelines-grid__link">
                 <Card className="landing-guidelines-grid__card">
                   <CardContent>
@@ -189,9 +188,9 @@ export function LandingPage() {
                   </CardContent>
                 </Card>
               </NavLink>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </Section>
 
       <section className="landing-cta gradient-band">
