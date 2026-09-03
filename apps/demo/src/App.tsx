@@ -5,6 +5,7 @@ import {
   IconButton,
   Carousel,
   TextInput,
+  TextArea,
   Checkbox,
   Radio,
   RadioGroup,
@@ -272,6 +273,53 @@ function AppContent() {
             value="Adrian Kawanishi"
             onChange={() => {}}
           />
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* TextArea section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">TextArea</h2>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <TextArea label="Description" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with helper text</span>
+          <TextArea label="Feedback" helperText="Tell us what you think" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">character count</span>
+          <TextAreaCharacterCountDemo />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">min rows</span>
+          <TextArea label="Bio" minRows={6} />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">not resizable</span>
+          <TextArea
+            label="Notes"
+            minRows={3}
+            resizable={false}
+            defaultValue="This textarea has a fixed height and scrolls once content grows past the visible rows."
+          />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">error</span>
+          <TextArea
+            label="Comment"
+            defaultValue="Too short"
+            helperText="Comment must be at least 20 characters"
+            error
+          />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <TextArea label="Read only" disabled defaultValue="Cannot be edited" />
         </div>
       </section>
 
@@ -808,6 +856,20 @@ function TableDemo() {
         </Table>
       </div>
     </>
+  );
+}
+
+function TextAreaCharacterCountDemo() {
+  const maxLength = 280;
+  const [value, setValue] = React.useState('');
+  return (
+    <TextArea
+      label="Bio"
+      maxLength={maxLength}
+      value={value}
+      onChange={e => setValue(e.target.value)}
+      helperText={`${value.length}/${maxLength} characters`}
+    />
   );
 }
 

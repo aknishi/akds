@@ -1,0 +1,163 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-text-area {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--akds-font-family-sans);
+  box-sizing: border-box;
+}
+
+/* ── Control (bordered wrapper) ────────────────────────────────────────── */
+.akds-text-area__control {
+  position: relative;
+  display: flex;
+  border: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: var(--akds-radius-md);
+  background: var(--akds-color-surface-default);
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+  box-sizing: border-box;
+}
+
+.akds-text-area__control:focus-within {
+  border-color: var(--akds-color-border-neutral-focus);
+}
+
+.akds-text-area__control--keyboard-focus {
+  border-color: var(--akds-color-border-neutral-focus);
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Field wrapper ─────────────────────────────────────────────────────── */
+.akds-text-area__field-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+}
+
+/* ── Grow wrap (CSS-only auto-grow via a hidden mirrored ::after) ───────── */
+.akds-text-area__grow-wrap {
+  position: relative;
+  flex: 1;
+  display: grid;
+}
+
+.akds-text-area__grow-wrap::after {
+  content: attr(data-replicated-value) ' ';
+  grid-area: 1 / 1 / 2 / 2;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  visibility: hidden;
+}
+
+.akds-text-area__grow-wrap::after,
+.akds-text-area__textarea {
+  padding-top: var(--akds-spacing-200);
+  padding-bottom: var(--akds-spacing-100);
+  padding-left: var(--akds-spacing-150);
+  padding-right: var(--akds-spacing-150);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-light);
+  line-height: var(--akds-font-line-height-normal);
+  box-sizing: border-box;
+}
+
+/* ── Textarea ──────────────────────────────────────────────────────────── */
+.akds-text-area__textarea {
+  grid-area: 1 / 1 / 2 / 2;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--akds-color-text-primary-default);
+  resize: vertical;
+  overflow-y: auto;
+}
+
+.akds-text-area__textarea::placeholder {
+  color: transparent;
+}
+
+/* ── No resize (fixed height, scrolls instead of growing) ────────────────── */
+.akds-text-area--no-resize .akds-text-area__grow-wrap::after {
+  content: none;
+}
+
+.akds-text-area--no-resize .akds-text-area__textarea {
+  resize: none;
+}
+
+/* ── Label ─────────────────────────────────────────────────────────────── */
+.akds-text-area__label {
+  position: absolute;
+  left: var(--akds-spacing-150);
+  top: var(--akds-spacing-200);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-light);
+  color: var(--akds-color-text-placeholder-default);
+  pointer-events: none;
+  transition: transform 150ms ease, font-size 150ms ease, color 150ms ease, top 150ms ease;
+  transform-origin: left top;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ── Floating label (focused or has value) ─────────────────────────────── */
+.akds-text-area__label--floating {
+  top: var(--akds-spacing-50);
+  transform: scale(0.75);
+  font-size: var(--akds-font-size-sm);
+  letter-spacing: 1px;
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-secondary-default);
+}
+
+/* ── Helper text ───────────────────────────────────────────────────────── */
+.akds-text-area__helper-text {
+  margin: 0;
+  margin-top: var(--akds-spacing-50);
+  padding-left: var(--akds-spacing-150);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-secondary-default);
+  line-height: var(--akds-font-line-height-normal);
+}
+
+/* ── Error ──────────────────────────────────────────────────────────────── */
+.akds-text-area--error .akds-text-area__control {
+  border-color: var(--akds-color-border-error-default) !important;
+}
+
+.akds-text-area--error .akds-text-area__helper-text {
+  color: var(--akds-color-text-error-default);
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+.akds-text-area--disabled .akds-text-area__control {
+  cursor: not-allowed;
+  opacity: 0.5;
+  border-color: var(--akds-color-border-neutral-default) !important;
+  outline: none !important;
+}
+
+.akds-text-area--disabled .akds-text-area__textarea {
+  cursor: not-allowed;
+  color: var(--akds-color-text-primary-disabled);
+}
+
+.akds-text-area--disabled .akds-text-area__label {
+  color: var(--akds-color-text-secondary-default);
+}
+
+.akds-text-area--disabled .akds-text-area__helper-text {
+  color: var(--akds-color-text-secondary-disabled);
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-text-area__control,
+  .akds-text-area__label {
+    transition: none;
+  }
+}

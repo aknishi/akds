@@ -19,6 +19,9 @@ export type { ParticleBurstProps, ParticleBurstHandle } from './components/Parti
 export { TextInput } from './components/TextInput/index.js';
 export type { TextInputProps } from './components/TextInput/index.js';
 
+export { TextArea } from './components/TextArea/index.js';
+export type { TextAreaProps } from './components/TextArea/index.js';
+
 export { Checkbox } from './components/Checkbox/index.js';
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox/index.js';
 

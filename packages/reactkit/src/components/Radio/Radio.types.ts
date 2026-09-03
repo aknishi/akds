@@ -9,7 +9,7 @@ export interface RadioProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElem
   checked?: boolean;
   /** The default checked state (uncontrolled). */
   defaultChecked?: boolean;
-  /** Change handler forwarded to the inner <input>. Overrides RadioGroup onChange. */
+  /** Change handler forwarded to the inner `<input>`. Overrides RadioGroup onChange. */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   /** Name attribute for form association. Inherited from RadioGroup when omitted. */
   name?: string;

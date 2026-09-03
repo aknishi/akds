@@ -9,11 +9,11 @@ export interface SwitchProps extends Omit<React.LabelHTMLAttributes<HTMLLabelEle
   checked?: boolean;
   /** The default checked state (uncontrolled). */
   defaultChecked?: boolean;
-  /** Change handler forwarded to the inner <input>. */
+  /** Change handler forwarded to the inner `<input>`. */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /** Name attribute forwarded to the inner <input>. */
+  /** Name attribute forwarded to the inner `<input>`. */
   name?: string;
-  /** Value attribute forwarded to the inner <input>. */
+  /** Value attribute forwarded to the inner `<input>`. */
   value?: string;
   /** When true, prevents interaction and applies disabled styling. */
   disabled?: boolean;

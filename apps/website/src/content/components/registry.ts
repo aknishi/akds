@@ -13,6 +13,7 @@ import { combobox } from './combobox';
 import { dropdownMenu } from './dropdown-menu';
 import { radio } from './radio';
 import { switchEntry } from './switch';
+import { textArea } from './text-area';
 import { textInput } from './text-input';
 import { toggleGroup } from './toggle-group';
 
@@ -58,6 +59,7 @@ export const componentRegistry: ComponentEntry[] = [
   dropdownMenu,
   radio,
   switchEntry,
+  textArea,
   textInput,
   toggleGroup,
   card,
