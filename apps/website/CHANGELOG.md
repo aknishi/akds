@@ -1,5 +1,28 @@
 # @akds/website
 
+## 1.3.0
+
+### Minor Changes
+
+- c829a8a: Add All tokens page to list all tokens in the tokens package
+
+### Patch Changes
+
+- 1db5a22: New Toast component.
+  Separate component index page Feedback and Overlay sections in the website.
+- b6c23f5: Fix component case in website and fix menu icon visibility in top nav
+- Updated dependencies [20b0280]
+- Updated dependencies [ccbc99b]
+- Updated dependencies [6a913c7]
+- Updated dependencies [84638da]
+- Updated dependencies [1db5a22]
+- Updated dependencies [dc0a2e6]
+- Updated dependencies [c5e53c1]
+- Updated dependencies [6a913c7]
+- Updated dependencies [02fbb08]
+  - @aknishi/akds-reactkit@1.5.0
+  - @aknishi/akds-tokens@2.1.0
+
 ## 1.2.0
 
 ### Minor Changes

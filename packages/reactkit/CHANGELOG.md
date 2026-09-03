@@ -1,5 +1,24 @@
 # @aknishi/akds-reactkit
 
+## 1.5.0
+
+### Minor Changes
+
+- 20b0280: Add Alert component
+- ccbc99b: AIButton - New component with custom animation styles for triggering generation of AI content.
+- 84638da: Add new TextArea component
+- 1db5a22: New Toast component.
+  Separate component index page Feedback and Overlay sections in the website.
+- dc0a2e6: Add basic Table components
+
+### Patch Changes
+
+- Updated dependencies [6a913c7]
+- Updated dependencies [c5e53c1]
+- Updated dependencies [6a913c7]
+- Updated dependencies [02fbb08]
+  - @aknishi/akds-tokens@2.1.0
+
 ## 1.4.0
 
 ### Minor Changes
