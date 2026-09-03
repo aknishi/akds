@@ -173,6 +173,7 @@ function SidebarLink({ to, label, indent }: { to: string; label: string; indent?
   return (
     <NavLink
       to={to}
+      end
       className={({ isActive }) =>
         `sidebar-content__link${indent ? ' sidebar-content__link--indent' : ''}${isActive ? ' sidebar-content__link--active' : ''}`
       }

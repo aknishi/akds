@@ -100,6 +100,26 @@ export const toggleGroup: ComponentEntry = {
   </ToggleGroup>
 </Flexbox>`,
     },
+    {
+      title: 'Disabled',
+      description: 'Setting disabled on the group disables every child Toggle button, regardless of their own disabled prop.',
+      render: () => (
+        <ToggleGroup defaultValue="drinks" disabled>
+          <ToggleButton value="drinks">
+            <LocalBarIcon />
+            Drinks
+          </ToggleButton>
+          <ToggleButton value="food">
+            <LunchDiningIcon />
+            Food
+          </ToggleButton>
+        </ToggleGroup>
+      ),
+      code: `<ToggleGroup defaultValue="drinks" disabled>
+  <ToggleButton value="drinks"><LocalBarIcon />Drinks</ToggleButton>
+  <ToggleButton value="food"><LunchDiningIcon />Food</ToggleButton>
+</ToggleGroup>`,
+    },
   ],
   accessibilityNotes: [
     'Renders as an ARIA radiogroup — each Toggle button child becomes role="radio" with aria-checked, so only one option is ever selected.',

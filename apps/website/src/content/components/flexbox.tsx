@@ -58,6 +58,60 @@ export const flexbox: ComponentEntry = {
   <Tag>Two</Tag>
 </Flexbox>`,
     },
+    {
+      title: 'Justify content',
+      description: 'justify maps to justify-content, controlling how children are distributed along the main axis.',
+      render: () => (
+        <Flexbox justify="space-between" padding="sm" style={{ width: '100%', border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-md)' }}>
+          <Tag>One</Tag>
+          <Tag>Two</Tag>
+          <Tag>Three</Tag>
+        </Flexbox>
+      ),
+      code: `<Flexbox justify="space-between" padding="sm" style={{ width: '100%', border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-md)' }}>
+  <Tag>One</Tag>
+  <Tag>Two</Tag>
+  <Tag>Three</Tag>
+</Flexbox>`,
+    },
+    {
+      title: 'Align items',
+      description: 'align maps to align-items, controlling how children are positioned along the cross axis.',
+      render: () => (
+        <Flexbox gap="sm" align="center" style={{ height: '80px', width: '100%', border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-md)' }}>
+          <Tag>Centered</Tag>
+          <Tag variant="info">along the</Tag>
+          <Tag variant="success">cross axis</Tag>
+        </Flexbox>
+      ),
+      code: `<Flexbox gap="sm" align="center" style={{ height: '80px', width: '100%', border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-md)' }}>
+  <Tag>Centered</Tag>
+  <Tag variant="info">along the</Tag>
+  <Tag variant="success">cross axis</Tag>
+</Flexbox>`,
+    },
+    {
+      title: 'Padding & margin shorthand',
+      description: 'Per-side padding/margin props (px, py, pt, mr, etc.) accept the same spacing tokens as gap, not just numbers.',
+      render: () => (
+        <Flexbox direction="column" gap="sm">
+          <Flexbox px="lg" py="sm" style={{ width: 'fit-content', border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)' }}>
+            <Tag>{'px="lg" py="sm"'}</Tag>
+          </Flexbox>
+          <Flexbox mt="md" style={{ width: 'fit-content', border: '1px dashed var(--akds-color-border-neutral-default)', borderRadius: 'var(--akds-radius-sm)' }}>
+            <Tag>{'mt="md"'}</Tag>
+          </Flexbox>
+        </Flexbox>
+      ),
+      code: `<Flexbox direction="column" gap="sm">
+  <Flexbox px="lg" py="sm">
+    <Tag>px="lg" py="sm"</Tag>
+  </Flexbox>
+  <Flexbox mt="md">
+    <Tag>mt="md"</Tag>
+  </Flexbox>
+</Flexbox>`,
+    },
   ],
   accessibilityNotes: [
     'Flexbox is a layout-only primitive — it renders a plain <div> by default (as is polymorphic) and carries no semantics of its own.',

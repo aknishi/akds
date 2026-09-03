@@ -1,5 +1,24 @@
+import React from 'react';
 import { Tab, TabList, TabPanel, Tabs, Text } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+
+function ControlledTabsExample() {
+  const [activeTab, setActiveTab] = React.useState('tab1');
+  return (
+    <Tabs activeTab={activeTab} onChange={setActiveTab}>
+      <TabList>
+        <Tab value="tab1">Tab 1</Tab>
+        <Tab value="tab2">Tab 2</Tab>
+      </TabList>
+      <TabPanel value="tab1">
+        <Text styleAs="body">Content for Tab 1.</Text>
+      </TabPanel>
+      <TabPanel value="tab2">
+        <Text styleAs="body">Content for Tab 2.</Text>
+      </TabPanel>
+    </Tabs>
+  );
+}
 
 export const tabs: ComponentEntry = {
   slug: 'tabs',
@@ -71,6 +90,27 @@ export const tabs: ComponentEntry = {
         </Tabs>
       ),
       code: `<Tab value="two" disabled>Disabled</Tab>`,
+    },
+    {
+      title: 'Controlled',
+      render: () => <ControlledTabsExample />,
+      code: `function Example() {
+  const [activeTab, setActiveTab] = React.useState('tab1');
+  return (
+    <Tabs activeTab={activeTab} onChange={setActiveTab}>
+      <TabList>
+        <Tab value="tab1">Tab 1</Tab>
+        <Tab value="tab2">Tab 2</Tab>
+      </TabList>
+      <TabPanel value="tab1">
+        <Text styleAs="body">Content for Tab 1.</Text>
+      </TabPanel>
+      <TabPanel value="tab2">
+        <Text styleAs="body">Content for Tab 2.</Text>
+      </TabPanel>
+    </Tabs>
+  );
+}`,
     },
   ],
   accessibilityNotes: [

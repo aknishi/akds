@@ -1,5 +1,36 @@
-import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@aknishi/akds-reactkit';
+import React from 'react';
+import { Table, Text, Thead, Tbody, Tfoot, Tr, Th, Td } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+
+function TableResizableControlledExample() {
+  const [propWidth, setPropWidth] = React.useState(160);
+
+  return (
+    <>
+      <Text>Prop column width: {Math.round(propWidth)}px</Text>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th scope="col" resizable width={propWidth} onWidthChange={setPropWidth}>
+              Prop
+            </Th>
+            <Th scope="col">Type</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Tr>
+            <Td><code>variant</code></Td>
+            <Td><code>'primary' | 'secondary'</code></Td>
+          </Tr>
+          <Tr>
+            <Td><code>disabled</code></Td>
+            <Td><code>boolean</code></Td>
+          </Tr>
+        </Tbody>
+      </Table>
+    </>
+  );
+}
 
 export const table: ComponentEntry = {
   slug: 'table',
@@ -164,6 +195,38 @@ export const table: ComponentEntry = {
     </Tr>
   </Tbody>
 </Table>`,
+    },
+    {
+      title: 'Resizable columns (controlled)',
+      description: 'Passing width + onWidthChange instead of defaultWidth makes the resizable column controlled — the parent owns the width value.',
+      render: () => <TableResizableControlledExample />,
+      code: `function Example() {
+  const [propWidth, setPropWidth] = React.useState(160);
+
+  return (
+    <>
+      <Text>Prop column width: {Math.round(propWidth)}px</Text>
+      <Table>
+        <Thead>
+          <Tr>
+            <Th scope="col" resizable width={propWidth} onWidthChange={setPropWidth}>Prop</Th>
+            <Th scope="col">Type</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <Tr>
+            <Td><code>variant</code></Td>
+            <Td><code>'primary' | 'secondary'</code></Td>
+          </Tr>
+          <Tr>
+            <Td><code>disabled</code></Td>
+            <Td><code>boolean</code></Td>
+          </Tr>
+        </Tbody>
+      </Table>
+    </>
+  );
+}`,
     },
     {
       title: 'Striped rows',

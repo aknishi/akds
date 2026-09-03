@@ -1,6 +1,23 @@
+import React from 'react';
 import { Button, Flexbox, IconButton, Tooltip } from '@aknishi/akds-reactkit';
 import { CopyIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
+
+function ControlledTooltipExample() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <Flexbox direction="column" align="center" gap="md">
+      <Tooltip content="This is a controlled tooltip" open={open} onOpenChange={setOpen}>
+        <Button appearance="bordered" emphasis="neutral">
+          Hover or focus me
+        </Button>
+      </Tooltip>
+      <Button appearance="solid" emphasis="accented" onClick={() => setOpen((prev) => !prev)}>
+        Toggle programmatically
+      </Button>
+    </Flexbox>
+  );
+}
 
 export const tooltip: ComponentEntry = {
   slug: 'tooltip',
@@ -66,6 +83,24 @@ export const tooltip: ComponentEntry = {
   </Tooltip>
 </Flexbox>`,
     },
+    {
+      title: 'Controlled',
+      description: 'open/onOpenChange take over visibility from hover/focus — useful for toggling a tooltip programmatically.',
+      render: () => <ControlledTooltipExample />,
+      code: `function Example() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <Flexbox direction="column" align="center" gap="md">
+      <Tooltip content="This is a controlled tooltip" open={open} onOpenChange={setOpen}>
+        <Button appearance="bordered" emphasis="neutral">Hover or focus me</Button>
+      </Tooltip>
+      <Button appearance="solid" emphasis="accented" onClick={() => setOpen(prev => !prev)}>
+        Toggle programmatically
+      </Button>
+    </Flexbox>
+  );
+}`,
+    },
   ],
   accessibilityNotes: [
     'Tooltip shows on both hover and keyboard focus of its trigger — not hover-only — so keyboard users see the same content.',
@@ -75,6 +110,8 @@ export const tooltip: ComponentEntry = {
   props: [
     { name: 'content', type: 'React.ReactNode', description: 'The tooltip text or content displayed on hover/focus. Required.' },
     { name: 'placement', type: "'top' | 'bottom' | 'left' | 'right'", default: "'top'", description: 'Which side of the trigger the tooltip appears on.' },
+    { name: 'open', type: 'boolean', description: 'Controlled visibility. When provided, hover/focus/blur no longer toggle the tooltip directly — pair with onOpenChange.' },
+    { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when hover/focus/blur on the trigger would change visibility. Required to react to those events when open is controlled.' },
     { name: 'children', type: 'React.ReactElement', description: 'The single interactive element that triggers the tooltip. Required.' },
   ],
   doDont: [

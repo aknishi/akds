@@ -1,0 +1,105 @@
+.site-search {
+  position: relative;
+  display: none;
+  width: 100%;
+  max-width: 280px;
+}
+
+@media (min-width: 860px) {
+  .site-search {
+    display: block;
+  }
+}
+
+.site-search__visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.site-search__input {
+  width: 100%;
+}
+
+/* TextInput hides the native placeholder in favor of its own floating
+   label — since this field uses a placeholder instead of a label, restore
+   the placeholder's visibility here. */
+.site-search__input .akds-text-input__input::placeholder {
+  color: var(--akds-color-text-placeholder-default);
+}
+
+/* Overwrite TextInput's default control height/shape to match the
+   theme toggle's pill-shaped, shorter footprint in the top nav. */
+.site-search__input--pill .akds-text-input__control {
+  height: 37px;
+  min-height: 37px;
+  border-radius: var(--akds-radius-full);
+}
+
+/* TextInput's input padding is asymmetric (extra top padding) to leave
+   room for the floating label to land above the text. This field has no
+   label, so that padding just pushes the placeholder/value above center
+   inside the shorter pill control — flatten it and let the flex control's
+   own align-items: center do the vertical centering instead. */
+.site-search__input--pill .akds-text-input__input {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.site-search__listbox {
+  position: absolute;
+  top: calc(100% + var(--akds-spacing-100));
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: var(--akds-spacing-50) 0;
+  list-style: none;
+  background: var(--akds-color-surface-raised);
+  border: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: var(--akds-radius-md);
+  box-shadow: var(--akds-elevation-lg);
+  max-height: 320px;
+  overflow-y: auto;
+  z-index: 60;
+}
+
+.site-search__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--akds-spacing-150);
+  padding: var(--akds-spacing-100) var(--akds-spacing-150);
+  cursor: pointer;
+  font-size: var(--akds-font-size-sm);
+  color: var(--akds-color-text-primary-default);
+}
+
+.site-search__option:hover,
+.site-search__option--active {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+.site-search__option-label {
+  font-weight: var(--akds-font-weight-medium);
+}
+
+.site-search__option-group {
+  font-size: var(--akds-font-size-2xs);
+  font-weight: var(--akds-font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--akds-font-letter-spacing-wide);
+  color: var(--akds-color-text-secondary-default);
+  flex-shrink: 0;
+}
+
+.site-search__empty {
+  padding: var(--akds-spacing-150);
+  font-size: var(--akds-font-size-sm);
+  color: var(--akds-color-text-secondary-default);
+}

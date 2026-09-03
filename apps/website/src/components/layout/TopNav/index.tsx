@@ -3,6 +3,7 @@ import { NavLink } from 'react-router';
 import { IconButton, ToggleButton, ToggleGroup, useTheme } from '@aknishi/akds-reactkit';
 import { DarkModeFilledIcon, DarkModeIcon, MenuIcon, OpenInNewIcon, SunnyFilledIcon, SunnyIcon } from '@aknishi/akds-icons';
 import { STORYBOOK_URL } from '../../../content/storybook';
+import { SearchBar } from '../SearchBar';
 import './TopNav.css';
 
 export interface TopNavProps {
@@ -49,8 +50,9 @@ export function TopNav({ onMenuClick, hasSidebar, mobileNavOpen }: TopNavProps) 
             alt=""
             className="top-nav__brand-logo"
           />
-          <span className="top-nav__brand-text">
-            <span className="top-nav__brand-tagline">design system</span>
+          <span className="top-nav__brand-tagline">
+            <span className="top-nav__brand-word">Design</span>
+            <span className="top-nav__brand-word">System</span>
           </span>
         </NavLink>
 
@@ -68,6 +70,8 @@ export function TopNav({ onMenuClick, hasSidebar, mobileNavOpen }: TopNavProps) 
             Storybook <OpenInNewIcon size="sm" />
           </a>
         </nav>
+
+        <SearchBar />
 
         <div className="top-nav__actions">
           <ToggleGroup

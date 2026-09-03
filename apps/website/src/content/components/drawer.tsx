@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Drawer, IconButton, Text } from '@aknishi/akds-reactkit';
+import { Button, Drawer, Flexbox, IconButton, Text } from '@aknishi/akds-reactkit';
+import type { DrawerSide } from '@aknishi/akds-reactkit';
 import { CloseIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
@@ -12,6 +13,41 @@ function DrawerExample() {
       </Button>
       <Drawer open={open} onClose={() => setOpen(false)} side="right" title="Filters">
         <Text styleAs="body">Drawer content, e.g. a filter form.</Text>
+      </Drawer>
+    </>
+  );
+}
+
+function DrawerSidesExample() {
+  // side and open are separate state, for the same reason as Dialog's Sizes
+  // example: keeping them separate avoids the drawer's side snapping back to
+  // a default value while it's mid-close animation.
+  const [side, setSide] = React.useState<DrawerSide>('right');
+  const [open, setOpen] = React.useState(false);
+
+  const openFromSide = (nextSide: DrawerSide) => {
+    setSide(nextSide);
+    setOpen(true);
+  };
+
+  return (
+    <>
+      <Flexbox gap="sm">
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('left')}>
+          Left
+        </Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('right')}>
+          Right
+        </Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('top')}>
+          Top
+        </Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('bottom')}>
+          Bottom
+        </Button>
+      </Flexbox>
+      <Drawer open={open} onClose={() => setOpen(false)} title="Drawer" side={side}>
+        <Text styleAs="body">Sliding in from the {side}.</Text>
       </Drawer>
     </>
   );
@@ -65,6 +101,34 @@ export const drawer: ComponentEntry = {
       </Button>
       <Drawer open={open} onClose={() => setOpen(false)} side="right" title="Filters">
         <Text styleAs="body">Drawer content, e.g. a filter form.</Text>
+      </Drawer>
+    </>
+  );
+}`,
+    },
+    {
+      title: 'Sides',
+      description: 'side controls which edge of the viewport the drawer slides in from.',
+      render: () => <DrawerSidesExample />,
+      code: `function Example() {
+  const [side, setSide] = React.useState('right');
+  const [open, setOpen] = React.useState(false);
+
+  const openFromSide = (nextSide) => {
+    setSide(nextSide);
+    setOpen(true);
+  };
+
+  return (
+    <>
+      <Flexbox gap="sm">
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('left')}>Left</Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('right')}>Right</Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('top')}>Top</Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openFromSide('bottom')}>Bottom</Button>
+      </Flexbox>
+      <Drawer open={open} onClose={() => setOpen(false)} title="Drawer" side={side}>
+        <Text styleAs="body">Sliding in from the {side}.</Text>
       </Drawer>
     </>
   );

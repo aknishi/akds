@@ -17,6 +17,11 @@ export const likeButton: ComponentEntry = {
   preview: <LikeButton liked aria-label="Like this post" />,
   examples: [
     {
+      title: 'Default',
+      render: () => <LikeButton aria-label="Like this post" />,
+      code: `<LikeButton aria-label="Like this post" />`,
+    },
+    {
       title: 'Controlled',
       render: () => <LikeButtonExample />,
       code: `function Example() {
@@ -29,6 +34,11 @@ export const likeButton: ComponentEntry = {
     />
   );
 }`,
+    },
+    {
+      title: 'Disabled',
+      render: () => <LikeButton disabled focusableWhenDisabled aria-label="Like this post" />,
+      code: `<LikeButton disabled focusableWhenDisabled aria-label="Like this post" />`,
     },
   ],
   accessibilityNotes: [

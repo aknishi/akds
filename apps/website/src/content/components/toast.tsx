@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button, Flexbox, IconButton, useToast } from '@aknishi/akds-reactkit';
 import { CheckCircleFilledIcon, CloseIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
@@ -17,6 +18,28 @@ function EmphasisExample() {
       </Button>
       <Button emphasis="destructive" onClick={() => show({ emphasis: 'destructive', message: 'Failed to upload file.' })}>
         Destructive
+      </Button>
+    </Flexbox>
+  );
+}
+
+function PlacementExample() {
+  const { show } = useToast();
+  const [count, setCount] = React.useState(0);
+  const next = (placement: 'bottom-left' | 'bottom-center' | 'bottom-right') => () => {
+    setCount((prev) => prev + 1);
+    show({ placement, message: `Notification #${count + 1}` });
+  };
+  return (
+    <Flexbox gap="sm" wrap>
+      <Button appearance="bordered" emphasis="neutral" onClick={next('bottom-left')}>
+        Bottom left
+      </Button>
+      <Button appearance="bordered" emphasis="neutral" onClick={next('bottom-center')}>
+        Bottom center
+      </Button>
+      <Button appearance="bordered" emphasis="neutral" onClick={next('bottom-right')}>
+        Bottom right
       </Button>
     </Flexbox>
   );
@@ -85,6 +108,20 @@ export default function App() {
     </ToastProvider>
   );
 }`,
+    },
+    {
+      title: 'Placement',
+      description: 'placement controls which corner of the viewport the toast stacks in. Set it per-toast, or as a default on ToastProvider.',
+      render: () => <PlacementExample />,
+      code: `<Button onClick={() => show({ placement: 'bottom-left', message: 'Notification #1' })}>
+  Bottom left
+</Button>
+<Button onClick={() => show({ placement: 'bottom-center', message: 'Notification #2' })}>
+  Bottom center
+</Button>
+<Button onClick={() => show({ placement: 'bottom-right', message: 'Notification #3' })}>
+  Bottom right
+</Button>`,
     },
     {
       title: 'Duration',

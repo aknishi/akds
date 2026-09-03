@@ -1,4 +1,4 @@
-import { Divider } from '@aknishi/akds-reactkit';
+import { Divider, Flexbox } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
 
 export const divider: ComponentEntry = {
@@ -27,6 +27,22 @@ export const divider: ComponentEntry = {
       title: 'With label',
       render: () => <Divider label="OR" />,
       code: `<Divider label="OR" />`,
+    },
+    {
+      title: 'Vertical orientation',
+      description: 'orientation="vertical" renders the rule along the cross axis of a row layout — the parent must give it a height to stretch into.',
+      render: () => (
+        <Flexbox gap="md" align="stretch" style={{ height: '48px' }}>
+          <Divider orientation="vertical" />
+          <Divider orientation="vertical" variant="dashed" />
+          <Divider orientation="vertical" variant="dotted" />
+        </Flexbox>
+      ),
+      code: `<Flexbox gap="md" align="stretch" style={{ height: '48px' }}>
+  <Divider orientation="vertical" />
+  <Divider orientation="vertical" variant="dashed" />
+  <Divider orientation="vertical" variant="dotted" />
+</Flexbox>`,
     },
   ],
   accessibilityNotes: [

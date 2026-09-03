@@ -86,6 +86,26 @@ export const progressTracker: ComponentEntry = {
       code: `<ProgressTrackerStep label="Validate" status="error" />`,
     },
     {
+      title: 'Statuses',
+      description: 'complete, error, warning, active (no status), and inactive shown together.',
+      render: () => (
+        <ProgressTracker currentStep={4}>
+          <ProgressTrackerStep status="complete" label="Complete" />
+          <ProgressTrackerStep status="error" label="Error" />
+          <ProgressTrackerStep status="warning" label="Warning" />
+          <ProgressTrackerStep label="Active" />
+          <ProgressTrackerStep label="Inactive" />
+        </ProgressTracker>
+      ),
+      code: `<ProgressTracker currentStep={4}>
+  <ProgressTrackerStep status="complete" label="Complete" />
+  <ProgressTrackerStep status="error" label="Error" />
+  <ProgressTrackerStep status="warning" label="Warning" />
+  <ProgressTrackerStep label="Active" />
+  <ProgressTrackerStep label="Inactive" />
+</ProgressTracker>`,
+    },
+    {
       title: 'Interactive',
       description: 'Step through the flow to see the fill and status transitions animate, including the celebrateOnComplete burst on the final step.',
       render: () => <InteractiveProgressTrackerExample />,
