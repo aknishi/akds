@@ -1,5 +1,22 @@
+import React from 'react';
 import { Accordion, AccordionItem, Text } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+
+function ControlledAccordionExample() {
+  const [expanded, setExpanded] = React.useState('shipping');
+  return (
+    <div style={{ minWidth: '300px' }}>
+      <Accordion expanded={expanded} onChange={(value) => setExpanded(value as string)}>
+        <AccordionItem value="shipping" title="Shipping">
+          <Text styleAs="body">Orders ship within 2 business days.</Text>
+        </AccordionItem>
+        <AccordionItem value="returns" title="Returns">
+          <Text styleAs="body">Returns are accepted within 30 days.</Text>
+        </AccordionItem>
+      </Accordion>
+    </div>
+  );
+}
 
 export const accordion: ComponentEntry = {
   slug: 'accordion',
@@ -58,6 +75,41 @@ export const accordion: ComponentEntry = {
   <AccordionItem value="b" title="Section B">...</AccordionItem>
 </Accordion>`,
     },
+    {
+      title: 'Controlled',
+      render: () => <ControlledAccordionExample />,
+      code: `function Example() {
+  const [expanded, setExpanded] = React.useState('shipping');
+  return (
+    <Accordion expanded={expanded} onChange={(value) => setExpanded(value as string)}>
+      <AccordionItem value="shipping" title="Shipping">
+        <Text styleAs="body">Orders ship within 2 business days.</Text>
+      </AccordionItem>
+      <AccordionItem value="returns" title="Returns">
+        <Text styleAs="body">Returns are accepted within 30 days.</Text>
+      </AccordionItem>
+    </Accordion>
+  );
+}`,
+    },
+    {
+      title: 'Disabled item',
+      render: () => (
+        <div style={{ minWidth: '300px' }}>
+          <Accordion defaultExpanded="a">
+            <AccordionItem value="a" title="Available">
+              <Text styleAs="body">This item can be toggled.</Text>
+            </AccordionItem>
+            <AccordionItem value="b" title="Disabled" disabled>
+              <Text styleAs="body">This item cannot be toggled.</Text>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      ),
+      code: `<AccordionItem value="b" title="Disabled" disabled>
+  <Text styleAs="body">This item cannot be toggled.</Text>
+</AccordionItem>`,
+    },
   ],
   accessibilityNotes: [
     'Each AccordionItem trigger is a real <button> with aria-expanded reflecting its state, following the WAI-ARIA Accordion pattern.',
@@ -66,10 +118,12 @@ export const accordion: ComponentEntry = {
   props: [
     { name: 'expanded', type: 'string | string[]', description: 'The currently expanded item value(s). Makes the component controlled.' },
     { name: 'defaultExpanded', type: 'string | string[]', description: 'Initial expanded item(s) for the uncontrolled case.' },
+    { name: 'onChange', type: '(expanded: string | string[]) => void', description: 'Called when an item is toggled. Receives a string in single mode, string[] in multiple mode.' },
     { name: 'multiple', type: 'boolean', default: 'false', description: 'When true, multiple items can be expanded at once.' },
     { name: 'value', type: 'string', description: 'The value identifying an AccordionItem. Required on AccordionItem.' },
     { name: 'title', type: 'React.ReactNode', description: 'The heading text rendered in the AccordionItem trigger. Required.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents expanding or collapsing an individual AccordionItem.' },
+    { name: 'children', type: 'React.ReactNode', description: 'Typically AccordionItem components.' },
   ],
   doDont: [
     { do: 'Use Accordion to progressively disclose long, optional content.', dont: "Don't nest critical, always-needed content inside a collapsed AccordionItem by default." },

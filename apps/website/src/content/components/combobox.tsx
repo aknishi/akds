@@ -1,3 +1,4 @@
+import React from 'react';
 import { Combobox } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
 
@@ -7,6 +8,19 @@ const FRAMEWORK_OPTIONS = [
   { value: 'svelte', label: 'Svelte' },
   { value: 'angular', label: 'Angular', disabled: true },
 ];
+
+function ComboboxControlledExample() {
+  const [value, setValue] = React.useState('');
+  return (
+    <Combobox
+      options={FRAMEWORK_OPTIONS}
+      label="Framework"
+      value={value}
+      onChange={v => setValue(v as string)}
+      helperText={value ? `Selected: ${value}` : 'Type to filter'}
+    />
+  );
+}
 
 export const combobox: ComponentEntry = {
   slug: 'combobox',
@@ -34,6 +48,28 @@ export const combobox: ComponentEntry = {
       render: () => <Combobox label="Frameworks" options={FRAMEWORK_OPTIONS} multiple defaultValue={['react']} />,
       code: `<Combobox label="Frameworks" options={options} multiple defaultValue={['react']} />`,
     },
+    {
+      title: 'Controlled',
+      description: 'value and onChange make the selection controlled, driving helperText from the current value.',
+      render: () => <ComboboxControlledExample />,
+      code: `function Example() {
+  const [value, setValue] = React.useState('');
+  return (
+    <Combobox
+      options={options}
+      label="Framework"
+      value={value}
+      onChange={(v) => setValue(v as string)}
+      helperText={value ? \`Selected: \${value}\` : 'Type to filter'}
+    />
+  );
+}`,
+    },
+    {
+      title: 'Disabled',
+      render: () => <Combobox label="Disabled" options={FRAMEWORK_OPTIONS} disabled defaultValue="react" />,
+      code: `<Combobox label="Disabled" options={options} disabled defaultValue="react" />`,
+    },
   ],
   accessibilityNotes: [
     'The input is a combobox with an associated listbox popup, following the ARIA combobox pattern.',
@@ -43,12 +79,15 @@ export const combobox: ComponentEntry = {
   props: [
     { name: 'options', type: 'ComboboxOption[]', description: 'Array of selectable options. Required.' },
     { name: 'value', type: 'string | string[]', description: 'The currently selected value(s). Makes the component controlled.' },
+    { name: 'defaultValue', type: 'string | string[]', description: 'Initial selected value(s) for the uncontrolled case.' },
+    { name: 'onChange', type: '(value: string | string[]) => void', description: 'Called when the selection changes.' },
     { name: 'multiple', type: 'boolean', default: 'false', description: 'When true, multiple options can be selected.' },
     { name: 'label', type: 'string', description: 'Floating label text rendered inside the control.' },
     { name: 'placeholder', type: 'string', description: 'Placeholder shown when no value is selected.' },
     { name: 'helperText', type: 'string', description: 'Helper text rendered below the control.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: "Expands the control to fill its container's width." },
+    { name: 'aria-label', type: 'string', description: 'Accessible label applied to the combobox input when no visible label is provided.' },
   ],
   doDont: [
     { do: 'Use Combobox when the option list is long enough to benefit from search.', dont: "Don't use Combobox for 2-3 options — a RadioGroup is more direct." },

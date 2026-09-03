@@ -19,12 +19,15 @@ export function SiteShell() {
 
   return (
     <div className="site-shell">
+      <a href="#main-content" className="site-shell__skip-link">
+        Skip to content
+      </a>
       <TopNav onMenuClick={() => setMobileNavOpen(true)} hasSidebar={showSidebar} mobileNavOpen={mobileNavOpen} />
       <MobileNav open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
 
       <div className={`site-shell__body${showSidebar ? '' : ' site-shell__body--no-sidebar'}`}>
         {showSidebar && <Sidebar />}
-        <main className={`site-shell__main${showSidebar ? ' site-shell__main--docs' : ''}`}>
+        <main id="main-content" tabIndex={-1} className={`site-shell__main${showSidebar ? ' site-shell__main--docs' : ''}`}>
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}

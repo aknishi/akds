@@ -33,6 +33,11 @@ export const toggleButton: ComponentEntry = {
   ),
   examples: [
     {
+      title: 'Default',
+      render: () => <ToggleButton>Bold</ToggleButton>,
+      code: `<ToggleButton>Bold</ToggleButton>`,
+    },
+    {
       title: 'Controlled',
       render: () => <ToggleButtonExample />,
       code: `function Example() {
@@ -69,6 +74,42 @@ export const toggleButton: ComponentEntry = {
   <ToggleButton color="primary" defaultPressed>Primary</ToggleButton>
   <ToggleButton color="success" defaultPressed>Success</ToggleButton>
   <ToggleButton color="error" defaultPressed>Error</ToggleButton>
+</Flexbox>`,
+    },
+    {
+      title: 'Sizes',
+      render: () => (
+        <Flexbox gap="sm" align="center">
+          <ToggleButton size="sm" defaultPressed>
+            Small
+          </ToggleButton>
+          <ToggleButton size="md" defaultPressed>
+            Medium
+          </ToggleButton>
+          <ToggleButton size="lg" defaultPressed>
+            Large
+          </ToggleButton>
+        </Flexbox>
+      ),
+      code: `<Flexbox gap="sm" align="center">
+  <ToggleButton size="sm" defaultPressed>Small</ToggleButton>
+  <ToggleButton size="md" defaultPressed>Medium</ToggleButton>
+  <ToggleButton size="lg" defaultPressed>Large</ToggleButton>
+</Flexbox>`,
+    },
+    {
+      title: 'Disabled',
+      render: () => (
+        <Flexbox gap="sm" align="center">
+          <ToggleButton disabled>Bold</ToggleButton>
+          <ToggleButton disabled defaultPressed>
+            Italic
+          </ToggleButton>
+        </Flexbox>
+      ),
+      code: `<Flexbox gap="sm" align="center">
+  <ToggleButton disabled>Bold</ToggleButton>
+  <ToggleButton disabled defaultPressed>Italic</ToggleButton>
 </Flexbox>`,
     },
   ],

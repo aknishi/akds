@@ -1,5 +1,5 @@
-import { IconButton } from '@aknishi/akds-reactkit';
-import { DeleteIcon, EditIcon, SettingsIcon } from '@aknishi/akds-icons';
+import { Flexbox, IconButton } from '@aknishi/akds-reactkit';
+import { DeleteIcon, EditIcon, SaveIcon, SettingsIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 export const iconButton: ComponentEntry = {
@@ -39,6 +39,60 @@ export const iconButton: ComponentEntry = {
 <IconButton appearance="transparent" emphasis="destructive" aria-label="Delete">
   <DeleteIcon />
 </IconButton>`,
+    },
+    {
+      title: 'Emphasis',
+      render: () => (
+        <Flexbox gap="sm" align="center">
+          <IconButton appearance="solid" emphasis="accented" aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
+          <IconButton appearance="solid" emphasis="neutral" aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
+          <IconButton appearance="solid" emphasis="success" aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
+          <IconButton appearance="solid" emphasis="destructive" aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
+        </Flexbox>
+      ),
+      code: `<Flexbox gap="sm" align="center">
+  <IconButton appearance="solid" emphasis="accented" aria-label="Delete">
+    <DeleteIcon />
+  </IconButton>
+  <IconButton appearance="solid" emphasis="neutral" aria-label="Delete">
+    <DeleteIcon />
+  </IconButton>
+  <IconButton appearance="solid" emphasis="success" aria-label="Delete">
+    <DeleteIcon />
+  </IconButton>
+  <IconButton appearance="solid" emphasis="destructive" aria-label="Delete">
+    <DeleteIcon />
+  </IconButton>
+</Flexbox>`,
+    },
+    {
+      title: 'Loading & disabled',
+      render: () => (
+        <Flexbox gap="sm" align="center">
+          <IconButton loading aria-label="Saving">
+            <SaveIcon />
+          </IconButton>
+          <IconButton disabled aria-label="Settings">
+            <SettingsIcon />
+          </IconButton>
+        </Flexbox>
+      ),
+      code: `<Flexbox gap="sm" align="center">
+  <IconButton loading aria-label="Saving">
+    <SaveIcon />
+  </IconButton>
+  <IconButton disabled aria-label="Settings">
+    <SettingsIcon />
+  </IconButton>
+</Flexbox>`,
     },
   ],
   accessibilityNotes: [

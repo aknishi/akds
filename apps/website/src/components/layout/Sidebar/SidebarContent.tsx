@@ -10,12 +10,16 @@ import './Sidebar.css';
 
 export function SidebarContent() {
   const location = useLocation();
-  const [openCategories, setOpenCategories] = React.useState<Set<string>>(new Set());
+  // Categories and nav groups start open — a first-time visitor should see
+  // component names immediately instead of a wall of collapsed headers.
+  // Route-matched groups still get added on navigation below, in case a
+  // future group is deliberately started closed.
+  const [openCategories, setOpenCategories] = React.useState<Set<string>>(() => new Set(CATEGORY_ORDER));
   const [openNavGroups, setOpenNavGroups] = React.useState<Set<string>>(() => {
     const initial = new Set<string>();
     for (const group of navConfig) {
       for (const item of group.items) {
-        if (isNavParentItem(item) && item.children.some((child) => child.to === location.pathname)) {
+        if (isNavParentItem(item)) {
           initial.add(item.label);
         }
       }
@@ -173,6 +177,7 @@ function SidebarLink({ to, label, indent }: { to: string; label: string; indent?
   return (
     <NavLink
       to={to}
+      end
       className={({ isActive }) =>
         `sidebar-content__link${indent ? ' sidebar-content__link--indent' : ''}${isActive ? ' sidebar-content__link--active' : ''}`
       }

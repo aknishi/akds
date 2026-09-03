@@ -32,6 +32,11 @@ export const textInput: ComponentEntry = {
       render: () => <TextInput label="Search" startAdornment={<SearchIcon size="sm" />} />,
       code: `<TextInput label="Search" startAdornment={<SearchIcon size="sm" />} />`,
     },
+    {
+      title: 'Disabled',
+      render: () => <TextInput label="Read only" disabled />,
+      code: `<TextInput label="Read only" disabled />`,
+    },
   ],
   accessibilityNotes: [
     'The floating label is a real <label> associated with the input via htmlFor/id — always announced by screen readers.',
@@ -43,6 +48,7 @@ export const textInput: ComponentEntry = {
     { name: 'helperText', type: 'string', description: 'Helper text rendered below the input.' },
     { name: 'startAdornment', type: 'React.ReactNode', description: 'Element rendered before the input, e.g. an icon.' },
     { name: 'error', type: 'boolean', default: 'false', description: 'Applies error styling to the border and helper text.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'wrapperClassName', type: 'string', description: 'className applied to the outer wrapper <div>.' },
     { name: 'inputRef', type: 'React.Ref<HTMLInputElement>', description: 'Ref forwarded to the internal <input> element.' },
   ],

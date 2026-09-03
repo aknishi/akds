@@ -11,6 +11,19 @@ body,
   height: 100%;
 }
 
+/* ── Scrolling ─────────────────────────────────────────────────────────── */
+/* Powers the sticky jump nav on component doc pages (and the skip-to-content
+   link) — an anchor jump animates to its target instead of snapping. */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   font-family: var(--akds-font-family-sans), sans-serif;

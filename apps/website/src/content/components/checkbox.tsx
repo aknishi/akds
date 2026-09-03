@@ -1,4 +1,4 @@
-import { Checkbox } from '@aknishi/akds-reactkit';
+import { Flexbox, Checkbox } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
 
 export const checkbox: ComponentEntry = {
@@ -27,10 +27,27 @@ export const checkbox: ComponentEntry = {
         <>
           <Checkbox label="Indeterminate" indeterminate />
           <Checkbox label="Disabled" disabled />
+          <Checkbox label="Disabled checked" disabled defaultChecked />
         </>
       ),
       code: `<Checkbox label="Indeterminate" indeterminate />
-<Checkbox label="Disabled" disabled />`,
+<Checkbox label="Disabled" disabled />
+<Checkbox label="Disabled checked" disabled defaultChecked />`,
+    },
+    {
+      title: 'Sizes',
+      render: () => (
+        <Flexbox direction="column" gap="sm">
+          <Checkbox label="Small" size="sm" />
+          <Checkbox label="Medium" size="md" />
+          <Checkbox label="Large" size="lg" />
+        </Flexbox>
+      ),
+      code: `<Flexbox direction="column" gap="sm">
+  <Checkbox label="Small" size="sm" />
+  <Checkbox label="Medium" size="md" />
+  <Checkbox label="Large" size="lg" />
+</Flexbox>`,
     },
   ],
   accessibilityNotes: [
@@ -41,6 +58,9 @@ export const checkbox: ComponentEntry = {
     { name: 'label', type: 'React.ReactNode', description: 'The label text rendered next to the checkbox.' },
     { name: 'checked', type: 'boolean', description: 'The checked state (controlled).' },
     { name: 'defaultChecked', type: 'boolean', description: 'The default checked state (uncontrolled).' },
+    { name: 'onChange', type: 'React.ChangeEventHandler<HTMLInputElement>', description: 'Change handler forwarded to the inner <input>.' },
+    { name: 'name', type: 'string', description: 'Name attribute forwarded to the inner <input>.' },
+    { name: 'value', type: 'string | ReadonlyArray<string> | number', description: 'Value attribute forwarded to the inner <input>.' },
     { name: 'indeterminate', type: 'boolean', default: 'false', description: 'Shows the indeterminate state (overrides checked visually).' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Sets the size of the checkbox indicator.' },

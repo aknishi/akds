@@ -36,6 +36,15 @@ export function ComponentDocPage() {
   return (
     <Flexbox direction="column" gap="xl" className="component-doc-page">
       <Flexbox direction="column" gap="sm">
+        <Flexbox as="nav" aria-label="Breadcrumb" gap="xs" align="center" className="component-doc-page__breadcrumb">
+          <NavLink to="/components">Components</NavLink>
+          <Text as="span" styleAs="caption" aria-hidden="true">
+            /
+          </Text>
+          <Text as="span" styleAs="caption">
+            {entry.category}
+          </Text>
+        </Flexbox>
         <Flexbox align="center" gap="sm" wrap>
           <Text as="h1" styleAs="h1">
             {entry.name}
@@ -75,7 +84,15 @@ export function ComponentDocPage() {
         </div>
       )}
 
-      <section>
+      <nav className="component-doc-page__jump-nav" aria-label="On this page">
+        <a href="#examples">Examples</a>
+        <a href="#accessibility">Accessibility</a>
+        <a href="#props">Props</a>
+        {!entry.isPrimitive && entry.doDont && entry.doDont.length > 0 && <a href="#do-dont">Do&rsquo;s and don&rsquo;ts</a>}
+        {!entry.isPrimitive && related.length > 0 && <a href="#related">Related</a>}
+      </nav>
+
+      <section id="examples">
         <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
           Examples
         </Text>
@@ -95,7 +112,7 @@ export function ComponentDocPage() {
         </Flexbox>
       </section>
 
-      <section>
+      <section id="accessibility">
         <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
           Accessibility
         </Text>
@@ -112,7 +129,7 @@ export function ComponentDocPage() {
         </Card>
       </section>
 
-      <section>
+      <section id="props">
         <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
           Props
         </Text>
@@ -120,7 +137,7 @@ export function ComponentDocPage() {
       </section>
 
       {!entry.isPrimitive && entry.doDont && entry.doDont.length > 0 && (
-        <section>
+        <section id="do-dont">
           <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
             Do's and don'ts
           </Text>
@@ -133,7 +150,7 @@ export function ComponentDocPage() {
       )}
 
       {!entry.isPrimitive && related.length > 0 && (
-        <section>
+        <section id="related">
           <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
             Related components
           </Text>

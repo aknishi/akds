@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Dialog, IconButton, Text } from '@aknishi/akds-reactkit';
+import { Button, Dialog, Flexbox, IconButton, Text } from '@aknishi/akds-reactkit';
+import type { DialogSize } from '@aknishi/akds-reactkit';
 import { CloseIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
@@ -18,14 +19,59 @@ function BasicDialogExample() {
 }
 
 function SizedDialogExample() {
+  // size and open are separate state: size only changes when a size button
+  // is clicked, and stays put while the dialog closes. Tying size to the
+  // same state that drives "open" would clear it the instant onClose fires,
+  // so the dialog would lose its --sm/--md/--lg/--full class mid-close and
+  // visibly snap to its default width during the animation.
+  const [size, setSize] = React.useState<DialogSize>('sm');
+  const [open, setOpen] = React.useState(false);
+
+  const openWithSize = (nextSize: DialogSize) => {
+    setSize(nextSize);
+    setOpen(true);
+  };
+
+  return (
+    <>
+      <Flexbox gap="sm">
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('sm')}>
+          Small
+        </Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('md')}>
+          Medium
+        </Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('lg')}>
+          Large
+        </Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('full')}>
+          Full
+        </Button>
+      </Flexbox>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Settings" size={size}>
+        <Text styleAs="body">A dialog with size "{size}".</Text>
+      </Dialog>
+    </>
+  );
+}
+
+function NonDismissableDialogExample() {
   const [open, setOpen] = React.useState(false);
   return (
     <>
       <Button appearance="bordered" emphasis="neutral" onClick={() => setOpen(true)}>
-        Open large dialog
+        Open non-dismissable dialog
       </Button>
-      <Dialog open={open} onClose={() => setOpen(false)} title="Settings" size="lg">
-        <Text styleAs="body">A larger dialog for more complex content.</Text>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Confirm action" disableBackdropClose>
+        <Text styleAs="body">Clicking the backdrop won't close this dialog — use the buttons below.</Text>
+        <Flexbox gap="sm" mt="md">
+          <Button appearance="solid" emphasis="accented" onClick={() => setOpen(false)}>
+            Confirm
+          </Button>
+          <Button appearance="bordered" emphasis="neutral" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+        </Flexbox>
       </Dialog>
     </>
   );
@@ -85,9 +131,51 @@ export const dialog: ComponentEntry = {
       title: 'Sizes',
       description: 'sm, md, lg, and full control the maximum width of the dialog panel.',
       render: () => <SizedDialogExample />,
-      code: `<Dialog open={open} onClose={() => setOpen(false)} title="Settings" size="lg">
-  <Text styleAs="body">A larger dialog for more complex content.</Text>
-</Dialog>`,
+      code: `function Example() {
+  const [size, setSize] = React.useState('sm');
+  const [open, setOpen] = React.useState(false);
+
+  const openWithSize = (nextSize) => {
+    setSize(nextSize);
+    setOpen(true);
+  };
+
+  return (
+    <>
+      <Flexbox gap="sm">
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('sm')}>Small</Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('md')}>Medium</Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('lg')}>Large</Button>
+        <Button appearance="bordered" emphasis="neutral" onClick={() => openWithSize('full')}>Full</Button>
+      </Flexbox>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Settings" size={size}>
+        <Text styleAs="body">A dialog with size "{size}".</Text>
+      </Dialog>
+    </>
+  );
+}`,
+    },
+    {
+      title: 'Disable backdrop close',
+      description: 'disableBackdropClose keeps the dialog open on a backdrop click, forcing the user to use an explicit action.',
+      render: () => <NonDismissableDialogExample />,
+      code: `function Example() {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button appearance="bordered" emphasis="neutral" onClick={() => setOpen(true)}>
+        Open non-dismissable dialog
+      </Button>
+      <Dialog open={open} onClose={() => setOpen(false)} title="Confirm action" disableBackdropClose>
+        <Text styleAs="body">Clicking the backdrop won't close this dialog — use the buttons below.</Text>
+        <Flexbox gap="sm" mt="md">
+          <Button appearance="solid" emphasis="accented" onClick={() => setOpen(false)}>Confirm</Button>
+          <Button appearance="bordered" emphasis="neutral" onClick={() => setOpen(false)}>Cancel</Button>
+        </Flexbox>
+      </Dialog>
+    </>
+  );
+}`,
     },
   ],
   accessibilityNotes: [

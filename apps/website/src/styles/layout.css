@@ -13,6 +13,28 @@
   flex-direction: column;
 }
 
+.site-shell__skip-link {
+  position: absolute;
+  top: var(--akds-spacing-100);
+  left: var(--akds-spacing-100);
+  z-index: 100;
+  padding: var(--akds-spacing-150) var(--akds-spacing-200);
+  background: var(--akds-color-surface-raised);
+  color: var(--akds-color-text-primary-default);
+  border-radius: var(--akds-radius-md);
+  box-shadow: var(--akds-elevation-lg);
+  text-decoration: none;
+  font-weight: var(--akds-font-weight-medium);
+  transform: translateY(-150%);
+  transition: transform 150ms ease;
+}
+
+.site-shell__skip-link:focus-visible {
+  transform: translateY(0);
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
 .site-shell__body {
   flex: 1;
   display: grid;

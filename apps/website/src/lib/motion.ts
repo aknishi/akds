@@ -5,10 +5,14 @@ export const fadeUp: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
 };
 
+// Used for the hero's single opening moment only — keep this fast (40–60ms)
+// so a stagger reads as a beat, not a wait. Utility grids should not reach
+// for this; see FeatureGrid and the landing-page card grids, which render
+// without a stagger entirely.
 export const staggerContainer: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.2 },
+    transition: { staggerChildren: 0.06 },
   },
 };
 

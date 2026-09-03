@@ -52,6 +52,18 @@ export const card: ComponentEntry = {
   <CardContent>...</CardContent>
 </Card>`,
     },
+    {
+      title: 'Content only',
+      description: 'CardHeader and CardFooter are optional — a Card can render CardContent by itself.',
+      render: () => (
+        <Card>
+          <CardContent>A card with only content — header and footer are optional.</CardContent>
+        </Card>
+      ),
+      code: `<Card>
+  <CardContent>A card with only content — header and footer are optional.</CardContent>
+</Card>`,
+    },
   ],
   accessibilityNotes: [
     'Card and its slots render plain <div>s — there is no implicit landmark or heading role, so use a real heading element (e.g. Text as="h3") inside CardHeader for document structure.',

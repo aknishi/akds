@@ -11,6 +11,11 @@ export const spinner: ComponentEntry = {
   preview: <Spinner size="lg" />,
   examples: [
     {
+      title: 'Default',
+      render: () => <Spinner />,
+      code: `<Spinner />`,
+    },
+    {
       title: 'Sizes',
       render: () => (
         <>

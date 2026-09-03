@@ -13,8 +13,8 @@ export const avatar: ComponentEntry = {
   examples: [
     {
       title: 'Image',
-      render: () => <Avatar src="https://i.pravatar.cc/150?img=3" alt="Jane Smith" />,
-      code: `<Avatar src="https://i.pravatar.cc/150?img=3" alt="Jane Smith" />`,
+      render: () => <Avatar src="/avatar-demo.svg" alt="Jane Smith" />,
+      code: `<Avatar src="/avatar-demo.svg" alt="Jane Smith" />`,
     },
     {
       title: 'Initials & sizes',

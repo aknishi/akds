@@ -1,5 +1,17 @@
+import React from 'react';
 import { Switch } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+
+function SwitchControlledExample() {
+  const [enabled, setEnabled] = React.useState(false);
+  return (
+    <Switch
+      label={enabled ? 'Dark mode on' : 'Dark mode off'}
+      checked={enabled}
+      onChange={e => setEnabled(e.target.checked)}
+    />
+  );
+}
 
 export const switchEntry: ComponentEntry = {
   slug: 'switch',
@@ -30,9 +42,38 @@ export const switchEntry: ComponentEntry = {
           <Switch label="Large" size="lg" defaultChecked />
         </>
       ),
-      code: `<Switch label="Small" size="sm" />
-<Switch label="Medium" size="md" />
-<Switch label="Large" size="lg" />`,
+      code: `<Switch label="Small" size="sm" defaultChecked />
+<Switch label="Medium" size="md" defaultChecked />
+<Switch label="Large" size="lg" defaultChecked />`,
+    },
+    {
+      title: 'States',
+      render: () => (
+        <>
+          <Switch label="Off" />
+          <Switch label="On" defaultChecked />
+          <Switch label="Disabled off" disabled />
+          <Switch label="Disabled on" disabled defaultChecked />
+        </>
+      ),
+      code: `<Switch label="Off" />
+<Switch label="On" defaultChecked />
+<Switch label="Disabled off" disabled />
+<Switch label="Disabled on" disabled defaultChecked />`,
+    },
+    {
+      title: 'Controlled',
+      render: () => <SwitchControlledExample />,
+      code: `function Example() {
+  const [enabled, setEnabled] = React.useState(false);
+  return (
+    <Switch
+      label={enabled ? 'Dark mode on' : 'Dark mode off'}
+      checked={enabled}
+      onChange={(e) => setEnabled(e.target.checked)}
+    />
+  );
+}`,
     },
   ],
   accessibilityNotes: [
@@ -43,6 +84,9 @@ export const switchEntry: ComponentEntry = {
     { name: 'label', type: 'React.ReactNode', description: 'The label text rendered next to the switch.' },
     { name: 'checked', type: 'boolean', description: 'The checked state (controlled).' },
     { name: 'defaultChecked', type: 'boolean', description: 'The default checked state (uncontrolled).' },
+    { name: 'onChange', type: 'React.ChangeEventHandler<HTMLInputElement>', description: 'Change handler forwarded to the inner <input>.' },
+    { name: 'name', type: 'string', description: 'Name attribute forwarded to the inner <input>.' },
+    { name: 'value', type: 'string', description: 'Value attribute forwarded to the inner <input>.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Sets the size of the switch.' },
   ],

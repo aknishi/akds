@@ -82,6 +82,11 @@ export const textArea: ComponentEntry = {
   defaultValue="This textarea has a fixed height. Once the content grows past the visible rows, it scrolls vertically instead of expanding or being manually resized."
 />`,
     },
+    {
+      title: 'Disabled',
+      render: () => <TextArea label="Read only" disabled defaultValue="Cannot be edited" />,
+      code: `<TextArea label="Read only" disabled defaultValue="Cannot be edited" />`,
+    },
   ],
   accessibilityNotes: [
     'The floating label is a real <label> associated with the textarea via htmlFor/id — always announced by screen readers.',
@@ -94,6 +99,7 @@ export const textArea: ComponentEntry = {
     { name: 'minRows', type: 'number', default: '3', description: 'Minimum number of visible text rows. Also the fixed row count when resizable is false.' },
     { name: 'resizable', type: 'boolean', default: 'true', description: 'When true, the textarea grows to fit its content and can be dragged taller via the resize handle. When false, height stays fixed to minRows and overflowing content scrolls vertically instead.' },
     { name: 'error', type: 'boolean', default: 'false', description: 'Applies error styling to the border and helper text.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'wrapperClassName', type: 'string', description: 'className applied to the outer wrapper <div>.' },
     { name: 'textareaRef', type: 'React.Ref<HTMLTextAreaElement>', description: 'Ref forwarded to the internal <textarea> element.' },
   ],

@@ -45,6 +45,20 @@ export const radio: ComponentEntry = {
   <Radio label="Overnight" value="overnight" />
 </RadioGroup>`,
     },
+    {
+      title: 'Disabled',
+      description: 'Setting disabled on RadioGroup disables every child Radio.',
+      render: () => (
+        <RadioGroup name="disabled-group" disabled>
+          <Radio label="Option A" value="a" />
+          <Radio label="Option B" value="b" />
+        </RadioGroup>
+      ),
+      code: `<RadioGroup name="disabled-group" disabled>
+  <Radio label="Option A" value="a" />
+  <Radio label="Option B" value="b" />
+</RadioGroup>`,
+    },
   ],
   accessibilityNotes: [
     'RadioGroup renders a native <fieldset>, with legend rendered as a real <legend> — the accessible name for the whole group.',
@@ -54,9 +68,13 @@ export const radio: ComponentEntry = {
   props: [
     { name: 'name', type: 'string', description: 'Shared name for all child Radio inputs. Required on RadioGroup for form association.' },
     { name: 'value', type: 'string | number', description: 'The currently selected value (controlled), set on RadioGroup.' },
+    { name: 'onChange', type: 'React.ChangeEventHandler<HTMLInputElement>', description: 'Change handler called when a Radio option is selected, set on RadioGroup.' },
     { name: 'legend', type: 'React.ReactNode', description: 'Accessible label rendered as a <legend> on RadioGroup.' },
+    { name: 'disabled', type: 'boolean', default: 'false', description: 'When set on RadioGroup, disables all child Radio inputs. Can also be set on an individual Radio.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Layout direction of the radio options, set on RadioGroup.' },
     { name: 'label', type: 'React.ReactNode', description: 'The label text rendered next to an individual Radio.' },
+    { name: 'checked', type: 'boolean', description: 'The checked state of an individual Radio (controlled). Overrides RadioGroup value matching.' },
+    { name: 'defaultChecked', type: 'boolean', description: 'The default checked state of an individual Radio (uncontrolled).' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Sets the size of the radio indicator.' },
   ],
   doDont: [

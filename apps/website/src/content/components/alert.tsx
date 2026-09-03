@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert, AlertTitle, Button, IconButton, Menu, MenuItem } from '@aknishi/akds-reactkit';
-import { CloseIcon, MoreVertIcon } from '@aknishi/akds-icons';
+import { CloseIcon, MoreVertIcon, StarFilledIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 function WithActionExamples() {
@@ -74,6 +74,11 @@ export const alert: ComponentEntry = {
   preview: <Alert emphasis="info">A new version is available.</Alert>,
   examples: [
     {
+      title: 'Default',
+      render: () => <Alert>A new version of the app is available. Refresh to update.</Alert>,
+      code: `<Alert>A new version of the app is available. Refresh to update.</Alert>`,
+    },
+    {
       title: 'Emphasis',
       description: 'emphasis conveys the severity of the message and determines the status icon and color.',
       render: () => (
@@ -117,6 +122,26 @@ export const alert: ComponentEntry = {
       code: `<Alert emphasis="warning">
   <AlertTitle>Storage almost full</AlertTitle>
   You have used 95% of your available storage. Free up space or upgrade your plan.
+</Alert>`,
+    },
+    {
+      title: 'Custom icon',
+      description: 'icon overrides the default status icon; pass icon={false} to hide the icon entirely.',
+      render: () => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%' }}>
+          <Alert emphasis="success" icon={<StarFilledIcon size="md" />}>
+            You've unlocked a new achievement.
+          </Alert>
+          <Alert emphasis="info" icon={false}>
+            No icon is rendered for this alert.
+          </Alert>
+        </div>
+      ),
+      code: `<Alert emphasis="success" icon={<StarFilledIcon size="md" />}>
+  You've unlocked a new achievement.
+</Alert>
+<Alert emphasis="info" icon={false}>
+  No icon is rendered for this alert.
 </Alert>`,
     },
     {

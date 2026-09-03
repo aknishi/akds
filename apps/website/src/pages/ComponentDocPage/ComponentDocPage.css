@@ -2,6 +2,52 @@
   max-width: 860px;
 }
 
+.component-doc-page section {
+  scroll-margin-top: calc(64px + var(--akds-spacing-200));
+}
+
+.component-doc-page__jump-nav {
+  position: sticky;
+  top: 64px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--akds-spacing-100);
+  padding-block: var(--akds-spacing-150);
+  background: color-mix(in srgb, var(--akds-color-surface-default) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-block: 1px solid var(--akds-color-border-neutral-default);
+}
+
+.component-doc-page__jump-nav a {
+  padding: var(--akds-spacing-50) var(--akds-spacing-150);
+  border-radius: var(--akds-radius-full);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  color: var(--akds-color-text-secondary-default);
+  text-decoration: none;
+}
+
+.component-doc-page__jump-nav a:hover {
+  background: var(--akds-color-interaction-hover-overlay);
+  color: var(--akds-color-text-primary-default);
+}
+
+.component-doc-page__breadcrumb {
+  color: var(--akds-color-text-secondary-default);
+  font-size: var(--akds-font-size-xs);
+}
+
+.component-doc-page__breadcrumb a {
+  color: var(--akds-color-text-secondary-default);
+  text-decoration: none;
+}
+
+.component-doc-page__breadcrumb a:hover {
+  color: var(--akds-color-text-primary-default);
+  text-decoration: underline;
+}
+
 .component-doc-page__summary {
   display: block;
   color: var(--akds-color-text-secondary-default);

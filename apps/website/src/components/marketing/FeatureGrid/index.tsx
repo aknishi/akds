@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { Card, CardContent, Text } from '@aknishi/akds-reactkit';
 import {
   PaletteIcon,
@@ -8,7 +7,6 @@ import {
   ResponsiveLayoutIcon,
   AnimationIcon,
 } from '@aknishi/akds-icons';
-import { staggerContainer, staggerItem } from '../../../lib/motion';
 import './FeatureGrid.css';
 
 const FEATURES = [
@@ -46,9 +44,9 @@ const FEATURES = [
 
 export function FeatureGrid() {
   return (
-    <motion.div className="feature-grid" variants={staggerContainer}>
+    <div className="feature-grid">
       {FEATURES.map(({ icon: Icon, title, description }) => (
-        <motion.div key={title} className="feature-grid__card-wrapper" variants={staggerItem}>
+        <div key={title} className="feature-grid__card-wrapper">
           <Card className="feature-grid__card">
             <CardContent>
               <div className="feature-grid__icon">
@@ -62,8 +60,8 @@ export function FeatureGrid() {
               </Text>
             </CardContent>
           </Card>
-        </motion.div>
+        </div>
       ))}
-    </motion.div>
+    </div>
   );
 }
