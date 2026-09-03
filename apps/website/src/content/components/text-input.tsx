@@ -4,7 +4,7 @@ import type { ComponentEntry } from './types';
 
 export const textInput: ComponentEntry = {
   slug: 'text-input',
-  name: 'TextInput',
+  name: 'Text input',
   category: 'Inputs',
   summary: 'A text field with a floating label, helper text, error state, and optional start adornment.',
   sourcePath: 'packages/reactkit/src/components/TextInput',

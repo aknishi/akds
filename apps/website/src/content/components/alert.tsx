@@ -170,7 +170,7 @@ export const alert: ComponentEntry = {
     { name: 'emphasis', type: "'info' | 'success' | 'warning' | 'error'", default: "'info'", description: 'Conveys the severity of the message. Determines the status icon and status color.' },
     { name: 'variant', type: "'default' | 'filled'", default: "'default'", description: 'default uses a tinted background with status-colored text; filled uses a solid status-colored background with white text.' },
     { name: 'icon', type: 'React.ReactNode', description: 'Overrides the default icon for the current emphasis. Pass false to hide the icon entirely.' },
-    { name: 'action', type: 'React.ReactNode', description: 'Content rendered at the end of the alert, such as a dismiss IconButton or a menu trigger.' },
+    { name: 'action', type: 'React.ReactNode', description: 'Content rendered at the end of the alert, such as a dismiss Icon button or a menu trigger.' },
     { name: 'children', type: 'React.ReactNode', description: 'Content rendered inside the alert. Compose with AlertTitle and body text. Required.' },
   ],
   doDont: [

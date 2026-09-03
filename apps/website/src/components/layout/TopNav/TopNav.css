@@ -31,9 +31,13 @@
 }
 
 @media (min-width: 1024px) {
-  .top-nav__menu-button {
+  .top-nav__inner .top-nav__menu-button--has-sidebar {
     display: none;
   }
+}
+
+.top-nav__inner .top-nav__menu-button--nav-open {
+  display: none;
 }
 
 .top-nav__brand {

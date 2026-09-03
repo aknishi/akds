@@ -44,7 +44,7 @@ function InteractiveProgressTrackerExample() {
 
 export const progressTracker: ComponentEntry = {
   slug: 'progress-tracker',
-  name: 'ProgressTracker',
+  name: 'Progress tracker',
   category: 'Navigation & Disclosure',
   summary: 'A numbered step tracker for multi-step flows, composed of ProgressTrackerStep children.',
   sourcePath: 'packages/reactkit/src/components/ProgressTracker',
@@ -139,7 +139,7 @@ export const progressTracker: ComponentEntry = {
     { name: 'celebrateOnComplete', type: 'boolean', default: 'false', description: 'Plays a particle-burst animation when the step transitions to complete.' },
   ],
   doDont: [
-    { do: 'Use ProgressTracker for linear, sequential flows like checkout or onboarding.', dont: "Don't use ProgressTracker for non-linear navigation — use Tabs instead." },
+    { do: 'Use Progress tracker for linear, sequential flows like checkout or onboarding.', dont: "Don't use Progress tracker for non-linear navigation — use Tabs instead." },
   ],
   related: ['tabs', 'accordion'],
 };

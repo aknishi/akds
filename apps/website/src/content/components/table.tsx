@@ -3,7 +3,7 @@ import type { ComponentEntry } from './types';
 
 export const table: ComponentEntry = {
   slug: 'table',
-  name: 'Basic Table',
+  name: 'Basic table',
   category: 'Data Display & Content',
   summary: 'A semantic HTML table for static or simple tabular data, composed from Thead, Tbody, Tfoot, Tr, Th, and Td.',
   sourcePath: 'packages/reactkit/src/components/Table',
@@ -279,7 +279,7 @@ export const table: ComponentEntry = {
     { name: 'children', type: 'React.ReactNode', description: 'Typically Thead, Tbody, and/or Tfoot. Required.' },
   ],
   doDont: [
-    { do: 'Use Basic Table for static or simple tabular data — a props table, a summary list, a small dataset.', dont: "Don't reach for sorting, filtering, or pagination here — those are planned for a separate future Datagrid package built on TanStack Table." },
+    { do: 'Use Basic table for static or simple tabular data — a props table, a summary list, a small dataset.', dont: "Don't reach for sorting, filtering, or pagination here — those are planned for a separate future Datagrid package built on TanStack Table." },
   ],
   related: ['card', 'text'],
 };

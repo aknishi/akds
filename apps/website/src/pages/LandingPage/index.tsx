@@ -28,7 +28,7 @@ const COMPONENT_PREVIEWS = [
   },
   {
     slug: 'text-input',
-    name: 'TextInput',
+    name: 'Text input',
     description: 'Floating label, helper text, adornments.',
     preview: <TextInput label="Email" />,
   },
@@ -82,7 +82,7 @@ const COMPONENT_PREVIEWS = [
   },
   {
     slug: 'ai-button',
-    name: 'AIButton',
+    name: 'AI button',
     description: 'Triggers AI generation with an animated loading state.',
     preview: <AIButton loading>Generate</AIButton>,
   },

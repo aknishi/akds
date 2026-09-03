@@ -5,7 +5,7 @@ export const spinner: ComponentEntry = {
   slug: 'spinner',
   name: 'Spinner',
   category: 'Feedback',
-  summary: 'A loading indicator, used inside Button/IconButton loading states or standalone for async content.',
+  summary: 'A loading indicator, used inside Button/Icon button loading states or standalone for async content.',
   sourcePath: 'packages/reactkit/src/components/Spinner',
   storybookId: 'reactkit-spinner--docs',
   preview: <Spinner size="lg" />,

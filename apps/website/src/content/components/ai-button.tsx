@@ -19,7 +19,7 @@ function AIButtonControlledExample() {
 
 export const aiButton: ComponentEntry = {
   slug: 'ai-button',
-  name: 'AIButton',
+  name: 'AI button',
   category: 'Actions',
   summary: 'Triggers generation of AI content, such as images or text, with an animated generating state.',
   sourcePath: 'packages/reactkit/src/components/AIButton',
@@ -76,7 +76,7 @@ export const aiButton: ComponentEntry = {
     { name: 'children', type: 'React.ReactNode', description: 'The button label, e.g. "Generate". Required.' },
   ],
   doDont: [
-    { do: 'Use AIButton for actions that trigger AI generation (text, images, summaries).', dont: "Don't use AIButton for ordinary async actions — use Button's loading prop instead so generation reads as visually distinct." },
+    { do: 'Use AI button for actions that trigger AI generation (text, images, summaries).', dont: "Don't use AI button for ordinary async actions — use Button's loading prop instead so generation reads as visually distinct." },
     { do: 'Pass a controlled loading value when you need to clear the state on a specific event (e.g. a stream finishing).', dont: "Don't leave the uncontrolled default in place if generation can fail — the button will stay in its loading state indefinitely." },
   ],
   related: ['button', 'icon-button', 'like-button'],

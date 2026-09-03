@@ -9,7 +9,7 @@ function LikeButtonExample() {
 
 export const likeButton: ComponentEntry = {
   slug: 'like-button',
-  name: 'LikeButton',
+  name: 'Like button',
   category: 'Actions',
   summary: 'A toggleable "like" button with a celebratory particle-burst animation on activation.',
   sourcePath: 'packages/reactkit/src/components/LikeButton',
@@ -40,7 +40,7 @@ export const likeButton: ComponentEntry = {
     { name: 'focusableWhenDisabled', type: 'boolean', default: 'false', description: 'Keeps a disabled button focusable via aria-disabled.' },
   ],
   doDont: [
-    { do: 'Use LikeButton for lightweight, reversible reactions.', dont: "Don't use LikeButton for destructive or non-reversible actions — the celebratory animation implies a positive, low-stakes toggle." },
+    { do: 'Use Like button for lightweight, reversible reactions.', dont: "Don't use Like button for destructive or non-reversible actions — the celebratory animation implies a positive, low-stakes toggle." },
   ],
   related: ['button'],
 };

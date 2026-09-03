@@ -19,7 +19,7 @@ function CharacterCountExample() {
 
 export const textArea: ComponentEntry = {
   slug: 'text-area',
-  name: 'TextArea',
+  name: 'Text area',
   category: 'Inputs',
   summary: 'A multi-line text field with a floating label, helper text, error state, and configurable auto-grow or fixed-height behavior.',
   sourcePath: 'packages/reactkit/src/components/TextArea',

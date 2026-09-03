@@ -19,7 +19,7 @@ export function SiteShell() {
 
   return (
     <div className="site-shell">
-      <TopNav onMenuClick={() => setMobileNavOpen(true)} />
+      <TopNav onMenuClick={() => setMobileNavOpen(true)} hasSidebar={showSidebar} mobileNavOpen={mobileNavOpen} />
       <MobileNav open={mobileNavOpen} onClose={() => setMobileNavOpen(false)} />
 
       <div className={`site-shell__body${showSidebar ? '' : ' site-shell__body--no-sidebar'}`}>
