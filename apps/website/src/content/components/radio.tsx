@@ -33,16 +33,16 @@ export const radio: ComponentEntry = {
     {
       title: 'Horizontal orientation',
       render: () => (
-        <RadioGroup name="size-horizontal" defaultValue="md" orientation="horizontal">
-          <Radio label="Small" value="sm" />
-          <Radio label="Medium" value="md" />
-          <Radio label="Large" value="lg" />
+        <RadioGroup name="delivery-horizontal" defaultValue="express" orientation="horizontal">
+          <Radio label="Standard" value="standard" />
+          <Radio label="Express" value="express" />
+          <Radio label="Overnight" value="overnight" />
         </RadioGroup>
       ),
-      code: `<RadioGroup name="size" orientation="horizontal">
-  <Radio label="Small" value="sm" />
-  <Radio label="Medium" value="md" />
-  <Radio label="Large" value="lg" />
+      code: `<RadioGroup name="delivery" orientation="horizontal">
+  <Radio label="Standard" value="standard" />
+  <Radio label="Express" value="express" />
+  <Radio label="Overnight" value="overnight" />
 </RadioGroup>`,
     },
   ],

@@ -41,14 +41,14 @@ describe('Checkbox', () => {
   it('calls onChange when clicked', async () => {
     const onChange = vi.fn();
     render(<Checkbox onChange={onChange} label="Click me" />);
-    await userEvent.click(screen.getByRole('checkbox'));
+    await userEvent.click(screen.getByText('Click me'));
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
   it('does not call onChange when disabled', async () => {
     const onChange = vi.fn();
     render(<Checkbox disabled onChange={onChange} label="Disabled" />);
-    await userEvent.click(screen.getByRole('checkbox'));
+    await userEvent.click(screen.getByText('Disabled'));
     expect(onChange).not.toHaveBeenCalled();
   });
 

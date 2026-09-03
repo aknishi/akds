@@ -28,9 +28,7 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage"
   },
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": true,
   "repository": {
     "type": "git",
     "url": "https://github.com/aknishi/akds.git",

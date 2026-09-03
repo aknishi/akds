@@ -55,7 +55,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         <input
           ref={callbackRef}
           type="checkbox"
-          className={withBaseName('input')}
+          className={withBaseName.el('input')}
           checked={checked}
           defaultChecked={defaultChecked}
           onChange={onChange}
@@ -64,9 +64,9 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           disabled={disabled}
           aria-disabled={disabled || undefined}
         />
-        <span className={withBaseName('indicator')} aria-hidden="true">
+        <span className={withBaseName.el('indicator')} aria-hidden="true">
           <svg
-            className={withBaseName('check-icon')}
+            className={withBaseName.el('check-icon')}
             viewBox="0 0 16 16"
             fill="none"
             aria-hidden="true"
@@ -79,7 +79,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
             />
           </svg>
           <svg
-            className={withBaseName('indeterminate-icon')}
+            className={withBaseName.el('indeterminate-icon')}
             viewBox="0 0 16 16"
             fill="none"
             aria-hidden="true"
@@ -88,7 +88,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           </svg>
         </span>
         {label !== undefined && (
-          <span className={withBaseName('label')}>{label}</span>
+          <span className={withBaseName.el('label')}>{label}</span>
         )}
       </label>
     );

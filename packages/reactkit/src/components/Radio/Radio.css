@@ -78,23 +78,23 @@
 }
 
 .akds-radio--sm .akds-radio__indicator {
-  width: var(--akds-size-icon-xs);
-  height: var(--akds-size-icon-xs);
-}
-
-.akds-radio--sm .akds-radio__dot {
-  width: 4px;
-  height: 4px;
-}
-
-.akds-radio--md .akds-radio__indicator {
   width: var(--akds-size-icon-sm);
   height: var(--akds-size-icon-sm);
 }
 
-.akds-radio--md .akds-radio__dot {
+.akds-radio--sm .akds-radio__dot {
   width: 6px;
   height: 6px;
+}
+
+.akds-radio--md .akds-radio__indicator {
+  width: var(--akds-size-icon-md);
+  height: var(--akds-size-icon-md);
+}
+
+.akds-radio--md .akds-radio__dot {
+  width: 8px;
+  height: 8px;
 }
 
 .akds-radio--lg {
@@ -102,13 +102,13 @@
 }
 
 .akds-radio--lg .akds-radio__indicator {
-  width: var(--akds-size-icon-md);
-  height: var(--akds-size-icon-md);
+  width: var(--akds-size-icon-lg);
+  height: var(--akds-size-icon-lg);
 }
 
 .akds-radio--lg .akds-radio__dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 /* ── Disabled ──────────────────────────────────────────────────────────── */

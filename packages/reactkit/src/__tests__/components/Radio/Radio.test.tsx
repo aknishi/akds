@@ -41,14 +41,14 @@ describe('Radio', () => {
   it('calls onChange when clicked', async () => {
     const onChange = vi.fn();
     render(<Radio onChange={onChange} label="Click" name="g" />);
-    await userEvent.click(screen.getByRole('radio'));
+    await userEvent.click(screen.getByText('Click'));
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 
   it('does not call onChange when disabled', async () => {
     const onChange = vi.fn();
     render(<Radio disabled onChange={onChange} label="D" name="g" />);
-    await userEvent.click(screen.getByRole('radio'));
+    await userEvent.click(screen.getByText('D'));
     expect(onChange).not.toHaveBeenCalled();
   });
 
