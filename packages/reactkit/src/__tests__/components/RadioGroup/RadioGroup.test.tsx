@@ -82,7 +82,7 @@ describe('RadioGroup', () => {
         <Radio value="banana" label="Banana" />
       </RadioGroup>,
     );
-    await userEvent.click(screen.getByRole('radio', { name: 'Banana' }));
+    await userEvent.click(screen.getByText('Banana'));
     expect(onChange).toHaveBeenCalledTimes(1);
   });
 

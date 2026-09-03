@@ -184,10 +184,10 @@ export default function App() {
 
         <p className="demo-label-heading">Horizontal</p>
         <div className="demo-row">
-          <RadioGroup name="pg-size" legend="Size" orientation="horizontal">
-            <Radio value="sm" label="Small" />
-            <Radio value="md" label="Medium" />
-            <Radio value="lg" label="Large" />
+          <RadioGroup name="pg-delivery" legend="Delivery speed" orientation="horizontal">
+            <Radio value="standard" label="Standard" />
+            <Radio value="express" label="Express" />
+            <Radio value="overnight" label="Overnight" />
           </RadioGroup>
         </div>
 

@@ -52,7 +52,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         <input
           ref={ref}
           type="radio"
-          className={withBaseName('input')}
+          className={withBaseName.el('input')}
           checked={resolvedChecked}
           defaultChecked={defaultChecked}
           onChange={resolvedOnChange}
@@ -61,11 +61,11 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           disabled={resolvedDisabled}
           aria-disabled={resolvedDisabled || undefined}
         />
-        <span className={withBaseName('indicator')} aria-hidden="true">
-          <span className={withBaseName('dot')} />
+        <span className={withBaseName.el('indicator')} aria-hidden="true">
+          <span className={withBaseName.el('dot')} />
         </span>
         {label !== undefined && (
-          <span className={withBaseName('label')}>{label}</span>
+          <span className={withBaseName.el('label')}>{label}</span>
         )}
       </label>
     );

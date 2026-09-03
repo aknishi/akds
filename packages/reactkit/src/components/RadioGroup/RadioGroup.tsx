@@ -35,7 +35,7 @@ export const RadioGroup = React.forwardRef<HTMLFieldSetElement, RadioGroupProps>
           )}
           {...rest}
         >
-          {legend && <Text as="legend" className={withBaseName('legend')}>{legend}</Text>}
+          {legend && <Text as="legend" className={withBaseName.el('legend')}>{legend}</Text>}
           {children}
         </fieldset>
       </RadioGroupContext.Provider>
