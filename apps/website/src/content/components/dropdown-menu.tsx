@@ -15,7 +15,7 @@ function DropdownMenuExample() {
 
 export const dropdownMenu: ComponentEntry = {
   slug: 'dropdown-menu',
-  name: 'DropdownMenu',
+  name: 'Dropdown menu',
   category: 'Inputs',
   summary: 'A select-style trigger that opens a Menu of Option children — the fixed-option counterpart to Combobox.',
   sourcePath: 'packages/reactkit/src/components/DropdownMenu',
@@ -56,7 +56,7 @@ export const dropdownMenu: ComponentEntry = {
     { name: 'children', type: 'React.ReactNode', description: 'Option elements. Required.' },
   ],
   doDont: [
-    { do: 'Use DropdownMenu when the option set is small and known ahead of time.', dont: "Don't duplicate a DropdownMenu's options in a Combobox — pick one based on whether search is needed." },
+    { do: 'Use Dropdown menu when the option set is small and known ahead of time.', dont: "Don't duplicate a Dropdown menu's options in a Combobox — pick one based on whether search is needed." },
   ],
   related: ['combobox', 'menu'],
 };

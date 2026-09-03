@@ -1,0 +1,330 @@
+.akds-ai-button__wrapper {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  border-radius: var(--akds-radius-2xl);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-ai-button {
+  --border-radius: var(--akds-radius-2xl);
+  --padding: var(--akds-spacing-50);
+  --transition: 0.4s;
+  --button-color: var(--akds-color-background-primary-default); /* accent surface */
+  --highlight-color-hue: 210deg;
+  --channel-color-start: rgba(255, 255, 255, 0.4);
+  --channel-color-end: rgba(255, 255, 255, 0.7);
+  /* The hover shine (below) sits on top of the channel gradient
+     above, so it needs its own light/dark values: a flat white reads as a
+     shine against the near-black dark-mode channel, but disappears against
+     the near-white light-mode one — use a neutral gray instead so it still
+     shows up, matching the achromatic bevel highlight below rather than
+     picking up the accent hue. */
+  --shine-color: rgba(0, 0, 0, 0.3);
+  /* Same problem as --shine-color above, but for the channel's resting-state
+     corner highlight: flat white pops against the near-black dark-mode
+     channel but disappears against the near-white light-mode one. Kept
+     neutral gray (not hue-tinted) since this pairs with the achromatic
+     #0002/#0001 shadow on the opposite corner. */
+  --bevel-highlight-strong: rgba(0, 0, 0, 0.18);
+  --bevel-highlight-soft: rgba(0, 0, 0, 0.09);
+  /* Light mode only: pull the bevel highlight inward so it reads as a soft
+     inner shadow along the channel's bottom edge instead of a gray smudge
+     bleeding outside the pill silhouette. Dark mode keeps it outward
+     (unchanged, already-good) by overriding this to empty below. */
+  --bevel-highlight-position: inset;
+
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em 0.5em 0.5em 1.1em;
+  font-family: var(--akds-font-family-sans);
+  font-size: 1em;
+  font-weight: var(--akds-font-weight-light);
+
+  background-color: var(--button-color);
+  color: var(--akds-color-text-on-primary-default);
+
+  box-shadow:
+    /* inset */
+    inset 0px 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0px 2px 2px rgba(255, 255, 255, 0.15),
+    inset 0px 4px 4px rgba(255, 255, 255, 0.1),
+    inset 0px 8px 8px rgba(255, 255, 255, 0.05),
+    inset 0px 16px 16px rgba(255, 255, 255, 0.05),
+    /* drop */ 0px -1px 1px rgba(0, 0, 0, 0.02),
+    0px -2px 2px rgba(0, 0, 0, 0.03),
+    0px -4px 4px rgba(0, 0, 0, 0.05),
+    0px -8px 8px rgba(0, 0, 0, 0.06),
+    0px -16px 16px rgba(0, 0, 0, 0.08);
+
+  border: solid 1px color-mix(in srgb, var(--akds-color-text-on-primary-default) 12%, transparent);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+
+  transition:
+    box-shadow var(--transition),
+    border var(--transition),
+    background-color var(--transition);
+}
+
+.akds-ai-button:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* Dark mode is hardcoded to the original reference design's colors,
+   rather than the primary/accent token used for light mode. */
+[data-theme="dark"] .akds-ai-button {
+  --button-color: #101010;
+  --channel-color-start: #0004;
+  --channel-color-end: #000a;
+  --shine-color: #fffa;
+  --bevel-highlight-strong: #fff2;
+  --bevel-highlight-soft: #fff1;
+  --bevel-highlight-position: ;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .akds-ai-button {
+    --button-color: #101010;
+    --channel-color-start: #0004;
+    --channel-color-end: #000a;
+    --shine-color: #fffa;
+    --bevel-highlight-strong: #fff2;
+    --bevel-highlight-soft: #fff1;
+    --bevel-highlight-position: ;
+  }
+}
+
+.akds-ai-button::before {
+  content: "";
+  position: absolute;
+  top: calc(0px - var(--padding));
+  left: calc(0px - var(--padding));
+  width: calc(100% + var(--padding) * 2);
+  height: calc(100% + var(--padding) * 2);
+  border-radius: calc(var(--border-radius) + var(--padding));
+  pointer-events: none;
+  background-image: linear-gradient(0deg, var(--channel-color-start), var(--channel-color-end));
+
+  z-index: -1;
+  transition:
+    box-shadow var(--transition),
+    filter var(--transition);
+  box-shadow:
+    0 -8px 8px -6px #0000 inset,
+    0 -16px 16px -8px #00000000 inset,
+    -2px -2px 8px var(--bevel-highlight-strong) var(--bevel-highlight-position),
+    0 -8px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
+    -1px -1px 1px #0002,
+    -2px -2px 2px #0001;
+}
+
+[data-theme="dark"] .akds-ai-button::before {
+  box-shadow:
+    0 -8px 8px -6px #0000 inset,
+    0 -16px 16px -8px #00000000 inset,
+    1px 1px 1px var(--bevel-highlight-strong) var(--bevel-highlight-position),
+    2px 2px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
+    -1px -1px 1px #0002,
+    -2px -2px 2px #0001;
+}
+
+.akds-ai-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity var(--transition),
+    box-shadow 0.2s
+    filter var(--transition);
+  box-shadow:
+    0 -1px 2px -3px white inset,
+    0 -8px 4px -4px white inset,
+    1px 1px 2px white var(--bevel-highlight-position),
+    1px 2px 4px white var(--bevel-highlight-position),
+    -1px -1px 1px white,
+    -2px -2px 2px white;
+}
+
+[data-theme="dark"] .akds-ai-button::after {
+  background-image: linear-gradient(
+    0deg,
+    var(--akds-color-text-on-primary-default),
+    hsl(var(--highlight-color-hue), 100%, 70%),
+    hsla(var(--highlight-color-hue), 100%, 70%, 50%),
+    8%,
+    transparent
+  );
+  background-position: 0 0;
+  box-shadow: none;
+}
+
+.akds-ai-button__letter {
+  position: relative;
+  display: inline-block;
+  color: var(--akds-color-text-on-primary-default);
+  transition:
+    color var(--transition),
+    text-shadow var(--transition),
+    opacity var(--transition);
+}
+
+@keyframes letter-anim {
+  50% {
+    text-shadow: 0 0 3px #fff8;
+    color: var(--akds-color-text-on-primary-default);
+  }
+}
+
+.akds-ai-button__start-icon {
+  flex-grow: 1;
+  height: var(--akds-size-icon-lg);
+  margin-right: var(--akds-spacing-100);
+  fill: color-mix(in srgb, var(--akds-color-icon-on-primary-default) 90%, transparent);
+  filter: drop-shadow(0 0 2px #fff9);
+  transition:
+    fill var(--transition),
+    filter var(--transition),
+    opacity var(--transition);
+}
+@keyframes flicker {
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Loading state — applied via the `loading` prop, which the consumer sets
+   when the button is clicked and generation starts. Deliberately not tied
+   to :focus, so tabbing to (or clicking) the button doesn't itself play the
+   generating animation. */
+.akds-ai-button__text-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 6.4em;
+}
+.akds-ai-button__default-text,
+.akds-ai-button__loading-text {
+  position: absolute;
+  word-spacing: -1em;
+}
+.akds-ai-button__default-text {
+  animation: appear-anim 1s ease-in-out forwards;
+}
+.akds-ai-button__loading-text {
+  opacity: 0;
+}
+@keyframes appear-anim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.akds-ai-button--loading .akds-ai-button__default-text {
+  animation: opacity-anim 0.3s ease-in-out forwards;
+  animation-delay: 1s;
+}
+.akds-ai-button--loading .akds-ai-button__loading-text {
+  animation: opacity-anim 0.3s ease-in-out reverse forwards;
+  animation-delay: 1s;
+}
+@keyframes opacity-anim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.akds-ai-button--loading .akds-ai-button__letter {
+  /* letter-anim's keyframes only define a 50% (full-bright) state, so 0%/100%
+     fall back to this resting color — dimmed here so the animation has
+     something to pulse from. The default (non-loading) state stays
+     full-bright since no animation runs there to pulse it. */
+  color: color-mix(in srgb, var(--akds-color-text-on-primary-default) 33%, transparent);
+  animation:
+    focused-letter-anim 1s ease-in-out forwards,
+    letter-anim 1.2s ease-in-out infinite;
+  /* The `animation` shorthand above implicitly resets animation-delay to 0s
+     for both listed animations. Re-declaring it here (same specificity as
+     the shorthand, so it can't lose to it) restores the per-letter stagger. */
+  animation-delay: calc(var(--letter-index, 0) * 0.08s);
+}
+@keyframes focused-letter-anim {
+  0%,
+  100% {
+    filter: blur(0px);
+  }
+  50% {
+    transform: scale(2);
+    filter: blur(10px) brightness(150%)
+      drop-shadow(-36px 12px 12px hsl(var(--highlight-color-hue), 100%, 70%));
+  }
+}
+.akds-ai-button--loading .akds-ai-button__start-icon {
+  animation: flicker 1.2s linear infinite;
+  animation-delay: 0.2s;
+}
+
+[data-theme="dark"] .akds-ai-button--loading::before {
+  box-shadow:
+    0 -8px 12px -6px #fff3 inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 20%) inset,
+    1px 1px 1px #fff3,
+    2px 2px 2px #fff1,
+    -1px -1px 1px #0002,
+    -2px -2px 2px #0001;
+}
+.akds-ai-button--loading::after {
+  opacity: 0.6;
+  mask-image: linear-gradient(0deg, var(--akds-color-text-on-primary-default), transparent);
+  filter: brightness(100%);
+}
+
+/* Hover state */
+.akds-ai-button:not(.akds-ai-button--disabled):hover {
+  border: solid 1px hsla(var(--highlight-color-hue), 100%, 80%, 40%);
+}
+
+.akds-ai-button:hover:not(.akds-ai-button--disabled)::after {
+  opacity: 0.5;
+}
+
+[data-theme="dark"] .akds-ai-button:not(.akds-ai-button--disabled):hover::after {
+  opacity: 1;
+  mask-image: linear-gradient(0deg, var(--akds-color-text-on-primary-default), transparent);
+}
+
+.akds-ai-button:not(.akds-ai-button--disabled):hover .akds-ai-button__start-icon {
+  fill: var(--akds-color-icon-on-primary-default);
+  filter: drop-shadow(0 0 3px hsl(var(--highlight-color-hue), 100%, 70%))
+    drop-shadow(0 -4px 6px #0009);
+  animation: none;
+}
+
+/* ── Disabled ──────────────────────────────────────────────────────────── */
+/* Only applied for the explicit `disabled` prop, not `loading` — a button
+   that's disabled purely because it's generating should keep animating. */
+.akds-ai-button--disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+  background-color: var(--button-color) !important;
+  border: solid 1px color-mix(in srgb, var(--akds-color-text-on-primary-default) 12%, transparent) !important;
+}
+
+.akds-ai-button--disabled .akds-ai-button__letter,
+.akds-ai-button--disabled .akds-ai-button__start-icon,
+.akds-ai-button--disabled .akds-ai-button__default-text,
+.akds-ai-button--disabled .akds-ai-button__loading-text {
+  animation: none !important;
+}

@@ -1,0 +1,99 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ToastStories from './Toast.stories';
+
+<Meta of={ToastStories} />
+
+# Toast
+
+> **Available from v1.5.0**
+
+A transient notification that stacks in a corner of the viewport. Mount `ToastProvider` once near the root of the app, then call `useToast()` from anywhere inside it to show and dismiss toasts imperatively. New toasts enter from the bottom of the stack and push existing ones up; each auto-dismisses after a configurable duration, or can be closed manually with the X button.
+
+## Usage
+
+```tsx
+import { ToastProvider, useToast } from '@aknishi/akds-reactkit';
+```
+
+```tsx
+function Example() {
+  const { show } = useToast();
+  return (
+    <button onClick={() => show({ message: 'Saved.', emphasis: 'success' })}>
+      Save
+    </button>
+  );
+}
+
+<ToastProvider>
+  <Example />
+</ToastProvider>
+```
+
+## Props
+
+<ArgTypes of={ToastStories} />
+
+### `show(options)`
+
+`useToast()` returns `show` and `dismiss`. `show` accepts the following options and returns the new toast's id.
+
+<table>
+  <thead>
+    <tr>
+      <th>Prop</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>message</code></td>
+      <td><code>React.ReactNode</code></td>
+      <td>Content rendered inside the toast. Required.</td>
+    </tr>
+    <tr>
+      <td><code>emphasis</code></td>
+      <td><code>'accented' | 'neutral' | 'success' | 'destructive'</code></td>
+      <td>Conveys the intent of the toast. Defaults to <code>'neutral'</code>.</td>
+    </tr>
+    <tr>
+      <td><code>placement</code></td>
+      <td><code>'bottom-left' | 'bottom-center' | 'bottom-right'</code></td>
+      <td>Corner of the viewport the toast stacks in. Defaults to the provider's <code>placement</code>.</td>
+    </tr>
+    <tr>
+      <td><code>autoDismiss</code></td>
+      <td><code>boolean</code></td>
+      <td>When false, the toast stays open until closed manually. Defaults to the provider's <code>autoDismiss</code>.</td>
+    </tr>
+    <tr>
+      <td><code>duration</code></td>
+      <td><code>number</code></td>
+      <td>Milliseconds before auto-dismissing. Ignored when <code>autoDismiss</code> is false. Defaults to the provider's <code>duration</code>.</td>
+    </tr>
+    <tr>
+      <td><code>icon</code></td>
+      <td><code>React.ReactNode</code></td>
+      <td>Overrides the default icon shown for <code>emphasis</code>. Pass <code>null</code> to render no icon.</td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### Default
+
+<Canvas of={ToastStories.Default} />
+
+### Emphasis
+
+<Canvas of={ToastStories.Emphasis} />
+
+### Placement
+
+<Canvas of={ToastStories.Placement} />
+
+### Duration
+
+<Canvas of={ToastStories.Duration} />

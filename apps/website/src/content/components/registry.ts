@@ -1,6 +1,7 @@
 import type { ComponentEntry } from './types';
 
 // Actions
+import { aiButton } from './ai-button';
 import { button } from './button';
 import { iconButton } from './icon-button';
 import { likeButton } from './like-button';
@@ -12,6 +13,7 @@ import { combobox } from './combobox';
 import { dropdownMenu } from './dropdown-menu';
 import { radio } from './radio';
 import { switchEntry } from './switch';
+import { textArea } from './text-area';
 import { textInput } from './text-input';
 import { toggleGroup } from './toggle-group';
 
@@ -26,15 +28,20 @@ import { menu } from './menu';
 import { progressTracker } from './progress-tracker';
 import { tabs } from './tabs';
 
-// Feedback & Overlay
+// Feedback
+import { alert } from './alert';
+import { spinner } from './spinner';
+import { toast } from './toast';
+
+// Overlay
 import { dialog } from './dialog';
 import { drawer } from './drawer';
-import { spinner } from './spinner';
 import { tooltip } from './tooltip';
 
 // Data Display & Content
 import { avatar } from './avatar';
 import { carousel } from './carousel';
+import { table } from './table';
 import { tag } from './tag';
 import { text } from './text';
 
@@ -42,6 +49,7 @@ import { text } from './text';
 import { themeProvider } from './theme-provider';
 
 export const componentRegistry: ComponentEntry[] = [
+  aiButton,
   button,
   iconButton,
   likeButton,
@@ -51,6 +59,7 @@ export const componentRegistry: ComponentEntry[] = [
   dropdownMenu,
   radio,
   switchEntry,
+  textArea,
   textInput,
   toggleGroup,
   card,
@@ -62,10 +71,13 @@ export const componentRegistry: ComponentEntry[] = [
   tabs,
   dialog,
   drawer,
+  alert,
   spinner,
+  toast,
   tooltip,
   avatar,
   carousel,
+  table,
   tag,
   text,
   themeProvider,

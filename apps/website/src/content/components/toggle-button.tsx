@@ -19,10 +19,10 @@ function ToggleButtonExample() {
 
 export const toggleButton: ComponentEntry = {
   slug: 'toggle-button',
-  name: 'ToggleButton',
+  name: 'Toggle button',
   category: 'Actions',
   summary:
-    'A button that toggles between pressed and unpressed. Standalone it fills with a semantic color when pressed; inside a ToggleGroup it becomes a segmented-control option instead.',
+    'A button that toggles between pressed and unpressed. Standalone it fills with a semantic color when pressed; inside a Toggle group it becomes a segmented-control option instead.',
   sourcePath: 'packages/reactkit/src/components/ToggleButton',
   storybookId: 'reactkit-toggle-togglebutton--docs',
   preview: (
@@ -73,22 +73,22 @@ export const toggleButton: ComponentEntry = {
     },
   ],
   accessibilityNotes: [
-    'Standalone, ToggleButton renders aria-pressed to announce its state — pair it with a clear accessible name (visible text or aria-label).',
-    'Inside a ToggleGroup, it instead renders role="radio" with aria-checked, matching the group\'s single-select radiogroup pattern.',
-    'The color prop only applies when used standalone — grouped buttons pick up the ToggleGroup\'s selection styling and ignore color.',
+    'Standalone, Toggle button renders aria-pressed to announce its state — pair it with a clear accessible name (visible text or aria-label).',
+    'Inside a Toggle group, it instead renders role="radio" with aria-checked, matching the group\'s single-select radiogroup pattern.',
+    'The color prop only applies when used standalone — grouped buttons pick up the Toggle group\'s selection styling and ignore color.',
   ],
   props: [
-    { name: 'value', type: 'string', description: 'Identifies this button when used inside a ToggleGroup. Required for grouped usage.' },
-    { name: 'pressed', type: 'boolean', description: 'The pressed state when used standalone (controlled). Has no effect inside a ToggleGroup.' },
+    { name: 'value', type: 'string', description: 'Identifies this button when used inside a Toggle group. Required for grouped usage.' },
+    { name: 'pressed', type: 'boolean', description: 'The pressed state when used standalone (controlled). Has no effect inside a Toggle group.' },
     { name: 'defaultPressed', type: 'boolean', default: 'false', description: 'The initial pressed state when used standalone (uncontrolled).' },
     { name: 'onPressedChange', type: '(pressed: boolean) => void', description: 'Called with the next pressed state when used standalone.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
-    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: "Sets the size. Overridden by the parent ToggleGroup's size when grouped." },
-    { name: 'color', type: "'primary' | 'success' | 'error' | 'neutral'", default: "'neutral'", description: 'Sets the active-state color when used standalone. Has no effect inside a ToggleGroup.' },
+    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: "Sets the size. Overridden by the parent Toggle group's size when grouped." },
+    { name: 'color', type: "'primary' | 'success' | 'error' | 'neutral'", default: "'neutral'", description: 'Sets the active-state color when used standalone. Has no effect inside a Toggle group.' },
     { name: 'children', type: 'React.ReactNode', description: 'Content rendered inside the button. Required.' },
   ],
   doDont: [
-    { do: 'Use standalone ToggleButton for independent binary toggles, like formatting toolbar buttons.', dont: "Don't use standalone ToggleButton for mutually exclusive options — group them in a ToggleGroup instead." },
+    { do: 'Use standalone Toggle button for independent binary toggles, like formatting toolbar buttons.', dont: "Don't use standalone Toggle button for mutually exclusive options — group them in a Toggle group instead." },
   ],
   related: ['toggle-group', 'button'],
 };

@@ -5,6 +5,24 @@ import { themes } from 'storybook/theming';
 import { ThemeProvider } from '@aknishi/akds-reactkit';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
 
+const docsDarkTheme = {
+  ...themes.dark,
+  brandTitle: 'AKDS Storybook',
+  brandUrl: 'https://akds-storybook.com',
+  brandImage: '/AKLogo-lockup-dark.svg',
+  brandTarget: '_self',
+  appContentBg: 'rgb(30, 30, 30)',
+  appPreviewBg: 'rgb(30, 30, 30)',
+};
+
+const docsLightTheme = {
+  ...themes.normal,
+  brandTitle: 'AKDS Storybook',
+  brandUrl: 'https://akds-storybook.com',
+  brandImage: '/AKLogo-lockup.svg',
+  brandTarget: '_self',
+};
+
 function ThemeWrapper({ children }: { children: React.ReactNode }) {
   const isDark = useDarkMode();
 
@@ -13,8 +31,9 @@ function ThemeWrapper({ children }: { children: React.ReactNode }) {
       <div
         style={{
           padding: '2rem',
-          background: isDark ? 'black' : 'white',
-          minHeight: 'unset',
+          background: isDark ? 'rgb(30, 30, 30)' : '#fafafa',
+          minHeight: '100%',
+          boxSizing: 'border-box',
         }}
       >
         {children}
@@ -27,7 +46,7 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
   const isDark = useDarkMode();
 
   return (
-    <DocsContainer context={context}>
+    <DocsContainer context={context} theme={isDark ? docsDarkTheme : docsLightTheme}>
       <ThemeProvider theme={isDark ? 'dark' : 'light'}>
         <style>{`
           body, .sbdocs-wrapper {
@@ -44,7 +63,7 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
             border-color: var(--akds-color-border-neutral-default) !important;
             background: transparent !important;
           }
-          tr:nth-child(even) td {
+          tr:nth-child(even) td:not([class*="akds-"]) {
             background: var(--akds-color-surface-sunken) !important;
           }
           table {
@@ -56,6 +75,17 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
           code {
             color: var(--akds-color-text-secondary-default) !important;
           }
+          ${isDark ? `
+          .docblock-source, .docblock-source pre {
+            background: rgb(30, 30, 30) !important;
+          }
+          div:has(> [data-radix-scroll-area-viewport]) {
+            background: rgb(30, 30, 30) !important;
+          }
+          code:not([class*="akds-"]) {
+            background: rgba(255, 255, 255, 0.08) !important;
+          }
+          ` : ''}
         `}</style>
         {children}
       </ThemeProvider>
@@ -75,20 +105,8 @@ export const parameters: Preview['parameters'] = {
   layout: 'fullscreen',
   darkMode: {
     current: 'light',
-    dark: {
-      ...themes.dark,
-      brandTitle: 'AKDS Storybook',
-      brandUrl: 'https://akds-storybook.com',
-      brandImage: '/AKLogo-lockup-dark.svg',
-      brandTarget: '_self',
-    },
-    light: {
-      ...themes.normal,
-      brandTitle: 'AKDS Storybook',
-      brandUrl: 'https://akds-storybook.com',
-      brandImage: '/AKLogo-lockup.svg',
-      brandTarget: '_self',
-    },
+    dark: docsDarkTheme,
+    light: docsLightTheme,
   },
   controls: { disable: true },
   actions: { disable: true },

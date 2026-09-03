@@ -15,14 +15,6 @@
   height: var(--akds-spacing-400);
 }
 
-.landing-section__cta-link {
-  font-size: var(--akds-font-size-sm);
-  font-weight: var(--akds-font-weight-medium);
-  color: var(--akds-color-text-info-default);
-  text-decoration: none;
-  white-space: nowrap;
-}
-
 .landing-marquee-section {
   padding-block: var(--akds-spacing-layout-lg);
 }
@@ -35,6 +27,27 @@
 
 .landing-components-grid__item {
   height: 100%;
+}
+
+/* Compound selector (not just .landing-view-all-card) is required here: Card's own
+   .akds-card class also sets background-color, and both classes land on the same
+   element with equal (single-class) specificity — the winner would otherwise depend
+   on CSS import order rather than intent. Two classes together outrank .akds-card
+   regardless of order. */
+.component-card.landing-view-all-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--akds-spacing-200);
+  height: 100%;
+  padding: var(--akds-spacing-300);
+  text-align: center;
+  background: var(--akds-color-surface-sunken);
+}
+
+.landing-view-all-card__text {
+  color: var(--akds-color-text-info-default);
 }
 
 .landing-packages-grid {

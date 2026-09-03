@@ -4,7 +4,7 @@ import type { ComponentEntry } from './types';
 
 export const iconButton: ComponentEntry = {
   slug: 'icon-button',
-  name: 'IconButton',
+  name: 'Icon button',
   category: 'Actions',
   summary: 'An icon-only button — same appearance/emphasis system as Button, but requires an aria-label.',
   sourcePath: 'packages/reactkit/src/components/IconButton',

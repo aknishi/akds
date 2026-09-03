@@ -1,0 +1,46 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AlertStories from './Alert.stories';
+
+<Meta of={AlertStories} />
+
+# Alert
+
+> **Available from v1.5.0**
+
+An inline status message that surfaces information, success, warning, or error feedback in context. Renders a status icon and text colored to match its `emphasis`, on either a tinted `default` background or a solid `filled` background. Compose with `AlertTitle` for a bold heading, and pass an `action` for a dismiss button, menu trigger, or other custom control.
+
+## Usage
+
+```tsx
+import { Alert, AlertTitle } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={AlertStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={AlertStories.Default} />
+
+### Emphasis
+
+<Canvas of={AlertStories.Emphasis} />
+
+### Filled
+
+<Canvas of={AlertStories.Filled} />
+
+### With Title
+
+<Canvas of={AlertStories.WithTitle} />
+
+### Custom Icon
+
+<Canvas of={AlertStories.CustomIcon} />
+
+### With Action
+
+<Canvas of={AlertStories.WithAction} />

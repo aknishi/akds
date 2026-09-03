@@ -4,7 +4,7 @@ import type { ComponentEntry } from './types';
 
 export const textInput: ComponentEntry = {
   slug: 'text-input',
-  name: 'TextInput',
+  name: 'Text input',
   category: 'Inputs',
   summary: 'A text field with a floating label, helper text, error state, and optional start adornment.',
   sourcePath: 'packages/reactkit/src/components/TextInput',
@@ -50,5 +50,5 @@ export const textInput: ComponentEntry = {
     { do: 'Always provide a label — it doubles as the accessible name.', dont: "Don't use placeholder text as a substitute for a label." },
     { do: 'Pair error with helperText explaining what to fix.', dont: "Don't set error without any accompanying message." },
   ],
-  related: ['checkbox', 'combobox'],
+  related: ['text-area', 'checkbox', 'combobox'],
 };

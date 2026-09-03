@@ -1,0 +1,50 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TextAreaStories from './TextArea.stories';
+
+<Meta of={TextAreaStories} />
+
+# TextArea
+
+> **Available from v1.5.0**
+
+A labelled multi-line text field with optional helper text and error state. By default the field grows to fit its content and can also be dragged taller via the native resize handle; set `resizable` to `false` for a fixed-height field that scrolls instead. The native `<textarea>` is forwarded a ref and accepts all standard HTML textarea attributes via `...rest`.
+
+## Usage
+
+```tsx
+import { TextArea } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={TextAreaStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={TextAreaStories.Default} />
+
+### With Helper Text
+
+<Canvas of={TextAreaStories.WithHelperText} />
+
+### With Character Count
+
+<Canvas of={TextAreaStories.WithCharacterCount} />
+
+### Min Rows
+
+<Canvas of={TextAreaStories.MinRows} />
+
+### Not Resizable
+
+<Canvas of={TextAreaStories.NotResizable} />
+
+### Error
+
+<Canvas of={TextAreaStories.Error} />
+
+### Disabled
+
+<Canvas of={TextAreaStories.Disabled} />

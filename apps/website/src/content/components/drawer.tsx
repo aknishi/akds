@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Drawer, Text } from '@aknishi/akds-reactkit';
+import { Button, Drawer, IconButton, Text } from '@aknishi/akds-reactkit';
+import { CloseIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 function DrawerExample() {
@@ -19,14 +20,37 @@ function DrawerExample() {
 export const drawer: ComponentEntry = {
   slug: 'drawer',
   name: 'Drawer',
-  category: 'Feedback & Overlay',
+  category: 'Overlay',
   summary: 'A panel that slides in from an edge of the screen — used for filters, navigation, and secondary content.',
   sourcePath: 'packages/reactkit/src/components/Drawer',
   storybookId: 'reactkit-drawer--docs',
   preview: (
-    <Button appearance="bordered" emphasis="neutral">
-      Open drawer
-    </Button>
+    // Drawer only ever renders through a portal to document.body (there's no
+    // standalone element to mount inline), so — like Toast's preview — this is
+    // a static, non-interactive replica built from the component's own
+    // akds-drawer* CSS classes rather than a generic trigger-button preview,
+    // so the card shows what a drawer actually looks like. The real panel is
+    // position: fixed and pinned to a viewport edge, so that's neutralized
+    // here to let it sit inline in the card instead.
+    <div
+      className="akds-drawer akds-drawer--right akds-drawer--sm"
+      style={{ position: 'static', width: '100%', maxWidth: 220 }}
+    >
+      <div className="akds-drawer__header">
+        <h2 className="akds-drawer__title">Filters</h2>
+        <IconButton
+          className="akds-drawer__close"
+          appearance="transparent"
+          emphasis="neutral"
+          aria-label="Close drawer"
+        >
+          <CloseIcon />
+        </IconButton>
+      </div>
+      <div className="akds-drawer__body">
+        <Text styleAs="body">Drawer content, e.g. a filter form.</Text>
+      </div>
+    </div>
   ),
   examples: [
     {

@@ -85,7 +85,7 @@ export const tabs: ComponentEntry = {
     { name: 'children', type: 'React.ReactNode', description: 'Typically a TabList and one or more TabPanels.' },
   ],
   doDont: [
-    { do: 'Use Tabs to switch between related views of the same content.', dont: "Don't use Tabs for a multi-step, sequential flow — use a wizard or ProgressTracker instead." },
+    { do: 'Use Tabs to switch between related views of the same content.', dont: "Don't use Tabs for a multi-step, sequential flow — use a wizard or Progress tracker instead." },
     { do: 'Keep tab labels short and parallel in structure.', dont: "Don't hide critical actions inside inactive tab panels." },
   ],
   related: ['accordion', 'progress-tracker'],

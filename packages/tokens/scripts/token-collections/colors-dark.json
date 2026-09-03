@@ -306,6 +306,42 @@
               },
               "com.figma.isOverride": true
             }
+          },
+          "surface": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.270588235294118,
+                0.03921568627451,
+                0.03921568627451
+              ],
+              "alpha": 1,
+              "hex": "#450A0A"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-error-surface)"
+              }
+            }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.850980392156863,
+                0.137254901960784,
+                0.137254901960784
+              ],
+              "alpha": 1,
+              "hex": "#D92323"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-error-strong)"
+              }
+            }
           }
         },
         "warning": {
@@ -367,6 +403,42 @@
                 "targetVariableSetName": "Primitives"
               },
               "com.figma.isOverride": true
+            }
+          },
+          "surface": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.258823529411765,
+                0.125490196078431,
+                0.023529411764706
+              ],
+              "alpha": 1,
+              "hex": "#422006"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-warning-surface)"
+              }
+            }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.631372549019608,
+                0.384313725490196,
+                0.027450980392157
+              ],
+              "alpha": 1,
+              "hex": "#A16207"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-warning-strong)"
+              }
             }
           }
         },
@@ -430,6 +502,42 @@
               },
               "com.figma.isOverride": true
             }
+          },
+          "surface": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.019607843137255,
+                0.180392156862745,
+                0.086274509803922
+              ],
+              "alpha": 1,
+              "hex": "#052E16"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-success-surface)"
+              }
+            }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.082352941176471,
+                0.501960784313725,
+                0.23921568627451
+              ],
+              "alpha": 1,
+              "hex": "#15803D"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-success-strong)"
+              }
+            }
           }
         },
         "info": {
@@ -491,6 +599,42 @@
                 "targetVariableSetName": "Primitives"
               },
               "com.figma.isOverride": true
+            }
+          },
+          "surface": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.090196078431373,
+                0.145098039215686,
+                0.329411764705882
+              ],
+              "alpha": 1,
+              "hex": "#172554"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-info-surface)"
+              }
+            }
+          },
+          "strong": {
+            "$type": "color",
+            "$value": {
+              "colorSpace": "srgb",
+              "components": [
+                0.145098039215686,
+                0.388235294117647,
+                0.92156862745098
+              ],
+              "alpha": 1,
+              "hex": "#2563EB"
+            },
+            "$extensions": {
+              "com.figma.codeSyntax": {
+                "WEB": "var(--akds-color-background-info-strong)"
+              }
             }
           }
         },

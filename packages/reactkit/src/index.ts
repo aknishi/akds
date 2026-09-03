@@ -1,6 +1,9 @@
 export { Button } from './components/Button/index.js';
 export type { ButtonProps, ButtonAppearance, ButtonEmphasis, ButtonSize } from './components/Button/index.js';
 
+export { AIButton } from './components/AIButton/index.js';
+export type { AIButtonProps, AIButtonSize } from './components/AIButton/index.js';
+
 export { IconButton } from './components/IconButton/index.js';
 export type { IconButtonProps, IconButtonAppearance, IconButtonEmphasis } from './components/IconButton/index.js';
 
@@ -15,6 +18,9 @@ export type { ParticleBurstProps, ParticleBurstHandle } from './components/Parti
 
 export { TextInput } from './components/TextInput/index.js';
 export type { TextInputProps } from './components/TextInput/index.js';
+
+export { TextArea } from './components/TextArea/index.js';
+export type { TextAreaProps } from './components/TextArea/index.js';
 
 export { Checkbox } from './components/Checkbox/index.js';
 export type { CheckboxProps, CheckboxSize } from './components/Checkbox/index.js';
@@ -117,3 +123,33 @@ export type { ToggleButtonProps, ToggleButtonSize, ToggleButtonColor, ToggleButt
 
 export { ToggleGroup } from './components/ToggleGroup/index.js';
 export type { ToggleGroupProps, ToggleGroupSize } from './components/ToggleGroup/index.js';
+
+export { ToastProvider, useToast, ToastContext } from './components/Toast/index.js';
+export type { ToastProviderProps, ToastOptions, ToastEmphasis, ToastPlacement, ToastContextValue } from './components/Toast/index.js';
+
+export { Alert } from './components/Alert/index.js';
+export type { AlertProps, AlertEmphasis, AlertVariant } from './components/Alert/index.js';
+
+export { AlertTitle } from './components/AlertTitle/index.js';
+export type { AlertTitleProps } from './components/AlertTitle/index.js';
+
+export { Table } from './components/Table/index.js';
+export type { TableProps } from './components/Table/index.js';
+
+export { Thead } from './components/Thead/index.js';
+export type { TheadProps } from './components/Thead/index.js';
+
+export { Tbody } from './components/Tbody/index.js';
+export type { TbodyProps } from './components/Tbody/index.js';
+
+export { Tfoot } from './components/Tfoot/index.js';
+export type { TfootProps } from './components/Tfoot/index.js';
+
+export { Tr } from './components/Tr/index.js';
+export type { TrProps } from './components/Tr/index.js';
+
+export { Th } from './components/Th/index.js';
+export type { ThProps, ThAlign } from './components/Th/index.js';
+
+export { Td } from './components/Td/index.js';
+export type { TdProps, TdAlign } from './components/Td/index.js';

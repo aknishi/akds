@@ -9,11 +9,11 @@ export interface CheckboxProps extends Omit<React.LabelHTMLAttributes<HTMLLabelE
   checked?: boolean;
   /** The default checked state (uncontrolled). */
   defaultChecked?: boolean;
-  /** Change handler forwarded to the inner <input>. */
+  /** Change handler forwarded to the inner `<input>`. */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /** Name attribute forwarded to the inner <input>. */
+  /** Name attribute forwarded to the inner `<input>`. */
   name?: string;
-  /** Value attribute forwarded to the inner <input>. */
+  /** Value attribute forwarded to the inner `<input>`. */
   value?: string | ReadonlyArray<string> | number;
   /** When true, shows the indeterminate state (overrides checked visually). */
   indeterminate?: boolean;

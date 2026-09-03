@@ -1,9 +1,11 @@
 import React from 'react';
 import {
   Button,
+  AIButton,
   IconButton,
   Carousel,
   TextInput,
+  TextArea,
   Checkbox,
   Radio,
   RadioGroup,
@@ -30,9 +32,20 @@ import {
   Combobox,
   ToggleButton,
   ToggleGroup,
+  ToastProvider,
+  useToast,
+  Alert,
+  AlertTitle,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
 } from '@aknishi/akds-reactkit';
-import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption } from '@aknishi/akds-reactkit';
-import { CloseIcon } from '@aknishi/akds-icons';
+import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption, AlertEmphasis, AlertVariant } from '@aknishi/akds-reactkit';
+import { CloseIcon, MoreVertIcon, StarFilledIcon } from '@aknishi/akds-icons';
 import './App.css';
 import AccessibleCarousel from './AccessibleCarousel';
 
@@ -45,7 +58,9 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme} onThemeChange={setTheme}>
-      <AppContent />
+      <ToastProvider>
+        <AppContent />
+      </ToastProvider>
     </ThemeProvider>
   );
 }
@@ -258,6 +273,53 @@ function AppContent() {
             value="Adrian Kawanishi"
             onChange={() => {}}
           />
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* TextArea section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">TextArea</h2>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <TextArea label="Description" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with helper text</span>
+          <TextArea label="Feedback" helperText="Tell us what you think" />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">character count</span>
+          <TextAreaCharacterCountDemo />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">min rows</span>
+          <TextArea label="Bio" minRows={6} />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">not resizable</span>
+          <TextArea
+            label="Notes"
+            minRows={3}
+            resizable={false}
+            defaultValue="This textarea has a fixed height and scrolls once content grows past the visible rows."
+          />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">error</span>
+          <TextArea
+            label="Comment"
+            defaultValue="Too short"
+            helperText="Comment must be at least 20 characters"
+            error
+          />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <TextArea label="Read only" disabled defaultValue="Cannot be edited" />
         </div>
       </section>
 
@@ -625,7 +687,189 @@ function AppContent() {
           </ToggleGroup>
         </div>
       </section>
+
+      <hr className="demo-divider" />
+
+      {/* AIButton section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">AIButton</h2>
+
+        <p className="demo-label-heading">States</p>
+        <div className="demo-row">
+          <span className="demo-row__label">default</span>
+          <AIButton>Generate</AIButton>
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">disabled</span>
+          <AIButton disabled>Generate</AIButton>
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">loading</span>
+          <AIButton loading>Generate</AIButton>
+        </div>
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Toast section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Toast</h2>
+        <ToastDemo />
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Alert section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Alert</h2>
+        <AlertDemo />
+      </section>
+
+      <hr className="demo-divider" />
+
+      {/* Table section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Table</h2>
+        <TableDemo />
+      </section>
     </div>
+  );
+}
+
+function TableDemo() {
+  const [propWidth, setPropWidth] = React.useState(160);
+
+  return (
+    <>
+      <p className="demo-label-heading">Resizable columns (drag or arrow keys on the divider)</p>
+      <div className="demo-row">
+        <Table>
+          <Thead>
+            <Tr>
+              <Th scope="col" resizable width={propWidth} onWidthChange={setPropWidth}>Prop</Th>
+              <Th scope="col" resizable defaultWidth={220}>Type</Th>
+              <Th scope="col">Description</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td><code>variant</code></Td>
+              <Td><code>&apos;primary&apos; | &apos;secondary&apos;</code></Td>
+              <Td>Controls the visual style of the component.</Td>
+            </Tr>
+            <Tr>
+              <Td><code>disabled</code></Td>
+              <Td><code>boolean</code></Td>
+              <Td>Prevents interaction and applies disabled styling.</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </div>
+
+      <p className="demo-label-heading">Default</p>
+      <div className="demo-row">
+        <Table>
+          <Thead>
+            <Tr>
+              <Th scope="col">Prop</Th>
+              <Th scope="col">Type</Th>
+              <Th scope="col">Default</Th>
+              <Th scope="col">Description</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td><code>variant</code></Td>
+              <Td><code>&apos;primary&apos; | &apos;secondary&apos;</code></Td>
+              <Td><code>&apos;primary&apos;</code></Td>
+              <Td>Controls the visual style of the component.</Td>
+            </Tr>
+            <Tr>
+              <Td><code>disabled</code></Td>
+              <Td><code>boolean</code></Td>
+              <Td><code>false</code></Td>
+              <Td>Prevents interaction and applies disabled styling.</Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </div>
+
+      <p className="demo-label-heading">Alignment + footer</p>
+      <div className="demo-row">
+        <Table>
+          <Thead>
+            <Tr>
+              <Th scope="col">Item</Th>
+              <Th scope="col" align="center">In Stock</Th>
+              <Th scope="col" align="right">Price</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>Widget</Td>
+              <Td align="center">Yes</Td>
+              <Td align="right">$9.00</Td>
+            </Tr>
+            <Tr>
+              <Td>Gadget</Td>
+              <Td align="center">No</Td>
+              <Td align="right">$24.00</Td>
+            </Tr>
+          </Tbody>
+          <Tfoot>
+            <Tr>
+              <Th scope="row">Total</Th>
+              <Td />
+              <Td align="right">$33.00</Td>
+            </Tr>
+          </Tfoot>
+        </Table>
+      </div>
+
+      <p className="demo-label-heading">Striped</p>
+      <div className="demo-row">
+        <Table>
+          <Thead>
+            <Tr>
+              <Th scope="col">Prop</Th>
+              <Th scope="col">Type</Th>
+              <Th scope="col">Default</Th>
+            </Tr>
+          </Thead>
+          <Tbody striped>
+            <Tr>
+              <Td><code>variant</code></Td>
+              <Td><code>&apos;primary&apos; | &apos;secondary&apos;</code></Td>
+              <Td><code>&apos;primary&apos;</code></Td>
+            </Tr>
+            <Tr>
+              <Td><code>disabled</code></Td>
+              <Td><code>boolean</code></Td>
+              <Td><code>false</code></Td>
+            </Tr>
+            <Tr>
+              <Td><code>size</code></Td>
+              <Td><code>&apos;sm&apos; | &apos;md&apos; | &apos;lg&apos;</code></Td>
+              <Td><code>&apos;md&apos;</code></Td>
+            </Tr>
+          </Tbody>
+        </Table>
+      </div>
+    </>
+  );
+}
+
+function TextAreaCharacterCountDemo() {
+  const maxLength = 280;
+  const [value, setValue] = React.useState('');
+  return (
+    <TextArea
+      label="Bio"
+      maxLength={maxLength}
+      value={value}
+      onChange={e => setValue(e.target.value)}
+      helperText={`${value.length}/${maxLength} characters`}
+    />
   );
 }
 
@@ -850,6 +1094,190 @@ function ComboboxDemo() {
       <p className="demo-label-heading">Disabled</p>
       <div className="demo-row">
         <Combobox options={FRUITS} label="Fruit" disabled defaultValue="apple" />
+      </div>
+    </>
+  );
+}
+
+function ToastDemo() {
+  const { show } = useToast();
+  let count = 0;
+
+  return (
+    <>
+      <p className="demo-label-heading">Emphasis</p>
+      <div className="demo-row">
+        <Button emphasis="accented" onClick={() => show({ emphasis: 'accented', message: 'A new version is available.' })}>
+          Accented
+        </Button>
+        <Button emphasis="neutral" onClick={() => show({ emphasis: 'neutral', message: 'Link copied to clipboard.' })}>
+          Neutral
+        </Button>
+        <Button emphasis="success" onClick={() => show({ emphasis: 'success', message: 'Payment was successfully received.' })}>
+          Success
+        </Button>
+        <Button emphasis="destructive" onClick={() => show({ emphasis: 'destructive', message: 'Failed to upload file.' })}>
+          Destructive
+        </Button>
+      </div>
+
+      <p className="demo-label-heading">Placement</p>
+      <div className="demo-row">
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          onClick={() => { count += 1; show({ placement: 'bottom-left', message: `Notification #${count}` }); }}
+        >
+          Bottom left
+        </Button>
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          onClick={() => { count += 1; show({ placement: 'bottom-center', message: `Notification #${count}` }); }}
+        >
+          Bottom center
+        </Button>
+        <Button
+          appearance="bordered"
+          emphasis="neutral"
+          onClick={() => { count += 1; show({ placement: 'bottom-right', message: `Notification #${count}` }); }}
+        >
+          Bottom right
+        </Button>
+      </div>
+
+      <p className="demo-label-heading">Duration</p>
+      <div className="demo-row">
+        <Button
+          appearance="transparent"
+          emphasis="neutral"
+          onClick={() => show({ message: 'Dismisses after 2 seconds.', duration: 2000 })}
+        >
+          Custom duration
+        </Button>
+        <Button
+          appearance="transparent"
+          emphasis="neutral"
+          onClick={() => show({ message: 'Stays until you close it.', autoDismiss: false })}
+        >
+          No auto-dismiss
+        </Button>
+      </div>
+    </>
+  );
+}
+
+const alertEmphases: AlertEmphasis[] = ['info', 'success', 'warning', 'error'];
+
+const ALERT_MESSAGE: Record<AlertEmphasis, string> = {
+  info: 'A new version of the app is available.',
+  success: 'Your changes were saved successfully.',
+  warning: 'Your storage is almost full.',
+  error: 'Failed to save changes. Please try again.',
+};
+
+function AlertDemo() {
+  const [dismissed, setDismissed] = React.useState(false);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const menuTriggerRef = React.useRef<HTMLButtonElement>(null);
+
+  return (
+    <>
+      <p className="demo-label-heading">Emphasis</p>
+      <div className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+        {alertEmphases.map(emphasis => (
+          <Alert key={emphasis} emphasis={emphasis}>
+            {ALERT_MESSAGE[emphasis]}
+          </Alert>
+        ))}
+      </div>
+
+      <p className="demo-label-heading">Variant</p>
+      {(['default', 'filled'] as AlertVariant[]).map(variant => (
+        <div key={variant} className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+          {alertEmphases.map(emphasis => (
+            <Alert key={emphasis} variant={variant} emphasis={emphasis}>
+              {ALERT_MESSAGE[emphasis]}
+            </Alert>
+          ))}
+        </div>
+      ))}
+
+      <p className="demo-label-heading">With title</p>
+      <div className="demo-row">
+        <Alert emphasis="warning">
+          <AlertTitle>Storage almost full</AlertTitle>
+          You have used 95% of your available storage. Free up space or upgrade your plan.
+        </Alert>
+      </div>
+
+      <p className="demo-label-heading">Custom / hidden icon</p>
+      <div className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+        <Alert emphasis="success" icon={<StarFilledIcon size="md" />}>
+          You&apos;ve unlocked a new achievement.
+        </Alert>
+        <Alert emphasis="info" icon={false}>
+          No icon is rendered for this alert.
+        </Alert>
+      </div>
+
+      <p className="demo-label-heading">With action</p>
+      <div className="demo-row" style={{ flexDirection: 'column', alignItems: 'stretch', gap: '12px' }}>
+        {dismissed ? (
+          <Button appearance="bordered" emphasis="neutral" onClick={() => setDismissed(false)}>
+            Reset
+          </Button>
+        ) : (
+          <Alert
+            emphasis="warning"
+            action={
+              <IconButton
+                appearance="transparent"
+                emphasis="neutral"
+                aria-label="Dismiss"
+                onClick={() => setDismissed(true)}
+              >
+                <CloseIcon size="sm" />
+              </IconButton>
+            }
+          >
+            Your session will expire in 5 minutes.
+          </Alert>
+        )}
+
+        <div style={{ position: 'relative' }}>
+          <Alert
+            emphasis="info"
+            action={
+              <IconButton
+                ref={menuTriggerRef}
+                appearance="transparent"
+                emphasis="neutral"
+                aria-label="More options"
+                onClick={() => setMenuOpen(o => !o)}
+              >
+                <MoreVertIcon size="sm" />
+              </IconButton>
+            }
+          >
+            A new version of the app is available.
+          </Alert>
+          <Menu open={menuOpen} onOpenChange={setMenuOpen} triggerRef={menuTriggerRef}>
+            <MenuItem onClick={() => setMenuOpen(false)}>Refresh now</MenuItem>
+            <MenuItem onClick={() => setMenuOpen(false)}>Remind me later</MenuItem>
+          </Menu>
+        </div>
+
+        <Alert
+          emphasis="error"
+          action={
+            <Button appearance="bordered" emphasis="neutral" size="sm">
+              Retry
+            </Button>
+          }
+        >
+          Failed to save changes.
+        </Alert>
       </div>
     </>
   );

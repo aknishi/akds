@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRightIcon, OpenInNewIcon } from '@aknishi/akds-icons';
-import { navConfig } from '../../../content/navConfig';
+import { isNavParentItem, navConfig } from '../../../content/navConfig';
 import { componentRegistry } from '../../../content/components/registry';
 import { CATEGORY_ORDER } from '../../../content/components/types';
 import { STORYBOOK_URL } from '../../../content/storybook';
@@ -11,13 +11,41 @@ import './Sidebar.css';
 export function SidebarContent() {
   const location = useLocation();
   const [openCategories, setOpenCategories] = React.useState<Set<string>>(new Set());
+  const [openNavGroups, setOpenNavGroups] = React.useState<Set<string>>(() => {
+    const initial = new Set<string>();
+    for (const group of navConfig) {
+      for (const item of group.items) {
+        if (isNavParentItem(item) && item.children.some((child) => child.to === location.pathname)) {
+          initial.add(item.label);
+        }
+      }
+    }
+    return initial;
+  });
 
   React.useEffect(() => {
     const match = componentRegistry.find((entry) => `/components/${entry.slug}` === location.pathname);
     if (match) {
       setOpenCategories((prev) => new Set(prev).add(match.category));
     }
+
+    for (const group of navConfig) {
+      for (const item of group.items) {
+        if (isNavParentItem(item) && item.children.some((child) => child.to === location.pathname)) {
+          setOpenNavGroups((prev) => new Set(prev).add(item.label));
+        }
+      }
+    }
   }, [location.pathname]);
+
+  const toggleNavGroup = (label: string) => {
+    setOpenNavGroups((prev) => {
+      const next = new Set(prev);
+      if (next.has(label)) next.delete(label);
+      else next.add(label);
+      return next;
+    });
+  };
 
   const categorized = CATEGORY_ORDER.map((category) => ({
     category,
@@ -52,9 +80,47 @@ export function SidebarContent() {
       {navConfig.map((group) => (
         <div className="sidebar-content__group" key={group.label}>
           <div className="sidebar-content__group-label">{group.label}</div>
-          {group.items.map((item) => (
-            <SidebarLink key={item.to} to={item.to} label={item.label} />
-          ))}
+          {group.items.map((item) => {
+            if (isNavParentItem(item)) {
+              const isOpen = openNavGroups.has(item.label);
+              return (
+                <div key={item.label}>
+                  <button
+                    type="button"
+                    className="sidebar-content__category-toggle"
+                    aria-expanded={isOpen}
+                    onClick={() => toggleNavGroup(item.label)}
+                  >
+                    <span>{item.label}</span>
+                    <motion.span
+                      className="sidebar-content__chevron"
+                      animate={{ rotate: isOpen ? 90 : 0 }}
+                      transition={{ duration: 0.15 }}
+                      aria-hidden="true"
+                    >
+                      <ChevronRightIcon size="sm" />
+                    </motion.span>
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        {item.children.map((child) => (
+                          <SidebarLink key={child.to} to={child.to} label={child.label} indent />
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            }
+            return <SidebarLink key={item.to} to={item.to} label={item.label} />;
+          })}
         </div>
       ))}
 

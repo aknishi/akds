@@ -21,7 +21,7 @@ function ThemeReadout() {
 
 export const themeProvider: ComponentEntry = {
   slug: 'theme-provider',
-  name: 'ThemeProvider',
+  name: 'Theme provider',
   category: 'System',
   summary:
     'The light/dark theme context provider. Wrap your app root once — every akds component and token reads from it automatically.',
@@ -56,7 +56,7 @@ export const themeProvider: ComponentEntry = {
     },
   ],
   accessibilityNotes: [
-    'ThemeProvider itself renders no DOM — it sets a data-theme attribute on the target element (document.documentElement by default) that the CSS cascade in @aknishi/akds-tokens/css responds to.',
+    'Theme provider itself renders no DOM — it sets a data-theme attribute on the target element (document.documentElement by default) that the CSS cascade in @aknishi/akds-tokens/css responds to.',
     'Respecting the user\'s OS-level color scheme is automatic: if no data-theme is set, tokens fall back to a prefers-color-scheme media query.',
   ],
   props: [
@@ -67,7 +67,7 @@ export const themeProvider: ComponentEntry = {
     { name: 'children', type: 'React.ReactNode', description: 'Content rendered inside the provider. Required.' },
   ],
   doDont: [
-    { do: 'Mount a single ThemeProvider at the root of your app.', dont: "Don't nest multiple ThemeProviders unless you deliberately need a scoped theme override with a custom target." },
+    { do: 'Mount a single Theme provider at the root of your app.', dont: "Don't nest multiple Theme providers unless you deliberately need a scoped theme override with a custom target." },
   ],
   related: [],
 };

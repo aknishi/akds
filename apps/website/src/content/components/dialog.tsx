@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Dialog, Text } from '@aknishi/akds-reactkit';
+import { Button, Dialog, IconButton, Text } from '@aknishi/akds-reactkit';
+import { CloseIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
 
 function BasicDialogExample() {
@@ -33,14 +34,34 @@ function SizedDialogExample() {
 export const dialog: ComponentEntry = {
   slug: 'dialog',
   name: 'Dialog',
-  category: 'Feedback & Overlay',
+  category: 'Overlay',
   summary: 'A modal dialog for focused tasks and confirmations, rendered above a backdrop.',
   sourcePath: 'packages/reactkit/src/components/Dialog',
   storybookId: 'reactkit-dialog--docs',
   preview: (
-    <Button appearance="bordered" emphasis="neutral">
-      Open dialog
-    </Button>
+    // Dialog only ever renders through a portal to document.body (there's no
+    // standalone element to mount inline), so — like Toast's preview — this is
+    // a static, non-interactive replica built from the component's own
+    // akds-dialog* CSS classes rather than a generic trigger-button preview,
+    // so the card shows what a dialog actually looks like. Only the backdrop
+    // (not rendered here) is position: fixed — the panel itself is already
+    // position: relative, so no position override is needed to sit inline.
+    <div className="akds-dialog akds-dialog--sm" style={{ width: '100%', maxWidth: 240 }}>
+      <div className="akds-dialog__header">
+        <h2 className="akds-dialog__title">Delete item</h2>
+        <IconButton
+          className="akds-dialog__close"
+          appearance="transparent"
+          emphasis="neutral"
+          aria-label="Close dialog"
+        >
+          <CloseIcon />
+        </IconButton>
+      </div>
+      <div className="akds-dialog__body">
+        <Text styleAs="body">This action can't be undone.</Text>
+      </div>
+    </div>
   ),
   examples: [
     {

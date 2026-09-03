@@ -27,7 +27,12 @@
   background: color-mix(in srgb, var(--akds-color-background-info-default) 10%, transparent);
 }
 
-.component-doc-page__section-title {
+/* Compound selector (not just .component-doc-page__section-title) is required here:
+   Text's own .akds-text class sets `margin: 0` (all sides), and both classes land on
+   the same element with equal (single-class) specificity — the winner would otherwise
+   depend on CSS import order rather than intent. Two classes together outrank
+   .akds-text regardless of order. */
+.akds-text.component-doc-page__section-title {
   margin-bottom: var(--akds-spacing-200);
 }
 

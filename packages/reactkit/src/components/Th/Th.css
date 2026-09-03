@@ -1,0 +1,71 @@
+/* ── Base ────────────────────────────────────────────────────────────────── */
+.akds-th {
+  padding: var(--akds-spacing-150) var(--akds-spacing-200);
+  background-color: var(--akds-color-background-neutral-default);
+  color: var(--akds-color-text-secondary-default);
+  font-weight: var(--akds-font-weight-semibold);
+  font-size: inherit;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}
+
+.akds-th code {
+  font-family: var(--akds-font-family-mono), monospace;
+  font-size: var(--akds-font-size-xs);
+  color: var(--akds-color-text-info-default);
+}
+
+/* ── Align ───────────────────────────────────────────────────────────────── */
+.akds-th--center {
+  text-align: center;
+}
+
+.akds-th--right {
+  text-align: right;
+}
+
+/* ── Resizable ───────────────────────────────────────────────────────────── */
+.akds-th--resizable {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.akds-th__resize-handle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: var(--akds-spacing-100);
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.akds-th__resize-handle::after {
+  content: '';
+  position: absolute;
+  top: var(--akds-spacing-100);
+  bottom: var(--akds-spacing-100);
+  right: 0;
+  width: 1px;
+  background: var(--akds-primitive-color-neutral-300);
+  transition: background 150ms ease;
+}
+
+.akds-th__resize-handle:hover::after,
+.akds-th__resize-handle:focus-visible::after {
+  background: var(--akds-color-border-neutral-hover);
+}
+
+.akds-th__resize-handle:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-th__resize-handle::after {
+    transition: none;
+  }
+}

@@ -5,7 +5,8 @@ export type ComponentCategory =
   | 'Actions'
   | 'Layout'
   | 'Navigation & Disclosure'
-  | 'Feedback & Overlay'
+  | 'Feedback'
+  | 'Overlay'
   | 'Data Display & Content'
   | 'System'
   | 'Primitives';
@@ -15,7 +16,8 @@ export const CATEGORY_ORDER: ComponentCategory[] = [
   'Actions',
   'Layout',
   'Navigation & Disclosure',
-  'Feedback & Overlay',
+  'Feedback',
+  'Overlay',
   'Data Display & Content',
   'System',
   'Primitives',

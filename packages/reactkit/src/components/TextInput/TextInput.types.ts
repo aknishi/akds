@@ -7,9 +7,9 @@ export interface TextInputProps extends React.InputHTMLAttributes<HTMLInputEleme
   helperText?: string;
   /** Element rendered before the input (e.g. an icon). */
   startAdornment?: React.ReactNode;
-  /** Ref forwarded to the internal <input> element. */
+  /** Ref forwarded to the internal `<input>` element. */
   inputRef?: React.Ref<HTMLInputElement>;
-  /** className applied to the outer wrapper <div>. */
+  /** className applied to the outer wrapper `<div>`. */
   wrapperClassName?: string;
   /** When true, applies error styling to the border and helper text. */
   error?: boolean;

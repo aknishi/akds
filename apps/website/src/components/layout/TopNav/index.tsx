@@ -7,6 +7,8 @@ import './TopNav.css';
 
 export interface TopNavProps {
   onMenuClick: () => void;
+  hasSidebar: boolean;
+  mobileNavOpen: boolean;
 }
 
 const TOP_LINKS = [
@@ -16,7 +18,7 @@ const TOP_LINKS = [
   { label: 'Packages', to: '/packages' },
 ];
 
-export function TopNav({ onMenuClick }: TopNavProps) {
+export function TopNav({ onMenuClick, hasSidebar, mobileNavOpen }: TopNavProps) {
   const { theme, setTheme } = useTheme();
   const isDark = theme === 'dark';
   const [scrolled, setScrolled] = React.useState(false);
@@ -34,7 +36,7 @@ export function TopNav({ onMenuClick }: TopNavProps) {
         <IconButton
           appearance="transparent"
           emphasis="neutral"
-          className="top-nav__menu-button"
+          className={`top-nav__menu-button${hasSidebar ? ' top-nav__menu-button--has-sidebar' : ''}${mobileNavOpen ? ' top-nav__menu-button--nav-open' : ''}`}
           aria-label="Open navigation menu"
           onClick={onMenuClick}
         >
