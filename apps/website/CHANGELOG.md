@@ -1,5 +1,15 @@
 # @akds/website
 
+## 1.4.0
+
+### Minor Changes
+
+- eef852e: Add more examples to component pages, add search bar, update logo
+
+### Patch Changes
+
+- 83f2a89: Website improvements: microanimations, expanded left nav items, search shortcut, section quick links, skip to content, breadcrumbs
+
 ## 1.3.0
 
 ### Minor Changes
