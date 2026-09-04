@@ -10,7 +10,8 @@
   border-bottom: 1px solid transparent;
 }
 
-.top-nav--scrolled {
+.top-nav--scrolled,
+.top-nav--solid {
   background: color-mix(in srgb, var(--akds-color-surface-default) 80%, transparent);
   backdrop-filter: blur(12px);
   border-bottom-color: var(--akds-color-border-neutral-default);

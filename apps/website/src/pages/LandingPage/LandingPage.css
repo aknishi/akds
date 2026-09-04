@@ -94,6 +94,8 @@
 }
 
 .landing-cta {
+  position: relative;
+  overflow: hidden;
   padding-block: var(--akds-spacing-layout-2xl);
 }
 
@@ -104,15 +106,8 @@
 }
 
 .landing-cta__content {
+  position: relative;
+  z-index: 1;
   max-width: 600px;
   text-align: center;
-}
-
-.landing-cta__title {
-  color: var(--akds-color-text-on-primary-default);
-}
-
-.landing-cta__github-button {
-  color: var(--akds-color-text-on-primary-default) !important;
-  box-shadow: inset 0 0 0 1.5px var(--akds-color-text-on-primary-default) !important;
 }

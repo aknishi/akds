@@ -17,8 +17,8 @@ const FOOTER_LINKS = [
 export function Footer() {
   return (
     <footer className="site-footer">
+      <Divider />
       <PageContainer>
-        <Divider />
         <Flexbox justify="space-between" align="center" wrap py="lg" gap="md">
           <Text styleAs="caption">© {new Date().getFullYear()} AKDS. A themeable React design system.</Text>
           <Flexbox as="nav" aria-label="Footer navigation" gap="md" wrap>

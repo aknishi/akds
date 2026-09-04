@@ -68,15 +68,6 @@
   background: var(--akds-color-surface-sunken);
 }
 
-.gradient-band {
-  background: linear-gradient(
-    135deg,
-    var(--akds-color-background-primary-default) 0%,
-    var(--akds-primitive-color-purple-600) 100%
-  );
-  color: var(--akds-color-text-on-primary-default);
-}
-
 @media (prefers-reduced-motion: reduce) {
   .gradient-background__blob {
     transition: none !important;

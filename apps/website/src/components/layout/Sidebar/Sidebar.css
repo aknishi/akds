@@ -5,7 +5,12 @@
 @media (min-width: 1024px) {
   .sidebar {
     display: block;
-    border-right: 1px solid var(--akds-color-border-neutral-default);
+    /* No border-right here on purpose — see .site-shell__main--docs in
+       layout.css. This box is capped to one viewport (so its own nav links
+       can scroll independently while pinned), which is shorter than the
+       content column on any page taller than one screen. A divider drawn on
+       this box would run out partway down instead of tracking real content
+       height. */
     height: calc(100vh - 64px);
     position: sticky;
     top: 64px;

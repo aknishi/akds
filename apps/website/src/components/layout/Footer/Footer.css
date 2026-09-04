@@ -1,7 +1,3 @@
-.site-footer {
-  margin-top: var(--akds-spacing-layout-2xl);
-}
-
 .site-footer__link {
   font-size: var(--akds-font-size-sm);
   color: var(--akds-color-text-secondary-default);

@@ -32,7 +32,7 @@ export function TopNav({ onMenuClick, hasSidebar, mobileNavOpen }: TopNavProps) 
   }, []);
 
   return (
-    <header className={`top-nav${scrolled ? ' top-nav--scrolled' : ''}`}>
+    <header className={`top-nav${scrolled ? ' top-nav--scrolled' : ''}${hasSidebar ? ' top-nav--solid' : ''}`}>
       <div className="top-nav__inner">
         <IconButton
           appearance="transparent"
