@@ -1,0 +1,5 @@
+{
+  "installCommand": "npm install",
+  "buildCommand": "NODE_OPTIONS=--max-old-space-size=8192 npm run build --workspace=@aknishi/akds-tokens && NODE_OPTIONS=--max-old-space-size=8192 npm run generate --workspace=@aknishi/akds-icons && NODE_OPTIONS=--max-old-space-size=8192 npm run build --workspace=@aknishi/akds-icons && NODE_OPTIONS=--max-old-space-size=8192 npm run build --workspace=@aknishi/akds-reactkit && npm run build --workspace=@akds/website",
+  "outputDirectory": "apps/website/dist"
+}
