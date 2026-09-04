@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { AIButton, Avatar, Button, Card, CardContent, Flexbox, IconButton, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
 import { CopyIcon, ChevronRightIcon } from '@aknishi/akds-icons';
 import { Hero } from '../../components/marketing/Hero';
+import { GradientBackground } from '../../components/marketing/GradientBackground';
 import { Section } from '../../components/marketing/Section';
 import { ShowcaseMarquee } from '../../components/marketing/ShowcaseMarquee';
 import { FeatureGrid } from '../../components/marketing/FeatureGrid';
@@ -193,19 +194,20 @@ export function LandingPage() {
         </div>
       </Section>
 
-      <section className="landing-cta gradient-band">
+      <section className="landing-cta">
+        <GradientBackground />
         <Flexbox direction="column" align="center" gap="md" mx="auto" px="lg" className="landing-cta__content">
-          <Text as="h2" styleAs="h2" className="landing-cta__title" data-theme="dark"> 
+          <Text as="h2" styleAs="h2">
             Ready to build with AKDS?
           </Text>
           <Flexbox gap="md" wrap justify="center">
             <NavLink to="/getting-started">
-              <Button appearance="solid" emphasis="neutral">
+              <Button appearance="solid" emphasis="accented">
                 Get started
               </Button>
             </NavLink>
             <a href="https://github.com/aknishi/akds" target="_blank" rel="noreferrer">
-              <Button appearance="bordered" emphasis="neutral" className="landing-cta__github-button" data-theme="dark">
+              <Button appearance="bordered" emphasis="neutral">
                 View on GitHub
               </Button>
             </a>

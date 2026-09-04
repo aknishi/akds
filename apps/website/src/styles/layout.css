@@ -56,6 +56,15 @@
   .site-shell__body--no-sidebar {
     grid-template-columns: 1fr;
   }
+
+  /* Lives here instead of on .sidebar's own border-right: that box is
+     capped to one viewport tall (see Sidebar.css) so its border would run
+     out before reaching the bottom of a page taller than one screen. This
+     element's box always spans the full content height, so the divider
+     tracks it exactly. */
+  .site-shell__main--docs {
+    border-left: 1px solid var(--akds-color-border-neutral-default);
+  }
 }
 
 .site-shell__main {
@@ -63,5 +72,10 @@
 }
 
 .site-shell__main--docs {
-  padding-block: var(--akds-spacing-layout-lg);
+  padding-top: var(--akds-spacing-layout-lg);
+  /* Matches the breathing room the footer used to provide via its own
+     margin-top. Living here instead means the content-column border-left
+     above extends through it, instead of stopping at the last card with a
+     bare gap before the footer's divider. */
+  padding-bottom: var(--akds-spacing-layout-2xl);
 }
