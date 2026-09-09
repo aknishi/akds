@@ -1,0 +1,34 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as GenerationLoaderStories from './GenerationLoader.stories';
+
+<Meta of={GenerationLoaderStories} />
+
+# GenerationLoader
+
+> **Available from v1.6.0**
+
+A compact loading indicator for AI content generation. Renders three animated dots, with an optional `label` shown alongside them. Announces itself to assistive technology via `role="status"`, falling back to an "Generating" accessible name when no visible `label` is set.
+
+## Usage
+
+```tsx
+import { GenerationLoader } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={GenerationLoaderStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={GenerationLoaderStories.Default} />
+
+### WithLabel
+
+<Canvas of={GenerationLoaderStories.WithLabel} />
+
+### Sizes
+
+<Canvas of={GenerationLoaderStories.Sizes} />

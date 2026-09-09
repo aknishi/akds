@@ -1,0 +1,88 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-streaming-text {
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-md);
+  font-weight: var(--akds-font-weight-light);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-primary-default);
+  white-space: pre-wrap;
+}
+
+/* Each word is wrapped in its own no-wrap span (see StreamingText.tsx) so it
+   can never split across lines — even with word-break/overflow-wrap left at
+   their defaults, adjacent inline-block character spans (needed for the
+   per-character reveal below) get their own line-break opportunity between
+   every pair of characters, not just at word boundaries. An unusually long
+   word, or one in a very narrow container, will overflow rather than break. */
+.akds-streaming-text__word {
+  white-space: nowrap;
+}
+
+.akds-streaming-text__char {
+  display: inline-block;
+  animation: akds-streaming-text-char-in 150ms ease forwards;
+}
+
+/* A trailing space right at a line-wrap point only collapses away the way
+   plain text does when the space is a normal inline box — an inline-block
+   space renders as its own visible box instead, appearing as a leading
+   space at the start of the next line. No animation needed here either: a
+   space has no glyph, so a fade-in would be invisible regardless. */
+.akds-streaming-text__char--space {
+  display: inline;
+  animation: none;
+}
+
+@keyframes akds-streaming-text-char-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Cursor ────────────────────────────────────────────────────────────── */
+.akds-streaming-text__cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 1px;
+  vertical-align: text-bottom;
+  background-color: currentColor;
+  animation: akds-streaming-text-blink 1s step-start infinite;
+}
+
+@keyframes akds-streaming-text-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ── Visually hidden live region ──────────────────────────────────────────
+   Announces the completed message once to screen readers, instead of
+   letting them pick up every incremental character reveal. */
+.akds-streaming-text__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-streaming-text__char {
+    animation: none;
+  }
+
+  .akds-streaming-text__cursor {
+    animation: none;
+  }
+}

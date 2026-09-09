@@ -1,6 +1,7 @@
+import React from 'react';
 import { NavLink } from 'react-router';
 import { motion } from 'framer-motion';
-import { AIButton, Avatar, Button, Card, CardContent, Flexbox, IconButton, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
+import { AIButton, Avatar, Button, Card, CardContent, Flexbox, IconButton, StreamingText, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
 import { CopyIcon, ChevronRightIcon } from '@aknishi/akds-icons';
 import { Hero } from '../../components/marketing/Hero';
 import { GradientBackground } from '../../components/marketing/GradientBackground';
@@ -14,6 +15,28 @@ import { packages } from '../../content/packages';
 import { componentRegistry } from '../../content/components/registry';
 import './LandingPage.css';
 import '../../styles/gradients.css';
+
+// Auto-restarts once the stream finishes — this card preview has no
+// user-facing restart control. onComplete fires from StreamingText's own
+// internal timer, not a React effect, so the pending restart timeout is
+// tracked in a ref and cleared on unmount to avoid a state update after the
+// card is gone.
+function StreamingTextAutoLoopPreview({ text, speed, pauseMs = 1500 }: { text: string; speed?: number; pauseMs?: number }) {
+  const [key, setKey] = React.useState(0);
+  const timeoutRef = React.useRef<ReturnType<typeof setTimeout>>();
+
+  React.useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  const handleComplete = React.useCallback(() => {
+    timeoutRef.current = setTimeout(() => setKey((k) => k + 1), pauseMs);
+  }, [pauseMs]);
+
+  return <StreamingText key={key} text={text} speed={speed} onComplete={handleComplete} />;
+}
 
 const COMPONENT_PREVIEWS = [
   {
@@ -85,6 +108,18 @@ const COMPONENT_PREVIEWS = [
     name: 'AI button',
     description: 'Triggers AI generation with an animated loading state.',
     preview: <AIButton loading>Generate</AIButton>,
+  },
+  {
+    slug: 'streaming-text',
+    name: 'Streaming text',
+    description: 'Reveals text one character at a time, like an AI response arriving live.',
+    // Width relative to the card's own preview area (not the revealed text)
+    // so the block never grows/shifts sideways as the text streams in.
+    preview: (
+      <div style={{ width: '100%' }}>
+        <StreamingTextAutoLoopPreview text="Watch responses arrive one character at a time, just like a real AI is typing them out." speed={80} />
+      </div>
+    ),
   },
 ];
 

@@ -1,6 +1,7 @@
 import type React from 'react';
 
 export type ComponentCategory =
+  | 'AI'
   | 'Inputs'
   | 'Actions'
   | 'Layout'
@@ -12,6 +13,7 @@ export type ComponentCategory =
   | 'Primitives';
 
 export const CATEGORY_ORDER: ComponentCategory[] = [
+  'AI',
   'Inputs',
   'Actions',
   'Layout',

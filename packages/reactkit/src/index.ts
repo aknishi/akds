@@ -4,6 +4,15 @@ export type { ButtonProps, ButtonAppearance, ButtonEmphasis, ButtonSize } from '
 export { AIButton } from './components/AIButton/index.js';
 export type { AIButtonProps, AIButtonSize } from './components/AIButton/index.js';
 
+export { StreamingText } from './components/StreamingText/index.js';
+export type { StreamingTextProps } from './components/StreamingText/index.js';
+
+export { GenerationLoader } from './components/GenerationLoader/index.js';
+export type { GenerationLoaderProps, GenerationLoaderSize } from './components/GenerationLoader/index.js';
+
+export { ThinkingState } from './components/ThinkingState/index.js';
+export type { ThinkingStateProps } from './components/ThinkingState/index.js';
+
 export { IconButton } from './components/IconButton/index.js';
 export type { IconButtonProps, IconButtonAppearance, IconButtonEmphasis } from './components/IconButton/index.js';
 

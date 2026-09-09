@@ -1,7 +1,12 @@
 import type { ComponentEntry } from './types';
 
-// Actions
+// AI
 import { aiButton } from './ai-button';
+import { generationLoader } from './generation-loader';
+import { streamingText } from './streaming-text';
+import { thinkingState } from './thinking-state';
+
+// Actions
 import { button } from './button';
 import { iconButton } from './icon-button';
 import { likeButton } from './like-button';
@@ -50,6 +55,9 @@ import { themeProvider } from './theme-provider';
 
 export const componentRegistry: ComponentEntry[] = [
   aiButton,
+  generationLoader,
+  streamingText,
+  thinkingState,
   button,
   iconButton,
   likeButton,
