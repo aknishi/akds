@@ -22,6 +22,19 @@
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
+  opacity: 0;
+  transition: opacity 2s ease;
+  transition-delay: 0.5s;
+}
+
+.gradient-background--visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-background {
+    transition: none;
+  }
 }
 
 .gradient-background__blob {

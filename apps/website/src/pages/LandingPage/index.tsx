@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router';
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { AIButton, Avatar, Button, Card, CardContent, Flexbox, IconButton, StreamingText, Switch, Tabs, TabList, Tab, Tag, Text, TextInput, Tooltip, ThemeProvider } from '@aknishi/akds-reactkit';
 import { CopyIcon, ChevronRightIcon } from '@aknishi/akds-icons';
 import { Hero } from '../../components/marketing/Hero';
@@ -15,6 +15,15 @@ import { packages } from '../../content/packages';
 import { componentRegistry } from '../../content/components/registry';
 import './LandingPage.css';
 import '../../styles/gradients.css';
+
+// A transition defined inside a variant's own "visible" state overrides a `transition`
+// prop passed to the component, so the extra delay has to live inside the variant
+// itself — fadeUp's own visible.transition already sets duration/ease, and a prop-level
+// override would be silently discarded.
+const marqueeReveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut', delay: 1 } },
+};
 
 // Auto-restarts once the stream finishes — this card preview has no
 // user-facing restart control. onComplete fires from StreamingText's own
@@ -137,12 +146,16 @@ const GUIDELINE_LINKS = [
 ];
 
 export function LandingPage() {
+  const [heroRevealed, setHeroRevealed] = React.useState(false);
+
   return (
     <>
-      <Hero />
+      <Hero onShatterComplete={() => setHeroRevealed(true)} />
 
-      <Section className="landing-marquee-section" animated>
-        <ShowcaseMarquee />
+      <Section className="landing-marquee-section">
+        <motion.div variants={marqueeReveal} initial="hidden" animate={heroRevealed ? 'visible' : 'hidden'}>
+          <ShowcaseMarquee />
+        </motion.div>
       </Section>
 
       <Section animated>

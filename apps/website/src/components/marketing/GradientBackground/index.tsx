@@ -7,11 +7,19 @@ const DRIFT = {
   y: [0, -20, 0],
 };
 
-export function GradientBackground() {
+interface GradientBackgroundProps {
+  /** When false, the gradient stays hidden until it becomes true. Defaults to true (always visible). */
+  visible?: boolean;
+}
+
+export function GradientBackground({ visible = true }: GradientBackgroundProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
-    <div className="gradient-background" aria-hidden="true">
+    <div
+      className={`gradient-background${visible ? ' gradient-background--visible' : ''}`}
+      aria-hidden="true"
+    >
       <div className="gradient-background__base" />
       <motion.div
         className="gradient-background__blob gradient-background__blob--primary"
