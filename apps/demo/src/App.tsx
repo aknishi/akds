@@ -2,6 +2,9 @@ import React from 'react';
 import {
   Button,
   AIButton,
+  StreamingText,
+  GenerationLoader,
+  ThinkingState,
   IconButton,
   Carousel,
   TextInput,
@@ -690,11 +693,11 @@ function AppContent() {
 
       <hr className="demo-divider" />
 
-      {/* AIButton section */}
+      {/* AI section */}
       <section className="demo-section">
-        <h2 className="demo-section__heading">AIButton</h2>
+        <h2 className="demo-section__heading">AI</h2>
 
-        <p className="demo-label-heading">States</p>
+        <p className="demo-label-heading">AIButton</p>
         <div className="demo-row">
           <span className="demo-row__label">default</span>
           <AIButton>Generate</AIButton>
@@ -706,6 +709,46 @@ function AppContent() {
         <div className="demo-row">
           <span className="demo-row__label">loading</span>
           <AIButton loading>Generate</AIButton>
+        </div>
+
+        <p className="demo-label-heading">StreamingText</p>
+        <div className="demo-row">
+          <StreamingTextDemo />
+        </div>
+
+        <p className="demo-label-heading">GenerationLoader</p>
+        <div className="demo-row">
+          <span className="demo-row__label">dots only</span>
+          <GenerationLoader />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with label</span>
+          <GenerationLoader label="Generating response" />
+        </div>
+
+        <p className="demo-label-heading">ThinkingState</p>
+        <div className="demo-row">
+          <span className="demo-row__label">active</span>
+          <ThinkingState />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">cycling labels</span>
+          <ThinkingState
+            labels={[
+              'Thinking',
+              'Analyzing your request',
+              'Considering available options',
+              'Finding relevant information',
+              'Forming a response',
+            ]}
+            labelInterval={3000}
+          />
+        </div>
+        <div className="demo-row">
+          <span className="demo-row__label">with reasoning</span>
+          <ThinkingState label="Thought for 4s" active={false}>
+            The user wants a summary, so I should keep the response short and lead with the key change.
+          </ThinkingState>
         </div>
       </section>
 
@@ -1095,6 +1138,28 @@ function ComboboxDemo() {
       <div className="demo-row">
         <Combobox options={FRUITS} label="Fruit" disabled defaultValue="apple" />
       </div>
+    </>
+  );
+}
+
+const STREAMING_MESSAGES = [
+  "Here's a summary of the changes in this pull request.",
+  'Let me look into that for you — checking the logs now.',
+];
+
+function StreamingTextDemo() {
+  const [index, setIndex] = React.useState(0);
+
+  return (
+    <>
+      <StreamingText key={index} text={STREAMING_MESSAGES[index]} />
+      <Button
+        size="sm"
+        appearance="bordered"
+        onClick={() => setIndex(i => (i + 1) % STREAMING_MESSAGES.length)}
+      >
+        Restart
+      </Button>
     </>
   );
 }

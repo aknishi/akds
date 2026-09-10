@@ -1,0 +1,386 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-thinking-state {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-100);
+  box-sizing: border-box;
+}
+
+.akds-thinking-state--expandable {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* A 12-bar rotating loader, sized to the label's own font-size (1em) so it
+   always matches whatever size context the label renders in. */
+.akds-thinking-state__spinner {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  /* Nudges the loader down to align with the center of the label's first
+     line rather than the row's own flex-centered position. */
+  margin-top: var(--akds-spacing-25);
+}
+
+.akds-thinking-state__spinner-bar {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  width: 8%;
+  height: 24%;
+  background-color: var(--akds-color-background-primary-default);
+  border-radius: var(--akds-radius-full);
+  opacity: 0.25;
+  transform: rotate(calc(var(--akds-thinking-state-spinner-bar-index) * 30deg)) translate(0, -130%);
+}
+
+/* Only animates while `active` — otherwise the bars sit at a static, dimmed
+   rest state. Each bar's rotation and stagger come from the same
+   `--akds-thinking-state-spinner-bar-index` custom property (0-11) set
+   inline per bar, rather than 12 near-identical hand-written rules: 30deg
+   apart covers the full circle, and 0.1s apart over 12 bars covers exactly
+   one 1.2s animation cycle. A positive delay multiplier (rather than
+   negative) makes each later-indexed — and so more clockwise-positioned —
+   bar reach peak brightness later, which reads as the highlight sweeping
+   clockwise; a negative multiplier sweeps counter-clockwise instead. */
+.akds-thinking-state--active .akds-thinking-state__spinner-bar {
+  animation: akds-thinking-state-spinner-fade 1.2s linear infinite;
+  animation-delay: calc(var(--akds-thinking-state-spinner-bar-index) * 0.1s);
+}
+
+@keyframes akds-thinking-state-spinner-fade {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.25;
+  }
+}
+
+/* Stacks the current label and (while transitioning) the outgoing previous
+   label directly on top of each other — grid-area 1/1 on both children
+   overlaps them, and the implicit grid track sizes itself to whichever of
+   the two is wider so the wipe below never clips or overflows. */
+.akds-thinking-state__label-stack {
+  position: relative;
+  display: inline-grid;
+  /* Shared by the cursor and the peel's clip-path below, so the disappearing
+     text is always offset a fixed gap past the cursor's trailing edge
+     rather than resuming immediately behind it. */
+  --akds-thinking-state-cursor-width: 0.5em;
+  --akds-thinking-state-cursor-gap: var(--akds-spacing-100);
+}
+
+.akds-thinking-state__label {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-medium);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-secondary-default);
+}
+
+/* Plays once, the first time a static (non-cycling) label mounts. Excluded
+   for `--cycling`: since `--revealing` overrides this element's `animation`
+   with `!important` during a peel, removing that class afterward reverts
+   the computed animation-name back to this one — a *different* name from
+   what was just running, which restarts it. Left unscoped, that meant this
+   entrance fade replayed after every single peel transition, layering a
+   redundant flash on top of a wipe that had already just finished. */
+.akds-thinking-state:not(.akds-thinking-state--cycling) .akds-thinking-state__label {
+  animation: akds-thinking-state-label-in 200ms ease;
+}
+
+@keyframes akds-thinking-state-label-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* While a transition is in flight, clip the current label to stop exactly
+   at the cursor's left edge (0% -> X%, matching the cursor's own `left`
+   keyframe below) instead of leaving it fully visible underneath — without
+   this, the newly-revealed text would peek through the gap ahead of the
+   cursor rather than only appearing once the cursor has passed. !important
+   for the same tie-breaking reason as `--peeling` below: one class here vs.
+   two on the shimmer rule it needs to outrank. */
+.akds-thinking-state__label--revealing {
+  animation: akds-thinking-state-label-reveal 1s ease forwards !important;
+}
+
+@keyframes akds-thinking-state-label-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+  }
+}
+
+/* The outgoing label sits on top of the incoming one (later in DOM order,
+   same grid cell) and wipes away left-to-right via a shrinking clip-path,
+   giving the illusion of the new label overwriting the old one character by
+   character rather than the whole label swapping at once.
+   It needs an opaque background rather than the `--active` gradient/shimmer
+   treatment below: `background-clip: text` only paints inside each glyph's
+   own ink, so anywhere between letters — or past the shorter of the two
+   labels — the layer underneath would bleed through instead of being
+   cleanly covered. !important is required: `.akds-thinking-state--active
+   .akds-thinking-state__label--peeling` (2 classes) ties in specificity with
+   the shimmer rule below (also 2 classes) since this element carries both
+   the plain `__label` and `--peeling` classes, and the shimmer rule comes
+   later in the file, so it would otherwise win that tie. Uses the same
+   `--akds-thinking-state-background-color` chain as the gap filler below
+   (on the cursor's `::after`) so the two form one continuous, seamless
+   background rather than two adjacent patches of slightly different color.
+   `--akds-color-surface-sunken` is the fallback — Storybook's own dark-mode
+   canvas (.storybook/preview.tsx) is set to that exact token, so this
+   matches it exactly by default with no override needed; a real app
+   backdrop that doesn't use `surface-sunken` should pass `backgroundColor`. */
+.akds-thinking-state__label--peeling {
+  z-index: 1;
+  background-color: var(--akds-thinking-state-background-color, var(--akds-color-surface-sunken)) !important;
+  background-image: none !important;
+  -webkit-background-clip: border-box !important;
+  background-clip: border-box !important;
+  color: var(--akds-color-text-secondary-default) !important;
+  animation: akds-thinking-state-label-peel 2s ease forwards !important;
+}
+
+/* Offset past 0%/100% by the cursor's own width plus a spacing-200 gap, so
+   the still-covered ("disappearing") text never resumes flush against the
+   cursor's trailing edge — see the custom properties on `.label-stack`. */
+@keyframes akds-thinking-state-label-peel {
+  from {
+    clip-path: inset(0 0 0 calc(0% + var(--akds-thinking-state-cursor-width) + var(--akds-thinking-state-cursor-gap)));
+  }
+  to {
+    clip-path: inset(0 0 0 calc(100% + var(--akds-thinking-state-cursor-width) + var(--akds-thinking-state-cursor-gap)));
+  }
+}
+
+/* A solid block — like a terminal cursor — that tracks the wipe boundary
+   as it sweeps left to right, sharing the exact duration/easing of the peel
+   above so the two stay in lockstep. It's a sibling of the peeling label
+   (not a child) positioned against the shared `.label-stack`, so the peel's
+   own clip-path can't clip it away too. */
+.akds-thinking-state__label-cursor {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: var(--akds-thinking-state-cursor-width);
+  background-color: var(--akds-color-text-secondary-default);
+  border-radius: var(--akds-radius-xs);
+  animation: akds-thinking-state-label-cursor-move 2s ease forwards;
+}
+
+/* Fills the gap after the cursor with the page's own background color,
+   like Claude's — otherwise it's just transparent, which only happens to
+   look right by coincidence when nothing sits behind the component. Being
+   a pseudo-element of the cursor (rather than a separately-tracked element)
+   means it rides along for free: `left: 100%` resolves against the
+   cursor's own box, since the cursor is already `position: absolute` and
+   so is this pseudo-element's containing block, no extra animation needed. */
+.akds-thinking-state__label-cursor::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: var(--akds-thinking-state-cursor-gap);
+  background-color: var(--akds-thinking-state-background-color, var(--akds-color-surface-sunken));
+}
+
+@keyframes akds-thinking-state-label-cursor-move {
+  from {
+    left: 0%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* ── Active (thinking) animation ───────────────────────────────────────── */
+
+/* A white highlight, tilted 45 degrees, sweeps across the label in the
+   first half of each cycle, then holds at rest for the second half before
+   repeating. `animation-delay` can't create this gap on its own — it only
+   offsets the very first iteration, not the pause between repeats of an
+   `infinite` animation — so the keyframes' own timeline has to be longer
+   than the sweep itself, holding the end value for the remainder. Here the
+   sweep runs 0%-50% (2s) and 50%-100% (2s) just repeats that same end
+   value, giving a 2s pause between passes. */
+/* Not applied when cycling through `labels` — the peel/cursor wipe already
+   carries the motion there, and layering the shimmer on top read as busy. */
+.akds-thinking-state--active:not(.akds-thinking-state--cycling) .akds-thinking-state__label {
+  background-image: linear-gradient(
+    135deg,
+    var(--akds-color-text-secondary-default) 0%,
+    var(--akds-color-text-secondary-default) 40%,
+    var(--akds-primitive-color-white) 50%,
+    var(--akds-color-text-secondary-default) 60%,
+    var(--akds-color-text-secondary-default) 100%
+  );
+  background-size: 200% 100%;
+  background-position: 120% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: akds-thinking-state-label-in 200ms ease, akds-thinking-state-shine 3s ease-in-out infinite;
+}
+
+/* background-repeat defaults to repeat, so this tiles with a period equal
+   to background-size (200%) — meaning "off-screen" positions repeat every
+   200%, but NOT at the round numbers you'd guess (0%/200%/-200% all still
+   land partway into the bright band). Verified empirically by sampling
+   screenshots across a range of position values: the band is fully clear
+   only at positions ≡ -50% (mod 200%) — e.g. 150% and -50% here, exactly
+   one tiling period apart. */
+@keyframes akds-thinking-state-shine {
+  0% {
+    background-position: 120% 0;
+  }
+  50%,
+  100% {
+    background-position: -20% 0;
+  }
+}
+
+/* ── Expandable trigger ────────────────────────────────────────────────── */
+.akds-thinking-state__trigger {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-100);
+  padding: var(--akds-spacing-100) var(--akds-spacing-150);
+  background: transparent;
+  border: none;
+  border-radius: var(--akds-radius-md);
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: color 150ms ease;
+}
+
+.akds-thinking-state__trigger:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+.akds-thinking-state__trigger::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-thinking-state__trigger:hover::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+.akds-thinking-state__chevron {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--akds-color-icon-secondary-default);
+  transition: transform 200ms ease;
+}
+
+.akds-thinking-state--expanded .akds-thinking-state__chevron {
+  transform: rotate(180deg);
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
+.akds-thinking-state__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  visibility: hidden;
+  transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms;
+}
+
+.akds-thinking-state--expanded .akds-thinking-state__panel {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 200ms ease-out, visibility 0s linear 0s;
+}
+
+.akds-thinking-state__panel-inner {
+  min-height: 0;
+  padding: var(--akds-spacing-100) var(--akds-spacing-150) var(--akds-spacing-150);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-regular);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-secondary-default);
+  border-left: 2px solid var(--akds-color-border-neutral-default);
+  margin-left: var(--akds-spacing-300);
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-thinking-state__label,
+  .akds-thinking-state__chevron,
+  .akds-thinking-state__trigger::after,
+  .akds-thinking-state__panel {
+    animation: none;
+    transition: none;
+  }
+
+  /* Static instead of animated, matching Spinner/GenerationLoader's own
+     reduced-motion fallback: a fixed, clearly-visible opacity rather than
+     either the dim 0.25 rest state or no visual cue at all. */
+  .akds-thinking-state--active .akds-thinking-state__spinner-bar {
+    animation: none;
+    opacity: 0.7;
+  }
+
+  /* Purely decorative and drives no cleanup logic, unlike the peeling label
+     below — safe to just remove outright rather than needing the
+     animation-duration: 0.01ms trick. */
+  .akds-thinking-state__label-cursor {
+    display: none;
+  }
+
+  /* !important to outrank the `--revealing` rule's own !important above —
+     without it the reveal-clip animation would still play. Removing the
+     animation entirely (rather than the 0.01ms trick) is safe here since it
+     drives no cleanup logic, and its unanimated default (no clip-path) is
+     already the fully-visible end state. */
+  .akds-thinking-state__label--revealing {
+    animation: none !important;
+  }
+
+  .akds-thinking-state--active .akds-thinking-state__label {
+    animation: none;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    color: var(--akds-color-text-secondary-default);
+  }
+
+  /* ThinkingState.tsx listens for animationend on the peeling label to
+     remove it from the DOM — animation-duration: 0.01ms (not animation:
+     none) keeps that event firing so it doesn't get stuck on top forever.
+     !important is needed to outrank the two animation:none rules above,
+     which would otherwise win on specificity (or tie and lose on source
+     order) against a plain `--peeling` selector. */
+  .akds-thinking-state__label--peeling,
+  .akds-thinking-state--active .akds-thinking-state__label--peeling {
+    animation: akds-thinking-state-label-peel 0.01ms ease forwards !important;
+  }
+}

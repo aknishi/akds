@@ -1,0 +1,38 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as StreamingTextStories from './StreamingText.stories';
+
+<Meta of={StreamingTextStories} />
+
+# StreamingText
+
+> **Available from v1.6.0**
+
+Reveals a block of text one character at a time, simulating an AI response streaming in. Pass the full, final `text` — the component handles the progressive reveal. Restart the animation for a new message by remounting with a new `key`.
+
+## Usage
+
+```tsx
+import { StreamingText } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={StreamingTextStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={StreamingTextStories.Default} />
+
+### Speed
+
+<Canvas of={StreamingTextStories.Speed} />
+
+### NoCursor
+
+<Canvas of={StreamingTextStories.NoCursor} />
+
+### MultiMessage
+
+<Canvas of={StreamingTextStories.MultiMessage} />

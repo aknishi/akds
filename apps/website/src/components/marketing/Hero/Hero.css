@@ -1,5 +1,9 @@
 .hero {
   position: relative;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-block: var(--akds-spacing-layout-2xl);
   overflow: hidden;
 }
@@ -28,6 +32,35 @@
   max-width: 620px;
 }
 
+.hero__logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--akds-spacing-200);
+  margin: 0;
+}
+
+.hero__logo-image {
+  display: block;
+  width: clamp(56px, 6vw + 24px, 96px);
+  height: clamp(56px, 6vw + 24px, 96px);
+  border-radius: 12px;
+}
+
+.hero__logo-tagline {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  font-family: 'Josefin Sans', var(--akds-font-family-sans), sans-serif;
+  font-size: clamp(var(--akds-font-size-xl), 2vw + 1rem, var(--akds-font-size-4xl));
+  font-weight: var(--akds-font-weight-bold);
+  letter-spacing: var(--akds-font-letter-spacing-wider);
+  color: var(--akds-primitive-color-neutral-700);
+}
+
 .hero__subhead {
   display: block;
   margin-top: var(--akds-spacing-200);
@@ -37,8 +70,21 @@
 
 .hero__visual {
   order: 1;
-  max-width: 480px;
+  max-width: 500px;
   margin-inline: auto;
+  opacity: 0;
+  transition: opacity 2s ease;
+  transition-delay: 1s;
+}
+
+.hero__visual--visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__visual {
+    transition: none;
+  }
 }
 
 .hero__visual-image {
@@ -52,7 +98,7 @@
    band rather than forcing either side to a cramped size. */
 @media (min-width: 600px) and (max-width: 1015.98px) {
   .hero__visual {
-    display: none;
+    max-width: 400px;
   }
 }
 
@@ -61,7 +107,7 @@
    the image stays put. */
 @media (min-width: 1016px) {
   .hero__grid {
-    grid-template-columns: minmax(0, 1fr) 400px;
+    grid-template-columns: minmax(0, 1fr) 450px;
   }
 
   .hero__text {
@@ -71,7 +117,6 @@
   .hero__visual {
     order: 2;
     display: block;
-    max-width: none;
     margin-inline: 0;
   }
 }

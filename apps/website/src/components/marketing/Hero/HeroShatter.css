@@ -1,0 +1,74 @@
+.hero-shatter {
+  position: fixed;
+  top: 64px;
+  left: 0;
+  right: 0;
+  height: calc(100vh - 64px);
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero-shatter__tile {
+  position: absolute;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  animation-name: hero-shatter-tile, hero-shatter-tile-blur;
+  animation-duration: var(--hero-shatter-duration);
+  animation-delay: var(--hero-shatter-delay);
+  animation-fill-mode: both;
+}
+
+@keyframes hero-shatter-tile {
+  0% {
+    opacity: 0;
+    transform: translate(var(--hero-shatter-dx), var(--hero-shatter-dy)) rotate(var(--hero-shatter-rotate)) scale(0.7);
+    animation-timing-function: ease-out;
+  }
+  20% {
+    opacity: 0.05;
+    transform: translate(
+        calc(var(--hero-shatter-dx) * 0.3),
+        calc(var(--hero-shatter-dy) * 0.3)
+      )
+      rotate(calc(var(--hero-shatter-rotate) * 0.3)) scale(0.85);
+    animation-timing-function: ease-out;
+  }
+  35% {
+    opacity: 0.1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    animation-timing-function: linear;
+  }
+  60% {
+    opacity: 0.1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+    animation-timing-function: ease-in;
+  }
+  75% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+@keyframes hero-shatter-tile-blur {
+  0% {
+    filter: blur(0px);
+  }
+  35% {
+    filter: blur(5px);
+  }
+  75%,
+  100% {
+    filter: blur(30px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-shatter {
+    display: none;
+  }
+}

@@ -1,5 +1,18 @@
 # @akds/website
 
+## 1.4.0
+
+### Minor Changes
+
+- a2fb8fd: Update landing page transitions
+- eef852e: Add more examples to component pages, add search bar, update logo
+
+### Patch Changes
+
+- 83f2a89: Website improvements: microanimations, expanded left nav items, search shortcut, section quick links, skip to content, breadcrumbs
+- Updated dependencies [b117412]
+  - @aknishi/akds-reactkit@1.6.0
+
 ## 1.3.0
 
 ### Minor Changes

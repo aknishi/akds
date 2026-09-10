@@ -11,8 +11,12 @@ const docsDarkTheme = {
   brandUrl: 'https://akds-storybook.com',
   brandImage: '/AKLogo-lockup-dark.svg',
   brandTarget: '_self',
-  appContentBg: 'rgb(30, 30, 30)',
-  appPreviewBg: 'rgb(30, 30, 30)',
+  // Matches --akds-color-surface-sunken's dark-mode value. Storybook's
+  // manager UI (which reads this theme object) runs in a separate bundle
+  // from the preview iframe where the token CSS is loaded, so this has to
+  // be the literal value rather than var(--akds-color-surface-sunken).
+  appContentBg: '#0A0A0A',
+  appPreviewBg: '#0A0A0A',
 };
 
 const docsLightTheme = {
@@ -31,7 +35,7 @@ function ThemeWrapper({ children }: { children: React.ReactNode }) {
       <div
         style={{
           padding: '2rem',
-          background: isDark ? 'rgb(30, 30, 30)' : '#fafafa',
+          background: isDark ? 'var(--akds-color-surface-sunken)' : '#fafafa',
           minHeight: '100%',
           boxSizing: 'border-box',
         }}
@@ -77,10 +81,10 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
           }
           ${isDark ? `
           .docblock-source, .docblock-source pre {
-            background: rgb(30, 30, 30) !important;
+            background: var(--akds-color-surface-sunken) !important;
           }
           div:has(> [data-radix-scroll-area-viewport]) {
-            background: rgb(30, 30, 30) !important;
+            background: var(--akds-color-surface-sunken) !important;
           }
           code:not([class*="akds-"]) {
             background: rgba(255, 255, 255, 0.08) !important;

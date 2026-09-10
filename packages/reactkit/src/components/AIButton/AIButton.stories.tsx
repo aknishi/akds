@@ -3,7 +3,7 @@ import { AIButton } from './AIButton';
 import { LiveEditStory } from '../../utils/LiveEditStory';
 
 const meta: Meta<typeof AIButton> = {
-  title: 'Reactkit/Buttons/AIButton',
+  title: 'Reactkit/AI/AIButton',
   component: AIButton,
   argTypes: {
     disabled: { control: 'boolean' },

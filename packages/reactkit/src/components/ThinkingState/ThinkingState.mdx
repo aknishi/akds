@@ -1,0 +1,42 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ThinkingStateStories from './ThinkingState.stories';
+
+<Meta of={ThinkingStateStories} />
+
+# ThinkingState
+
+> **Available from v1.6.0**
+
+Indicates that an AI is reasoning before producing a response. Shows a loading spinner and shimmering `label` while `active` is true. Pass `labels` instead of `label` to automatically cycle through a sequence of statuses (e.g. "Analyzing your request" → "Forming a response") every `labelInterval` ms — each change wipes left to right like a terminal cursor overwriting the previous text. Pass `children` to turn it into a disclosure the user can expand to reveal the reasoning trace — set `active={false}` once reasoning has finished to hide the spinner and stop the shimmer/cycling while keeping the trace available.
+
+## Usage
+
+```tsx
+import { ThinkingState } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ThinkingStateStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={ThinkingStateStories.Default} />
+
+### CustomLabel
+
+<Canvas of={ThinkingStateStories.CustomLabel} />
+
+### CyclingLabels
+
+<Canvas of={ThinkingStateStories.CyclingLabels} />
+
+### WithReasoning
+
+<Canvas of={ThinkingStateStories.WithReasoning} />
+
+### Finished
+
+<Canvas of={ThinkingStateStories.Finished} />
