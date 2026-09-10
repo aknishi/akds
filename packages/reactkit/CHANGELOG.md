@@ -1,5 +1,11 @@
 # @aknishi/akds-reactkit
 
+## 1.6.0
+
+### Minor Changes
+
+- b117412: Add AI related components StreamingText, ThinkingState, GenerationLoader
+
 ## 1.5.1
 
 ### Patch Changes
