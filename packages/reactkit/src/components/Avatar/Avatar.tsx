@@ -65,15 +65,15 @@ export const Avatar = React.forwardRef<HTMLSpanElement, AvatarProps>(
         {...rest}
       >
         {src ? (
-          <img src={src} alt="" className="akds-avatar__image" />
+          <img src={src} alt="" className={withBaseName.el('image')} />
         ) : name ? (
-          <span className="akds-avatar__initials" aria-hidden="true">
+          <span className={withBaseName.el('initials')} aria-hidden="true">
             {getInitials(name)}
           </span>
         ) : icon ? (
-          <span className="akds-avatar__icon" aria-hidden="true">{icon}</span>
+          <span className={withBaseName.el('icon')} aria-hidden="true">{icon}</span>
         ) : (
-          <PersonIcon size={ICON_SIZE_MAP[size]} aria-hidden="true" className="akds-avatar__icon" />
+          <PersonIcon size={ICON_SIZE_MAP[size]} aria-hidden="true" className={withBaseName.el('icon')} />
         )}
       </span>
     );

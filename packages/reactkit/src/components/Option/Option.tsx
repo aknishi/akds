@@ -60,7 +60,7 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
           >
             {children}
             {trailingElement && (
-              <span className="akds-option__trailing" aria-hidden="true">
+              <span className={withBaseName.el('trailing')} aria-hidden="true">
                 {trailingElement}
               </span>
             )}
@@ -105,13 +105,13 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
         {...(rest as React.LiHTMLAttributes<HTMLLIElement>)}
       >
         {ctx.multiple && (
-          <span className="akds-option__checkbox" aria-hidden="true">
+          <span className={withBaseName.el('checkbox')} aria-hidden="true">
             <span className={clsx(
-              'akds-option__checkbox-box',
-              { 'akds-option__checkbox-box--checked': selected },
+              withBaseName.el('checkbox-box'),
+              { [`${withBaseName.el('checkbox-box')}--checked`]: selected },
             )}>
               <svg
-                className="akds-option__checkbox-icon"
+                className={withBaseName.el('checkbox-icon')}
                 viewBox="0 0 16 16"
                 fill="none"
                 aria-hidden="true"
@@ -128,7 +128,7 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
         )}
         {children}
         {!ctx.multiple && selected && (
-          <span className="akds-option__checkmark" aria-hidden="true">
+          <span className={withBaseName.el('checkmark')} aria-hidden="true">
             <CheckIcon />
           </span>
         )}

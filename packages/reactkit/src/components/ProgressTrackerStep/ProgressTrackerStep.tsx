@@ -54,24 +54,24 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
         aria-current={isActive ? 'step' : undefined}
         {...rest}
       >
-        <span className="akds-progress-tracker-step__label">{label}</span>
+        <span className={withBaseName.el('label')}>{label}</span>
         {showError && (
-          <div className="akds-progress-tracker-step__alert-node" aria-hidden="true">
-            <WarningFilledIcon color="error" className="akds-progress-tracker-step__alert-icon" />
+          <div className={withBaseName.el('alert-node')} aria-hidden="true">
+            <WarningFilledIcon color="error" className={withBaseName.el('alert-icon')} />
           </div>
         )}
         {showWarning && (
-          <div className="akds-progress-tracker-step__alert-node" aria-hidden="true">
-            <WarningIcon color="warning" className="akds-progress-tracker-step__alert-icon" />
+          <div className={withBaseName.el('alert-node')} aria-hidden="true">
+            <WarningIcon color="warning" className={withBaseName.el('alert-icon')} />
           </div>
         )}
         {!showError && !showWarning && (
-          <div className="akds-progress-tracker-step__circle" aria-hidden="true">
+          <div className={withBaseName.el('circle')} aria-hidden="true">
             {showCheck && (
               <CheckCircleFilledIcon
                 className={clsx(
-                  'akds-progress-tracker-step__check-icon',
-                  { 'akds-progress-tracker-step__check-icon--pop': justCompleted },
+                  withBaseName.el('check-icon'),
+                  { [`${withBaseName.el('check-icon')}--pop`]: justCompleted },
                 )}
                 color="success"
               />
@@ -83,7 +83,7 @@ export const ProgressTrackerStep = React.forwardRef<HTMLLIElement, ProgressTrack
                 spacingFromCenter="10px"
               />
             )}
-            {showDot && <div className="akds-progress-tracker-step__dot" />}
+            {showDot && <div className={withBaseName.el('dot')} />}
           </div>
         )}
       </li>

@@ -130,12 +130,12 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
           onAnimationEnd={() => { if (isClosing) setIsClosing(false); }}
           onClick={e => e.stopPropagation()}
         >
-          <div className="akds-drawer__header">
+          <div className={withBaseName.el('header')}>
             {title && (
-              <h2 id={titleId} className="akds-drawer__title">{title}</h2>
+              <h2 id={titleId} className={withBaseName.el('title')}>{title}</h2>
             )}
             <IconButton
-              className="akds-drawer__close"
+              className={withBaseName.el('close')}
               appearance="transparent"
               emphasis="neutral"
               onClick={onClose}
@@ -144,7 +144,7 @@ export const Drawer = React.forwardRef<HTMLDivElement, DrawerProps>(
               <CloseIcon />
             </IconButton>
           </div>
-          <div className="akds-drawer__body">{children}</div>
+          <div className={withBaseName.el('body')}>{children}</div>
         </div>
       </div>,
       document.body,

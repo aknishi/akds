@@ -36,7 +36,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           ref={ref}
           type="checkbox"
           role="switch"
-          className="akds-switch__input"
+          className={withBaseName.el('input')}
           checked={checked}
           defaultChecked={defaultChecked}
           onChange={onChange}
@@ -45,11 +45,11 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           disabled={disabled}
           aria-disabled={disabled || undefined}
         />
-        <span className="akds-switch__track" aria-hidden="true">
-          <span className="akds-switch__thumb" />
+        <span className={withBaseName.el('track')} aria-hidden="true">
+          <span className={withBaseName.el('thumb')} />
         </span>
         {label !== undefined && (
-          <span className="akds-switch__label">{label}</span>
+          <span className={withBaseName.el('label')}>{label}</span>
         )}
       </label>
     );

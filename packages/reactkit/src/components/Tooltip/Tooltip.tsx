@@ -90,7 +90,7 @@ export const Tooltip: React.FC<TooltipProps> = function Tooltip({
   } as React.HTMLAttributes<HTMLElement>);
 
   return (
-    <span className={'akds-tooltip__wrapper'}>
+    <span className={withBaseName.el('wrapper')}>
       {clonedChild}
       <span
         id={tooltipId}

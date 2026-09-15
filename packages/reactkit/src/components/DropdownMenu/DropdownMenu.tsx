@@ -186,9 +186,9 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       >
         {/* ── Control — mirrors TextInput's .akds-text-input__control ── */}
         <div className={clsx(
-          'akds-dropdown-menu__control',
-          { 'akds-dropdown-menu__control--open': resolvedOpen },
-          { 'akds-dropdown-menu__control--keyboard-focus': keyboardFocused },
+          withBaseName.el('control'),
+          { [`${withBaseName.el('control')}--open`]: resolvedOpen },
+          { [`${withBaseName.el('control')}--keyboard-focus`]: keyboardFocused },
         )}>
           <button
             ref={triggerRef}
@@ -203,8 +203,8 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             aria-disabled={disabled || undefined}
             disabled={disabled}
             className={clsx(
-              'akds-dropdown-menu__trigger',
-              { 'akds-dropdown-menu__trigger--has-value': isLabelFloating },
+              withBaseName.el('trigger'),
+              { [`${withBaseName.el('trigger')}--has-value`]: isLabelFloating },
             )}
             onClick={() => handleOpenChange(!resolvedOpen)}
             onKeyDown={handleTriggerKeyDown}
@@ -219,10 +219,10 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
               setKeyboardFocused(false);
             }}
           >
-            <span className="akds-dropdown-menu__value">
+            <span className={withBaseName.el('value')}>
               {displayText || (placeholder ?? '\u00A0')}
             </span>
-            <span className="akds-dropdown-menu__chevron" aria-hidden="true">
+            <span className={withBaseName.el('chevron')} aria-hidden="true">
               <KeyboardArrowDownIcon size="md" color="var(--akds-color-icon-secondary-default)" />
             </span>
           </button>
@@ -231,8 +231,8 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
               id={labelId}
               htmlFor={triggerId}
               className={clsx(
-                'akds-dropdown-menu__label',
-                { 'akds-dropdown-menu__label--floating': isLabelFloating },
+                withBaseName.el('label'),
+                { [`${withBaseName.el('label')}--floating`]: isLabelFloating },
               )}
             >
               {label}
@@ -241,7 +241,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         </div>
 
         {helperText && (
-          <p id={helperId} className="akds-dropdown-menu__helper-text">
+          <p id={helperId} className={withBaseName.el('helper-text')}>
             {helperText}
           </p>
         )}
@@ -255,7 +255,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
               role="listbox"
               aria-multiselectable={multiple || undefined}
               aria-label={label ?? ariaLabel}
-              className={clsx('akds-menu', 'akds-dropdown-menu__listbox')}
+              className={clsx('akds-menu', withBaseName.el('listbox'))}
               onKeyDown={handleListboxKeyDown}
             >
               {children}

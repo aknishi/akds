@@ -1,5 +1,15 @@
 # @akds/website
 
+## 1.4.1
+
+### Patch Changes
+
+- Hero - Fix the shatter intro animation sometimes failing to play on a cold first visit (working only after a refresh). The reveal sequence now waits for fonts to finish loading and a couple of frames to settle before rendering tiles or starting its timers, instead of assuming the CSS animation started at the same moment the component mounted.
+- Updated dependencies
+- Updated dependencies
+- Updated dependencies
+  - @aknishi/akds-reactkit@1.6.1
+
 ## 1.4.0
 
 ### Minor Changes

@@ -1,14 +1,15 @@
 /* ── Base ──────────────────────────────────────────────────────────────── */
+/*
+ * display: contents removes this <li>'s own box so its two children
+ * (label, circle) become direct items of the parent grid — see the
+ * comment on .akds-progress-tracker__steps. The <li> stays in the DOM
+ * (and the accessibility tree — modern browsers preserve list/listitem
+ * semantics and aria-current under display: contents), only its layout
+ * box disappears.
+ */
 .akds-progress-tracker-step {
-  flex: 1;
-  min-width: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--akds-spacing-100);
-  padding: 0;
+  display: contents;
   font-family: var(--akds-font-family-sans);
-  list-style: none;
 }
 
 /* ── Label ─────────────────────────────────────────────────────────────── */
@@ -24,6 +25,7 @@
 .akds-progress-tracker-step__circle {
   position: relative;
   z-index: 1;
+  justify-self: center;
   width: var(--akds-size-icon-lg);
   height: var(--akds-size-icon-lg);
   border-radius: var(--akds-radius-full);
@@ -49,6 +51,7 @@
 .akds-progress-tracker-step__alert-node {
   position: relative;
   z-index: 1;
+  justify-self: center;
   width: var(--akds-size-icon-lg);
   height: var(--akds-size-icon-lg);
   border-radius: var(--akds-radius-full);
@@ -93,7 +96,7 @@
 @keyframes akds-pt-check-in {
   from {
     opacity: 0;
-    transform: scale(0.5);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
