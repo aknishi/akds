@@ -79,17 +79,17 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
         )}
         aria-disabled={disabled || undefined}
       >
-        <div className={clsx('akds-text-input__control', { 'akds-text-input__control--keyboard-focus': keyboardFocused })}>
+        <div className={clsx(withBaseName.el('control'), { [`${withBaseName.el('control')}--keyboard-focus`]: keyboardFocused })}>
           {startAdornment && (
-            <span className="akds-text-input__start-adornment">
+            <span className={withBaseName.el('start-adornment')}>
               {startAdornment}
             </span>
           )}
-          <div className="akds-text-input__field-wrapper">
+          <div className={withBaseName.el('field-wrapper')}>
             <input
               ref={inputRef}
               id={inputId}
-              className="akds-text-input__input"
+              className={withBaseName.el('input')}
               type={type}
               value={value}
               defaultValue={defaultValue}
@@ -106,8 +106,8 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
               <label
                 htmlFor={inputId}
                 className={clsx(
-                  'akds-text-input__label',
-                  { 'akds-text-input__label--floating': isLabelFloating },
+                  withBaseName.el('label'),
+                  { [`${withBaseName.el('label')}--floating`]: isLabelFloating },
                 )}
               >
                 {label}
@@ -116,7 +116,7 @@ export const TextInput = React.forwardRef<HTMLDivElement, TextInputProps>(
           </div>
         </div>
         {helperText && (
-          <p id={helperId} className="akds-text-input__helper-text">
+          <p id={helperId} className={withBaseName.el('helper-text')}>
             {helperText}
           </p>
         )}

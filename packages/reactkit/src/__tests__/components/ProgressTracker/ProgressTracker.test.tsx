@@ -36,22 +36,22 @@ describe('ProgressTracker', () => {
     expect(container.querySelector('.akds-progress-tracker__fill')).toBeInTheDocument();
   });
 
-  it('sets --pt-fill-width CSS variable based on currentStep', () => {
+  it('sets --pt-fill-scale CSS variable based on currentStep', () => {
     const { container } = renderTracker(2);
     const el = container.querySelector('.akds-progress-tracker') as HTMLElement;
-    expect(el.style.getPropertyValue('--pt-fill-width')).toBe('50%');
+    expect(el.style.getPropertyValue('--pt-fill-scale')).toBe('0.5');
   });
 
-  it('sets --pt-fill-width to 0% when currentStep is 1', () => {
+  it('sets --pt-fill-scale to 0 when currentStep is 1', () => {
     const { container } = renderTracker(1);
     const el = container.querySelector('.akds-progress-tracker') as HTMLElement;
-    expect(el.style.getPropertyValue('--pt-fill-width')).toBe('0%');
+    expect(el.style.getPropertyValue('--pt-fill-scale')).toBe('0');
   });
 
-  it('sets --pt-fill-width to 100% when currentStep is the last step', () => {
+  it('sets --pt-fill-scale to 1 when currentStep is the last step', () => {
     const { container } = renderTracker(3);
     const el = container.querySelector('.akds-progress-tracker') as HTMLElement;
-    expect(el.style.getPropertyValue('--pt-fill-width')).toBe('100%');
+    expect(el.style.getPropertyValue('--pt-fill-scale')).toBe('1');
   });
 
   it('sets --pt-step-count on the container', () => {

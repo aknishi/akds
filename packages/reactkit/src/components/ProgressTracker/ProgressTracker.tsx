@@ -20,10 +20,10 @@ export const ProgressTracker = React.forwardRef<HTMLDivElement, ProgressTrackerP
     const activeIndex = currentStep - 1;
     const totalSteps = React.Children.count(children);
 
-    const fillWidth =
+    const fillScale =
       totalSteps > 1
-        ? `${(Math.max(0, Math.min(activeIndex, totalSteps - 1)) / (totalSteps - 1)) * 100}%`
-        : '0%';
+        ? Math.max(0, Math.min(activeIndex, totalSteps - 1)) / (totalSteps - 1)
+        : 0;
 
     const ctx = React.useMemo(
       () => ({ activeIndex, totalSteps }),
@@ -45,16 +45,16 @@ export const ProgressTracker = React.forwardRef<HTMLDivElement, ProgressTrackerP
           style={
             {
               '--pt-step-count': totalSteps,
-              '--pt-fill-width': fillWidth,
+              '--pt-fill-scale': fillScale,
             } as React.CSSProperties
           }
           {...rest}
         >
-          <div className="akds-progress-tracker__track-container" aria-hidden="true">
-            <div className="akds-progress-tracker__track" />
-            <div className="akds-progress-tracker__fill" />
+          <div className={withBaseName.el('track-container')} aria-hidden="true">
+            <div className={withBaseName.el('track')} />
+            <div className={withBaseName.el('fill')} />
           </div>
-          <ol className="akds-progress-tracker__steps">{styledChildren}</ol>
+          <ol className={withBaseName.el('steps')}>{styledChildren}</ol>
         </div>
       </ProgressTrackerStepContext.Provider>
     );

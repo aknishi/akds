@@ -29,9 +29,9 @@ export const Divider = React.forwardRef<HTMLHRElement, DividerProps>(
             className,
           )}
         >
-          <span className="akds-divider__line" aria-hidden="true" />
-          <span className="akds-divider__label-text">{label}</span>
-          <span className="akds-divider__line" aria-hidden="true" />
+          <span className={withBaseName.el('line')} aria-hidden="true" />
+          <span className={withBaseName.el('label-text')}>{label}</span>
+          <span className={withBaseName.el('line')} aria-hidden="true" />
         </div>
       );
     }

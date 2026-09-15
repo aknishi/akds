@@ -119,12 +119,12 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
           onAnimationEnd={() => { if (isClosing) setIsClosing(false); }}
           onClick={e => e.stopPropagation()}
         >
-          <div className="akds-dialog__header">
+          <div className={withBaseName.el('header')}>
             {title && (
-              <h2 id={titleId} className="akds-dialog__title">{title}</h2>
+              <h2 id={titleId} className={withBaseName.el('title')}>{title}</h2>
             )}
             <IconButton
-              className="akds-dialog__close"
+              className={withBaseName.el('close')}
               appearance="transparent"
               emphasis="neutral"
               onClick={onClose}
@@ -133,7 +133,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
               <CloseIcon />
             </IconButton>
           </div>
-          <div className="akds-dialog__body">{children}</div>
+          <div className={withBaseName.el('body')}>{children}</div>
         </div>
       </div>,
       document.body,

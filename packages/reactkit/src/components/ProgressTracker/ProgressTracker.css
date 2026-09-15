@@ -6,8 +6,23 @@
 }
 
 /* ── Steps list ────────────────────────────────────────────────────────── */
+/*
+ * Grid, not flex — each step's label and circle are laid out as two rows
+ * spanning all step columns (grid-auto-flow: column places each step's
+ * [label, circle] pair into its own column, top to bottom). This keeps
+ * every circle in row 2, which CSS Grid sizes to the same height across
+ * every column regardless of how tall any single label's row 1 gets —
+ * so a step with a wrapping, multi-line label can't push its own circle
+ * out of alignment with the other steps' circles the way independent
+ * flex columns did.
+ */
 .akds-progress-tracker__steps {
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(var(--pt-step-count, 1), minmax(80px, 1fr));
+  grid-template-rows: auto auto;
+  align-items: end;
+  row-gap: var(--akds-spacing-100);
   width: 100%;
   list-style: none;
   margin: 0;
@@ -41,14 +56,21 @@
 }
 
 /* ── Fill (animated progress) ──────────────────────────────────────────── */
+/*
+ * Always full width; progress is drawn with transform: scaleX so the
+ * animation runs on the compositor (transform/opacity only) instead of
+ * triggering layout on every frame the way animating `width` would.
+ */
 .akds-progress-tracker__fill {
   position: absolute;
   inset-block: 0;
   left: 0;
-  width: var(--pt-fill-width, 0%);
+  width: 100%;
+  transform: scaleX(var(--pt-fill-scale, 0));
+  transform-origin: left;
   background: var(--akds-color-background-primary-default);
   border-radius: var(--akds-radius-full);
-  transition: width 400ms ease;
+  transition: transform 250ms ease;
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */

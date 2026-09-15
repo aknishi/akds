@@ -1,5 +1,13 @@
 # @aknishi/akds-reactkit
 
+## 1.6.1
+
+### Patch Changes
+
+- ProgressTracker - Fix step circles becoming misaligned when one step's label wraps to multiple lines while others stay on one line. The steps list now uses a CSS grid (labels in row 1, circles in row 2) instead of independent flex columns, so every circle's row height is driven by the tallest circle across all steps, not by that step's own label height. Also switch the fill bar's progress animation from `width` to `transform: scaleX`, so it runs on the compositor instead of triggering layout on every frame.
+- Refactor BEM child element class names to use `withBaseName.el()` in Avatar, Dialog, Divider, Drawer, DropdownMenu, Option, ProgressTracker, ProgressTrackerStep, Switch, Tag, and Tooltip. Internal only — class names on the DOM are unchanged.
+- ProgressTracker - Cap the fill-bar and check-icon animations to the design system's motion timing rules, and export the missing `ProgressTrackerStepContextValue` type from the package root.
+
 ## 1.6.0
 
 ### Minor Changes

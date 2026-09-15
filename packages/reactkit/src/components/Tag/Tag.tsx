@@ -32,15 +32,15 @@ export const Tag = React.forwardRef<HTMLSpanElement, TagProps>(
         )}
         {...rest}
       >
-        <span className="akds-tag__label">{children}</span>
+        <span className={withBaseName.el('label')}>{children}</span>
         {onDismiss && (
           <button
             type="button"
-            className="akds-tag__dismiss"
+            className={withBaseName.el('dismiss')}
             onClick={onDismiss}
             aria-label={dismissLabel}
           >
-            <CloseIcon aria-hidden="true" color="currentColor" className="akds-tag__dismiss-icon" />
+            <CloseIcon aria-hidden="true" color="currentColor" className={withBaseName.el('dismiss-icon')} />
           </button>
         )}
       </span>

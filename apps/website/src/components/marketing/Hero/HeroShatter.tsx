@@ -82,8 +82,39 @@ export function HeroShatter({ onReveal }: HeroShatterProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [tiles] = React.useState(buildTiles);
   const [visible, setVisible] = React.useState(true);
+  const [ready, setReady] = React.useState(false);
+
+  // Wait for fonts to finish loading, then a couple of frames for layout/paint to settle,
+  // before rendering any tiles or starting the reveal timers below. On a cold first visit
+  // (uncached CSS/JS/fonts), React can mount and start wall-clock setTimeouts before the
+  // browser has actually settled into its final layout — the JS timers would then fire on
+  // a schedule that assumes the CSS animation started at roughly the same moment, when it
+  // may not have. Gating on this removes that race instead of guessing at a fixed delay.
+  React.useEffect(() => {
+    let cancelled = false;
+
+    const settle = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (!cancelled) setReady(true);
+        });
+      });
+    };
+
+    if (typeof document !== 'undefined' && document.fonts?.ready) {
+      document.fonts.ready.then(settle);
+    } else {
+      settle();
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   React.useEffect(() => {
+    if (!ready) return;
+
     if (prefersReducedMotion) {
       onReveal();
       setVisible(false);
@@ -101,9 +132,9 @@ export function HeroShatter({ onReveal }: HeroShatterProps) {
     // onReveal forwards to a stable state setter — intentionally excluded so this
     // one-shot mount sequence isn't restarted by a new closure identity each render.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [prefersReducedMotion, tiles]);
+  }, [ready, prefersReducedMotion, tiles]);
 
-  if (!visible) return null;
+  if (!visible || !ready) return null;
 
   // Portaled straight to <body> so this fixed-position overlay is positioned
   // relative to the true viewport. SiteShell wraps every route in a motion.div
