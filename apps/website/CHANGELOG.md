@@ -1,5 +1,12 @@
 # @akds/website
 
+## 1.4.2
+
+### Patch Changes
+
+- d217db8: Fix landing page marquee pause state
+- 1400b66: Add auto trigger to interactive component previews
+
 ## 1.4.1
 
 ### Patch Changes
