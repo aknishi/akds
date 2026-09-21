@@ -1,6 +1,23 @@
+import React from 'react';
 import { Flexbox, IconButton } from '@aknishi/akds-reactkit';
 import { DeleteIcon, EditIcon, SaveIcon, SettingsIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoPress } from '../../lib/useAutoPress';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Replays the press/ripple micro-interaction on a loop for the index page's
+// otherwise-static card preview — see AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function IconButtonAutoLoopPreview() {
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoPress(buttonRef, AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 1 * AUTO_LOOP_STAGGER_MS);
+  return (
+    <IconButton ref={buttonRef} appearance="solid" emphasis="accented" aria-label="Settings">
+      <SettingsIcon />
+    </IconButton>
+  );
+}
 
 export const iconButton: ComponentEntry = {
   slug: 'icon-button',
@@ -9,11 +26,7 @@ export const iconButton: ComponentEntry = {
   summary: 'An icon-only button — same appearance/emphasis system as Button, but requires an aria-label.',
   sourcePath: 'packages/reactkit/src/components/IconButton',
   storybookId: 'reactkit-buttons-iconbutton--docs',
-  preview: (
-    <IconButton appearance="solid" emphasis="accented" aria-label="Settings">
-      <SettingsIcon />
-    </IconButton>
-  ),
+  preview: <IconButtonAutoLoopPreview />,
   examples: [
     {
       title: 'Appearances',

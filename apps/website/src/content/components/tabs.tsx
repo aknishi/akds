@@ -1,6 +1,32 @@
 import React from 'react';
 import { Tab, TabList, TabPanel, Tabs, Text } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+const TABS_AUTO_LOOP_VALUES = ['one', 'two'];
+
+// Cycles the active tab on a loop for the index page's otherwise-static card preview
+// — see AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function TabsAutoLoopPreview() {
+  const [activeTab, setActiveTab] = React.useState(TABS_AUTO_LOOP_VALUES[0]);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => setActiveTab((current) => TABS_AUTO_LOOP_VALUES[(TABS_AUTO_LOOP_VALUES.indexOf(current) + 1) % TABS_AUTO_LOOP_VALUES.length]),
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    2 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <Tabs activeTab={activeTab} onChange={setActiveTab}>
+      <TabList>
+        <Tab value="one">One</Tab>
+        <Tab value="two">Two</Tab>
+      </TabList>
+    </Tabs>
+  );
+}
 
 function ControlledTabsExample() {
   const [activeTab, setActiveTab] = React.useState('tab1');
@@ -28,14 +54,7 @@ export const tabs: ComponentEntry = {
     'A compound component set (Tabs, TabList, Tab, TabPanel) that shares active-tab state through context — no manual wiring required.',
   sourcePath: 'packages/reactkit/src/components/Tabs',
   storybookId: 'reactkit-tabs--docs',
-  preview: (
-    <Tabs defaultActiveTab="one">
-      <TabList>
-        <Tab value="one">One</Tab>
-        <Tab value="two">Two</Tab>
-      </TabList>
-    </Tabs>
-  ),
+  preview: <TabsAutoLoopPreview />,
   examples: [
     {
       title: 'Basic',

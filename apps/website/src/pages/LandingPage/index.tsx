@@ -13,6 +13,10 @@ import { PackageCard } from '../../components/marketing/PackageCard';
 import { ComponentCard } from '../../components/docs/ComponentCard';
 import { packages } from '../../content/packages';
 import { componentRegistry } from '../../content/components/registry';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { useAutoPress } from '../../lib/useAutoPress';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from '../../content/components/autoLoopTiming';
 import './LandingPage.css';
 import '../../styles/gradients.css';
 
@@ -47,16 +51,80 @@ function StreamingTextAutoLoopPreview({ text, speed, pauseMs = 1500 }: { text: s
   return <StreamingText key={key} text={text} speed={speed} onComplete={handleComplete} />;
 }
 
+function ButtonAutoPressPreview({ children }: { children: React.ReactNode }) {
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoPress(buttonRef, AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 0 * AUTO_LOOP_STAGGER_MS);
+
+  return (
+    <Button ref={buttonRef} appearance="solid" emphasis="accented">
+      {children}
+    </Button>
+  );
+}
+
+function SwitchAutoTogglePreview({ label }: { label: string }) {
+  const [checked, setChecked] = React.useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(() => setChecked((c) => !c), AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 1 * AUTO_LOOP_STAGGER_MS);
+  return <Switch label={label} checked={checked} onChange={() => {}} />;
+}
+
+const TABS_AUTO_LOOP_VALUES = ['one', 'two'];
+
+function TabsAutoTogglePreview() {
+  const [activeTab, setActiveTab] = React.useState(TABS_AUTO_LOOP_VALUES[0]);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => setActiveTab((current) => TABS_AUTO_LOOP_VALUES[(TABS_AUTO_LOOP_VALUES.indexOf(current) + 1) % TABS_AUTO_LOOP_VALUES.length]),
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    2 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <Tabs activeTab={activeTab} onChange={setActiveTab}>
+      <TabList>
+        <Tab value="one">One</Tab>
+        <Tab value="two">Two</Tab>
+      </TabList>
+    </Tabs>
+  );
+}
+
+function TooltipAutoTogglePreview() {
+  const [open, setOpen] = React.useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(() => setOpen((o) => !o), AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 3 * AUTO_LOOP_STAGGER_MS);
+  return (
+    // Margin nudges the whole (icon + pill) unit down for vertical centering — it
+    // goes on a wrapper outside Tooltip, not on the trigger, because margin on the
+    // trigger inflates Tooltip's own auto-sized wrapper and detaches the pill from it.
+    <div style={{ marginTop: 'var(--akds-spacing-200)' }}>
+      <Tooltip content="Copy" open={open} onOpenChange={setOpen}>
+        <IconButton appearance="transparent" emphasis="neutral" aria-label="Copy">
+          <CopyIcon />
+        </IconButton>
+      </Tooltip>
+    </div>
+  );
+}
+
+// Starts loading (matching the previous static preview) so the first flip — back to
+// idle — reads as a completion, and the flip after that replays the loading-enter
+// letter-swap animation (gated on an actual idle→loading transition, see AIButton.tsx).
+function AIButtonAutoLoopPreview({ children }: { children: React.ReactNode }) {
+  const [loading, setLoading] = React.useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(() => setLoading((l) => !l), AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 4 * AUTO_LOOP_STAGGER_MS);
+  return <AIButton loading={loading}>{children}</AIButton>;
+}
+
 const COMPONENT_PREVIEWS = [
   {
     slug: 'button',
     name: 'Button',
     description: 'Solid, transparent, and bordered appearances.',
-    preview: (
-      <Button appearance="solid" emphasis="accented">
-        Button
-      </Button>
-    ),
+    preview: <ButtonAutoPressPreview>Button</ButtonAutoPressPreview>,
   },
   {
     slug: 'text-input',
@@ -68,20 +136,13 @@ const COMPONENT_PREVIEWS = [
     slug: 'switch',
     name: 'Switch',
     description: 'Accessible toggle with label support.',
-    preview: <Switch label="Enabled" defaultChecked />,
+    preview: <SwitchAutoTogglePreview label="Enabled" />,
   },
   {
     slug: 'tabs',
     name: 'Tabs',
     description: 'Compound tab state with context.',
-    preview: (
-      <Tabs defaultActiveTab="one">
-        <TabList>
-          <Tab value="one">One</Tab>
-          <Tab value="two">Two</Tab>
-        </TabList>
-      </Tabs>
-    ),
+    preview: <TabsAutoTogglePreview />,
   },
   {
     slug: 'avatar',
@@ -99,24 +160,13 @@ const COMPONENT_PREVIEWS = [
     slug: 'tooltip',
     name: 'Tooltip',
     description: 'Hover and focus tooltips on any trigger.',
-    preview: (
-      // Margin nudges the whole (icon + pill) unit down for vertical centering — it
-      // goes on a wrapper outside Tooltip, not on the trigger, because margin on the
-      // trigger inflates Tooltip's own auto-sized wrapper and detaches the pill from it.
-      <div style={{ marginTop: 'var(--akds-spacing-200)' }}>
-        <Tooltip content="Copy" open>
-          <IconButton appearance="transparent" emphasis="neutral" aria-label="Copy">
-            <CopyIcon />
-          </IconButton>
-        </Tooltip>
-      </div>
-    ),
+    preview: <TooltipAutoTogglePreview />,
   },
   {
     slug: 'ai-button',
     name: 'AI button',
     description: 'Triggers AI generation with an animated loading state.',
-    preview: <AIButton loading>Generate</AIButton>,
+    preview: <AIButtonAutoLoopPreview>Generate</AIButtonAutoLoopPreview>,
   },
   {
     slug: 'streaming-text',

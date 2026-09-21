@@ -1,5 +1,22 @@
+import React from 'react';
 import { Button } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoPress } from '../../lib/useAutoPress';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Replays the press/ripple micro-interaction on a loop for the index page's
+// otherwise-static card preview — see AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function ButtonAutoLoopPreview() {
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoPress(buttonRef, AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 0 * AUTO_LOOP_STAGGER_MS);
+  return (
+    <Button ref={buttonRef} appearance="solid" emphasis="accented">
+      Button
+    </Button>
+  );
+}
 
 export const button: ComponentEntry = {
   slug: 'button',
@@ -9,11 +26,7 @@ export const button: ComponentEntry = {
     'The primary trigger for actions. Supports three appearances, four emphasis levels, three sizes, loading and disabled states.',
   sourcePath: 'packages/reactkit/src/components/Button',
   storybookId: 'reactkit-buttons-button--docs',
-  preview: (
-    <Button appearance="solid" emphasis="accented">
-      Button
-    </Button>
-  ),
+  preview: <ButtonAutoLoopPreview />,
   examples: [
     {
       title: 'Appearances',

@@ -1,6 +1,34 @@
 import React from 'react';
 import { Button, Flexbox, ProgressTracker, ProgressTrackerStep } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+
+const PREVIEW_TOTAL_STEPS = 3;
+// Steps advance faster than the shared AUTO_LOOP_INTERVAL_MS cadence — a full
+// account→shipping→payment march reads better at a quicker clip than the other
+// cards' single state flip, so this preview keeps its own rhythm instead.
+const PREVIEW_STEP_INTERVAL_MS = 1000;
+
+// Advances one step per cycle (wrapping back to the start once every step —
+// including the celebrateOnComplete burst — has played) for the index page's
+// otherwise-static card preview.
+function ProgressTrackerAutoLoopPreview() {
+  const [currentStep, setCurrentStep] = React.useState(2);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => setCurrentStep((s) => (s >= PREVIEW_TOTAL_STEPS + 1 ? 1 : s + 1)),
+    PREVIEW_STEP_INTERVAL_MS,
+    !prefersReducedMotion,
+  );
+  return (
+    <ProgressTracker currentStep={currentStep}>
+      <ProgressTrackerStep status={currentStep > 1 ? 'complete' : 'inactive'} label="Account" />
+      <ProgressTrackerStep status={currentStep > 2 ? 'complete' : 'inactive'} label="Shipping" />
+      <ProgressTrackerStep status={currentStep > 3 ? 'complete' : 'inactive'} label="Payment" celebrateOnComplete />
+    </ProgressTracker>
+  );
+}
 
 const TOTAL_STEPS = 4;
 
@@ -49,13 +77,7 @@ export const progressTracker: ComponentEntry = {
   summary: 'A numbered step tracker for multi-step flows, composed of ProgressTrackerStep children.',
   sourcePath: 'packages/reactkit/src/components/ProgressTracker',
   storybookId: 'reactkit-progresstracker--docs',
-  preview: (
-    <ProgressTracker currentStep={2}>
-      <ProgressTrackerStep label="Account" status="complete" />
-      <ProgressTrackerStep label="Shipping" active />
-      <ProgressTrackerStep label="Payment" status="inactive" />
-    </ProgressTracker>
-  ),
+  preview: <ProgressTrackerAutoLoopPreview />,
   examples: [
     {
       title: 'Basic',

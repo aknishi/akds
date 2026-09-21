@@ -1,5 +1,18 @@
+import React from 'react';
 import { Flexbox, Checkbox } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Flips checked on a loop for the index page's otherwise-static card preview — see
+// AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function CheckboxAutoLoopPreview() {
+  const [checked, setChecked] = React.useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(() => setChecked((c) => !c), AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 0 * AUTO_LOOP_STAGGER_MS);
+  return <Checkbox label="Checked" checked={checked} onChange={() => {}} />;
+}
 
 export const checkbox: ComponentEntry = {
   slug: 'checkbox',
@@ -8,7 +21,7 @@ export const checkbox: ComponentEntry = {
   summary: 'A labeled checkbox input with support for indeterminate state and three sizes.',
   sourcePath: 'packages/reactkit/src/components/Checkbox',
   storybookId: 'reactkit-checkbox--docs',
-  preview: <Checkbox label="Checked" defaultChecked />,
+  preview: <CheckboxAutoLoopPreview />,
   examples: [
     {
       title: 'Basic',
