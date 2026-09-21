@@ -1,10 +1,50 @@
 import React from 'react';
 import { LikeButton } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
 
 function LikeButtonExample() {
   const [liked, setLiked] = React.useState(false);
   return <LikeButton liked={liked} onClick={() => setLiked((prev) => !prev)} aria-label="Like this post" />;
+}
+
+// Dispatches a real bubbling click every cycle so LikeButton's own internal click
+// handler runs (the only way to fire its particle burst — there's no prop-driven
+// trigger for it). That native event has to bubble all the way to React's root
+// listener to be seen at all, which means it also reaches the wrapping NavLink,
+// since ComponentCard's `inert` wrapper only blocks real hit-testing, not a script's
+// own dispatchEvent. Two separate things need suppressing, not just one:
+//   - stopPropagation alone doesn't stop the <a>'s native "navigate on click"
+//     behavior — that's the browser's own default action for the event, entirely
+//     outside React's synthetic dispatch, so it fires regardless of whether any
+//     React handler up the tree ever runs.
+//   - preventDefault stops that native navigation, and — because it runs inside
+//     LikeButton's own handleClick, which React calls before NavLink's onClick in
+//     its synthetic bubble order — React Router's Link also skips its own
+//     navigate() call, since it explicitly checks `!event.defaultPrevented` first.
+// So preventDefault alone is sufficient; stopPropagation is added on top just to
+// keep the event from reaching any other ancestor handlers at all.
+function LikeButtonAutoLoopPreview() {
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => buttonRef.current?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true })),
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    2 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <LikeButton
+      ref={buttonRef}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+      aria-label="Like this post"
+    />
+  );
 }
 
 export const likeButton: ComponentEntry = {
@@ -14,7 +54,7 @@ export const likeButton: ComponentEntry = {
   summary: 'A toggleable "like" button with a celebratory particle-burst animation on activation.',
   sourcePath: 'packages/reactkit/src/components/LikeButton',
   storybookId: 'reactkit-buttons-likebutton--docs',
-  preview: <LikeButton liked aria-label="Like this post" />,
+  preview: <LikeButtonAutoLoopPreview />,
   examples: [
     {
       title: 'Default',

@@ -2,6 +2,31 @@ import React from 'react';
 import { Flexbox, ToggleButton, ToggleGroup } from '@aknishi/akds-reactkit';
 import { IceCreamIcon, LocalBarIcon, LunchDiningIcon } from '@aknishi/akds-icons';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+const TOGGLE_GROUP_AUTO_LOOP_VALUES = ['day', 'week'];
+
+// Cycles the selection on a loop for the index page's otherwise-static card preview
+// (replays the sliding-indicator transition) — see AUTO_LOOP_INTERVAL_MS for why
+// 3s/staggered.
+function ToggleGroupAutoLoopPreview() {
+  const [value, setValue] = React.useState(TOGGLE_GROUP_AUTO_LOOP_VALUES[0]);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => setValue((current) => TOGGLE_GROUP_AUTO_LOOP_VALUES[(TOGGLE_GROUP_AUTO_LOOP_VALUES.indexOf(current) + 1) % TOGGLE_GROUP_AUTO_LOOP_VALUES.length]),
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    3 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <ToggleGroup value={value} onChange={setValue}>
+      <ToggleButton value="day">Day</ToggleButton>
+      <ToggleButton value="week">Week</ToggleButton>
+    </ToggleGroup>
+  );
+}
 
 function ToggleGroupExample() {
   const [value, setValue] = React.useState('day');
@@ -22,12 +47,7 @@ export const toggleGroup: ComponentEntry = {
     'A segmented control wrapping two or more Toggle button children, where only one option can be selected at a time.',
   sourcePath: 'packages/reactkit/src/components/ToggleGroup',
   storybookId: 'reactkit-toggle-togglegroup--docs',
-  preview: (
-    <ToggleGroup defaultValue="day">
-      <ToggleButton value="day">Day</ToggleButton>
-      <ToggleButton value="week">Week</ToggleButton>
-    </ToggleGroup>
-  ),
+  preview: <ToggleGroupAutoLoopPreview />,
   examples: [
     {
       title: 'Controlled',

@@ -1,6 +1,18 @@
 import React from 'react';
 import { Switch } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Flips checked on a loop for the index page's otherwise-static card preview — see
+// AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function SwitchAutoLoopPreview() {
+  const [checked, setChecked] = React.useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(() => setChecked((c) => !c), AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 2 * AUTO_LOOP_STAGGER_MS);
+  return <Switch label="Enabled" checked={checked} onChange={() => {}} />;
+}
 
 function SwitchControlledExample() {
   const [enabled, setEnabled] = React.useState(false);
@@ -20,7 +32,7 @@ export const switchEntry: ComponentEntry = {
   summary: 'A toggle switch for binary on/off settings, with an optional inline label.',
   sourcePath: 'packages/reactkit/src/components/Switch',
   storybookId: 'reactkit-switch--docs',
-  preview: <Switch label="Enabled" defaultChecked />,
+  preview: <SwitchAutoLoopPreview />,
   examples: [
     {
       title: 'Basic',

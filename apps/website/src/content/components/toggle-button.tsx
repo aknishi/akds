@@ -1,6 +1,36 @@
 import React from 'react';
 import { Flexbox, ToggleButton } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Flips both buttons' pressed state on a loop for the index page's otherwise-static
+// card preview — see AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function ToggleButtonAutoLoopPreview() {
+  const [bold, setBold] = React.useState(true);
+  const [italic, setItalic] = React.useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => {
+      setBold((v) => !v);
+      setItalic((v) => !v);
+    },
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    3 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <Flexbox gap="sm" align="center">
+      <ToggleButton pressed={bold} onPressedChange={setBold}>
+        Bold
+      </ToggleButton>
+      <ToggleButton pressed={italic} onPressedChange={setItalic}>
+        Italic
+      </ToggleButton>
+    </Flexbox>
+  );
+}
 
 function ToggleButtonExample() {
   const [bold, setBold] = React.useState(false);
@@ -25,12 +55,7 @@ export const toggleButton: ComponentEntry = {
     'A button that toggles between pressed and unpressed. Standalone it fills with a semantic color when pressed; inside a Toggle group it becomes a segmented-control option instead.',
   sourcePath: 'packages/reactkit/src/components/ToggleButton',
   storybookId: 'reactkit-toggle-togglebutton--docs',
-  preview: (
-    <Flexbox gap="sm" align="center">
-      <ToggleButton defaultPressed>Bold</ToggleButton>
-      <ToggleButton>Italic</ToggleButton>
-    </Flexbox>
-  ),
+  preview: <ToggleButtonAutoLoopPreview />,
   examples: [
     {
       title: 'Default',

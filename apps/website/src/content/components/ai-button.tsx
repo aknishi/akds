@@ -1,6 +1,18 @@
 import React from 'react';
 import { AIButton } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Replays the loading-enter letter-swap animation on a loop for the index page's
+// otherwise-static card preview — see AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function AIButtonAutoLoopPreview() {
+  const [loading, setLoading] = React.useState(true);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(() => setLoading((l) => !l), AUTO_LOOP_INTERVAL_MS, !prefersReducedMotion, 0 * AUTO_LOOP_STAGGER_MS);
+  return <AIButton loading={loading}>Generate</AIButton>;
+}
 
 function AIButtonControlledExample() {
   const [loading, setLoading] = React.useState(false);

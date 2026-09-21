@@ -18,8 +18,11 @@ export const carousel: ComponentEntry = {
   summary: 'An auto-scrolling, loopable slide container for showcasing a sequence of content.',
   sourcePath: 'packages/reactkit/src/components/Carousel',
   storybookId: 'reactkit-carousel--docs',
+  // Carousel already auto-scrolls (default autoScrollInterval is 3000ms) and already
+  // respects prefers-reduced-motion internally — unlike the other index-page previews,
+  // this one needs no useAutoRestartInterval wrapper of its own, just its own loop on.
   preview: (
-    <Carousel autoScroll={false} hideButtons>
+    <Carousel loop hideButtons>
       <CarouselSlide label="Slide 1" fixedWidth />
       <CarouselSlide label="Slide 2" fixedWidth />
     </Carousel>

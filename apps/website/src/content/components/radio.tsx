@@ -1,5 +1,30 @@
+import React from 'react';
 import { Radio, RadioGroup } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+const RADIO_AUTO_LOOP_VALUES = ['free', 'pro'];
+
+// Cycles the selected option on a loop for the index page's otherwise-static card
+// preview — see AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function RadioAutoLoopPreview() {
+  const [value, setValue] = React.useState(RADIO_AUTO_LOOP_VALUES[1]);
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => setValue((current) => RADIO_AUTO_LOOP_VALUES[(RADIO_AUTO_LOOP_VALUES.indexOf(current) + 1) % RADIO_AUTO_LOOP_VALUES.length]),
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    1 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <RadioGroup name="preview-plan" value={value} onChange={(e) => setValue(e.target.value)} legend="Plan">
+      <Radio label="Free" value="free" />
+      <Radio label="Pro" value="pro" />
+    </RadioGroup>
+  );
+}
 
 export const radio: ComponentEntry = {
   slug: 'radio',
@@ -8,12 +33,7 @@ export const radio: ComponentEntry = {
   summary: 'A single radio input, typically composed inside RadioGroup which manages shared name and selection.',
   sourcePath: 'packages/reactkit/src/components/Radio',
   storybookId: 'reactkit-radio--docs',
-  preview: (
-    <RadioGroup name="preview-plan" defaultValue="pro" legend="Plan">
-      <Radio label="Free" value="free" />
-      <Radio label="Pro" value="pro" />
-    </RadioGroup>
-  ),
+  preview: <RadioAutoLoopPreview />,
   examples: [
     {
       title: 'RadioGroup',

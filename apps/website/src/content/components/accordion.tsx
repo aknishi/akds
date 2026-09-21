@@ -1,6 +1,30 @@
 import React from 'react';
 import { Accordion, AccordionItem, Text } from '@aknishi/akds-reactkit';
 import type { ComponentEntry } from './types';
+import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
+import { useAutoRestartInterval } from '../../lib/useAutoRestartInterval';
+import { AUTO_LOOP_INTERVAL_MS, AUTO_LOOP_STAGGER_MS } from './autoLoopTiming';
+
+// Toggles expanded/collapsed on a loop for the index page's otherwise-static card
+// preview (replays the grid-template-rows expand transition) — see
+// AUTO_LOOP_INTERVAL_MS for why 3s/staggered.
+function AccordionAutoLoopPreview() {
+  const [expanded, setExpanded] = React.useState('shipping');
+  const prefersReducedMotion = usePrefersReducedMotion();
+  useAutoRestartInterval(
+    () => setExpanded((current) => (current === 'shipping' ? '' : 'shipping')),
+    AUTO_LOOP_INTERVAL_MS,
+    !prefersReducedMotion,
+    0 * AUTO_LOOP_STAGGER_MS,
+  );
+  return (
+    <Accordion expanded={expanded} onChange={(value) => setExpanded(value as string)}>
+      <AccordionItem value="shipping" title="Shipping">
+        <Text styleAs="caption">Ships in 2 days</Text>
+      </AccordionItem>
+    </Accordion>
+  );
+}
 
 function ControlledAccordionExample() {
   const [expanded, setExpanded] = React.useState('shipping');
@@ -25,13 +49,7 @@ export const accordion: ComponentEntry = {
   summary: 'A collapsible group container, composed of AccordionItem children that share expand/collapse state.',
   sourcePath: 'packages/reactkit/src/components/Accordion',
   storybookId: 'reactkit-accordion--docs',
-  preview: (
-    <Accordion defaultExpanded="shipping">
-      <AccordionItem value="shipping" title="Shipping">
-        <Text styleAs="caption">Ships in 2 days</Text>
-      </AccordionItem>
-    </Accordion>
-  ),
+  preview: <AccordionAutoLoopPreview />,
   examples: [
     {
       title: 'Single expand',
