@@ -1,7 +1,4 @@
-import React from 'react';
-import { motion } from 'framer-motion';
 import { Avatar, Button, Card, CardContent, Switch, Tag } from '@aknishi/akds-reactkit';
-import { usePrefersReducedMotion } from '../../../lib/usePrefersReducedMotion';
 import './ShowcaseMarquee.css';
 
 function MarqueeItems() {
@@ -45,27 +42,20 @@ function MarqueeItems() {
   );
 }
 
+// A CSS animation (see ShowcaseMarquee.css), not a framer-motion `animate` prop:
+// pausing on hover by toggling `animate` between a keyframes array and undefined
+// always restarted the scroll from its first keyframe on mouse-leave, since Motion
+// has no way to know "resume from the current visual position" for a keyframes
+// animation — it was a visible snap back to the start on every hover-out.
+// `animation-play-state: paused` doesn't have that problem: the browser tracks the
+// animation's current progress and resumes it exactly where it paused.
 export function ShowcaseMarquee() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [paused, setPaused] = React.useState(false);
-
-  const animated = !prefersReducedMotion && !paused;
-
   return (
-    <div
-      className="showcase-marquee"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      role="presentation"
-    >
-      <motion.div
-        className="showcase-marquee__track"
-        animate={animated ? { x: ['0%', '-50%'] } : undefined}
-        transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-      >
+    <div className="showcase-marquee" role="presentation">
+      <div className="showcase-marquee__track">
         <MarqueeItems />
         <MarqueeItems />
-      </motion.div>
+      </div>
     </div>
   );
 }

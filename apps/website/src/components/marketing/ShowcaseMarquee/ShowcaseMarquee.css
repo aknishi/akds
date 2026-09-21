@@ -8,6 +8,29 @@
   display: flex;
   gap: var(--akds-spacing-300);
   width: max-content;
+  animation: showcase-marquee-scroll 25s linear infinite;
+}
+
+/* Pausing via animation-play-state (rather than swapping the animation on/off)
+   keeps the browser's current keyframe progress — un-pausing continues the scroll
+   from wherever it stopped instead of restarting from the first keyframe. */
+.showcase-marquee:hover .showcase-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes showcase-marquee-scroll {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-marquee__track {
+    animation: none;
+  }
 }
 
 .showcase-marquee__card {
