@@ -34,9 +34,13 @@
 
 /* ── Features ───────────────────────────────────────────────────────────── */
 
-.landing__section-title {
+/* Two-class selector, not one: Text's own base class (.akds-text) sets `margin: 0`
+   at the same specificity as a single-class `.landing__section-title` rule would —
+   whichever one loads later in the bundle wins, not whichever reads as more
+   specific. Scoping under the parent section keeps this rule reliably ahead. */
+.landing__features .landing__section-title {
   text-align: center;
-  margin-bottom: var(--akds-spacing-400);
+  margin-bottom: var(--akds-spacing-600);
 }
 
 .landing__feature-grid {

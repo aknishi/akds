@@ -78,6 +78,7 @@ export const progressTracker: ComponentEntry = {
   sourcePath: 'packages/reactkit/src/components/ProgressTracker',
   storybookId: 'reactkit-progresstracker--docs',
   preview: <ProgressTrackerAutoLoopPreview />,
+  compactPreview: true,
   examples: [
     {
       title: 'Basic',

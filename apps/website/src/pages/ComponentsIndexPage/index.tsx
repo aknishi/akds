@@ -38,7 +38,13 @@ export function ComponentsIndexPage() {
           >
             {items.map((entry) => (
               <motion.div key={entry.slug} className="components-index-page__grid-item" variants={staggerItem}>
-                <ComponentCard slug={entry.slug} name={entry.name} description={entry.summary} preview={entry.preview} />
+                <ComponentCard
+                  slug={entry.slug}
+                  name={entry.name}
+                  description={entry.summary}
+                  preview={entry.preview}
+                  compactPreview={entry.compactPreview}
+                />
               </motion.div>
             ))}
           </motion.div>

@@ -29,6 +29,10 @@
   border-bottom: 1px solid var(--akds-color-border-neutral-default);
 }
 
+.component-card__preview--compact {
+  padding: var(--akds-spacing-150);
+}
+
 .component-card__description {
   display: block;
   margin-top: var(--akds-spacing-50);
