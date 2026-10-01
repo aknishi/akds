@@ -55,8 +55,12 @@
 }
 
 /* ── Solid ─────────────────────────────────────────────────────────────── */
+/* Accented, success, and destructive all use the "strong" background tokens
+   rather than -default — -default varies per theme (dark mode uses lighter
+   tints) and fails contrast with white text. The -strong tokens are
+   theme-invariant and each clear 4.5:1+ with white. */
 .akds-icon-button--solid.akds-icon-button--accented {
-  background: var(--akds-color-background-primary-default);
+  background: var(--akds-color-background-primary-strong);
   color: var(--akds-color-text-on-primary-default);
 }
 
@@ -66,13 +70,13 @@
 }
 
 .akds-icon-button--solid.akds-icon-button--success {
-  background: var(--akds-color-background-success-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-success-strong);
+  color: var(--akds-color-text-on-success-default);
 }
 
 .akds-icon-button--solid.akds-icon-button--destructive {
-  background: var(--akds-color-background-error-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-error-strong);
+  color: var(--akds-color-text-on-error-default);
 }
 
 /* ── Transparent ───────────────────────────────────────────────────────── */

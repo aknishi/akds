@@ -100,17 +100,17 @@
 
 .akds-alert--filled.akds-alert--success {
   background: var(--akds-color-background-success-strong);
-  color: var(--akds-color-text-on-primary-default);
+  color: var(--akds-color-text-on-success-default);
 }
 
 .akds-alert--filled.akds-alert--warning {
   background: var(--akds-color-background-warning-strong);
-  color: var(--akds-color-text-on-primary-default);
+  color: var(--akds-color-text-on-warning-default);
 }
 
 .akds-alert--filled.akds-alert--error {
   background: var(--akds-color-background-error-strong);
-  color: var(--akds-color-text-on-primary-default);
+  color: var(--akds-color-text-on-error-default);
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */

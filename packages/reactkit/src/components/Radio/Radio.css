@@ -56,6 +56,10 @@
   background: var(--akds-color-interaction-hover-overlay);
 }
 
+.akds-radio:hover:not(.akds-radio--disabled) .akds-radio__input:not(:checked) ~ .akds-radio__indicator {
+  border-color: var(--akds-color-border-neutral-strong);
+}
+
 /* Focus */
 .akds-radio__input:focus-visible ~ .akds-radio__indicator {
   outline: var(--akds-outline-focus);

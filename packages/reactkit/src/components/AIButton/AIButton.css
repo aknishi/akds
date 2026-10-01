@@ -12,22 +12,22 @@
   --transition: 0.4s;
   --button-color: var(--akds-color-background-primary-default); /* accent surface */
   --highlight-color-hue: 210deg;
-  --channel-color-start: rgba(255, 255, 255, 0.4);
-  --channel-color-end: rgba(255, 255, 255, 0.7);
+  --channel-color-start: color-mix(in srgb, var(--akds-primitive-color-white) 40%, transparent);
+  --channel-color-end: color-mix(in srgb, var(--akds-primitive-color-white) 70%, transparent);
   /* The hover shine (below) sits on top of the channel gradient
      above, so it needs its own light/dark values: a flat white reads as a
      shine against the near-black dark-mode channel, but disappears against
      the near-white light-mode one — use a neutral gray instead so it still
      shows up, matching the achromatic bevel highlight below rather than
      picking up the accent hue. */
-  --shine-color: rgba(0, 0, 0, 0.3);
+  --shine-color: color-mix(in srgb, var(--akds-primitive-color-black) 30%, transparent);
   /* Same problem as --shine-color above, but for the channel's resting-state
      corner highlight: flat white pops against the near-black dark-mode
      channel but disappears against the near-white light-mode one. Kept
      neutral gray (not hue-tinted) since this pairs with the achromatic
-     #0002/#0001 shadow on the opposite corner. */
-  --bevel-highlight-strong: rgba(0, 0, 0, 0.18);
-  --bevel-highlight-soft: rgba(0, 0, 0, 0.09);
+     black shadow on the opposite corner. */
+  --bevel-highlight-strong: color-mix(in srgb, var(--akds-primitive-color-black) 18%, transparent);
+  --bevel-highlight-soft: color-mix(in srgb, var(--akds-primitive-color-black) 9%, transparent);
   /* Light mode only: pull the bevel highlight inward so it reads as a soft
      inner shadow along the channel's bottom edge instead of a gray smudge
      bleeding outside the pill silhouette. Dark mode keeps it outward
@@ -47,16 +47,16 @@
 
   box-shadow:
     /* inset */
-    inset 0px 1px 1px rgba(255, 255, 255, 0.2),
-    inset 0px 2px 2px rgba(255, 255, 255, 0.15),
-    inset 0px 4px 4px rgba(255, 255, 255, 0.1),
-    inset 0px 8px 8px rgba(255, 255, 255, 0.05),
-    inset 0px 16px 16px rgba(255, 255, 255, 0.05),
-    /* drop */ 0px -1px 1px rgba(0, 0, 0, 0.02),
-    0px -2px 2px rgba(0, 0, 0, 0.03),
-    0px -4px 4px rgba(0, 0, 0, 0.05),
-    0px -8px 8px rgba(0, 0, 0, 0.06),
-    0px -16px 16px rgba(0, 0, 0, 0.08);
+    inset 0px 1px 1px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent),
+    inset 0px 2px 2px color-mix(in srgb, var(--akds-primitive-color-white) 15%, transparent),
+    inset 0px 4px 4px color-mix(in srgb, var(--akds-primitive-color-white) 10%, transparent),
+    inset 0px 8px 8px color-mix(in srgb, var(--akds-primitive-color-white) 5%, transparent),
+    inset 0px 16px 16px color-mix(in srgb, var(--akds-primitive-color-white) 5%, transparent),
+    /* drop */ 0px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 2%, transparent),
+    0px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 3%, transparent),
+    0px -4px 4px color-mix(in srgb, var(--akds-primitive-color-black) 5%, transparent),
+    0px -8px 8px color-mix(in srgb, var(--akds-primitive-color-black) 6%, transparent),
+    0px -16px 16px color-mix(in srgb, var(--akds-primitive-color-black) 8%, transparent);
 
   border: solid 1px color-mix(in srgb, var(--akds-color-text-on-primary-default) 12%, transparent);
   border-radius: var(--border-radius);
@@ -76,22 +76,24 @@
 /* Dark mode is hardcoded to the original reference design's colors,
    rather than the primary/accent token used for light mode. */
 [data-theme="dark"] .akds-ai-button {
+  /* #101010 is kept as a literal — it's the original reference design's
+     exact dark-mode fill, deliberately not one of the neutral primitives. */
   --button-color: #101010;
-  --channel-color-start: #0004;
-  --channel-color-end: #000a;
-  --shine-color: #fffa;
-  --bevel-highlight-strong: #fff2;
-  --bevel-highlight-soft: #fff1;
+  --channel-color-start: color-mix(in srgb, var(--akds-primitive-color-black) 26.67%, transparent);
+  --channel-color-end: color-mix(in srgb, var(--akds-primitive-color-black) 66.67%, transparent);
+  --shine-color: color-mix(in srgb, var(--akds-primitive-color-white) 66.67%, transparent);
+  --bevel-highlight-strong: color-mix(in srgb, var(--akds-primitive-color-white) 13.33%, transparent);
+  --bevel-highlight-soft: color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent);
   --bevel-highlight-position: ;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .akds-ai-button {
     --button-color: #101010;
-    --channel-color-start: #0004;
-    --channel-color-end: #000a;
-    --shine-color: #fffa;
-    --bevel-highlight-strong: #fff2;
-    --bevel-highlight-soft: #fff1;
+    --channel-color-start: color-mix(in srgb, var(--akds-primitive-color-black) 26.67%, transparent);
+    --channel-color-end: color-mix(in srgb, var(--akds-primitive-color-black) 66.67%, transparent);
+    --shine-color: color-mix(in srgb, var(--akds-primitive-color-white) 66.67%, transparent);
+    --bevel-highlight-strong: color-mix(in srgb, var(--akds-primitive-color-white) 13.33%, transparent);
+    --bevel-highlight-soft: color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent);
     --bevel-highlight-position: ;
   }
 }
@@ -112,22 +114,22 @@
     box-shadow var(--transition),
     filter var(--transition);
   box-shadow:
-    0 -8px 8px -6px #0000 inset,
-    0 -16px 16px -8px #00000000 inset,
+    0 -8px 8px -6px transparent inset,
+    0 -16px 16px -8px transparent inset,
     -2px -2px 8px var(--bevel-highlight-strong) var(--bevel-highlight-position),
     0 -8px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
+    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
 }
 
 [data-theme="dark"] .akds-ai-button::before {
   box-shadow:
-    0 -8px 8px -6px #0000 inset,
-    0 -16px 16px -8px #00000000 inset,
+    0 -8px 8px -6px transparent inset,
+    0 -16px 16px -8px transparent inset,
     1px 1px 1px var(--bevel-highlight-strong) var(--bevel-highlight-position),
     2px 2px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
+    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
 }
 
 .akds-ai-button::after {
@@ -145,12 +147,12 @@
     box-shadow 0.2s
     filter var(--transition);
   box-shadow:
-    0 -1px 2px -3px white inset,
-    0 -8px 4px -4px white inset,
-    1px 1px 2px white var(--bevel-highlight-position),
-    1px 2px 4px white var(--bevel-highlight-position),
-    -1px -1px 1px white,
-    -2px -2px 2px white;
+    0 -1px 2px -3px var(--akds-primitive-color-white) inset,
+    0 -8px 4px -4px var(--akds-primitive-color-white) inset,
+    1px 1px 2px var(--akds-primitive-color-white) var(--bevel-highlight-position),
+    1px 2px 4px var(--akds-primitive-color-white) var(--bevel-highlight-position),
+    -1px -1px 1px var(--akds-primitive-color-white),
+    -2px -2px 2px var(--akds-primitive-color-white);
 }
 
 [data-theme="dark"] .akds-ai-button::after {
@@ -178,7 +180,7 @@
 
 @keyframes letter-anim {
   50% {
-    text-shadow: 0 0 3px #fff8;
+    text-shadow: 0 0 3px color-mix(in srgb, var(--akds-primitive-color-white) 53.33%, transparent);
     color: var(--akds-color-text-on-primary-default);
   }
 }
@@ -188,7 +190,7 @@
   height: var(--akds-size-icon-lg);
   margin-right: var(--akds-spacing-100);
   fill: color-mix(in srgb, var(--akds-color-icon-on-primary-default) 90%, transparent);
-  filter: drop-shadow(0 0 2px #fff9);
+  filter: drop-shadow(0 0 2px color-mix(in srgb, var(--akds-primitive-color-white) 60%, transparent));
   transition:
     fill var(--transition),
     filter var(--transition),
@@ -278,12 +280,12 @@
 
 [data-theme="dark"] .akds-ai-button--loading::before {
   box-shadow:
-    0 -8px 12px -6px #fff3 inset,
+    0 -8px 12px -6px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent) inset,
     0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 20%) inset,
-    1px 1px 1px #fff3,
-    2px 2px 2px #fff1,
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
+    1px 1px 1px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent),
+    2px 2px 2px color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent),
+    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
 }
 .akds-ai-button--loading::after {
   opacity: 0.6;
@@ -308,7 +310,7 @@
 .akds-ai-button:not(.akds-ai-button--disabled):hover .akds-ai-button__start-icon {
   fill: var(--akds-color-icon-on-primary-default);
   filter: drop-shadow(0 0 3px hsl(var(--highlight-color-hue), 100%, 70%))
-    drop-shadow(0 -4px 6px #0009);
+    drop-shadow(0 -4px 6px color-mix(in srgb, var(--akds-primitive-color-black) 60%, transparent));
   animation: none;
 }
 

@@ -19,6 +19,10 @@
   box-sizing: border-box;
 }
 
+.akds-text-input__control:hover {
+  border-color: var(--akds-color-border-neutral-strong);
+}
+
 .akds-text-input__control:focus-within{
   border-color: var(--akds-color-border-neutral-focus);
 }

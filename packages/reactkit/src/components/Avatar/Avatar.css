@@ -54,14 +54,18 @@
 }
 
 /* ── Color variants ─────────────────────────────────────────────────────── */
+/* blue, green, and red use the "strong" background tokens rather than
+   -default — -default varies per theme (dark mode uses lighter tints) and
+   fails contrast with white text. The -strong tokens are theme-invariant
+   and each clear 4.5:1+ with white. */
 .akds-avatar--blue {
-  background: var(--akds-color-background-primary-default);
+  background: var(--akds-color-background-primary-strong);
   color: var(--akds-color-text-on-primary-default);
 }
 
 .akds-avatar--green {
-  background: var(--akds-color-background-success-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-success-strong);
+  color: var(--akds-color-text-on-success-default);
 }
 
 .akds-avatar--purple {
@@ -75,6 +79,6 @@
 }
 
 .akds-avatar--red {
-  background: var(--akds-color-background-error-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-error-strong);
+  color: var(--akds-color-text-on-error-default);
 }

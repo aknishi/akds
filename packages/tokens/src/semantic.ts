@@ -21,6 +21,10 @@ export const semanticColors = {
         light: '#E5E5E5',
         dark: '#404040',
       },
+      strong: {
+        light: '#1D4ED8',
+        dark: '#1D4ED8',
+      },
     },
     secondary: {
       default: {
@@ -214,11 +218,29 @@ export const semanticColors = {
         dark: '#737373',
       },
     },
+    'on-success': {
+      default: {
+        light: '#FFFFFF',
+        dark: '#FFFFFF',
+      },
+    },
+    'on-error': {
+      default: {
+        light: '#FFFFFF',
+        dark: '#FFFFFF',
+      },
+    },
+    'on-warning': {
+      default: {
+        light: '#FFFFFF',
+        dark: '#FFFFFF',
+      },
+    },
   },
   border: {
     neutral: {
       default: {
-        light: '#E5E5E5',
+        light: '#E2E2E2',
         dark: '#404040',
       },
       hover: {
@@ -228,6 +250,10 @@ export const semanticColors = {
       focus: {
         light: '#3B82F6',
         dark: '#60A5FA',
+      },
+      strong: {
+        light: '#737373',
+        dark: '#A3A3A3',
       },
     },
     error: {

@@ -10,6 +10,7 @@ const PRIMITIVE_SCALES = Object.keys(primitiveColors).filter(
 
 const SEMANTIC_EXAMPLES = [
   { role: 'background-primary-default', description: 'Primary action fills (solid Button, links)' },
+  { role: 'background-primary-strong', description: 'Primary fills paired with white text (solid Button, IconButton, Avatar) — theme-invariant, always 4.5:1+ with white' },
   { role: 'background-secondary-default', description: 'Neutral surfaces, secondary buttons' },
   { role: 'background-success-default', description: 'Success states' },
   { role: 'background-error-default', description: 'Destructive and error states' },
@@ -21,6 +22,7 @@ const SEMANTIC_EXAMPLES = [
   { role: 'text-primary-default', description: 'Primary body text' },
   { role: 'text-secondary-default', description: 'Secondary / muted text' },
   { role: 'border-neutral-default', description: 'Default borders and dividers' },
+  { role: 'border-neutral-strong', description: 'Form-control boundaries needing 3:1 contrast (TextInput, Checkbox, Switch, etc. on hover)' },
 ];
 
 const ELEVATION_LEVELS = Object.keys(elevation).filter((key) => key !== 'none') as Array<

@@ -34,6 +34,10 @@
   box-sizing: border-box;
 }
 
+.akds-checkbox:hover:not(.akds-checkbox--disabled) .akds-checkbox__input:not(:checked):not(:indeterminate) ~ .akds-checkbox__indicator {
+  border-color: var(--akds-color-border-neutral-strong);
+}
+
 .akds-checkbox__check-icon,
 .akds-checkbox__indeterminate-icon {
   display: none;
