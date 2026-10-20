@@ -32,7 +32,9 @@ jobs:
           scope: '@aknishi'
 
       - name: Install dependencies
-        run: rm -f package-lock.json && npm install
+        # npm ci installs exactly what the lockfile says and never rewrites it,
+        # so the changesets step below starts from a clean working tree.
+        run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
