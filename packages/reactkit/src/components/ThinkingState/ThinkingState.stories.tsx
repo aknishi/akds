@@ -56,6 +56,8 @@ export default Example;
 
 export const CyclingLabels = LiveEditStory({
   component: ThinkingState,
+  // Labels advance on a JS interval, so the captured label depends on timing.
+  parameters: { chromatic: { disableSnapshot: true } },
   code: `import { ThinkingState } from '@aknishi/akds-reactkit';
 
 const Example = () => (
