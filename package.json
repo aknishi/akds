@@ -19,7 +19,7 @@
     "chromatic": "chromatic --exit-zero-on-changes",
     "clean": "rm -rf node_modules dist storybook-static .turbo packages/*/node_modules packages/*/dist packages/*/.turbo apps/*/node_modules apps/*/dist apps/*/.turbo",
     "changeset": "changeset",
-    "version": "changeset version",
+    "version": "changeset version && npm install --package-lock-only",
     "release": "changeset publish"
   },
   "devDependencies": {
