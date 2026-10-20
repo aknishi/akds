@@ -1,0 +1,60 @@
+name: Chromatic
+
+# Chromatic recommends `push` over `pull_request`: pull_request runs check out
+# a merge commit, which can lose track of baselines.
+on: push
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --max-old-space-size=8192
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          # Full history so Chromatic can find each commit's baseline and
+          # TurboSnap can diff against it.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: '@aknishi'
+
+      - name: Install dependencies
+        run: npm install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build tokens
+        run: npm run build
+        working-directory: packages/tokens
+
+      - name: Generate and build icons
+        run: npm run generate && npm run build
+        working-directory: packages/icons
+
+      - name: Build reactkit
+        run: npm run build
+        working-directory: packages/reactkit
+
+      # buildScriptName, onlyChanged (TurboSnap) and externals live in
+      # chromatic.config.json so local runs and CI behave the same. externals:
+      # stories import tokens and icons from their built output, which
+      # TurboSnap's dependency graph can't trace back to source — any change
+      # there re-snapshots everything.
+      - name: Run Chromatic
+        uses: chromaui/action@v18.13.0
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Fail the check until visual changes are reviewed in Chromatic.
+          exitZeroOnChanges: false
+          # Merges to main become the new baseline automatically, so squash
+          # and rebase merges don't leave main with unreviewed changes.
+          autoAcceptChanges: main
+          skip: 'dependabot/**'

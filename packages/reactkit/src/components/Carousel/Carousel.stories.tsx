@@ -17,8 +17,14 @@ const meta: Meta<typeof Carousel> = {
 
 export default meta;
 
+// Auto-scroll runs on requestAnimationFrame, so snapshots of auto-scrolling
+// stories depend on capture timing. The autoScroll={false} stories still
+// cover the Carousel's visuals in Chromatic.
+const autoScrollParameters = { chromatic: { disableSnapshot: true } };
+
 export const Default = LiveEditStory({
   component: Carousel,
+  parameters: autoScrollParameters,
   code: `import { Carousel, Text } from '@aknishi/akds-reactkit';
 
 const slide = (label) => (
@@ -68,6 +74,7 @@ export default Example;
 
 export const Loop = LiveEditStory({
   component: Carousel,
+  parameters: autoScrollParameters,
   code: `import { Carousel, Text } from '@aknishi/akds-reactkit';
 
 const slide = (label) => (

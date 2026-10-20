@@ -179,6 +179,7 @@
   --akds-color-background-primary-hover: #1D4ED8;
   --akds-color-background-primary-active: #1E3A8A;
   --akds-color-background-primary-disabled: #E5E5E5;
+  --akds-color-background-primary-strong: #1D4ED8;
   --akds-color-background-secondary-default: #F5F5F5;
   --akds-color-background-secondary-hover: #E5E5E5;
   --akds-color-background-secondary-active: #D4D4D4;
@@ -218,9 +219,13 @@
   --akds-color-text-on-primary-default: #FFFFFF;
   --akds-color-text-on-secondary-default: #171717;
   --akds-color-text-placeholder-default: #A3A3A3;
-  --akds-color-border-neutral-default: #E5E5E5;
+  --akds-color-text-on-success-default: #FFFFFF;
+  --akds-color-text-on-error-default: #FFFFFF;
+  --akds-color-text-on-warning-default: #FFFFFF;
+  --akds-color-border-neutral-default: #E2E2E2;
   --akds-color-border-neutral-hover: #A3A3A3;
   --akds-color-border-neutral-focus: #3B82F6;
+  --akds-color-border-neutral-strong: #737373;
   --akds-color-border-error-default: #EF4444;
   --akds-color-border-success-default: #22C55E;
   --akds-color-border-primary-default: #1D4ED8;
@@ -246,6 +251,7 @@
   --akds-color-background-primary-hover: #60A5FA;
   --akds-color-background-primary-active: #93C5FD;
   --akds-color-background-primary-disabled: #404040;
+  --akds-color-background-primary-strong: #1D4ED8;
   --akds-color-background-secondary-default: #262626;
   --akds-color-background-secondary-hover: #404040;
   --akds-color-background-secondary-active: #525252;
@@ -285,9 +291,13 @@
   --akds-color-text-on-primary-default: #FFFFFF;
   --akds-color-text-on-secondary-default: #FAFAFA;
   --akds-color-text-placeholder-default: #737373;
+  --akds-color-text-on-success-default: #FFFFFF;
+  --akds-color-text-on-error-default: #FFFFFF;
+  --akds-color-text-on-warning-default: #FFFFFF;
   --akds-color-border-neutral-default: #404040;
   --akds-color-border-neutral-hover: #737373;
   --akds-color-border-neutral-focus: #60A5FA;
+  --akds-color-border-neutral-strong: #A3A3A3;
   --akds-color-border-error-default: #F87171;
   --akds-color-border-success-default: #4ADE80;
   --akds-color-border-primary-default: #3B82F6;
@@ -305,6 +315,7 @@
   --akds-color-interaction-pressed-overlay: rgba(255,255,255,0.14);
   --akds-color-interaction-hover-ondark-overlay: rgba(255,255,255,0.1);
   --akds-color-interaction-pressed-ondark-overlay: rgba(255,255,255,0.2);
+  --akds-color-interaction-focus-outline: #FAFAFA;
 }
 
 /* ─── Dark mode — OS preference (respects explicit light override) */
@@ -314,6 +325,7 @@
     --akds-color-background-primary-hover: #60A5FA;
     --akds-color-background-primary-active: #93C5FD;
     --akds-color-background-primary-disabled: #404040;
+    --akds-color-background-primary-strong: #1D4ED8;
     --akds-color-background-secondary-default: #262626;
     --akds-color-background-secondary-hover: #404040;
     --akds-color-background-secondary-active: #525252;
@@ -353,9 +365,13 @@
     --akds-color-text-on-primary-default: #FFFFFF;
     --akds-color-text-on-secondary-default: #FAFAFA;
     --akds-color-text-placeholder-default: #737373;
+    --akds-color-text-on-success-default: #FFFFFF;
+    --akds-color-text-on-error-default: #FFFFFF;
+    --akds-color-text-on-warning-default: #FFFFFF;
     --akds-color-border-neutral-default: #404040;
     --akds-color-border-neutral-hover: #737373;
     --akds-color-border-neutral-focus: #60A5FA;
+    --akds-color-border-neutral-strong: #A3A3A3;
     --akds-color-border-error-default: #F87171;
     --akds-color-border-success-default: #4ADE80;
     --akds-color-border-primary-default: #3B82F6;
@@ -373,5 +389,6 @@
     --akds-color-interaction-pressed-overlay: rgba(255,255,255,0.14);
     --akds-color-interaction-hover-ondark-overlay: rgba(255,255,255,0.1);
     --akds-color-interaction-pressed-ondark-overlay: rgba(255,255,255,0.2);
+    --akds-color-interaction-focus-outline: #FAFAFA;
   }
 }

@@ -10,6 +10,9 @@ const meta: Meta<typeof StreamingText> = {
     speed: { control: 'number' },
     cursor: { control: 'boolean' },
   },
+  // Every story streams text on a JS interval, so a snapshot depends on
+  // capture timing — Chromatic can only freeze CSS animations.
+  parameters: { chromatic: { disableSnapshot: true } },
 };
 
 export default meta;

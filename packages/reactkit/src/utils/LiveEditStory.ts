@@ -9,10 +9,12 @@ export interface LiveEditStoryState extends StoryState {
     | React.FC<any>
     | JSX.Element
     | React.ForwardRefExoticComponent<any>;
+  /** Story parameters (e.g. `chromatic`), merged with the ones the editor addon sets. */
+  parameters?: Record<string, unknown>;
 }
 
-export function LiveEditStory({ component, availableImports, ...rest }: LiveEditStoryState) {
-    const EditableLiveTSStory = {};
+export function LiveEditStory({ component, availableImports, parameters, ...rest }: LiveEditStoryState) {
+    const EditableLiveTSStory = { parameters };
     makeLiveEditStory(EditableLiveTSStory, {
       modifyEditor (monaco : any) {
         monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({

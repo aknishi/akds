@@ -77,6 +77,10 @@
   box-shadow: inset 0 0 0 1.5px var(--akds-color-border-neutral-default);
 }
 
+.akds-toggle-button--standalone:hover:not(.akds-toggle-button--disabled):not(.akds-toggle-button--active) {
+  box-shadow: inset 0 0 0 1.5px var(--akds-color-border-neutral-strong);
+}
+
 .akds-toggle-button--standalone.akds-toggle-button--active {
   box-shadow: none;
   font-weight: var(--akds-font-weight-medium);

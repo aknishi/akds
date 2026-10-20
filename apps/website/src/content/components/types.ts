@@ -51,6 +51,8 @@ export interface ComponentEntry {
   summary: string;
   /** Small, non-interactive visual shown in the component's index/landing card. */
   preview: React.ReactNode;
+  /** Reduces the index/landing card's preview padding — for a preview whose content needs the extra width more than the card's usual breathing room. */
+  compactPreview?: boolean;
   isPrimitive?: boolean;
   sourcePath: string;
   storybookId: string;

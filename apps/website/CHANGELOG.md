@@ -1,5 +1,18 @@
 # @akds/website
 
+## 1.4.2
+
+### Patch Changes
+
+- d217db8: Fix landing page marquee pause state
+- 1400b66: Add auto trigger to interactive component previews
+- 3608ceb: Add the new `background-primary-strong` and `border-neutral-strong` tokens to the Tokens page's semantic color reference.
+- Updated dependencies [3608ceb]
+- Updated dependencies [3608ceb]
+- Updated dependencies [3608ceb]
+  - @aknishi/akds-tokens@2.1.1
+  - @aknishi/akds-reactkit@1.6.2
+
 ## 1.4.1
 
 ### Patch Changes

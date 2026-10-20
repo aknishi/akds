@@ -4,6 +4,8 @@ import { useDarkMode } from 'storybook-dark-mode';
 import { themes } from 'storybook/theming';
 import { ThemeProvider } from '@aknishi/akds-reactkit';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
+import isChromatic from 'chromatic/isChromatic';
+import { allModes } from './modes';
 
 const docsDarkTheme = {
   ...themes.dark,
@@ -27,8 +29,12 @@ const docsLightTheme = {
   brandTarget: '_self',
 };
 
-function ThemeWrapper({ children }: { children: React.ReactNode }) {
-  const isDark = useDarkMode();
+// `theme` global set by Chromatic modes (see modes.ts). Chromatic renders
+// stories without the Storybook manager, so the storybook-dark-mode toggle
+// never reaches it — when the global is unset, fall back to that toggle.
+function ThemeWrapper({ children, theme }: { children: React.ReactNode; theme?: 'light' | 'dark' }) {
+  const isManagerDark = useDarkMode();
+  const isDark = theme ? theme === 'dark' : isManagerDark;
 
   return (
     <ThemeProvider theme={isDark ? 'dark' : 'light'}>
@@ -98,12 +104,35 @@ function ThemedDocsContainer({ children, context }: { children: React.ReactNode;
 }
 
 export const decorators: Preview['decorators'] = [
-  (Story) => (
-    <ThemeWrapper>
+  (Story, context) => (
+    <ThemeWrapper theme={context.globals.theme}>
       <Story />
     </ThemeWrapper>
   ),
 ];
+
+export const globalTypes: Preview['globalTypes'] = {
+  theme: {
+    description: 'Forces the story theme. Unset uses the dark-mode toolbar toggle.',
+  },
+};
+
+// Fonts load lazily — only once text using them renders — so
+// document.fonts.ready alone can resolve before they've been requested.
+// Load the token font families explicitly so Chromatic never captures
+// the fallback font.
+const fontLoader = async () => {
+  if (!document.fonts) return {};
+  await Promise.all(
+    ['300', '400', '500', '600', '700', '800'].map((weight) =>
+      document.fonts.load(`${weight} 1em "DM Sans"`),
+    ),
+  );
+  await document.fonts.load('400 1em "JetBrains Mono"');
+  return {};
+};
+
+export const loaders: Preview['loaders'] = isChromatic() ? [fontLoader] : [];
 
 export const parameters: Preview['parameters'] = {
   layout: 'fullscreen',
@@ -117,6 +146,12 @@ export const parameters: Preview['parameters'] = {
   interactions: { disable: true },
   docs: {
     container: ThemedDocsContainer,
+  },
+  chromatic: {
+    modes: {
+      light: allModes.light,
+      dark: allModes.dark,
+    },
   },
   options: {
     storySort: {

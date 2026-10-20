@@ -8,3 +8,6 @@ storybook-static/
 .env
 CLAUDE.md
 .impeccable/
+build-storybook.log
+chromatic.log
+chromatic-diagnostics.json

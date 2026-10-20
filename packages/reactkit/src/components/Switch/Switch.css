@@ -37,7 +37,7 @@
   border-radius: var(--akds-radius-full);
   background: var(--akds-color-surface-default);
   box-shadow: var(--akds-elevation-xs);
-  transition: transform 150ms ease, width 100ms ease;
+  transition: transform 150ms ease;
 }
 
 /* Hover overlay */
@@ -53,6 +53,10 @@
 
 .akds-switch:hover:not(.akds-switch--disabled) .akds-switch__track::after {
   background: var(--akds-color-interaction-hover-overlay);
+}
+
+.akds-switch:hover:not(.akds-switch--disabled) .akds-switch__input:not(:checked) ~ .akds-switch__track {
+  background: var(--akds-color-border-neutral-strong);
 }
 
 /* Focus */
