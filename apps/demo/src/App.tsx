@@ -46,6 +46,7 @@ import {
   Tr,
   Th,
   Td,
+  Pagination,
 } from '@aknishi/akds-reactkit';
 import type { ButtonAppearance, ButtonEmphasis, ButtonSize, Theme, ComboboxOption, AlertEmphasis, AlertVariant } from '@aknishi/akds-reactkit';
 import { CloseIcon, MoreVertIcon, StarFilledIcon } from '@aknishi/akds-icons';
@@ -775,7 +776,43 @@ function AppContent() {
         <h2 className="demo-section__heading">Table</h2>
         <TableDemo />
       </section>
+
+      <hr className="demo-divider" />
+
+      {/* Pagination section */}
+      <section className="demo-section">
+        <h2 className="demo-section__heading">Pagination</h2>
+        <PaginationDemo />
+      </section>
     </div>
+  );
+}
+
+function PaginationDemo() {
+  const [page, setPage] = React.useState(1);
+
+  return (
+    <>
+      <p className="demo-label-heading">Pages</p>
+      <div className="demo-row">
+        <span className="demo-row__label">few pages</span>
+        <Pagination count={5} aria-label="Few pages" />
+      </div>
+      <div className="demo-row">
+        <span className="demo-row__label">controlled ({page} of 20)</span>
+        <Pagination count={20} page={page} onPageChange={setPage} aria-label="Controlled" />
+      </div>
+      <div className="demo-row">
+        <span className="demo-row__label">siblingCount 2</span>
+        <Pagination count={50} defaultPage={25} siblingCount={2} aria-label="Two siblings" />
+      </div>
+
+      <p className="demo-label-heading">States</p>
+      <div className="demo-row">
+        <span className="demo-row__label">disabled</span>
+        <Pagination count={10} defaultPage={3} disabled aria-label="Disabled" />
+      </div>
+    </>
   );
 }
 

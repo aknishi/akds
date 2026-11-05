@@ -1,0 +1,40 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* The slot around the details control, default or custom. */
+.akds-dataview-details {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+/* ── Reveal on hover ───────────────────────────────────────────────────── */
+/* Hidden with opacity only: display, visibility, or the hidden attribute
+   would take the control out of the tab order and away from screen
+   readers. */
+.akds-dataview-details--reveal {
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+/* On hover, and whenever focus is anywhere in the row or card, so keyboard
+   users see it while moving through the row's other controls. */
+.akds-dataview-table__row--clickable:hover .akds-dataview-details--reveal,
+.akds-dataview-table__row--clickable:focus-within .akds-dataview-details--reveal,
+.akds-dataview-cards__item--clickable:hover .akds-dataview-details--reveal,
+.akds-dataview-cards__item--clickable:focus-within .akds-dataview-details--reveal,
+.akds-dataview-details--reveal:focus-within {
+  opacity: 1;
+}
+
+/* Touch devices can't hover, so the control is always shown. */
+@media (hover: none) {
+  .akds-dataview-details--reveal {
+    opacity: 1;
+  }
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-dataview-details--reveal {
+    transition: none;
+  }
+}

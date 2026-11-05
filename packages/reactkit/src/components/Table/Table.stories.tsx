@@ -155,6 +155,61 @@ export default Example;
 `,
 });
 
+export const SortableHeaders = LiveEditStory({
+  component: Table,
+  code: `import React from 'react';
+import { Table, Thead, Tbody, Tr, Th, Td } from '@aknishi/akds-reactkit';
+
+const rows = [
+  { item: 'Widget', quantity: 3, price: 9 },
+  { item: 'Gadget', quantity: 1, price: 24 },
+  { item: 'Sprocket', quantity: 12, price: 2.5 },
+];
+
+const Example = () => {
+  const [sort, setSort] = React.useState({ key: 'item', direction: 'ascending' });
+
+  // Th only renders the sort UI — the consumer owns the sorting logic.
+  const handleSort = (key) => {
+    setSort((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === 'ascending' ? 'descending' : 'ascending',
+    }));
+  };
+
+  const sorted = [...rows].sort((a, b) => {
+    const result = a[sort.key] < b[sort.key] ? -1 : a[sort.key] > b[sort.key] ? 1 : 0;
+    return sort.direction === 'ascending' ? result : -result;
+  });
+
+  const directionFor = (key) => (sort.key === key ? sort.direction : undefined);
+
+  return (
+    <Table>
+      <Thead>
+        <Tr>
+          <Th scope="col" sortable sortDirection={directionFor('item')} onSort={() => handleSort('item')}>Item</Th>
+          <Th scope="col" align="right" sortable sortDirection={directionFor('quantity')} onSort={() => handleSort('quantity')}>Quantity</Th>
+          <Th scope="col" align="right" sortable resizable defaultWidth={140} sortDirection={directionFor('price')} onSort={() => handleSort('price')}>Price</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {sorted.map((row) => (
+          <Tr key={row.item}>
+            <Td>{row.item}</Td>
+            <Td align="right">{row.quantity}</Td>
+            <Td align="right">\${row.price.toFixed(2)}</Td>
+          </Tr>
+        ))}
+      </Tbody>
+    </Table>
+  );
+};
+
+export default Example;
+`,
+});
+
 export const Striped = LiveEditStory({
   component: Table,
   code: `import { Table, Thead, Tbody, Tr, Th, Td } from '@aknishi/akds-reactkit';

@@ -1,0 +1,15 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* The standard visually hidden pattern. The 1px / -1px values are part of
+   the technique, not design values: a 0×0 box or display: none would also
+   hide the content from screen readers. */
+.akds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

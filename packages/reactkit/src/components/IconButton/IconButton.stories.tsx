@@ -109,3 +109,26 @@ const IconButtonExample = () => (
 export default IconButtonExample;
 `
 })
+
+export const AsLink = LiveEditStory({
+  component: IconButton,
+  code: `import { Flexbox, IconButton } from '@aknishi/akds-reactkit';
+import { ChevronRightIcon, OpenInNewIcon } from '@aknishi/akds-icons';
+
+// With href, IconButton renders a link: use it for actions that navigate,
+// so users keep middle-click, Cmd/Ctrl-click, and "Copy link".
+const IconButtonExample = () => (
+  <Flexbox gap="sm">
+    <IconButton href="#orders" appearance="bordered" aria-label="Go to orders">
+      <ChevronRightIcon />
+    </IconButton>
+    {/* A new tab gets rel="noopener noreferrer", and its name says so. */}
+    <IconButton href="https://example.com" target="_blank" appearance="bordered" aria-label="Open example.com in a new tab">
+      <OpenInNewIcon />
+    </IconButton>
+  </Flexbox>
+);
+
+export default IconButtonExample;
+`
+})

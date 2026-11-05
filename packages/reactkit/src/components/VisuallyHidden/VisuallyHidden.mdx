@@ -1,0 +1,36 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as VisuallyHiddenStories from './VisuallyHidden.stories';
+
+<Meta of={VisuallyHiddenStories} />
+
+# VisuallyHidden
+
+> **Available from v1.7.0**
+
+Hides content visually while keeping it in the accessibility tree, so screen readers still announce it. Use it to give controls an accessible name without visible text, or to add context to a visible label.
+
+## Usage
+
+```tsx
+import { VisuallyHidden } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={VisuallyHiddenStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={VisuallyHiddenStories.Default} />
+
+### Unique button names
+
+Append row context after the visible text so the visible label stays at the start of the accessible name (WCAG 2.5.3, Label in Name).
+
+<Canvas of={VisuallyHiddenStories.UniqueButtonNames} />
+
+### Hidden checkbox label
+
+<Canvas of={VisuallyHiddenStories.HiddenCheckboxLabel} />

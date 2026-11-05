@@ -1,0 +1,18 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-dataview-pagination {
+  display: flex;
+  /* Summary at the start, page buttons at the end; wraps on narrow screens. */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--akds-spacing-100);
+  font-family: var(--akds-font-family-sans);
+}
+
+.akds-dataview-pagination__summary {
+  /* "11–20 of 40" reads badly split across two lines. */
+  white-space: nowrap;
+  font-size: var(--akds-font-size-sm);
+  color: var(--akds-color-text-secondary-default);
+  font-variant-numeric: tabular-nums;
+}

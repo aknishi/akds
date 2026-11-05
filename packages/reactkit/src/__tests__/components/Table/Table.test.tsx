@@ -1,6 +1,7 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Table } from '../../../components/Table/Table';
 import { Thead } from '../../../components/Thead/Thead';
@@ -363,6 +364,108 @@ describe('Table', () => {
         expect(screen.getByTestId('th')).toHaveStyle({ width: '200px' });
       });
     });
+
+    describe('sortable', () => {
+      const renderHeader = (th: React.ReactNode) =>
+        render(
+          <Table>
+            <Thead>
+              <Tr>{th}</Tr>
+            </Thead>
+          </Table>,
+        );
+
+      it('renders no button when not sortable', () => {
+        renderHeader(<Th data-testid="th">Name</Th>);
+        expect(screen.queryByRole('button')).not.toBeInTheDocument();
+        expect(screen.getByTestId('th')).not.toHaveClass('akds-th--sortable');
+      });
+
+      it('renders a button containing the header text when sortable', () => {
+        renderHeader(<Th sortable data-testid="th">Name</Th>);
+        expect(screen.getByRole('button', { name: 'Name' })).toHaveAttribute('type', 'button');
+        expect(screen.getByTestId('th')).toHaveClass('akds-th--sortable');
+      });
+
+      it('sets aria-sort only when sortDirection is set', () => {
+        const { rerender } = renderHeader(<Th sortable data-testid="th">Name</Th>);
+        expect(screen.getByTestId('th')).not.toHaveAttribute('aria-sort');
+
+        const withDirection = (direction: 'ascending' | 'descending') => (
+          <Table>
+            <Thead>
+              <Tr>
+                <Th sortable sortDirection={direction} data-testid="th">Name</Th>
+              </Tr>
+            </Thead>
+          </Table>
+        );
+        rerender(withDirection('ascending'));
+        expect(screen.getByTestId('th')).toHaveAttribute('aria-sort', 'ascending');
+        rerender(withDirection('descending'));
+        expect(screen.getByTestId('th')).toHaveAttribute('aria-sort', 'descending');
+      });
+
+      it('does not set aria-sort when sortDirection is passed without sortable', () => {
+        renderHeader(<Th sortDirection="ascending" data-testid="th">Name</Th>);
+        expect(screen.getByTestId('th')).not.toHaveAttribute('aria-sort');
+      });
+
+      it('marks the active sort icon', () => {
+        const { container } = renderHeader(<Th sortable sortDirection="descending">Name</Th>);
+        expect(container.querySelector('.akds-th__sort-icon')).toHaveClass('akds-th__sort-icon--active');
+      });
+
+      it('does not mark the icon active when unsorted', () => {
+        const { container } = renderHeader(<Th sortable>Name</Th>);
+        expect(container.querySelector('.akds-th__sort-icon')).not.toHaveClass('akds-th__sort-icon--active');
+      });
+
+      it('hides the sort icon from assistive technology', () => {
+        const { container } = renderHeader(<Th sortable sortDirection="ascending">Name</Th>);
+        expect(container.querySelector('.akds-th__sort-icon')).toHaveAttribute('aria-hidden', 'true');
+      });
+
+      it('calls onSort on click, Enter, and Space', async () => {
+        const user = userEvent.setup();
+        const onSort = vi.fn();
+        renderHeader(<Th sortable onSort={onSort}>Name</Th>);
+        const button = screen.getByRole('button', { name: 'Name' });
+
+        await user.click(button);
+        expect(onSort).toHaveBeenCalledTimes(1);
+        expect(onSort.mock.calls[0]?.[0]).toHaveProperty('type', 'click');
+
+        button.focus();
+        await user.keyboard('{Enter}');
+        expect(onSort).toHaveBeenCalledTimes(2);
+
+        await user.keyboard(' ');
+        expect(onSort).toHaveBeenCalledTimes(3);
+      });
+
+      it('resizes without sorting when both sortable and resizable', async () => {
+        const user = userEvent.setup();
+        const onSort = vi.fn();
+        const onWidthChange = vi.fn();
+        renderHeader(
+          <Th sortable resizable defaultWidth={200} onSort={onSort} onWidthChange={onWidthChange} data-testid="th">
+            Name
+          </Th>,
+        );
+        const handle = screen.getByRole('separator');
+        expect(screen.getByRole('button')).not.toContainElement(handle);
+
+        fireEvent.keyDown(handle, { key: 'ArrowRight' });
+        fireEvent.pointerDown(handle, { clientX: 0 });
+        fireEvent.pointerMove(handle, { clientX: 30 });
+        fireEvent.pointerUp(handle);
+        await user.click(handle);
+
+        expect(onWidthChange).toHaveBeenCalled();
+        expect(onSort).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('Td', () => {
@@ -491,6 +594,25 @@ describe('Table', () => {
             <Tr>
               <Td>Widget</Td>
               <Td>42</Td>
+            </Tr>
+          </Tbody>
+        </Table>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+    it('has no violations with sortable columns', async () => {
+      const { container } = render(
+        <Table>
+          <Thead>
+            <Tr>
+              <Th scope="col" sortable sortDirection="ascending">Name</Th>
+              <Th scope="col" sortable resizable defaultWidth={160} align="right">Value</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            <Tr>
+              <Td>Widget</Td>
+              <Td align="right">42</Td>
             </Tr>
           </Tbody>
         </Table>,

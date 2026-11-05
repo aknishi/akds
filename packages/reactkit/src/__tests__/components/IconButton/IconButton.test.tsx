@@ -177,4 +177,87 @@ describe('IconButton', () => {
       expect(await axe(container)).toHaveNoViolations();
     });
   });
+
+  describe('as a link (href)', () => {
+    it('renders a link with the button classes', () => {
+      render(
+        <IconButton href="/orders/1" aria-label="Go to order 1">
+          <Icon />
+        </IconButton>,
+      );
+      const link = screen.getByRole('link', { name: 'Go to order 1' });
+      expect(link).toHaveAttribute('href', '/orders/1');
+      expect(link).toHaveClass('akds-icon-button', 'akds-icon-button--solid', 'akds-icon-button--neutral');
+      expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    });
+
+    it('applies appearance and emphasis classes', () => {
+      render(
+        <IconButton href="/" appearance="bordered" emphasis="accented" aria-label="Home">
+          <Icon />
+        </IconButton>,
+      );
+      expect(screen.getByRole('link')).toHaveClass('akds-icon-button--bordered', 'akds-icon-button--accented');
+    });
+
+    it('defaults rel to noopener noreferrer for a new tab', () => {
+      render(
+        <IconButton href="/orders/1" target="_blank" aria-label="Open order 1 in a new tab">
+          <Icon />
+        </IconButton>,
+      );
+      const link = screen.getByRole('link');
+      expect(link).toHaveAttribute('target', '_blank');
+      expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    });
+
+    it('keeps a rel that is passed in', () => {
+      render(
+        <IconButton href="/orders/1" target="_blank" rel="noopener" aria-label="Open order 1 in a new tab">
+          <Icon />
+        </IconButton>,
+      );
+      expect(screen.getByRole('link')).toHaveAttribute('rel', 'noopener');
+    });
+
+    it('sets no rel for the same tab', () => {
+      render(
+        <IconButton href="/orders/1" aria-label="Go to order 1">
+          <Icon />
+        </IconButton>,
+      );
+      expect(screen.getByRole('link')).not.toHaveAttribute('rel');
+    });
+
+    it('calls onClick', async () => {
+      const user = userEvent.setup();
+      const onClick = vi.fn((e: React.MouseEvent) => e.preventDefault());
+      render(
+        <IconButton href="#order-1" aria-label="Go to order 1" onClick={onClick}>
+          <Icon />
+        </IconButton>,
+      );
+      await user.click(screen.getByRole('link'));
+      expect(onClick).toHaveBeenCalledTimes(1);
+    });
+
+    it('forwards the ref to the anchor element', () => {
+      const ref = React.createRef<HTMLAnchorElement>();
+      render(
+        <IconButton ref={ref} href="/" aria-label="Home">
+          <Icon />
+        </IconButton>,
+      );
+      expect(ref.current).toBeInstanceOf(HTMLAnchorElement);
+    });
+
+    it('has no axe violations', async () => {
+      const { container } = render(
+        <IconButton href="/orders/1" target="_blank" aria-label="Open order 1 in a new tab">
+          <Icon />
+        </IconButton>,
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
 });

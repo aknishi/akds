@@ -2,6 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import './Th.css';
 import type { ThProps } from './Th.types';
+import { RippleBase } from '../RippleBase';
+import type { RippleBaseHandle } from '../RippleBase';
+import { ArrowDownIcon, ArrowUpIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils/makePrefixer';
 
 const withBaseName = makePrefixer('akds-th');
@@ -17,6 +20,9 @@ export const Th = React.forwardRef<HTMLTableCellElement, ThProps>(
       width,
       defaultWidth,
       onWidthChange,
+      sortable = false,
+      sortDirection,
+      onSort,
       className,
       style,
       children,
@@ -35,6 +41,7 @@ export const Th = React.forwardRef<HTMLTableCellElement, ThProps>(
     const [internalWidth, setInternalWidth] = React.useState(defaultWidth);
     const resolvedWidth = isControlled ? width : internalWidth;
     const dragRef = React.useRef<{ startX: number; startWidth: number } | null>(null);
+    const rippleRef = React.useRef<RippleBaseHandle>(null);
 
     const commitWidth = (next: number) => {
       const clamped = Math.max(MIN_COLUMN_WIDTH, next);
@@ -69,6 +76,8 @@ export const Th = React.forwardRef<HTMLTableCellElement, ThProps>(
       }
     };
 
+    const SortIcon = sortDirection === 'descending' ? ArrowDownIcon : ArrowUpIcon;
+
     return (
       <th
         ref={setRefs}
@@ -77,12 +86,36 @@ export const Th = React.forwardRef<HTMLTableCellElement, ThProps>(
           { [withBaseName('center')]: align === 'center' },
           { [withBaseName('right')]: align === 'right' },
           { [withBaseName('resizable')]: resizable },
+          { [withBaseName('sortable')]: sortable },
           className,
         )}
         style={resolvedWidth !== undefined ? { width: resolvedWidth, ...style } : style}
+        aria-sort={sortable && sortDirection ? sortDirection : undefined}
         {...rest}
       >
-        {children}
+        {sortable ? (
+          // A real button (not onClick on the <th>) gives focus, Enter/Space
+          // and an interactive role for free. The resize handle stays outside
+          // it, so resizing never triggers a sort.
+          <button
+            type="button"
+            className={withBaseName.el('sort-button')}
+            onClick={onSort}
+            onPointerDown={(e) => rippleRef.current?.trigger(e)}
+          >
+            <span className={withBaseName.el('sort-label')}>{children}</span>
+            <SortIcon
+              aria-hidden="true"
+              size="sm"
+              color="currentColor"
+              className={clsx(
+                withBaseName.el('sort-icon'),
+                { [withBaseName.el('sort-icon') + '--active']: sortDirection !== undefined },
+              )}
+            />
+            <RippleBase ref={rippleRef} />
+          </button>
+        ) : children}
         {resizable && (
           <span
             className={withBaseName.el('resize-handle')}

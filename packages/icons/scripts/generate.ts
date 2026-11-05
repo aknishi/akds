@@ -31,6 +31,8 @@ const ICONS: Record<string, string> = {
   WarningFilledIcon: 'warning-fill',
   InfoIcon: 'info',
   InfoFilledIcon: 'info-fill',
+  PendingIcon: 'pending',
+  LocalShippingIcon: 'local_shipping',
 
   // Rating & Social
   StarIcon: 'star',
@@ -87,11 +89,14 @@ const ICONS: Record<string, string> = {
   SearchIcon: 'search',
   UndoIcon: 'undo',
   UploadIcon: 'upload',
+  DownloadIcon: 'download',
   ZoomInIcon: 'zoom_in',
   ZoomOutIcon: 'zoom_out',
 
   // Navigation & UI
   AppsIcon: 'apps',
+  LeftPanelOpenIcon: 'left_panel_open',
+  RightPanelOpenIcon: 'right_panel_open',
   CalendarMonthIcon: 'calendar_month',
   DashboardIcon: 'dashboard',
   DashboardFilledIcon: 'dashboard-fill',

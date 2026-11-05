@@ -332,6 +332,61 @@ describe('Drawer', () => {
 
   it('forwards ref to the native dialog element', () => {
     const ref = React.createRef<HTMLDialogElement>();
+  describe('focus return', () => {
+    function Harness() {
+      const [open, setOpen] = React.useState(false);
+      return (
+        <>
+          <button onClick={() => setOpen(true)}>Open</button>
+          <Drawer open={open} onClose={() => setOpen(false)}>
+            <p>Content</p>
+          </Drawer>
+        </>
+      );
+    }
+
+    it('returns focus to the opener when closed with the close button', async () => {
+      const user = userEvent.setup();
+      render(<Harness />);
+      const opener = screen.getByRole('button', { name: 'Open' });
+      await user.click(opener);
+      expect(screen.getByRole('button', { name: 'Close drawer' })).toHaveFocus();
+      await user.click(screen.getByRole('button', { name: 'Close drawer' }));
+      expect(opener).toHaveFocus();
+    });
+
+    it('returns focus to the opener when closed with Escape', async () => {
+      const user = userEvent.setup();
+      render(<Harness />);
+      const opener = screen.getByRole('button', { name: 'Open' });
+      await user.click(opener);
+      await user.keyboard('{Escape}');
+      expect(opener).toHaveFocus();
+    });
+
+    it('returns focus when the open prop becomes false', () => {
+      const opener = document.createElement('button');
+      document.body.appendChild(opener);
+      opener.focus();
+      const { rerender } = render(<Drawer open onClose={() => {}}><p>Content</p></Drawer>);
+      expect(opener).not.toHaveFocus();
+      rerender(<Drawer open={false} onClose={() => {}}><p>Content</p></Drawer>);
+      expect(opener).toHaveFocus();
+      opener.remove();
+    });
+
+    it('does not throw when the opener was removed while open', () => {
+      const opener = document.createElement('button');
+      document.body.appendChild(opener);
+      opener.focus();
+      const { rerender } = render(<Drawer open onClose={() => {}}><p>Content</p></Drawer>);
+      opener.remove();
+      expect(() => rerender(<Drawer open={false} onClose={() => {}}><p>Content</p></Drawer>)).not.toThrow();
+    });
+  });
+
+  it('forwards ref to the drawer panel', () => {
+    const ref = React.createRef<HTMLDivElement>();
     render(<Drawer open onClose={() => {}} ref={ref}><p>Content</p></Drawer>);
     expect(ref.current).toBeInstanceOf(HTMLDialogElement);
   });

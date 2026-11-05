@@ -29,7 +29,6 @@
   position: fixed;
   inset: auto;
   bottom: var(--akds-spacing-300);
-  z-index: 1500;
   width: auto;
   height: auto;
   margin: 0;
@@ -38,6 +37,7 @@
   overflow: visible;
   background: transparent;
   color: inherit;
+  z-index: var(--akds-z-index-toast);
   pointer-events: none;
 }
 

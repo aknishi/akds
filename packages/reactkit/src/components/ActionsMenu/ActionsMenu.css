@@ -1,0 +1,7 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* The trigger is usually placed in a row of actions — keep it from being
+   squeezed when space runs short. Focus, hover, and press styles come from
+   IconButton; the menu panel and its animation come from Menu. */
+.akds-actions-menu {
+  flex-shrink: 0;
+}

@@ -1,6 +1,9 @@
 /* ── Base ──────────────────────────────────────────────────────────────── */
 .akds-menu {
   --akds-menu-enter-offset: -4px;
+  /* Applies when anchored to a trigger (position: fixed, in a portal); inline
+     menus aren't positioned, so it has no effect on them. */
+  z-index: var(--akds-z-index-popover);
   display: flex;
   flex-direction: column;
   list-style: none;

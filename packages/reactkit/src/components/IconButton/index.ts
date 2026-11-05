@@ -1,2 +1,2 @@
 export { IconButton } from './IconButton.js';
-export type { IconButtonProps, IconButtonAppearance, IconButtonEmphasis } from './IconButton.types.js';
+export type { IconButtonProps, IconButtonLinkProps, IconButtonAppearance, IconButtonEmphasis } from './IconButton.types.js';

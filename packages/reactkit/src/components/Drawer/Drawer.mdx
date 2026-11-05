@@ -13,6 +13,8 @@ Swiping uses native CSS scroll snap, so it has the platform's momentum and can b
 
 The root `<dialog class="akds-drawer">` fills the viewport and is transparent; the visible panel is `.akds-drawer__sheet` (containing `__header` and `__body`) inside `.akds-drawer__scroller`.
 
+When it opens, focus moves to the first focusable element in the panel and stays trapped inside it. When it closes — by Escape, the close button, the scrim, or `open` becoming false — focus returns to the element that had focus when it opened, if that element is still on the page, so keyboard users keep their place.
+
 ## Usage
 
 ```tsx

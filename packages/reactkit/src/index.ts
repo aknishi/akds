@@ -14,7 +14,7 @@ export { ThinkingState } from './components/ThinkingState/index.js';
 export type { ThinkingStateProps } from './components/ThinkingState/index.js';
 
 export { IconButton } from './components/IconButton/index.js';
-export type { IconButtonProps, IconButtonAppearance, IconButtonEmphasis } from './components/IconButton/index.js';
+export type { IconButtonProps, IconButtonLinkProps, IconButtonAppearance, IconButtonEmphasis } from './components/IconButton/index.js';
 
 export { Spinner } from './components/Spinner/index.js';
 export type { SpinnerProps, SpinnerSize } from './components/Spinner/index.js';
@@ -45,6 +45,9 @@ export type { MenuProps, MenuPlacement } from './components/Menu/index.js';
 
 export { MenuItem } from './components/MenuItem/index.js';
 export type { MenuItemProps } from './components/MenuItem/index.js';
+
+export { ActionsMenu } from './components/ActionsMenu/index.js';
+export type { ActionsMenuProps } from './components/ActionsMenu/index.js';
 
 export { Option } from './components/Option/index.js';
 export type { OptionProps, OptionContextValue } from './components/Option/index.js';
@@ -158,7 +161,16 @@ export { Tr } from './components/Tr/index.js';
 export type { TrProps } from './components/Tr/index.js';
 
 export { Th } from './components/Th/index.js';
-export type { ThProps, ThAlign } from './components/Th/index.js';
+export type { ThProps, ThAlign, ThSortDirection } from './components/Th/index.js';
 
 export { Td } from './components/Td/index.js';
 export type { TdProps, TdAlign } from './components/Td/index.js';
+
+export { Pagination } from './components/Pagination/index.js';
+export type { PaginationProps, PaginationItem } from './components/Pagination/index.js';
+
+export { VisuallyHidden } from './components/VisuallyHidden/index.js';
+export type { VisuallyHiddenProps } from './components/VisuallyHidden/index.js';
+
+export { useMediaQuery } from './hooks/useMediaQuery/index.js';
+export { useBreakpointUp, useBreakpointDown } from './hooks/useBreakpoint/index.js';

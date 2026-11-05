@@ -1,0 +1,12 @@
+/* ── DataView variables ────────────────────────────────────────────────── */
+:root {
+  /* Space between row-level actions and the edge of their row: the table's
+     actions cell padding. It's the same token CardHeader uses for its
+     padding, so row actions sit at the same inset in table and card views,
+     and the bulk icon actions can line up with both. */
+  --akds-dataview-actions-inset: var(--akds-spacing-layout-md);
+  /* How faded rows are while rows that replace them load. There's no
+     opacity token yet; reactkit's disabled states hardcode theirs too. This
+     is lighter than disabled, since the rows can still be read and used. */
+  --akds-dataview-refreshing-opacity: 0.6;
+}

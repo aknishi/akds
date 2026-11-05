@@ -39,6 +39,19 @@ import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@aknishi/akds-reactkit';
 
 <Canvas of={TableStories.ResizableColumnsControlled} />
 
+### Sortable Headers
+
+> **Available from v1.7.0**
+
+Set `sortable` on a `Th` to render the whole header as a button. `Th` only renders the sort UI. It never reorders rows. The consumer owns the sorting logic and passes the result back through `sortDirection` and `onSort`, so it works with plain React state or with a library such as TanStack Table.
+
+- `aria-sort` is set on the `<th>` only when `sortDirection` is set. Leave it `undefined` on every column except the one currently sorted.
+- The arrow icon is decorative (`aria-hidden`), because `aria-sort` already conveys the direction. On unsorted columns it appears faintly on hover and focus as a hint.
+- The resize handle sits outside the button, so a column can be both `sortable` and `resizable` without resizing triggering a sort.
+- Screen readers don't reliably announce an `aria-sort` change after the header is activated. If sorting matters to the task, announce the new sort in a polite live region next to the table.
+
+<Canvas of={TableStories.SortableHeaders} />
+
 ### Striped
 
 <Canvas of={TableStories.Striped} />

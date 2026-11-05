@@ -155,7 +155,7 @@ export const parameters: Preview['parameters'] = {
   },
   options: {
     storySort: {
-      order: ['Overview', 'Getting Started', 'ThemeProvider', 'Tokens', ['Changelog', 'Tokens'], 'Reactkit', 'Icons', 'create-akds-app'],
+      order: ['Overview', 'Getting Started', 'ThemeProvider', 'Tokens', ['Changelog', 'Tokens'], 'Reactkit', 'Icons', 'create-akds-app', 'Dataview', ['DataView', 'Full responsive demo', '*', 'In-Progress']],
     },
   },
 };

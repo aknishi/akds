@@ -1,0 +1,42 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as PaginationStories from './Pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+> **Available from v1.7.0**
+
+Renders numbered page buttons between previous and next arrow buttons inside a `<nav>` landmark, for moving through paged data such as a table or DataView. Long ranges collapse into ellipses while always keeping the first page, the last page, and `siblingCount` pages either side of the current one. Once truncated, the control always renders the same number of slots, so its width stays stable as the page changes. Works controlled (`page` + `onPageChange`) or uncontrolled (`defaultPage`).
+
+The current page is marked with `aria-current="page"`, and each page button is named "Page N" (override with `getPageLabel` for localization). At the first and last page the previous/next button stays focusable with `aria-disabled="true"` instead of being natively disabled, so keyboard focus isn't lost after pressing it. Ellipses are hidden from assistive technology. If a page has more than one Pagination, give each a distinct `aria-label`.
+
+Pagination only changes the page number — it doesn't announce the new content. When the page changes, update the content it controls and, if needed, announce the change (e.g. "Showing 11–20 of 243") in a live region.
+
+## Usage
+
+```tsx
+import { Pagination } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={PaginationStories} />
+
+## Examples
+
+### Default
+
+<Canvas of={PaginationStories.Default} />
+
+### Truncation
+
+<Canvas of={PaginationStories.Truncation} />
+
+### Controlled
+
+<Canvas of={PaginationStories.Controlled} />
+
+### Disabled
+
+<Canvas of={PaginationStories.Disabled} />

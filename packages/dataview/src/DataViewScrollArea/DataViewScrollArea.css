@@ -1,0 +1,30 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* The scroll area owns the table's frame, so the rounded corners clip the
+   sticky header and the rows scroll inside the border. */
+.akds-dataview-scroll-area {
+  overflow: auto;
+  box-sizing: border-box;
+  border: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: var(--akds-radius-lg);
+  background-color: var(--akds-color-surface-default);
+}
+
+.akds-dataview-scroll-area .akds-table__wrapper {
+  border: 0;
+  border-radius: 0;
+}
+
+/* ── Scrolled ──────────────────────────────────────────────────────────── */
+/* Only shown once rows have scrolled under the header (see TableView.css). */
+.akds-dataview-scroll-area--scrolled .akds-dataview-table--virtual .akds-thead .akds-tr::after {
+  opacity: 1;
+}
+
+/* ── Scrollable ────────────────────────────────────────────────────────── */
+/* Tbody drops the last row's border because a plain table's frame draws
+   that line. While the content overflows, content after the table (e.g. a
+   "Load more" button) sits below the last row, so it needs its border back. */
+.akds-dataview-scroll-area--scrollable .akds-tbody .akds-tr:last-child .akds-td,
+.akds-dataview-scroll-area--scrollable .akds-tbody .akds-tr:last-child .akds-th {
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}

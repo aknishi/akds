@@ -47,6 +47,7 @@ const config: StorybookConfig = {
       include: [
         'packages/reactkit/src/components/**/*.tsx',
         'packages/icons/src/components/**/*.tsx',
+        'packages/dataview/src/**/*.tsx',
       ],
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => {

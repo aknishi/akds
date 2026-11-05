@@ -1,0 +1,8 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-dataview-actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--akds-spacing-100);
+}
