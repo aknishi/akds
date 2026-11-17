@@ -140,7 +140,9 @@ export function DataViewLoadingMore({ className }: { className?: string }) {
  * everything below (e.g. Pagination) stays where it was. Attach
  * `contentRef` to the element holding the rows or the state, and apply
  * `heldHeight` to the state. It holds the height shown just before the
- * state appeared, so a retry after a short "No results." stays short.
+ * state appeared, so a retry after a short "No results." stays short. The
+ * views add a minimum on top (--akds-dataview-state-min-height), so every
+ * state starts at the same height.
  * Internal — not exported.
  */
 export function useHeldHeight<T extends HTMLElement>(status: DataViewStatus | undefined, enabled = true) {

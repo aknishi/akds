@@ -383,21 +383,21 @@ describe('CardView held height', () => {
   it('keeps the cards\' height when they give way to the error or loading state', () => {
     const { rerender } = render(<Switching rows={testOrders} />);
     rerender(<Switching rows={[]} error="Couldn’t load orders." />);
-    expect(state()).toHaveStyle({ minHeight: '240px' });
+    expect(state()).toHaveStyle({ '--akds-dataview-held-height': '240px' });
     rerender(<Switching rows={[]} loading error="Couldn’t load orders." />);
-    expect(state()).toHaveStyle({ minHeight: '240px' });
+    expect(state()).toHaveStyle({ '--akds-dataview-held-height': '240px' });
   });
 
   it('holds the height shown just before, so loading after "No results." stays short', () => {
     const { rerender } = render(<Switching rows={testOrders} />);
     rerender(<Switching rows={[]} />);
-    expect(state().style.minHeight).toBe('');
+    expect(state().style.getPropertyValue('--akds-dataview-held-height')).toBe('');
     rerender(<Switching rows={[]} loading />);
-    expect(state()).toHaveStyle({ minHeight: '80px' });
+    expect(state()).toHaveStyle({ '--akds-dataview-held-height': '80px' });
   });
 
   it('does not hold a height on the first load', () => {
     render(<Switching rows={[]} loading />);
-    expect(state().style.minHeight).toBe('');
+    expect(state().style.getPropertyValue('--akds-dataview-held-height')).toBe('');
   });
 });

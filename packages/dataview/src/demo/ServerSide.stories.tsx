@@ -4,7 +4,7 @@ import source from './ServerSideDemo.tsx?raw';
 import { LiveEditStory, exampleCode } from './LiveEditStory';
 
 const meta: Meta<typeof ServerSideDemo> = {
-  title: 'Dataview/In-Progress/Server-side data',
+  title: 'Dataview/Server-side data',
   component: ServerSideDemo,
 };
 

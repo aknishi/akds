@@ -95,7 +95,7 @@ describe('BulkActions', () => {
     expect(announcement()).toBeEmptyDOMElement();
 
     act(() => vi.advanceTimersByTime(300));
-    expect(announcement()).toHaveTextContent('2 rows selected. Bulk actions available.');
+    expect(announcement()).toHaveTextContent('2 rows selected. Bulk actions available above table.');
 
     toggle('Select Kenji Ito');
     toggle('Select Maria Garcia');

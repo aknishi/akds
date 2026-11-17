@@ -81,6 +81,12 @@
   padding: var(--akds-spacing-layout-md);
 }
 
+/* Every state starts at the same height, or keeps the taller height of the
+   rows it replaced (set inline). A row's height is its minimum. */
+.akds-dataview-table__status-row {
+  height: max(var(--akds-dataview-state-min-height), var(--akds-dataview-held-height, 0px));
+}
+
 /* Focused from script when a retry swaps the state out from under the
    focused "Try again" button; shown inset so the cell's edges don't clip it. */
 .akds-dataview-table__state:focus-visible {

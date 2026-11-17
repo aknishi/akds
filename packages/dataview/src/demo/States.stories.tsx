@@ -5,7 +5,7 @@ import customSource from './StatesCustom.tsx?raw';
 import { LiveEditStory, exampleCode } from './LiveEditStory';
 
 const meta: Meta<typeof StatesDefault> = {
-  title: 'Dataview/In-Progress/Loading, Error, and Empty States',
+  title: 'Dataview/Loading, Error, and Empty States',
   component: StatesDefault,
 };
 

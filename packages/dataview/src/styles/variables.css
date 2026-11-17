@@ -9,4 +9,10 @@
      opacity token yet; reactkit's disabled states hardcode theirs too. This
      is lighter than disabled, since the rows can still be read and used. */
   --akds-dataview-refreshing-opacity: 0.6;
+  /* The least height of the loading, error, and empty states, so switching
+     between them doesn't make the view jump. It fits the tallest standard
+     message (icon, title, description, and action) with room to spare, and
+     is about five table rows. There's no layout height token, so it's a
+     literal. A state still keeps the taller height of rows it replaces. */
+  --akds-dataview-state-min-height: 240px;
 }

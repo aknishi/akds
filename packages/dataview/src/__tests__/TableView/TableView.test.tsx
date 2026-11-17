@@ -442,32 +442,32 @@ describe('TableView held height', () => {
   it('keeps the rows\' height when they give way to the error state', () => {
     const { rerender } = render(<Switching rows={testOrders} />);
     rerender(<Switching rows={[]} error="Couldn’t load orders." />);
-    expect(stateRow()).toHaveStyle({ height: '240px' });
+    expect(stateRow()).toHaveStyle({ '--akds-dataview-held-height': '240px' });
   });
 
   it('keeps the same height through a retry, from error to loading', () => {
     const { rerender } = render(<Switching rows={testOrders} />);
     rerender(<Switching rows={[]} error="Couldn’t load orders." />);
     rerender(<Switching rows={[]} loading error="Couldn’t load orders." />);
-    expect(screen.getByText('Loading…').closest('tr')).toHaveStyle({ height: '240px' });
+    expect(screen.getByText('Loading…').closest('tr')).toHaveStyle({ '--akds-dataview-held-height': '240px' });
   });
 
   it('keeps the rows\' height when they give way to the loading state', () => {
     const { rerender } = render(<Switching rows={testOrders} />);
     rerender(<Switching rows={[]} loading />);
-    expect(stateRow()).toHaveStyle({ height: '240px' });
+    expect(stateRow()).toHaveStyle({ '--akds-dataview-held-height': '240px' });
   });
 
   it('holds the height shown just before, so loading after "No results." stays short', () => {
     const { rerender } = render(<Switching rows={testOrders} />);
     rerender(<Switching rows={[]} />);
-    expect(stateRow().style.height).toBe('');
+    expect(stateRow().style.getPropertyValue('--akds-dataview-held-height')).toBe('');
     rerender(<Switching rows={[]} loading />);
-    expect(stateRow()).toHaveStyle({ height: '80px' });
+    expect(stateRow()).toHaveStyle({ '--akds-dataview-held-height': '80px' });
   });
 
   it('does not hold a height on the first load', () => {
     render(<Switching rows={[]} loading />);
-    expect(stateRow().style.height).toBe('');
+    expect(stateRow().style.getPropertyValue('--akds-dataview-held-height')).toBe('');
   });
 });

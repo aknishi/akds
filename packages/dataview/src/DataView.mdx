@@ -189,7 +189,9 @@ While there are no rows to show, `TableView` and `CardView` show a state in thei
 
 The states only replace the rows while there are none. When loading more fails, the rows stay, so show that error yourself, for example next to a "Load more" button.
 
-When rows give way to the loading or error state, the state keeps the height of what was shown just before, with its message centred, so the view doesn't collapse and `Pagination` below it stays where it was. A retry after a failed request keeps the same height throughout. "No results." takes its own height, and a loading state right after it keeps that shorter height. Virtualized tables don't hold a height, since their scroll area already has one.
+Every state is at least `--akds-dataview-state-min-height` tall (240px by default), with its message centred, so switching between loading, error, and empty doesn't make the view jump. Set the variable on the view, or on any element around it, to change it.
+
+When rows give way to the loading or error state and they were taller than that, the state keeps their height, so the view doesn't collapse and `Pagination` below it stays where it was. A retry after a failed request keeps the same height throughout. Virtualized tables don't hold the rows' height, since their scroll area already has one.
 
 ### While rows are shown
 

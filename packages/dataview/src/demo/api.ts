@@ -1,4 +1,4 @@
-import { generateOrders } from './data';
+import { compareStatus, generateOrders } from './data';
 import type { Order } from './data';
 
 export const TOTAL_ORDERS = 500;
@@ -66,7 +66,10 @@ export function fetchOrders(query: OrdersQuery, { fail = false } = {}): Promise<
       if (sort) {
         const key = sort.id as keyof Order;
         matches = [...matches].sort((a, b) => {
-          const order = a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
+          // Status sorts by progress, matching the column's sortingFn.
+          const order = key === 'status'
+            ? compareStatus(a.status, b.status)
+            : a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0;
           return sort.desc ? -order : order;
         });
       }

@@ -1,6 +1,7 @@
 import React from 'react';
 import type { ColumnDef } from '@tanstack/react-table';
 import { Tag, VisuallyHidden } from '@aknishi/akds-reactkit';
+import { compareStatus } from './data';
 import type { Order } from './data';
 
 // Tag colors for each status, shared with the card layouts so they match the table.
@@ -18,6 +19,9 @@ export const columns: ColumnDef<Order, any>[] = [
   {
     accessorKey: 'status',
     header: 'Status',
+    // Sorts by progress (Processing first, Delivered last), not alphabetically.
+    enableSorting: true,
+    sortingFn: (rowA, rowB, columnId) => compareStatus(rowA.getValue(columnId), rowB.getValue(columnId)),
     // Defined once: identical in the table and in every card layout
     cell: ({ getValue }) => {
       const status = getValue<Order['status']>();

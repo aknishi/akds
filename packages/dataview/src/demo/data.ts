@@ -14,7 +14,13 @@ export interface Order {
 
 const FIRST_NAMES = ['Hanako', 'Kenji', 'Maria', 'Liam', 'Aisha', 'Noah', 'Yuki', 'Sofia', 'Mateo', 'Chloe', 'Ravi', 'Emma', 'Daniel', 'Mei', 'Omar', 'Grace'];
 const LAST_NAMES = ['Sato', 'Ito', 'Garcia', 'Chen', 'Okafor', 'Müller', 'Tanaka', 'Rossi', 'Silva', 'Martin', 'Patel', 'Kim', 'Nguyen', 'Johansson', 'Haddad', 'Walsh'];
+// In the order an order moves through them, which is also how they sort.
 export const ORDER_STATUSES: Order['status'][] = ['Processing', 'Shipped', 'Delayed', 'Delivered'];
+
+/** Sorts statuses by progress rather than alphabetically. Shared by the columns and the server stand-in. */
+export function compareStatus(a: Order['status'], b: Order['status']) {
+  return ORDER_STATUSES.indexOf(a) - ORDER_STATUSES.indexOf(b);
+}
 const CARRIERS = ['DHL', 'USPS', 'UPS'];
 const NOTES = [
   'Leave at the front desk.',

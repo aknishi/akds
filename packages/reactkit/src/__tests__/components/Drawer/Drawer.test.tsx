@@ -332,6 +332,10 @@ describe('Drawer', () => {
 
   it('forwards ref to the native dialog element', () => {
     const ref = React.createRef<HTMLDialogElement>();
+    render(<Drawer open onClose={() => {}} ref={ref}><p>Content</p></Drawer>);
+    expect(ref.current).toBeInstanceOf(HTMLDialogElement);
+  });
+
   describe('focus return', () => {
     function Harness() {
       const [open, setOpen] = React.useState(false);
@@ -364,14 +368,15 @@ describe('Drawer', () => {
       expect(opener).toHaveFocus();
     });
 
-    it('returns focus when the open prop becomes false', () => {
+    it('returns focus when the open prop becomes false', async () => {
       const opener = document.createElement('button');
       document.body.appendChild(opener);
       opener.focus();
       const { rerender } = render(<Drawer open onClose={() => {}}><p>Content</p></Drawer>);
       expect(opener).not.toHaveFocus();
       rerender(<Drawer open={false} onClose={() => {}}><p>Content</p></Drawer>);
-      expect(opener).toHaveFocus();
+      // The dialog closes once its exit transition ends, then the browser returns focus.
+      await waitFor(() => expect(opener).toHaveFocus());
       opener.remove();
     });
 
@@ -383,12 +388,6 @@ describe('Drawer', () => {
       opener.remove();
       expect(() => rerender(<Drawer open={false} onClose={() => {}}><p>Content</p></Drawer>)).not.toThrow();
     });
-  });
-
-  it('forwards ref to the drawer panel', () => {
-    const ref = React.createRef<HTMLDivElement>();
-    render(<Drawer open onClose={() => {}} ref={ref}><p>Content</p></Drawer>);
-    expect(ref.current).toBeInstanceOf(HTMLDialogElement);
   });
 
   describe('axe accessibility', () => {

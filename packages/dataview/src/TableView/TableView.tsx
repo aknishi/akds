@@ -240,8 +240,12 @@ export function TableView<TData>({
               keeps focus) as the state changes, e.g. from error to loading. */}
           {status && (
             // The held height changes with the content shown before, so it
-            // can't come from a class. A row's height is its minimum height.
-            <Tr style={heldHeight ? { height: heldHeight } : undefined}>
+            // can't come from a class; the CSS takes the taller of it and
+            // the state minimum.
+            <Tr
+              className={withBaseName.el('status-row')}
+              style={heldHeight ? { '--akds-dataview-held-height': `${heldHeight}px` } as React.CSSProperties : undefined}
+            >
               <Td
                 colSpan={columnCount}
                 className={clsx(withBaseName.el('state'), withBaseName.el(status))}

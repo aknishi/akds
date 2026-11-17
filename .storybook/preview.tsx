@@ -146,6 +146,13 @@ export const parameters: Preview['parameters'] = {
   interactions: { disable: true },
   docs: {
     container: ThemedDocsContainer,
+    // An "On this page" menu beside every docs page, linking to its h2 and
+    // h3 headings and highlighting the current section. Headings inside
+    // story previews are skipped (Storybook's default ignoreSelector).
+    toc: {
+      title: 'On this page',
+      headingSelector: 'h2, h3',
+    },
   },
   chromatic: {
     modes: {
@@ -155,7 +162,7 @@ export const parameters: Preview['parameters'] = {
   },
   options: {
     storySort: {
-      order: ['Overview', 'Getting Started', 'ThemeProvider', 'Tokens', ['Changelog', 'Tokens'], 'Reactkit', 'Icons', 'create-akds-app', 'Dataview', ['DataView', 'Full responsive demo', '*', 'In-Progress']],
+      order: ['Overview', 'Getting Started', 'ThemeProvider', 'Tokens', ['Changelog', 'Tokens'], 'Reactkit', 'Icons', 'create-akds-app', 'Dataview', ['DataView', 'Full responsive demo', '*']],
     },
   },
 };

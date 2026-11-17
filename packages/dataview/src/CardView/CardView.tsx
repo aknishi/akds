@@ -124,8 +124,9 @@ export function CardView<TData>({
           }}
           className={clsx(withBaseName.el('state'), withBaseName.el(status))}
           // The held height changes with the content shown before, so it
-          // can't come from a class.
-          style={heldHeight ? { minHeight: heldHeight } : undefined}
+          // can't come from a class; the CSS takes the taller of it and the
+          // state minimum.
+          style={heldHeight ? { '--akds-dataview-held-height': `${heldHeight}px` } as React.CSSProperties : undefined}
         >
           <DataViewStateContent
             status={status}

@@ -85,7 +85,9 @@ describe('ActionsMenu', () => {
     const onOpenChange = vi.fn();
     const { trigger } = renderMenu({ onOpenChange });
 
-    await user.click(trigger);
+    // Keyboard opens move focus into the menu; pointer opens leave it on the trigger.
+    trigger.focus();
+    await user.keyboard('{Enter}');
     await waitFor(() => expect(screen.getByRole('menuitem', { name: 'View details' })).toHaveFocus());
     await user.keyboard('{Escape}');
 
@@ -98,7 +100,8 @@ describe('ActionsMenu', () => {
     const user = userEvent.setup();
     const { trigger } = renderMenu();
 
-    await user.click(trigger);
+    trigger.focus();
+    await user.keyboard('{Enter}');
     await waitFor(() => expect(screen.getByRole('menuitem', { name: 'View details' })).toHaveFocus());
     await user.keyboard('{Tab}');
 
@@ -226,7 +229,9 @@ describe('ActionsMenu', () => {
       const onTriggerClick = vi.fn();
       const { trigger } = renderWithTrigger({ onTriggerClick });
 
-      await user.click(trigger);
+      // Enter clicks the button, so its own onClick runs as it would for a pointer.
+      trigger.focus();
+      await user.keyboard('{Enter}');
       expect(onTriggerClick).toHaveBeenCalledTimes(1);
       expect(trigger).toHaveAttribute('aria-expanded', 'true');
       await waitFor(() => expect(screen.getByRole('menuitem', { name: 'Export' })).toHaveFocus());

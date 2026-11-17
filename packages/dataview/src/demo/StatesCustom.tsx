@@ -59,7 +59,7 @@ export function StatesCustom() {
       {/* The same states work in both views. */}
       <TableView selectable {...states} />
       <CardView selectable {...states}>
-        {/* NO_ORDERS is always empty, so this card never renders; see Card View Options for full layouts. */}
+        {/* NO_ORDERS is always empty, so this card never renders; see Card View for full layouts. */}
         {(row) => <DataViewCard title={row.original.customer}>{row.original.id}</DataViewCard>}
       </CardView>
     </Flexbox>

@@ -4,7 +4,7 @@ import source from './CardViewOptions.tsx?raw';
 import { LiveEditStory, exampleCode } from './LiveEditStory';
 
 const meta: Meta<typeof CardViewOptions> = {
-  title: 'Dataview/Card View Options',
+  title: 'Dataview/Card View',
   component: CardViewOptions,
 };
 

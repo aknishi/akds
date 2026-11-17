@@ -4,7 +4,7 @@ import source from './VirtualizedDemo.tsx?raw';
 import { LiveEditStory, exampleCode } from './LiveEditStory';
 
 const meta: Meta<typeof VirtualizedDemo> = {
-  title: 'Dataview/In-Progress/Virtualized Demo',
+  title: 'Dataview/Virtualized Demo',
   component: VirtualizedDemo,
 };
 
