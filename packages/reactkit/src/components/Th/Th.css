@@ -49,8 +49,14 @@
   bottom: var(--akds-spacing-100);
   right: 0;
   width: 1px;
-  background: var(--akds-primitive-color-neutral-300);
+  background: var(--akds-color-border-neutral-default);
   transition: background 150ms ease;
+}
+
+/* The last column's divider would sit on top of the table's outer border.
+   The handle stays so the column remains resizable. */
+.akds-th--resizable:last-child .akds-th__resize-handle::after {
+  display: none;
 }
 
 .akds-th__resize-handle:hover::after,

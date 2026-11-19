@@ -50,6 +50,8 @@
   - @aknishi/akds-tokens@2.2.0
   - @aknishi/akds-icons@1.4.0
 
+- `Th`: hide the resize divider on the last column in sortable headers so it no longer overlaps the table's outer border, and use the themed border token for the divider so it adapts to dark mode.
+
 ## 1.7.0
 
 ### Minor Changes
