@@ -74,6 +74,14 @@
   resize: vertical;
   overflow-y: auto;
   field-sizing: content;
+  /* field-sizing sizes the width to the content too, so an empty textarea
+     has almost no natural width and collapses wherever nothing stretches it,
+     e.g. centered in a flex container. Inline-size containment swaps that
+     for a fixed natural width, about what cols="20" gave before. It's only
+     a natural size: width: 100% still fills a sized parent, and the field
+     can still shrink in a narrow one. Height still follows the content. */
+  contain: inline-size;
+  contain-intrinsic-inline-size: 20ch;
   min-block-size: calc(var(--akds-text-area-min-rows, 3) * 1lh + var(--akds-spacing-200) + var(--akds-spacing-100));
   /* Invalid (so `none`) when --akds-text-area-max-rows is unset. */
   max-block-size: calc(var(--akds-text-area-max-rows) * 1lh + var(--akds-spacing-200) + var(--akds-spacing-100));
