@@ -47,10 +47,14 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveClass('akds-button--lg');
   });
 
-  it('shows spinner and disables button when loading', () => {
-    render(<Button loading>Save</Button>);
+  it('shows spinner and disables button when loading, keeping it focusable', async () => {
+    const onClick = vi.fn();
+    render(<Button loading onClick={onClick}>Save</Button>);
     const btn = screen.getByRole('button');
-    expect(btn).toBeDisabled();
+    expect(btn).not.toBeDisabled();
+    expect(btn).toHaveAttribute('aria-disabled', 'true');
+    await userEvent.click(btn);
+    expect(onClick).not.toHaveBeenCalled();
     expect(btn).toHaveClass('akds-button--disabled');
     expect(btn).toHaveAttribute('aria-busy', 'true');
     expect(btn.querySelector('.akds-spinner')).toBeInTheDocument();

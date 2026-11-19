@@ -152,4 +152,17 @@ describe('LikeButton', () => {
       expect(await axe(container)).toHaveNoViolations();
     });
   });
+
+  it('has a default accessible name and reflects state via aria-pressed', async () => {
+    render(<LikeButton />);
+    const btn = screen.getByRole('button', { name: 'Like' });
+    expect(btn).toHaveAttribute('aria-pressed', 'false');
+    await userEvent.click(btn);
+    expect(btn).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  it('accepts a custom aria-label', () => {
+    render(<LikeButton aria-label="Favorite this post" liked />);
+    expect(screen.getByRole('button', { name: 'Favorite this post' })).toHaveAttribute('aria-pressed', 'true');
+  });
 });

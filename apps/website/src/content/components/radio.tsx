@@ -53,13 +53,13 @@ export const radio: ComponentEntry = {
     {
       title: 'Horizontal orientation',
       render: () => (
-        <RadioGroup name="delivery-horizontal" defaultValue="express" orientation="horizontal">
+        <RadioGroup name="delivery-horizontal" defaultValue="express" orientation="horizontal" aria-label="Delivery">
           <Radio label="Standard" value="standard" />
           <Radio label="Express" value="express" />
           <Radio label="Overnight" value="overnight" />
         </RadioGroup>
       ),
-      code: `<RadioGroup name="delivery" orientation="horizontal">
+      code: `<RadioGroup name="delivery" orientation="horizontal" aria-label="Delivery">
   <Radio label="Standard" value="standard" />
   <Radio label="Express" value="express" />
   <Radio label="Overnight" value="overnight" />
@@ -69,19 +69,19 @@ export const radio: ComponentEntry = {
       title: 'Disabled',
       description: 'Setting disabled on RadioGroup disables every child Radio.',
       render: () => (
-        <RadioGroup name="disabled-group" disabled>
+        <RadioGroup name="disabled-group" disabled aria-label="Plan">
           <Radio label="Option A" value="a" />
           <Radio label="Option B" value="b" />
         </RadioGroup>
       ),
-      code: `<RadioGroup name="disabled-group" disabled>
+      code: `<RadioGroup name="disabled-group" disabled aria-label="Plan">
   <Radio label="Option A" value="a" />
   <Radio label="Option B" value="b" />
 </RadioGroup>`,
     },
   ],
   accessibilityNotes: [
-    'RadioGroup renders a native <fieldset>, with legend rendered as a real <legend> — the accessible name for the whole group.',
+    'RadioGroup renders a native <fieldset>, with legend rendered as a real <legend> — the accessible name for the whole group. Without a legend, pass aria-label or aria-labelledby (forwarded to the fieldset); a development-only console warning flags groups with no accessible name.',
     'name, disabled, and onChange set on RadioGroup are inherited by every child Radio unless a Radio explicitly overrides them.',
     'Arrow-key navigation between radios in the same group is native browser behavior, not custom JS.',
   ],
@@ -89,7 +89,7 @@ export const radio: ComponentEntry = {
     { name: 'name', type: 'string', description: 'Shared name for all child Radio inputs. Required on RadioGroup for form association.' },
     { name: 'value', type: 'string | number', description: 'The currently selected value (controlled), set on RadioGroup.' },
     { name: 'onChange', type: 'React.ChangeEventHandler<HTMLInputElement>', description: 'Change handler called when a Radio option is selected, set on RadioGroup.' },
-    { name: 'legend', type: 'React.ReactNode', description: 'Accessible label rendered as a <legend> on RadioGroup.' },
+    { name: 'legend', type: 'React.ReactNode', description: 'Accessible label rendered as a <legend> on RadioGroup. If omitted, provide aria-label or aria-labelledby instead.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'When set on RadioGroup, disables all child Radio inputs. Can also be set on an individual Radio.' },
     { name: 'orientation', type: "'horizontal' | 'vertical'", default: "'vertical'", description: 'Layout direction of the radio options, set on RadioGroup.' },
     { name: 'label', type: 'React.ReactNode', description: 'The label text rendered next to an individual Radio.' },

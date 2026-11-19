@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import './Radio.css';
 import type { RadioProps } from './Radio.types';
 import { RadioGroupContext } from '../RadioGroup/RadioGroupContext';
-import { makePrefixer } from '../../utils';
+import { makePrefixer, splitInputProps } from '../../utils';
 
 const withBaseName = makePrefixer('akds-radio');
 
@@ -38,6 +38,8 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           ? String(groupContext.value) === String(value)
           : undefined;
 
+    const { inputProps, labelProps } = splitInputProps(rest);
+
     return (
       <label
         className={clsx(
@@ -47,7 +49,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           className,
         )}
         onPointerDown={onPointerDown}
-        {...rest}
+        {...labelProps}
       >
         <input
           ref={ref}
@@ -59,7 +61,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           name={resolvedName}
           value={value}
           disabled={resolvedDisabled}
-          aria-disabled={resolvedDisabled || undefined}
+          {...inputProps}
         />
         <span className={withBaseName.el('indicator')} aria-hidden="true">
           <span className={withBaseName.el('dot')} />

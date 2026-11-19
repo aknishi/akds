@@ -145,3 +145,21 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* Forced colors removes box-shadow and replaces author backgrounds, so state
+   and boundaries drawn with them disappear. System color keywords are kept. */
+@media (forced-colors: active) {
+  .akds-checkbox__input:is(:checked, :indeterminate) ~ .akds-checkbox__indicator {
+    background-color: Highlight;
+    border-color: Highlight;
+  }
+
+  .akds-checkbox__input:is(:checked, :indeterminate) ~ .akds-checkbox__indicator svg {
+    stroke: HighlightText;
+  }
+
+  .akds-checkbox--disabled .akds-checkbox__indicator {
+    border-color: GrayText !important;
+  }
+}

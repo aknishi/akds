@@ -40,8 +40,10 @@ export const textInput: ComponentEntry = {
   ],
   accessibilityNotes: [
     'The floating label is a real <label> associated with the input via htmlFor/id — always announced by screen readers.',
-    'error styling is visual only; pair it with helperText describing the problem so the association is conveyed via aria-describedby, not color alone.',
-    'All native <input> attributes (type, required, autoComplete, etc.) pass through via ...rest.',
+    'With error set, helperText becomes the error message: it is prefixed with an error icon named "Error" (so the state is not conveyed by color alone), linked via aria-describedby, and aria-invalid="true" is set.',
+    'Native constraints (required, pattern, type, minLength…) pass through via ...rest. A failing field gets the same error styling via :user-invalid — only after the user edits and leaves it, or on a failed submit — plus aria-invalid="true" and the browser validation message below the helper text. Until then aria-invalid is "false".',
+    'A consumer aria-describedby is merged with the helper and error message ids rather than replacing them.',
+    'All other native <input> attributes (autoComplete, name, etc.) pass through via ...rest.',
   ],
   props: [
     { name: 'label', type: 'string', description: 'The floating label text.' },

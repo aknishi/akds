@@ -60,3 +60,26 @@ const DrawerExample = () => {
 export default DrawerExample;
 `,
 });
+
+export const LongContent = LiveEditStory({
+  component: Drawer,
+  code: `import React from 'react';
+import { Drawer, Button } from '@aknishi/akds-reactkit';
+
+const DrawerExample = () => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open Drawer</Button>
+      <Drawer open={open} onClose={() => setOpen(false)} title="Long content" side="left">
+        {Array.from({ length: 40 }, (_, i) => (
+          <p key={i}>Paragraph {i + 1}. Scroll vertically here; swipe left to dismiss.</p>
+        ))}
+      </Drawer>
+    </>
+  );
+};
+
+export default DrawerExample;
+`,
+});

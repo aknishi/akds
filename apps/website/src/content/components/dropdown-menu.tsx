@@ -123,6 +123,7 @@ export const dropdownMenu: ComponentEntry = {
   accessibilityNotes: [
     'Follows the same ARIA combobox/listbox pattern as Combobox, but options are fixed React children instead of a data array.',
     'The trigger button announces the selected option as its accessible value; Option elements are role="option" with aria-selected.',
+    'Options use a roving tabindex (one Tab stop: the focused, else selected, else first option); arrow keys move focus. Enter selects on keydown and Space on keyup.',
   ],
   props: [
     { name: 'selected', type: 'string | string[]', description: 'The currently selected value — always controlled.' },
@@ -134,7 +135,7 @@ export const dropdownMenu: ComponentEntry = {
     { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when the open state should change.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'helperText', type: 'string', description: 'Helper text rendered below the control.' },
-    { name: 'name', type: 'string', description: 'Name attribute for form association.' },
+    { name: 'name', type: 'string', description: 'Submits the selection with a surrounding form under this name (one entry per value when multiple).' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: 'Stretches the component to fill its parent container.' },
     { name: 'children', type: 'React.ReactNode', description: 'Option elements. Required.' },
     { name: 'aria-label', type: 'string', description: 'Accessible name when no label prop is provided.' },

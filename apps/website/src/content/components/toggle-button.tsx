@@ -141,6 +141,7 @@ export const toggleButton: ComponentEntry = {
   accessibilityNotes: [
     'Standalone, Toggle button renders aria-pressed to announce its state — pair it with a clear accessible name (visible text or aria-label).',
     'Inside a Toggle group, it instead renders role="radio" with aria-checked, matching the group\'s single-select radiogroup pattern.',
+    'disabled uses the native disabled attribute (no redundant aria-disabled), so a disabled button is skipped in the Tab order.',
     'The color prop only applies when used standalone — grouped buttons pick up the Toggle group\'s selection styling and ignore color.',
   ],
   props: [

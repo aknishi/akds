@@ -7,7 +7,11 @@ import * as DrawerStories from './Drawer.stories';
 
 > **Available from v1.0.0**
 
-A panel that slides in from any edge of the viewport. Rendered into a portal, managed with an `open` prop, and closeable via the Escape key or clicking the scrim. Supports `left`, `right`, `top`, and `bottom` sides.
+A panel that slides in from any edge of the viewport. Rendered into a portal as a native modal `<dialog>`, managed with an `open` prop, and closeable by swiping it back off-screen, the Escape key, tapping the scrim, or its close button. Supports `left`, `right`, `top`, and `bottom` sides.
+
+Swiping uses native CSS scroll snap, so it has the platform's momentum and can be interrupted mid-gesture. Every dismissal calls `onClose`; the drawer slides out once `open` becomes `false`, and snaps back open if it stays `true`. `disableBackdropClose` only turns off scrim taps. With reduced motion, the drawer opens and closes without sliding.
+
+The root `<dialog class="akds-drawer">` fills the viewport and is transparent; the visible panel is `.akds-drawer__sheet` (containing `__header` and `__body`) inside `.akds-drawer__scroller`.
 
 ## Usage
 
@@ -28,3 +32,9 @@ import { Drawer } from '@aknishi/akds-reactkit';
 ### Sides
 
 <Canvas of={DrawerStories.Sides} />
+
+### Long content
+
+The body scrolls on its own; swipe sideways (or on the header for top / bottom drawers) to dismiss.
+
+<Canvas of={DrawerStories.LongContent} />

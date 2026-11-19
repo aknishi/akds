@@ -7,7 +7,7 @@ import * as TextAreaStories from './TextArea.stories';
 
 > **Available from v1.5.0**
 
-A labelled multi-line text field with optional helper text and error state. By default the field grows to fit its content and can also be dragged taller via the native resize handle; set `resizable` to `false` for a fixed-height field that scrolls instead. The native `<textarea>` is forwarded a ref and accepts all standard HTML textarea attributes via `...rest`.
+A labelled multi-line text field with optional helper text and error state. By default the field grows to fit its content and can also be dragged taller via the native resize handle; set `resizable` to `false` to hide the resize handle (auto-grow still applies), cap growth with `maxRows`, or set `autoGrow` to `false` for a fixed-height field that scrolls instead. Auto-grow uses CSS `field-sizing: content` where supported, with a mirrored-grid fallback elsewhere. The native `<textarea>` is forwarded a ref and accepts all standard HTML textarea attributes via `...rest`.
 
 ## Usage
 

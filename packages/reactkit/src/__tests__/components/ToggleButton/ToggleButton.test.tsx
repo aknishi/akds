@@ -117,4 +117,11 @@ describe('ToggleButton', () => {
       expect(await axe(container)).toHaveNoViolations();
     });
   });
+
+  it('uses native disabled without a redundant aria-disabled', () => {
+    render(<ToggleButton disabled>Bold</ToggleButton>);
+    const button = screen.getByRole('button', { name: 'Bold' });
+    expect(button).toBeDisabled();
+    expect(button).not.toHaveAttribute('aria-disabled');
+  });
 });

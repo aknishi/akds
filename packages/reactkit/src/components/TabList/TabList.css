@@ -24,3 +24,13 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* Forced colors removes box-shadow and replaces author backgrounds, so state
+   and boundaries drawn with them disappear. System color keywords are kept. */
+@media (forced-colors: active) {
+  /* System colors survive forced colors; the token background would not. */
+  .akds-tab-list__indicator {
+    background-color: Highlight;
+  }
+}

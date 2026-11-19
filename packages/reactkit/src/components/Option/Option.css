@@ -128,3 +128,22 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* The selected fill is a background, which forced colors replaces; use the
+   system selection colors so the selected option stays distinguishable. */
+@media (forced-colors: active) {
+  .akds-option--selected {
+    background-color: Highlight;
+    color: HighlightText;
+  }
+
+  .akds-option--selected .akds-option__checkmark,
+  .akds-option--selected .akds-option__trailing {
+    color: HighlightText;
+  }
+
+  .akds-option--disabled {
+    color: GrayText;
+  }
+}

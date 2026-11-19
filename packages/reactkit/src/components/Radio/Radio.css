@@ -134,3 +134,22 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* Forced colors removes box-shadow and replaces author backgrounds, so state
+   and boundaries drawn with them disappear. System color keywords are kept. */
+@media (forced-colors: active) {
+  /* The dot is a background fill, which forced colors would erase. */
+  .akds-radio__input:checked ~ .akds-radio__indicator {
+    background-color: Canvas;
+    border-color: Highlight;
+  }
+
+  .akds-radio__input:checked ~ .akds-radio__indicator .akds-radio__dot {
+    background-color: Highlight;
+  }
+
+  .akds-radio--disabled .akds-radio__indicator {
+    border-color: GrayText !important;
+  }
+}

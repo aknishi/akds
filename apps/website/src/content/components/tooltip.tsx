@@ -116,6 +116,8 @@ export const tooltip: ComponentEntry = {
   ],
   accessibilityNotes: [
     'Tooltip shows on both hover and keyboard focus of its trigger — not hover-only — so keyboard users see the same content.',
+    'It meets WCAG 1.4.13: the pointer can move onto the tooltip without it closing, and Escape dismisses it without moving focus.',
+    'Renders as a popover="hint" in the top layer, so overflow containers never clip it, and flips to stay in the viewport. Any aria-describedby already on the trigger is kept alongside the tooltip\'s id.',
     'content is associated with the trigger via aria-describedby, not just visual proximity.',
     'children must be a single React element capable of receiving a ref and event handlers.',
   ],

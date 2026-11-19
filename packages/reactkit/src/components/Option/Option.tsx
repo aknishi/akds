@@ -20,6 +20,8 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
       children,
       onClick,
       onKeyDown,
+      onKeyUp,
+      onFocus,
       ...rest
     },
     ref,
@@ -28,6 +30,9 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
     const effectiveDisabled = disabled || ctx.parentDisabled;
     const selected = value !== undefined ? ctx.isSelected(value) : false;
     const rippleRef = React.useRef<RippleBaseHandle>(null);
+    // Space activates on keyup (like a native button), but only if the
+    // keydown also landed here — e.g. not the Space that opened the listbox.
+    const spacePressed = React.useRef(false);
 
     if (ctx.variant === 'menu') {
       const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -56,6 +61,9 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
             )}
             onPointerDown={handlePointerDown}
             onClick={handleClick}
+            onKeyDown={onKeyDown as React.KeyboardEventHandler<HTMLButtonElement> | undefined}
+            onKeyUp={onKeyUp as React.KeyboardEventHandler<HTMLButtonElement> | undefined}
+            onFocus={onFocus as React.FocusEventHandler<HTMLButtonElement> | undefined}
             {...(rest as React.ButtonHTMLAttributes<HTMLButtonElement>)}
           >
             {children}
@@ -78,12 +86,35 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
-      if ((e.key === 'Enter' || e.key === ' ') && !effectiveDisabled) {
+      if (e.key === 'Enter' && !effectiveDisabled) {
         e.preventDefault();
         if (value !== undefined) ctx.onSelect(value);
+      } else if (e.key === ' ') {
+        // Prevent page scroll; Space activates on keyup.
+        e.preventDefault();
+        spacePressed.current = true;
       }
       (onKeyDown as React.KeyboardEventHandler<HTMLLIElement> | undefined)?.(e);
     };
+
+    const handleKeyUp = (e: React.KeyboardEvent<HTMLLIElement>) => {
+      if (e.key === ' ') {
+        const pressed = spacePressed.current;
+        spacePressed.current = false;
+        if (pressed && !effectiveDisabled && value !== undefined) ctx.onSelect(value);
+      }
+      (onKeyUp as React.KeyboardEventHandler<HTMLLIElement> | undefined)?.(e);
+    };
+
+    const handleFocus = (e: React.FocusEvent<HTMLLIElement>) => {
+      if (value !== undefined) ctx.onOptionFocus?.(value);
+      (onFocus as React.FocusEventHandler<HTMLLIElement> | undefined)?.(e);
+    };
+
+    // Roving tabindex: one Tab stop per listbox; arrow keys move focus.
+    const isTabStop = !effectiveDisabled && value !== undefined && (
+      ctx.isTabStop ? ctx.isTabStop(value) : selected
+    );
 
     return (
       <li
@@ -91,7 +122,7 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
         role="option"
         aria-selected={selected}
         aria-disabled={effectiveDisabled || undefined}
-        tabIndex={0}
+        tabIndex={isTabStop ? 0 : -1}
         className={clsx(
           withBaseName(),
           {
@@ -102,6 +133,8 @@ export const Option = React.forwardRef<HTMLElement, OptionProps>(
         )}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
+        onKeyUp={handleKeyUp}
+        onFocus={handleFocus}
         {...(rest as React.LiHTMLAttributes<HTMLLIElement>)}
       >
         {ctx.multiple && (

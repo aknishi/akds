@@ -85,6 +85,7 @@ const TextAreaExample = () => (
   <TextArea
     label="Notes"
     minRows={4}
+    autoGrow={false}
     resizable={false}
     defaultValue="This textarea has a fixed height. Once the content grows past the visible rows, it scrolls vertically instead of expanding or being manually resized."
   />

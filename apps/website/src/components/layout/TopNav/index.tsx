@@ -20,8 +20,8 @@ const TOP_LINKS = [
 ];
 
 export function TopNav({ onMenuClick, hasSidebar, mobileNavOpen }: TopNavProps) {
-  const { theme, setTheme } = useTheme();
-  const isDark = theme === 'dark';
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
   const [scrolled, setScrolled] = React.useState(false);
 
   React.useEffect(() => {
@@ -77,7 +77,12 @@ export function TopNav({ onMenuClick, hasSidebar, mobileNavOpen }: TopNavProps) 
           <ToggleGroup
             size="sm"
             value={isDark ? 'dark' : 'light'}
-            onChange={(value) => setTheme(value === 'dark' ? 'dark' : 'light')}
+            onChange={(value) => {
+              // Two-state toggle: picking the scheme the OS already uses goes
+              // back to following the OS instead of pinning it.
+              const system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+              setTheme(value === system ? 'system' : value === 'dark' ? 'dark' : 'light');
+            }}
           >
             <ToggleButton value="light" aria-label="Light mode">
               {isDark ? <SunnyIcon /> : <SunnyFilledIcon />}

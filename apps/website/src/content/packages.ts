@@ -18,7 +18,7 @@ export const packages: PackageEntry[] = [
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="light">
+    <ThemeProvider>
       <Button appearance="solid" emphasis="accented">
         Get started
       </Button>

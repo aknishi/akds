@@ -9,4 +9,9 @@ export interface LikeButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
    * For a controlled state. When true it will render in the pressed state.
    */
   liked?: boolean;
+  /**
+   * Accessible name for the icon-only button. Defaults to `"Like"`; the
+   * liked/unliked state is conveyed separately via `aria-pressed`.
+   */
+  'aria-label'?: string;
 }

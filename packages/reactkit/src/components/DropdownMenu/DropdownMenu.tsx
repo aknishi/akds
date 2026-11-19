@@ -8,22 +8,55 @@ import { KeyboardArrowDownIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils';
 import { OptionContext } from '../Option/OptionContext';
 import type { OptionContextValue } from '../Option/OptionContext';
+import { useAnchoredPopover } from '../../utils/useAnchoredPopover';
 
 const withBaseName = makePrefixer('akds-dropdown-menu');
 
 const OPTION_SELECTOR = '[role="option"]:not([aria-disabled="true"])';
 
+// Plain text of a React node, e.g. an Option label written as
+// `<>Red <small>(warm)</small></>` reads "Red (warm)".
+function getNodeText(node: React.ReactNode): string {
+  if (typeof node === 'string' || typeof node === 'number') return String(node);
+  if (Array.isArray(node)) return node.map(getNodeText).join('');
+  if (React.isValidElement(node)) {
+    return getNodeText((node.props as { children?: React.ReactNode }).children);
+  }
+  return '';
+}
+
+// Labels of the selected Option children, looking through fragments.
 function getDisplayText(children: React.ReactNode, selected: string | string[]): string {
   const selectedArr = Array.isArray(selected) ? selected : (selected ? [selected] : []);
   const labels: string[] = [];
+  const visit = (nodes: React.ReactNode) => {
+    React.Children.forEach(nodes, child => {
+      if (!React.isValidElement(child)) return;
+      const { value, children: label } = child.props as { value?: string; children?: React.ReactNode };
+      if (child.type === React.Fragment) {
+        visit(label);
+      } else if (value !== undefined && selectedArr.includes(value)) {
+        const text = getNodeText(label).trim();
+        if (text) labels.push(text);
+      }
+    });
+  };
+  visit(children);
+  return labels.join(', ');
+}
+
+// Values of enabled Option children, looking through fragments.
+function getEnabledValues(children: React.ReactNode, out: string[] = []): string[] {
   React.Children.forEach(children, child => {
     if (!React.isValidElement(child)) return;
-    const { value, children: label } = child.props as { value: string; children: unknown };
-    if (value !== undefined && selectedArr.includes(value) && typeof label === 'string') {
-      labels.push(label);
+    const props = child.props as { value?: string; disabled?: boolean; children?: React.ReactNode };
+    if (child.type === React.Fragment) {
+      getEnabledValues(props.children, out);
+    } else if (props.value !== undefined && !props.disabled) {
+      out.push(props.value);
     }
   });
-  return labels.join(', ');
+  return out;
 }
 
 export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
@@ -72,8 +105,24 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
     const isLabelFloating = resolvedOpen || focused || hasValue;
 
     const containerRef = React.useRef<HTMLDivElement>(null);
+    const controlRef = React.useRef<HTMLDivElement>(null);
     const triggerRef = React.useRef<HTMLButtonElement>(null);
     const listboxRef = React.useRef<HTMLUListElement>(null);
+
+    // Top-layer popover anchored to the control: escapes overflow containers
+    // and dialogs, flips when it would overflow, and light-dismisses natively.
+    const { mounted, native, popoverProps, position, usesJsPosition, skipFocusRestore } = useAnchoredPopover({
+      open: resolvedOpen,
+      popoverRef: listboxRef,
+      anchorRef: controlRef,
+      triggerRef,
+      mode: 'auto',
+      placement: 'bottom-left',
+      matchAnchorWidth: true,
+      legacyPositioning: 'css',
+      onDismiss: () => handleOpenChange(false),
+      restoreFocus: true,
+    });
 
     React.useImperativeHandle(ref, () => containerRef.current!);
 
@@ -100,17 +149,28 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       if (!multiple) handleOpenChange(false);
     };
 
+    // Roving tabindex: the listbox has a single Tab stop — the last focused
+    // option, else the first selected option, else the first enabled one.
+    const [activeValue, setActiveValue] = React.useState<string | undefined>(undefined);
+    const enabledValues = getEnabledValues(children);
+    const tabStopValue =
+      (activeValue !== undefined && enabledValues.includes(activeValue) ? activeValue : undefined) ??
+      enabledValues.find(isSelected) ??
+      enabledValues[0];
+
     const optionCtx: OptionContextValue = {
       variant: 'listbox',
       isSelected,
       onSelect: handleSelect,
       multiple: multiple ?? false,
       parentDisabled: disabled ?? false,
+      isTabStop: v => v === tabStopValue,
+      onOptionFocus: setActiveValue,
     };
 
-    // Close on outside mousedown
+    // Close on outside mousedown — only needed without native light dismiss.
     React.useEffect(() => {
-      if (!resolvedOpen) return;
+      if (!resolvedOpen || native) return;
       const handleMouseDown = (e: MouseEvent) => {
         if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
           handleOpenChange(false);
@@ -118,7 +178,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       };
       document.addEventListener('mousedown', handleMouseDown);
       return () => document.removeEventListener('mousedown', handleMouseDown);
-    }, [resolvedOpen]);
+    }, [resolvedOpen, native]);
 
     // Focus first or currently-selected option when listbox opens
     React.useEffect(() => {
@@ -134,7 +194,9 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
       if (['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(e.key)) {
         e.preventDefault();
         handleOpenChange(true);
-      } else if (e.key === 'Escape') {
+      } else if (e.key === 'Escape' && resolvedOpen) {
+        // Consume Escape so a surrounding native <dialog> stays open.
+        e.preventDefault();
         handleOpenChange(false);
       }
     };
@@ -144,6 +206,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         listboxRef.current?.querySelectorAll<HTMLElement>(OPTION_SELECTOR) ?? [],
       );
       const idx = items.indexOf(document.activeElement as HTMLElement);
+      pointerActive.current = false;
 
       switch (e.key) {
         case 'ArrowDown':
@@ -168,6 +231,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
           triggerRef.current?.focus();
           break;
         case 'Tab':
+          skipFocusRestore();
           handleOpenChange(false);
           break;
       }
@@ -185,7 +249,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         {...rest}
       >
         {/* ── Control — mirrors TextInput's .akds-text-input__control ── */}
-        <div className={clsx(
+        <div ref={controlRef} className={clsx(
           withBaseName.el('control'),
           { [`${withBaseName.el('control')}--open`]: resolvedOpen },
           { [`${withBaseName.el('control')}--keyboard-focus`]: keyboardFocused },
@@ -200,7 +264,6 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
             aria-labelledby={label ? labelId : undefined}
             aria-label={!label ? ariaLabel : undefined}
             aria-describedby={helperText ? helperId : undefined}
-            aria-disabled={disabled || undefined}
             disabled={disabled}
             className={clsx(
               withBaseName.el('trigger'),
@@ -240,6 +303,14 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
           )}
         </div>
 
+        {/* Submits the selection with a surrounding <form>, like a native <select>. */}
+        {name !== undefined && (multiple
+          ? (Array.isArray(selected) ? selected : []).map(v => (
+              <input key={v} type="hidden" name={name} value={v} disabled={disabled} />
+            ))
+          : <input type="hidden" name={name} value={typeof selected === 'string' ? selected : ''} disabled={disabled} />
+        )}
+
         {helperText && (
           <p id={helperId} className={withBaseName.el('helper-text')}>
             {helperText}
@@ -247,7 +318,7 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
         )}
 
         {/* ── Listbox panel — uses .akds-menu for visual parity ── */}
-        {resolvedOpen && (
+        {mounted && (
           <OptionContext.Provider value={optionCtx}>
             <ul
               ref={listboxRef}
@@ -255,8 +326,21 @@ export const DropdownMenu = React.forwardRef<HTMLDivElement, DropdownMenuProps>(
               role="listbox"
               aria-multiselectable={multiple || undefined}
               aria-label={label ?? ariaLabel}
-              className={clsx('akds-menu', withBaseName.el('listbox'))}
+              className={clsx('akds-menu', { 'akds-menu--open': resolvedOpen }, withBaseName.el('listbox'))}
+              style={
+                usesJsPosition
+                  ? {
+                      top: position?.top ?? 0,
+                      left: position?.left ?? 0,
+                      width: position?.width,
+                      opacity: position ? undefined : 0,
+                    }
+                  : undefined
+              }
               onKeyDown={handleListboxKeyDown}
+              // A pointer selection returns focus to the trigger without a focus ring.
+              onPointerDown={() => { pointerActive.current = true; }}
+              {...popoverProps}
             >
               {children}
             </ul>

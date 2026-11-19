@@ -1,3 +1,10 @@
+/* ── Host ──────────────────────────────────────────────────────────────── */
+/* Wraps the live regions and viewports; moved into an open modal dialog so
+   toasts stay above and outside its inert area. Contributes no box. */
+.akds-toast__host {
+  display: contents;
+}
+
 /* ── Announcer ─────────────────────────────────────────────────────────── */
 /* Visually hidden but still reachable by screen readers — see the comment
    next to politeRef/assertiveRef in Toast.tsx for why this exists. */
@@ -14,10 +21,23 @@
 }
 
 /* ── Viewport ──────────────────────────────────────────────────────────── */
+/* Rendered as popover="manual": it lives in the top layer (above dialogs and
+   popovers opened before it) and is never light-dismissed. The resets below
+   undo the UA popover box (centered, bordered, scrollable). z-index only
+   matters in browsers without the Popover API. */
 .akds-toast__viewport {
   position: fixed;
+  inset: auto;
   bottom: var(--akds-spacing-300);
   z-index: 1500;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
   pointer-events: none;
 }
 
@@ -61,8 +81,10 @@
   display: flex;
   align-items: flex-start;
   gap: var(--akds-spacing-150);
-  min-width: 320px;
-  max-width: 420px;
+  /* Never wider than the viewport minus the viewport inset on both sides, so
+     a 320px-wide screen doesn't overflow (WCAG 1.4.10 Reflow). */
+  min-inline-size: min(320px, calc(100vw - 2 * var(--akds-spacing-300)));
+  max-inline-size: min(420px, calc(100vw - 2 * var(--akds-spacing-300)));
   padding: var(--akds-spacing-200);
   border-radius: var(--akds-radius-lg);
   background: var(--akds-color-surface-overlay);

@@ -66,11 +66,12 @@ export const textArea: ComponentEntry = {
       code: `<TextArea label="Bio" minRows={6} />`,
     },
     {
-      title: 'Not resizable',
+      title: 'Fixed height',
       render: () => (
         <TextArea
           label="Notes"
           minRows={3}
+          autoGrow={false}
           resizable={false}
           defaultValue="This textarea has a fixed height. Once the content grows past the visible rows, it scrolls vertically instead of expanding or being manually resized."
         />
@@ -78,6 +79,7 @@ export const textArea: ComponentEntry = {
       code: `<TextArea
   label="Notes"
   minRows={3}
+  autoGrow={false}
   resizable={false}
   defaultValue="This textarea has a fixed height. Once the content grows past the visible rows, it scrolls vertically instead of expanding or being manually resized."
 />`,
@@ -90,14 +92,18 @@ export const textArea: ComponentEntry = {
   ],
   accessibilityNotes: [
     'The floating label is a real <label> associated with the textarea via htmlFor/id — always announced by screen readers.',
-    'error styling is visual only; pair it with helperText describing the problem so the association is conveyed via aria-describedby, not color alone.',
-    'All native <textarea> attributes (maxLength, required, autoComplete, etc.) pass through via ...rest.',
+    'With error set, helperText becomes the error message: it is prefixed with an error icon named "Error" (so the state is not conveyed by color alone), linked via aria-describedby, and aria-invalid="true" is set.',
+    'Native constraints (required, minLength…) pass through via ...rest. A failing field gets the same error styling via :user-invalid — only after the user edits and leaves it, or on a failed submit — plus aria-invalid="true" and the browser validation message below the helper text. Until then aria-invalid is "false".',
+    'A consumer aria-describedby is merged with the helper and error message ids rather than replacing them.',
+    'Auto-grow uses CSS field-sizing: content where supported, with a mirrored-grid fallback elsewhere.',
   ],
   props: [
     { name: 'label', type: 'string', description: 'The floating label text.' },
     { name: 'helperText', type: 'string', description: 'Helper text rendered below the textarea.' },
-    { name: 'minRows', type: 'number', default: '3', description: 'Minimum number of visible text rows. Also the fixed row count when resizable is false.' },
-    { name: 'resizable', type: 'boolean', default: 'true', description: 'When true, the textarea grows to fit its content and can be dragged taller via the resize handle. When false, height stays fixed to minRows and overflowing content scrolls vertically instead.' },
+    { name: 'minRows', type: 'number', default: '3', description: 'Minimum number of visible text rows. Also the fixed row count when autoGrow is false.' },
+    { name: 'maxRows', type: 'number', description: 'Maximum rows the textarea grows to before scrolling. Unset means no limit.' },
+    { name: 'autoGrow', type: 'boolean', default: 'true', description: 'When true, the textarea grows to fit its content. When false, height stays fixed to minRows and overflowing content scrolls vertically.' },
+    { name: 'resizable', type: 'boolean', default: 'true', description: 'Shows the resize handle so the textarea can be dragged taller. When false, only the handle is hidden — auto-grow still applies.' },
     { name: 'error', type: 'boolean', default: 'false', description: 'Applies error styling to the border and helper text.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
     { name: 'wrapperClassName', type: 'string', description: 'className applied to the outer wrapper <div>.' },
@@ -106,7 +112,7 @@ export const textArea: ComponentEntry = {
   doDont: [
     { do: 'Always provide a label — it doubles as the accessible name.', dont: "Don't use placeholder text as a substitute for a label." },
     { do: 'Pair error with helperText explaining what to fix.', dont: "Don't set error without any accompanying message." },
-    { do: 'Use resizable={false} for fields with a genuine content cap (e.g. a tweet-length comment).', dont: "Don't disable resizing on open-ended fields like a bio or description." },
+    { do: 'Use autoGrow={false} and resizable={false} only for fields with a genuine content cap (e.g. a tweet-length comment).', dont: "Don't disable resizing on open-ended fields like a bio or description." },
   ],
   related: ['text-input'],
 };

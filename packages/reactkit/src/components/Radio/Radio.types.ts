@@ -15,6 +15,10 @@ export interface RadioProps extends Omit<React.LabelHTMLAttributes<HTMLLabelElem
   name?: string;
   /** Value of this radio option. Used for RadioGroup value matching. */
   value?: string | number;
+  /** Marks the inner `<input>` as required for form validation. */
+  required?: boolean;
+  /** Focuses the inner `<input>` on mount. */
+  autoFocus?: boolean;
   /** When true, prevents interaction. Also inherited from RadioGroup when omitted. */
   disabled?: boolean;
   /** Sets the size of the radio indicator. */

@@ -1,0 +1,6 @@
+/* ── Field error icon (prefixes TextInput / TextArea error messages) ────── */
+.akds-field-error-icon {
+  display: inline-flex;
+  vertical-align: text-bottom;
+  margin-inline-end: var(--akds-spacing-50);
+}

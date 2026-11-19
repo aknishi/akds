@@ -297,3 +297,20 @@ describe('TabList', () => {
     });
   });
 });
+
+describe('Tabs ARIA linkage', () => {
+  it('links each tab to its panel and keeps inactive panels hidden but present', () => {
+    render(<TabsFixture />);
+    const tabA = screen.getByRole('tab', { name: 'Tab A' });
+    const tabB = screen.getByRole('tab', { name: 'Tab B' });
+    const panelA = screen.getByRole('tabpanel', { name: 'Tab A' });
+    expect(tabA).toHaveAttribute('aria-controls', panelA.id);
+    expect(panelA).toHaveAttribute('aria-labelledby', tabA.id);
+    expect(panelA).toHaveTextContent('Panel A');
+
+    const panelB = document.getElementById(tabB.getAttribute('aria-controls')!)!;
+    expect(panelB).toBeInTheDocument();
+    expect(panelB).not.toBeVisible();
+    expect(panelB).toBeEmptyDOMElement();
+  });
+});

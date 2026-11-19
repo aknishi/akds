@@ -180,6 +180,7 @@
 }
 
 /* ── Listbox ───────────────────────────────────────────────────────────── */
+/* Base styles double as the fallback for browsers without the Popover API. */
 .akds-combobox__listbox {
   position: absolute;
   top: calc(100% + var(--akds-spacing-50));
@@ -196,6 +197,29 @@
   max-height: 240px;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+/* Native popover: top layer, so overflow containers and dialogs can't clip it. */
+@supports selector(:popover-open) {
+  .akds-combobox__listbox[popover] {
+    position: fixed;
+    top: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+    margin: 0;
+  }
+}
+
+/* Anchored to the control; flips above it when there is no room below. */
+@supports selector(:popover-open) and (position-area: block-end) {
+  .akds-combobox__listbox[popover] {
+    inset: auto;
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+    width: anchor-size(width);
+    margin-block-start: var(--akds-spacing-50);
+  }
 }
 
 /* ── Option ────────────────────────────────────────────────────────────── */

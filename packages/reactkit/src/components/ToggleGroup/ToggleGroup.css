@@ -37,3 +37,18 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* Forced colors removes box-shadow and replaces author backgrounds, so state
+   and boundaries drawn with them disappear. System color keywords are kept. */
+@media (forced-colors: active) {
+  .akds-toggle-group {
+    outline: 1px solid CanvasText;
+  }
+
+  /* The pill is background + shadow only; ToggleButton marks the selected
+     item with Highlight instead. */
+  .akds-toggle-group__indicator {
+    display: none;
+  }
+}

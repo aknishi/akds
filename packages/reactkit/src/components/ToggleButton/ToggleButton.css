@@ -145,3 +145,24 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* Forced colors removes box-shadow and replaces author backgrounds, so state
+   and boundaries drawn with them disappear. System color keywords are kept. */
+@media (forced-colors: active) {
+  .akds-toggle-button--standalone {
+    outline: 1px solid ButtonText;
+    outline-offset: -1px;
+  }
+
+  /* Pressed state is a tinted fill (standalone) or a sliding pill (grouped);
+     both vanish, so mark it with the system selection colors. */
+  .akds-toggle-button--active {
+    background-color: Highlight;
+    color: HighlightText;
+  }
+
+  .akds-toggle-button--disabled {
+    color: GrayText;
+  }
+}

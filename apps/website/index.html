@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <!-- Apply a stored theme override before first paint (FOUC prevention only).
+         No stored value = follow the OS color scheme. -->
+    <script>
+      try {
+        var t = localStorage.getItem('akds-website-theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
     <title>AKDS — A React Design System</title>
     <meta
       name="description"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
@@ -115,6 +115,70 @@ describe('RadioGroup', () => {
         </RadioGroup>,
       );
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('accessible name', () => {
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('forwards aria-label to the fieldset when no legend is given', () => {
+      render(
+        <RadioGroup name="size" aria-label="Size">
+          <Radio value="s" label="Small" />
+        </RadioGroup>,
+      );
+      expect(screen.getByRole('group', { name: 'Size' })).toBeInTheDocument();
+    });
+
+    it('forwards aria-labelledby to the fieldset', () => {
+      render(
+        <>
+          <h2 id="size-heading">Choose a size</h2>
+          <RadioGroup name="size" aria-labelledby="size-heading">
+            <Radio value="s" label="Small" />
+          </RadioGroup>
+        </>,
+      );
+      expect(screen.getByRole('group', { name: 'Choose a size' })).toBeInTheDocument();
+    });
+
+    it('warns in development when the group has no accessible name', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <RadioGroup name="size">
+          <Radio value="s" label="Small" />
+        </RadioGroup>,
+      );
+      expect(warn).toHaveBeenCalledWith(expect.stringContaining('RadioGroup "size" has no accessible name'));
+    });
+
+    it('does not warn when a legend, aria-label or aria-labelledby is provided', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      render(
+        <>
+          <RadioGroup name="a" legend="A"><Radio value="1" label="One" /></RadioGroup>
+          <RadioGroup name="b" aria-label="B"><Radio value="1" label="One" /></RadioGroup>
+          <RadioGroup name="c" aria-labelledby="x"><Radio value="1" label="One" /></RadioGroup>
+        </>,
+      );
+      expect(warn).not.toHaveBeenCalled();
+    });
+
+    it('does not warn in production', () => {
+      const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      vi.stubEnv('NODE_ENV', 'production');
+      try {
+        render(
+          <RadioGroup name="size">
+            <Radio value="s" label="Small" />
+          </RadioGroup>,
+        );
+      } finally {
+        vi.unstubAllEnvs();
+      }
+      expect(warn).not.toHaveBeenCalled();
     });
   });
 });

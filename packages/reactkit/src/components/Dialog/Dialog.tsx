@@ -5,20 +5,16 @@ import './Dialog.css';
 import type { DialogProps } from './Dialog.types';
 import { CloseIcon } from '@aknishi/akds-icons';
 import { IconButton } from '../IconButton';
-import { makePrefixer } from '../../utils';
+import { makePrefixer, useModalDialog } from '../../utils';
 
 const withBaseName = makePrefixer('akds-dialog');
 
-const FOCUSABLE_SELECTORS = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  '[tabindex]:not([tabindex="-1"])',
-].join(', ');
-
-export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
+/**
+ * A native modal `<dialog>` opened with `showModal()`. The browser provides
+ * the top layer, `::backdrop`, inert page, focus containment, Escape handling
+ * and focus return to the trigger — none of it is reimplemented here.
+ */
+export const Dialog = React.forwardRef<HTMLDialogElement, DialogProps>(
   function Dialog(
     {
       open,
@@ -32,110 +28,41 @@ export const Dialog = React.forwardRef<HTMLDivElement, DialogProps>(
     },
     ref,
   ) {
-    const panelRef = React.useRef<HTMLDivElement>(null);
     const titleId = React.useId();
-    const [isClosing, setIsClosing] = React.useState(false);
-    const wasOpenRef = React.useRef(false);
+    const { dialogRef, mounted, dialogProps } = useModalDialog({
+      open,
+      onClose,
+      lightDismiss: !disableBackdropClose,
+    });
 
-    React.useImperativeHandle(ref, () => panelRef.current!);
+    React.useImperativeHandle(ref, () => dialogRef.current!, [mounted]);
 
-    // useLayoutEffect (not useEffect): this must resolve before the browser
-    // paints. With useEffect, the render where `open` first flips false
-    // commits with isClosing still false and returns null — the browser
-    // paints that empty frame — and only then does the effect fire and
-    // remount the dialog as a brand-new node already mid-close-animation,
-    // producing a visible flash/pop.
-    React.useLayoutEffect(() => {
-      if (open) {
-        wasOpenRef.current = true;
-        setIsClosing(false);
-      } else if (wasOpenRef.current) {
-        setIsClosing(true);
-      }
-    }, [open]);
-
-    // Focus first focusable element when opened
-    React.useEffect(() => {
-      if (!open || !panelRef.current) return;
-      const firstFocusable = panelRef.current.querySelector<HTMLElement>(FOCUSABLE_SELECTORS);
-      firstFocusable?.focus();
-    }, [open]);
-
-    // Close on Escape and trap focus within the panel
-    React.useEffect(() => {
-      if (!open) return;
-
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          onClose();
-          return;
-        }
-
-        if (e.key === 'Tab' && panelRef.current) {
-          const focusable = Array.from(
-            panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
-          );
-          if (focusable.length === 0) { e.preventDefault(); return; }
-
-          const first = focusable[0]!;
-          const last = focusable[focusable.length - 1]!;
-
-          if (e.shiftKey && document.activeElement === first) {
-            e.preventDefault();
-            last.focus();
-          } else if (!e.shiftKey && document.activeElement === last) {
-            e.preventDefault();
-            first.focus();
-          }
-        }
-      };
-
-      document.addEventListener('keydown', handleKeyDown);
-      return () => document.removeEventListener('keydown', handleKeyDown);
-    }, [open, onClose]);
-
-    // Prevent body scroll while dialog is open
-    React.useEffect(() => {
-      if (!open) return;
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => { document.body.style.overflow = prev; };
-    }, [open]);
-
-    if (!open && !isClosing) return null;
+    if (!mounted) return null;
 
     return ReactDOM.createPortal(
-      <div
-        className="akds-dialog-backdrop"
-        onClick={disableBackdropClose ? undefined : onClose}
+      <dialog
+        ref={dialogRef}
+        {...dialogProps}
+        aria-labelledby={title ? titleId : undefined}
+        aria-label={!title ? ariaLabel : undefined}
+        className={clsx(withBaseName(), withBaseName(size), className)}
       >
-        <div
-          ref={panelRef}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby={title ? titleId : undefined}
-          aria-label={!title ? ariaLabel : undefined}
-          className={clsx(withBaseName(), withBaseName(size), { [withBaseName('closing')]: isClosing }, className)}
-          onAnimationEnd={() => { if (isClosing) setIsClosing(false); }}
-          onClick={e => e.stopPropagation()}
-        >
-          <div className={withBaseName.el('header')}>
-            {title && (
-              <h2 id={titleId} className={withBaseName.el('title')}>{title}</h2>
-            )}
-            <IconButton
-              className={withBaseName.el('close')}
-              appearance="transparent"
-              emphasis="neutral"
-              onClick={onClose}
-              aria-label="Close dialog"
-            >
-              <CloseIcon />
-            </IconButton>
-          </div>
-          <div className={withBaseName.el('body')}>{children}</div>
+        <div className={withBaseName.el('header')}>
+          {title && (
+            <h2 id={titleId} className={withBaseName.el('title')}>{title}</h2>
+          )}
+          <IconButton
+            className={withBaseName.el('close')}
+            appearance="transparent"
+            emphasis="neutral"
+            onClick={onClose}
+            aria-label="Close dialog"
+          >
+            <CloseIcon />
+          </IconButton>
         </div>
-      </div>,
+        <div className={withBaseName.el('body')}>{children}</div>
+      </dialog>,
       document.body,
     );
   },

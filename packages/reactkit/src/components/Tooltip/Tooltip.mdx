@@ -7,7 +7,7 @@ import * as TooltipStories from './Tooltip.stories';
 
 > **Available from v1.0.0**
 
-A non-interactive floating label that appears on hover or focus to provide supplementary context. Positioned relative to its trigger child and supports four placements: `top`, `right`, `bottom`, `left`. Renders in a portal to avoid clipping.
+A non-interactive floating label that appears on hover or focus to provide supplementary context. Positioned relative to its trigger child and supports four placements: `top`, `right`, `bottom`, `left`. Renders as a `popover="hint"` in the browser's top layer, so it is never clipped by overflow ancestors, and flips to the opposite side when it would overflow the viewport. The pointer can move onto the tooltip without it closing, and `Escape` dismisses it.
 
 ## Usage
 

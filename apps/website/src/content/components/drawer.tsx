@@ -65,12 +65,13 @@ export const drawer: ComponentEntry = {
     // standalone element to mount inline), so — like Toast's preview — this is
     // a static, non-interactive replica built from the component's own
     // akds-drawer* CSS classes rather than a generic trigger-button preview,
-    // so the card shows what a drawer actually looks like. The real panel is
-    // position: fixed and pinned to a viewport edge, so that's neutralized
-    // here to let it sit inline in the card instead.
+    // so the card shows what a drawer actually looks like. The visible panel
+    // is .akds-drawer__sheet (the real one sits in a viewport-filling <dialog>
+    // and scroll-snap container), so only the sheet is rendered here, sized
+    // to sit inline in the card.
     <div
-      className="akds-drawer akds-drawer--right akds-drawer--sm"
-      style={{ position: 'static', width: '100%', maxWidth: 220 }}
+      className="akds-drawer__sheet"
+      style={{ width: '100%', maxWidth: 220 }}
     >
       <div className="akds-drawer__header">
         <h2 className="akds-drawer__title">Filters</h2>
@@ -136,17 +137,19 @@ export const drawer: ComponentEntry = {
     },
   ],
   accessibilityNotes: [
-    'title doubles as the drawer\'s accessible name (aria-label) and its visible heading.',
-    'Escape and backdrop click close the drawer via onClose, unless disableBackdropClose is set.',
+    'title doubles as the drawer\'s accessible name and its visible heading. Without a title, pass aria-label so the drawer is still named.',
+    'Swiping the drawer back off-screen, Escape, the close button and a backdrop tap all request close via onClose (disableBackdropClose turns off backdrop taps only). The drawer slides out once open becomes false and snaps back if it stays true.',
+    'Rendered as a native <dialog> opened with showModal(): the rest of the page is inert, focus moves into the drawer on open and returns to the trigger on close.',
     'This site\'s own mobile navigation uses Drawer (side="left") to present the same sidebar content on small viewports.',
   ],
   props: [
     { name: 'open', type: 'boolean', description: 'Controls whether the drawer is visible. Required.' },
-    { name: 'onClose', type: '() => void', description: 'Called when the drawer requests to close. Required.' },
-    { name: 'side', type: "'left' | 'right' | 'top' | 'bottom'", default: "'left'", description: 'The side from which the drawer slides in.' },
+    { name: 'onClose', type: '() => void', description: 'Called when the user asks to close: swipe off-screen, Escape, backdrop tap or the close button. Required.' },
+    { name: 'side', type: "'left' | 'right' | 'top' | 'bottom'", default: "'right'", description: 'The side from which the drawer slides in.' },
     { name: 'size', type: "'sm' | 'md' | 'lg' | 'full'", default: "'md'", description: 'Width (left/right) or height (top/bottom) of the panel.' },
     { name: 'title', type: 'React.ReactNode', description: 'Title rendered in the drawer header. Also used as aria-label.' },
-    { name: 'disableBackdropClose', type: 'boolean', default: 'false', description: 'When true, clicking the backdrop does not close the drawer.' },
+    { name: 'disableBackdropClose', type: 'boolean', default: 'false', description: 'When true, tapping the backdrop does not close the drawer. Swipe, Escape and the close button still do.' },
+    { name: 'aria-label', type: 'string', description: 'Accessible name for the drawer when no title is provided.' },
     { name: 'children', type: 'React.ReactNode', description: 'Content rendered inside the drawer body. Required.' },
   ],
   doDont: [

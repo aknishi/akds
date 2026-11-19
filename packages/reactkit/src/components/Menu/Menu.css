@@ -1,50 +1,6 @@
-/* ── Animations ────────────────────────────────────────────────────────── */
-@keyframes akds-menu-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes akds-menu-out {
-  from {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-6px) scale(0.97);
-  }
-}
-
-@keyframes akds-menu-in-top {
-  from {
-    opacity: 0;
-    transform: translateY(0) scale(0.97);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(-6px) scale(1);
-  }
-}
-
-@keyframes akds-menu-out-top {
-  from {
-    opacity: 1;
-    transform: translateY(-6px) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(0) scale(0.97);
-  }
-}
-
 /* ── Base ──────────────────────────────────────────────────────────────── */
 .akds-menu {
+  --akds-menu-enter-offset: -4px;
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -52,6 +8,7 @@
   padding: 0;
   padding-top: var(--akds-spacing-100);
   padding-bottom: var(--akds-spacing-100);
+  color: inherit;
   background: var(--akds-color-surface-overlay);
   border: 1px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-lg);
@@ -60,26 +17,107 @@
   box-sizing: border-box;
   outline: none;
   transform-origin: top center;
-  animation: akds-menu-in 150ms ease-out forwards;
 }
 
-.akds-menu--closing {
-  animation: akds-menu-out 120ms ease-in forwards;
-}
-
-/* ── Top placement ─────────────────────────────────────────────────────── */
 .akds-menu--top {
-  animation-name: akds-menu-in-top;
+  --akds-menu-enter-offset: 4px;
 }
 
-.akds-menu--top.akds-menu--closing {
-  animation-name: akds-menu-out-top;
+/*
+ * A closed popover must stay hidden: `display: flex` above would otherwise
+ * override the UA's `[popover]:not(:popover-open) { display: none }`.
+ * Browsers without the Popover API drop this rule (unknown pseudo-class) and
+ * keep the script-positioned fallback.
+ */
+.akds-menu[popover]:not(:popover-open) {
+  display: none;
 }
 
-/* ── Reduced motion ─────────────────────────────────────────────────────── */
+/* ── Anchor positioning (native popovers) ─────────────────────────────── */
+@supports (position-area: block-end) {
+  .akds-menu[popover] {
+    inset: auto;
+    margin: 0;
+    position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  }
+
+  .akds-menu[popover][data-placement="bottom-left"] {
+    position-area: block-end span-inline-end;
+    margin-block-start: var(--akds-spacing-50);
+  }
+
+  .akds-menu[popover][data-placement="bottom-right"] {
+    position-area: block-end span-inline-start;
+    margin-block-start: var(--akds-spacing-50);
+  }
+
+  .akds-menu[popover][data-placement="top-left"] {
+    position-area: block-start span-inline-end;
+    margin-block-end: var(--akds-spacing-50);
+  }
+
+  .akds-menu[popover][data-placement="top-right"] {
+    position-area: block-start span-inline-start;
+    margin-block-end: var(--akds-spacing-50);
+  }
+}
+
+/* No anchor positioning: script sets fixed top/left coordinates instead. */
+@supports not (position-area: block-end) {
+  .akds-menu[popover] {
+    inset: auto;
+    margin: 0;
+  }
+}
+
+/* ── Open / close transitions ─────────────────────────────────────────── */
+/*
+ * Closed (and closing) state. `display` + `overlay` with allow-discrete keep a
+ * popover rendered in the top layer until the exit finishes. Where those can't
+ * transition, script sets [data-closing] and waits before hiding.
+ */
+.akds-menu {
+  opacity: 0;
+  transition-property: opacity, translate, display, overlay;
+  transition-duration: 120ms;
+  transition-timing-function: ease-in;
+  transition-behavior: allow-discrete;
+}
+
+/* Open state: native :popover-open, or the --open class for inline/fallback menus. */
+.akds-menu:is(:popover-open, .akds-menu--open):not([data-closing]) {
+  opacity: 1;
+  transition-duration: 100ms;
+  transition-timing-function: ease-out;
+}
+
+@starting-style {
+  .akds-menu:is(:popover-open, .akds-menu--open):not([data-closing]) {
+    opacity: 0;
+  }
+}
+
+/* Movement only for users who haven't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .akds-menu {
+    translate: 0 var(--akds-menu-enter-offset);
+  }
+
+  .akds-menu:is(:popover-open, .akds-menu--open):not([data-closing]) {
+    translate: 0 0;
+  }
+
+  @starting-style {
+    .akds-menu:is(:popover-open, .akds-menu--open):not([data-closing]) {
+      translate: 0 var(--akds-menu-enter-offset);
+    }
+  }
+}
+
+/* Reduced motion: a short fade only. */
 @media (prefers-reduced-motion: reduce) {
   .akds-menu,
-  .akds-menu--closing {
-    animation: none;
+  .akds-menu:is(:popover-open, .akds-menu--open):not([data-closing]) {
+    transition-duration: 50ms;
   }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './Switch.css';
 import type { SwitchProps } from './Switch.types';
-import { makePrefixer } from '../../utils';
+import { makePrefixer, splitInputProps } from '../../utils';
 
 const withBaseName = makePrefixer('akds-switch');
 
@@ -22,6 +22,8 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
     },
     ref,
   ) {
+    const { inputProps, labelProps } = splitInputProps(rest);
+
     return (
       <label
         className={clsx(
@@ -30,12 +32,15 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           { [withBaseName('disabled')]: disabled },
           className,
         )}
-        {...rest}
+        {...labelProps}
       >
         <input
           ref={ref}
           type="checkbox"
           role="switch"
+          // Native switch semantics (and haptics on iOS) where supported;
+          // role="switch" covers every other browser. React 18 has no typing for it.
+          {...({ switch: '' } as Record<string, string>)}
           className={withBaseName.el('input')}
           checked={checked}
           defaultChecked={defaultChecked}
@@ -43,7 +48,7 @@ export const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
           name={name}
           value={value}
           disabled={disabled}
-          aria-disabled={disabled || undefined}
+          {...inputProps}
         />
         <span className={withBaseName.el('track')} aria-hidden="true">
           <span className={withBaseName.el('thumb')} />

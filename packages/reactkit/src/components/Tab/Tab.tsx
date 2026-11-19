@@ -22,7 +22,7 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(
     },
     ref,
   ) {
-    const { activeTab, onTabChange } = React.useContext(TabContext);
+    const { activeTab, onTabChange, getId } = React.useContext(TabContext);
     const isActive = activeTab === value;
     const rippleRef = React.useRef<RippleBaseHandle>(null);
 
@@ -43,8 +43,9 @@ export const Tab = React.forwardRef<HTMLButtonElement, TabProps>(
         ref={ref}
         type="button"
         role="tab"
+        id={getId('tab', value)}
+        aria-controls={getId('panel', value)}
         aria-selected={isActive}
-        aria-disabled={disabled || undefined}
         disabled={disabled}
         tabIndex={isActive ? 0 : -1}
         className={clsx(

@@ -146,3 +146,27 @@
     transition: none;
   }
 }
+
+/* ── Native constraint validation (:user-invalid) ──────────────────────────
+   Matches the `error` prop look once the user has edited and left a field
+   that fails `required` / `pattern` / `type` etc., or after a submit attempt.
+   Kept as separate rules so an unsupported selector can't drop the other;
+   the --user-invalid class (set from JS) is the fallback. */
+.akds-text-input__control:has(.akds-text-input__input:user-invalid) {
+  border-color: var(--akds-color-border-error-default);
+}
+
+.akds-text-input--user-invalid .akds-text-input__control {
+  border-color: var(--akds-color-border-error-default);
+}
+
+.akds-text-input__error-text {
+  margin: 0;
+  margin-top: var(--akds-spacing-50);
+  padding-left: var(--akds-spacing-150);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-error-default);
+  line-height: var(--akds-font-line-height-normal);
+}

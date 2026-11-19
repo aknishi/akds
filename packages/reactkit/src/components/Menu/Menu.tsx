@@ -2,36 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
 import './Menu.css';
-import type { MenuProps, MenuPlacement } from './Menu.types';
+import type { MenuProps } from './Menu.types';
 import { makePrefixer } from '../../utils';
 import { OptionContext } from '../Option/OptionContext';
 import type { OptionContextValue } from '../Option/OptionContext';
+import { useAnchoredPopover } from '../../utils/useAnchoredPopover';
 
 const withBaseName = makePrefixer('akds-menu');
 
 const MENUITEM_SELECTOR = '[role="menuitem"]';
-const GAP = 4;
-
-function calcPosition(
-  trigger: HTMLElement,
-  menu: HTMLElement,
-  placement: MenuPlacement,
-): { top: number; left: number; vertical: 'top' | 'bottom' } {
-  const tr = trigger.getBoundingClientRect();
-  const mh = menu.getBoundingClientRect().height;
-
-  let vertical: 'top' | 'bottom' = placement.startsWith('bottom') ? 'bottom' : 'top';
-  const horizontal: 'left' | 'right' = placement.endsWith('left') ? 'left' : 'right';
-
-  if (vertical === 'bottom' && tr.bottom + GAP + mh > window.innerHeight) {
-    vertical = 'top';
-  }
-
-  const top = vertical === 'bottom' ? tr.bottom + GAP : tr.top - mh - GAP;
-  const left = horizontal === 'left' ? tr.left : tr.right - menu.getBoundingClientRect().width;
-
-  return { top, left, vertical };
-}
 
 export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
   function Menu(
@@ -49,36 +28,32 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
     ref,
   ) {
     const menuRef = React.useRef<HTMLUListElement>(null);
-    const [pos, setPos] = React.useState<{ top: number; left: number } | null>(null);
-    const [vertical, setVertical] = React.useState<'top' | 'bottom'>(
-      placement.startsWith('top') ? 'top' : 'bottom',
-    );
-    const [mounted, setMounted] = React.useState(open);
-    const [closing, setClosing] = React.useState(false);
     const focusedOnOpenRef = React.useRef(false);
-    const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+    const pointerOpenRef = React.useRef(false);
     const generatedId = React.useId();
     const menuId = id ?? generatedId;
 
-    React.useEffect(() => {
-      if (open) {
-        if (closeTimerRef.current) {
-          clearTimeout(closeTimerRef.current);
-          closeTimerRef.current = null;
-        }
-        setClosing(false);
-        setMounted(true);
-      } else {
-        setClosing(true);
-        closeTimerRef.current = setTimeout(() => {
-          setMounted(false);
-          setClosing(false);
-        }, 120);
-      }
-      return () => {
-        if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
-      };
-    }, [open]);
+    const onOpenChangeRef = React.useRef(onOpenChange);
+    onOpenChangeRef.current = onOpenChange;
+    const handleDismiss = React.useCallback(() => onOpenChangeRef.current?.(false), []);
+
+    const {
+      mounted,
+      native,
+      popoverProps,
+      position,
+      usesJsPosition,
+      skipFocusRestore,
+    } = useAnchoredPopover({
+      open,
+      popoverRef: menuRef,
+      anchorRef: triggerRef,
+      mode: 'auto',
+      placement,
+      legacyPositioning: 'js',
+      onDismiss: handleDismiss,
+      restoreFocus: true,
+    });
 
     React.useImperativeHandle(ref, () => menuRef.current!);
 
@@ -90,25 +65,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       parentDisabled: false,
     }), []);
 
-    const updatePosition = React.useCallback(() => {
-      if (!triggerRef?.current || !menuRef.current) return;
-      const next = calcPosition(triggerRef.current, menuRef.current, placement);
-      setPos(prev => (prev?.top === next.top && prev?.left === next.left ? prev : next));
-      setVertical(next.vertical);
-    }, [triggerRef, placement]);
-
-    // Calculate position once the menu is mounted in the DOM
-    React.useLayoutEffect(() => {
-      if (!mounted || !open || !triggerRef?.current || !menuRef.current) return;
-      updatePosition();
-    }, [mounted, open, updatePosition]);
-
-    // Inline (non-portal) menus have no viewport-based flip — vertical side
-    // always matches the placement prop directly.
-    React.useEffect(() => {
-      if (triggerRef) return;
-      setVertical(placement.startsWith('top') ? 'top' : 'bottom');
-    }, [triggerRef, placement]);
+    const vertical: 'top' | 'bottom' = position?.vertical ?? (placement.startsWith('top') ? 'top' : 'bottom');
 
     // Set aria-expanded and aria-controls on the trigger element
     React.useEffect(() => {
@@ -126,49 +83,68 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       };
     }, [open, triggerRef, menuId]);
 
-    // Reset pos and focus flag after the closing animation finishes (when unmounted)
+    // Only keyboard opens move focus into the menu. A pointer click on the
+    // trigger leaves focus on the trigger; ArrowDown on the trigger enters.
     React.useEffect(() => {
-      if (!mounted) {
-        setPos(null);
-        focusedOnOpenRef.current = false;
-      }
-    }, [mounted]);
-
-    // Focus the first item once after open — for portal, wait until pos is set
-    React.useEffect(() => {
-      if (!open || focusedOnOpenRef.current) return;
-      if (triggerRef && !pos) return;
-      const first = menuRef.current?.querySelector<HTMLElement>(MENUITEM_SELECTOR);
-      if (first) {
-        first.focus();
-        focusedOnOpenRef.current = true;
-      }
-    }, [open, pos, triggerRef]);
-
-    React.useEffect(() => {
-      if (!open || !triggerRef?.current) return;
-      window.addEventListener('scroll', updatePosition, true);
-      window.addEventListener('resize', updatePosition);
-      return () => {
-        window.removeEventListener('scroll', updatePosition, true);
-        window.removeEventListener('resize', updatePosition);
+      const trigger = triggerRef?.current;
+      if (!trigger) return;
+      const handleClick = (e: MouseEvent) => {
+        // detail === 0 → click synthesised from Enter/Space.
+        pointerOpenRef.current = e.detail > 0;
+        setTimeout(() => { pointerOpenRef.current = false; }, 0);
       };
-    }, [open, triggerRef, updatePosition]);
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key !== 'ArrowDown') return;
+        e.preventDefault();
+        if (menuRef.current && open) {
+          menuRef.current.querySelector<HTMLElement>(MENUITEM_SELECTOR)?.focus();
+        } else {
+          onOpenChangeRef.current?.(true);
+        }
+      };
+      trigger.addEventListener('click', handleClick, true);
+      trigger.addEventListener('keydown', handleKeyDown);
+      return () => {
+        trigger.removeEventListener('click', handleClick, true);
+        trigger.removeEventListener('keydown', handleKeyDown);
+      };
+    }, [triggerRef, open]);
 
+    // Focus the first item once after a keyboard/programmatic open. With script
+    // positioning, wait until the menu has been placed.
     React.useEffect(() => {
-      if (!open) return;
+      if (!open) {
+        focusedOnOpenRef.current = false;
+        return;
+      }
+      if (focusedOnOpenRef.current) return;
+      if (usesJsPosition && !position) return;
+      focusedOnOpenRef.current = true;
+      if (pointerOpenRef.current && triggerRef?.current) {
+        const trigger = triggerRef.current;
+        // Some browsers (Safari) don't focus buttons on click; arrow keys must still work.
+        if (document.activeElement !== trigger) trigger.focus({ focusVisible: false } as FocusOptions);
+        return;
+      }
+      menuRef.current?.querySelector<HTMLElement>(MENUITEM_SELECTOR)?.focus();
+    }, [open, position, usesJsPosition, triggerRef]);
+
+    // Without native popover (inline menus, older browsers) handle outside
+    // clicks and Escape from script; native popovers light-dismiss themselves.
+    React.useEffect(() => {
+      if (!open || native) return;
 
       const handleOutsideMouseDown = (e: MouseEvent) => {
         const target = e.target as Node;
         if (menuRef.current?.contains(target)) return;
         if (triggerRef?.current?.contains(target)) return;
-        onOpenChange?.(false);
+        onOpenChangeRef.current?.(false);
       };
 
       const handleDocKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           e.preventDefault();
-          onOpenChange?.(false);
+          onOpenChangeRef.current?.(false);
         }
       };
 
@@ -178,7 +154,7 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
         document.removeEventListener('mousedown', handleOutsideMouseDown);
         document.removeEventListener('keydown', handleDocKeyDown);
       };
-    }, [open, triggerRef, onOpenChange]);
+    }, [open, native, triggerRef]);
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLUListElement>) => {
       const items = Array.from(
@@ -208,6 +184,8 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
           onOpenChange?.(false);
           break;
         case 'Tab':
+          // Tab leaves the menu system — don't pull focus back to the trigger.
+          skipFocusRestore();
           onOpenChange?.(false);
           break;
       }
@@ -225,21 +203,23 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
           id={menuId}
           className={clsx(
             withBaseName(),
-            { [withBaseName('closing')]: closing, [withBaseName('top')]: vertical === 'top' },
+            { [withBaseName('open')]: open, [withBaseName('top')]: vertical === 'top' },
             className,
           )}
+          data-placement={triggerRef ? placement : undefined}
           style={
-            triggerRef
+            usesJsPosition
               ? {
                   position: 'fixed',
-                  top: pos?.top ?? 0,
-                  left: pos?.left ?? 0,
-                  opacity: pos ? undefined : 0,
-                  pointerEvents: pos ? undefined : 'none',
+                  top: position?.top ?? 0,
+                  left: position?.left ?? 0,
+                  opacity: position ? undefined : 0,
+                  pointerEvents: position ? undefined : 'none',
                 }
               : undefined
           }
           onKeyDown={handleKeyDown}
+          {...popoverProps}
           {...rest}
         >
           {children}
@@ -247,7 +227,9 @@ export const Menu = React.forwardRef<HTMLUListElement, MenuProps>(
       </OptionContext.Provider>
     );
 
-    if (triggerRef) {
+    // A native popover renders in place (the top layer handles stacking and
+    // keeps it inside any modal <dialog>); older browsers fall back to a portal.
+    if (triggerRef && !native) {
       return ReactDOM.createPortal(menu, document.body);
     }
 

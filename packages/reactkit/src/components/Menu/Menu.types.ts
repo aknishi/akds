@@ -16,14 +16,16 @@ export interface MenuProps extends React.HTMLAttributes<HTMLUListElement> {
   /** Option (or MenuItem) elements. */
   children: React.ReactNode;
   /**
-   * Ref to the element the menu anchors to. When provided the menu renders in
-   * a portal with fixed positioning instead of inline.
+   * Ref to the element the menu anchors to. When provided the menu becomes a
+   * native popover in the top layer, anchored to the trigger with CSS anchor
+   * positioning (script positioning where unsupported). Browsers without the
+   * Popover API fall back to a portal with fixed positioning.
    */
   triggerRef?: React.RefObject<HTMLElement>;
   /**
    * Preferred placement relative to the trigger. Defaults to 'bottom-left'.
-   * Automatically flips to the opposite vertical side when there is not enough
-   * space.
+   * Automatically flips to the opposite side (vertically or horizontally) when
+   * there is not enough space.
    */
   placement?: MenuPlacement;
 }

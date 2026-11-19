@@ -7,6 +7,7 @@ import { ToastProvider } from '../../../components/Toast/Toast';
 import { useToast } from '../../../components/Toast/useToast';
 import type { ToastContextValue } from '../../../components/Toast/ToastContext';
 import type { ToastProviderProps } from '../../../components/Toast/Toast.types';
+import { stubPopoverApi } from '../Menu/popoverStub';
 
 expect.extend(toHaveNoViolations);
 
@@ -29,6 +30,14 @@ function Trigger({ onReady }: { onReady: (api: ToastContextValue) => void }) {
   const api = useToast();
   React.useEffect(() => { onReady(api); }, [api, onReady]);
   return null;
+}
+
+// Toast cards carry no live-region role (announcements go through
+// ariaNotify()/the provider's announcer), so query them by class.
+function getToast(): HTMLElement {
+  const toast = document.querySelector<HTMLElement>('.akds-toast');
+  if (!toast) throw new Error('No toast rendered');
+  return toast;
 }
 
 function renderToastProvider(providerProps: Partial<ToastProviderProps> = {}) {
@@ -65,7 +74,7 @@ describe('Toast', () => {
   it('applies base and default emphasis classes', () => {
     const { show } = renderToastProvider();
     act(() => { show({ message: 'Hello' }); });
-    const toast = screen.getByRole('status');
+    const toast = getToast();
     expect(toast).toHaveClass('akds-toast');
     expect(toast).toHaveClass('akds-toast--neutral');
   });
@@ -74,14 +83,14 @@ describe('Toast', () => {
     Range.prototype.getClientRects = vi.fn().mockReturnValue([{}]);
     const { show } = renderToastProvider();
     act(() => { show({ message: 'One line' }); });
-    expect(screen.getByRole('status')).toHaveClass('akds-toast--single-line');
+    expect(getToast()).toHaveClass('akds-toast--single-line');
   });
 
   it('top-aligns icon/message/close once the message wraps to more than one line', () => {
     Range.prototype.getClientRects = vi.fn().mockReturnValue([{}, {}]);
     const { show } = renderToastProvider();
     act(() => { show({ message: 'A message long enough to wrap onto more than one line' }); });
-    expect(screen.getByRole('status')).not.toHaveClass('akds-toast--single-line');
+    expect(getToast()).not.toHaveClass('akds-toast--single-line');
   });
 
   it('applies the correct class for each emphasis', () => {
@@ -93,18 +102,145 @@ describe('Toast', () => {
     }
   });
 
-  it('uses role="alert" and aria-live="assertive" for destructive toasts', () => {
+  it('does not make toast cards live regions, so announcements are never doubled', () => {
     const { show } = renderToastProvider();
     act(() => { show({ emphasis: 'destructive', message: 'Something broke' }); });
-    const toast = screen.getByRole('alert');
-    expect(toast).toHaveAttribute('aria-live', 'assertive');
+    act(() => { show({ emphasis: 'success', message: 'All good' }); });
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument();
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+    for (const toast of document.querySelectorAll('.akds-toast')) {
+      expect(toast).not.toHaveAttribute('aria-live');
+    }
   });
 
-  it('uses role="status" and aria-live="polite" for non-destructive toasts', () => {
+  it('renders the viewport as a labelled region', () => {
     const { show } = renderToastProvider();
-    act(() => { show({ emphasis: 'success', message: 'All good' }); });
-    const toast = screen.getByRole('status');
-    expect(toast).toHaveAttribute('aria-live', 'polite');
+    act(() => { show({ message: 'In a region' }); });
+    expect(screen.getByRole('region', { name: 'Notifications' })).toContainElement(screen.getByText('In a region'));
+  });
+
+  describe('top layer (popover="manual")', () => {
+    const proto = HTMLElement.prototype as unknown as Record<string, unknown>;
+    let showPopover: ReturnType<typeof vi.fn>;
+
+    beforeEach(() => {
+      showPopover = vi.fn();
+      Object.defineProperty(proto, 'popover', { configurable: true, value: null, writable: true });
+      proto.showPopover = showPopover;
+    });
+
+    afterEach(() => {
+      delete proto.popover;
+      delete proto.showPopover;
+    });
+
+    it('promotes the viewport to a manual popover and shows it', () => {
+      const { show } = renderToastProvider();
+      act(() => { show({ message: 'Top layer' }); });
+      const viewport = screen.getByText('Top layer').closest('.akds-toast__viewport');
+      expect(viewport).toHaveAttribute('popover', 'manual');
+      expect(showPopover).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('inside a modal dialog', () => {
+    let popover: ReturnType<typeof stubPopoverApi>;
+    beforeEach(() => { popover = stubPopoverApi(); });
+    afterEach(() => { popover.restore(); });
+
+    it('moves into the open modal dialog so toasts stay above it and interactive, and back out on close', async () => {
+      const { show } = renderToastProvider();
+      act(() => { show({ message: 'Saved' }); });
+      const host = document.querySelector('.akds-toast__host')!;
+      expect(host.parentElement).toBe(document.body);
+
+      const dialog = document.createElement('dialog');
+      document.body.appendChild(dialog);
+      await act(async () => { dialog.showModal(); });
+      expect(host.parentElement).toBe(dialog);
+      // Same nodes, not a remount.
+      expect(dialog).toContainElement(screen.getByText('Saved'));
+
+      await act(async () => { dialog.close(); });
+      expect(host.parentElement).toBe(document.body);
+      dialog.remove();
+    });
+
+    it('returns to <body> when an open dialog is removed from the page', async () => {
+      const { show } = renderToastProvider();
+      act(() => { show({ message: 'Saved' }); });
+      const host = document.querySelector('.akds-toast__host')!;
+      const dialog = document.createElement('dialog');
+      document.body.appendChild(dialog);
+      await act(async () => { dialog.showModal(); });
+      await act(async () => { dialog.remove(); });
+      expect(host.parentElement).toBe(document.body);
+    });
+  });
+
+  it('leaves the viewport as a plain fixed element when the Popover API is unavailable', () => {
+    const { show } = renderToastProvider();
+    act(() => { show({ message: 'No popover' }); });
+    expect(screen.getByText('No popover').closest('.akds-toast__viewport')).not.toHaveAttribute('popover');
+  });
+
+  describe('focus management on dismiss', () => {
+    function renderWithOpener() {
+      const apiRef: { current: ToastContextValue | null } = { current: null };
+      const utils = render(
+        <ToastProvider autoDismiss={false}>
+          <button type="button">Opener</button>
+          <Trigger onReady={api => { apiRef.current = api; }} />
+        </ToastProvider>,
+      );
+      return { ...utils, api: () => apiRef.current! };
+    }
+
+    it('moves focus to the next remaining toast when a focused toast is dismissed', async () => {
+      const user = userEvent.setup();
+      const { api } = renderWithOpener();
+      act(() => { api().show({ message: 'First' }); });
+      act(() => { api().show({ message: 'Second' }); });
+      const [firstClose, secondClose] = screen.getAllByRole('button', { name: 'Dismiss notification' });
+      firstClose!.focus();
+      await user.click(firstClose!);
+      expect(secondClose).toHaveFocus();
+    });
+
+    it('returns focus to where it was before entering the toasts when the last one is dismissed', async () => {
+      const user = userEvent.setup();
+      const { api } = renderWithOpener();
+      act(() => { api().show({ message: 'Only' }); });
+      const opener = screen.getByRole('button', { name: 'Opener' });
+      opener.focus();
+      await user.tab();
+      const close = screen.getByRole('button', { name: 'Dismiss notification' });
+      expect(close).toHaveFocus();
+      await user.keyboard('{Enter}');
+      expect(opener).toHaveFocus();
+    });
+
+    it('falls back to the element focused when the toast was shown', () => {
+      const { api } = renderWithOpener();
+      const opener = screen.getByRole('button', { name: 'Opener' });
+      opener.focus();
+      let id = '';
+      act(() => { id = api().show({ message: 'Triggered' }); });
+      // Programmatic focus — no relatedTarget for the region to record.
+      act(() => { screen.getByRole('button', { name: 'Dismiss notification' }).focus(); });
+      act(() => { api().dismiss(id); });
+      expect(opener).toHaveFocus();
+    });
+
+    it('does not move focus when the dismissed toast was not focused', () => {
+      const { api } = renderWithOpener();
+      let id = '';
+      act(() => { id = api().show({ message: 'Unfocused' }); });
+      const opener = screen.getByRole('button', { name: 'Opener' });
+      opener.focus();
+      act(() => { api().dismiss(id); });
+      expect(opener).toHaveFocus();
+    });
   });
 
   it('stacks multiple toasts, newest last in the DOM', () => {
@@ -175,7 +311,7 @@ describe('Toast', () => {
     it('auto-dismisses after the default 7000ms duration', () => {
       const { show } = renderToastProvider();
       act(() => { show({ message: 'Auto' }); });
-      const toast = screen.getByRole('status');
+      const toast = getToast();
       act(() => { vi.advanceTimersByTime(7000); });
       expect(toast).toHaveClass('akds-toast--closing');
     });
@@ -183,17 +319,27 @@ describe('Toast', () => {
     it('respects a custom duration passed to show', () => {
       const { show } = renderToastProvider();
       act(() => { show({ message: 'Quick', duration: 2000 }); });
-      const toast = screen.getByRole('status');
+      const toast = getToast();
       act(() => { vi.advanceTimersByTime(1999); });
       expect(toast).not.toHaveClass('akds-toast--closing');
       act(() => { vi.advanceTimersByTime(1); });
       expect(toast).toHaveClass('akds-toast--closing');
     });
 
+    it('does not restart a toast\'s countdown when another toast is shown', () => {
+      const { show } = renderToastProvider({ duration: 1000 });
+      act(() => { show({ message: 'First' }); });
+      const first = getToast();
+      act(() => { vi.advanceTimersByTime(600); });
+      act(() => { show({ message: 'Second' }); });
+      act(() => { vi.advanceTimersByTime(400); });
+      expect(first).toHaveClass('akds-toast--closing');
+    });
+
     it('respects a custom default duration on the provider', () => {
       const { show } = renderToastProvider({ duration: 1000 });
       act(() => { show({ message: 'Provider default' }); });
-      const toast = screen.getByRole('status');
+      const toast = getToast();
       act(() => { vi.advanceTimersByTime(1000); });
       expect(toast).toHaveClass('akds-toast--closing');
     });
@@ -201,7 +347,7 @@ describe('Toast', () => {
     it('does not auto-dismiss when autoDismiss is false', () => {
       const { show } = renderToastProvider();
       act(() => { show({ message: 'Persistent', autoDismiss: false }); });
-      const toast = screen.getByRole('status');
+      const toast = getToast();
       act(() => { vi.advanceTimersByTime(60_000); });
       expect(toast).not.toHaveClass('akds-toast--closing');
     });
@@ -209,7 +355,7 @@ describe('Toast', () => {
     it('respects a custom default autoDismiss on the provider', () => {
       const { show } = renderToastProvider({ autoDismiss: false });
       act(() => { show({ message: 'Provider persistent' }); });
-      const toast = screen.getByRole('status');
+      const toast = getToast();
       act(() => { vi.advanceTimersByTime(60_000); });
       expect(toast).not.toHaveClass('akds-toast--closing');
     });
@@ -273,6 +419,31 @@ describe('Toast', () => {
       act(() => { vi.advanceTimersByTime(100); });
       expect(document.querySelector('.akds-toast__announcer[aria-live="assertive"]')).toHaveTextContent('Something broke');
       expect(document.querySelector('.akds-toast__announcer[aria-live="polite"]')).toHaveTextContent('');
+    });
+
+    it('appends "Actions available" when the message contains its own controls', () => {
+      const { show } = renderToastProvider();
+      act(() => { show({ message: <>File deleted <button type="button">Undo</button></> }); });
+      act(() => { vi.advanceTimersByTime(100); });
+      expect(document.querySelector('.akds-toast__announcer[aria-live="polite"]')).toHaveTextContent('File deleted Undo. Actions available');
+    });
+
+    it('uses document.ariaNotify() instead of the live regions when available', () => {
+      const ariaNotify = vi.fn();
+      (document as unknown as Record<string, unknown>).ariaNotify = ariaNotify;
+      try {
+        const { show } = renderToastProvider();
+        act(() => { show({ message: 'Polite one' }); });
+        act(() => { show({ emphasis: 'destructive', message: 'Urgent one' }); });
+        act(() => { vi.advanceTimersByTime(100); });
+        expect(ariaNotify).toHaveBeenCalledWith('Polite one', { priority: 'normal' });
+        expect(ariaNotify).toHaveBeenCalledWith('Urgent one', { priority: 'high' });
+        for (const region of document.querySelectorAll('.akds-toast__announcer')) {
+          expect(region).toHaveTextContent('');
+        }
+      } finally {
+        delete (document as unknown as Record<string, unknown>).ariaNotify;
+      }
     });
 
     it('clears the live region immediately so a repeated identical message is re-announced', () => {
