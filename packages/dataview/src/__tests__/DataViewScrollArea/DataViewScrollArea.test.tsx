@@ -18,6 +18,11 @@ describe('DataViewScrollArea', () => {
     expect(screen.getByText('Rows')).toBeInTheDocument();
   });
 
+  it('is a region keyboard users can tab to, named by aria-label', () => {
+    render(<DataViewScrollArea aria-label="Orders"><p>Rows</p></DataViewScrollArea>);
+    expect(screen.getByRole('region', { name: 'Orders' })).toHaveAttribute('tabindex', '0');
+  });
+
   it('adds the scrolled modifier only while scrolled away from the top', () => {
     render(<DataViewScrollArea data-testid="area"><p>Rows</p></DataViewScrollArea>);
     const area = screen.getByTestId('area');

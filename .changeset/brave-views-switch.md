@@ -6,10 +6,12 @@ Add `@aknishi/akds-dataview`: one data source rendered as a table or as cards, b
 
 **Sorting, search, and selection**
 
+- `TableView` takes a `caption`, or `aria-label`, which names the table and the scroll region around it. The region is a tab stop, so keyboard users can scroll a wide table. `DataViewScrollArea` is a region too; name it with `aria-label`.
 - Sorting is opt-in per column with `enableSorting: true`. Table headers sort on click; `CardView` has a "Sort by" menu listing every sortable column, with a "Reverse sort order" button. Sort changes are announced to screen readers.
 - `Search` filters across columns and announces the result count.
 - `selectable` adds row checkboxes and a "Select all shown rows" checkbox, in the table's header row and in the card view's header bar. `BulkActions` acts on the original data of every selected row.
 - `getRowLabel` names rows for every row-level label, including the selection checkboxes. Defaults to the `rowHeader` column, then the first data column.
+- Search, selection, page, and sort announcements go through one live region per `useDataView`, so they don't talk over each other. Headless components can share it: `useAnnounce()` from `@aknishi/akds-dataview/headless` returns the DataView's `announce`, and `useAnnouncer()` makes a region of its own.
 
 **Cards**
 
@@ -17,6 +19,7 @@ Add `@aknishi/akds-dataview`: one data source rendered as a table or as cards, b
 - `DataViewCard` takes a `title`, plus an optional `avatar` and `subtitle` that stacks below the title. With an avatar, the checkbox, avatar, and title block center on each other; without one, the checkbox lines up with the title's first line.
 - `DataViewField` shows a column's value with its label visually hidden for screen readers. `useDataViewField(column)` returns a column's `label` and rendered `value` with no markup, for visible labels in any layout (stacked, side by side, a grid, or a `<dl>`).
 - `className` and other attributes go on the outer frame; `aria-label` and `aria-labelledby` name the list of cards.
+- Cards off screen skip rendering until scrolled near. `--akds-dataview-card-size-estimate` (12rem by default) sets the height assumed for a card before it first renders, so the scrollbar stays steady on long lists.
 
 **Pagination**
 

@@ -54,7 +54,7 @@ export function TableViewRowClick() {
     <Flexbox direction="column" gap="sm">
       {/* Clicking a row opens its details; it never changes the selection. */}
       <BulkActions variant={bulkActionsVariant} actions={bulkActions} />
-      <TableView
+      <TableView aria-label="Orders"
         selectable
         rowClickOptions={{
           onClick: (row) => {

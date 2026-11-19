@@ -57,7 +57,7 @@ export function StatesCustom() {
         </ToggleGroup>
       </Flexbox>
       {/* The same states work in both views. */}
-      <TableView selectable {...states} />
+      <TableView aria-label="Orders" selectable {...states} />
       <CardView selectable {...states}>
         {/* NO_ORDERS is always empty, so this card never renders; see Card View for full layouts. */}
         {(row) => <DataViewCard title={row.original.customer}>{row.original.id}</DataViewCard>}

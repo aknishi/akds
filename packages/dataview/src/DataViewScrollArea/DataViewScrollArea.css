@@ -3,6 +3,10 @@
    sticky header and the rows scroll inside the border. */
 .akds-dataview-scroll-area {
   overflow: auto;
+  /* Scrolling past either end doesn't carry on into the page, and the
+     scrollbar's space is kept so the rows don't shift when it appears. */
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   box-sizing: border-box;
   border: 1px solid var(--akds-color-border-neutral-default);
   border-radius: var(--akds-radius-lg);
@@ -15,7 +19,8 @@
 }
 
 /* ── Scrolled ──────────────────────────────────────────────────────────── */
-/* Only shown once rows have scrolled under the header (see TableView.css). */
+/* Script fallback for the header shadow, for browsers without scroll-state
+   queries or scroll-driven animations (see TableView.css). */
 .akds-dataview-scroll-area--scrolled .akds-dataview-table--virtual .akds-thead .akds-tr::after {
   opacity: 1;
 }
@@ -27,4 +32,12 @@
 .akds-dataview-scroll-area--scrollable .akds-tbody .akds-tr:last-child .akds-td,
 .akds-dataview-scroll-area--scrollable .akds-tbody .akds-tr:last-child .akds-th {
   border-bottom: 1px solid var(--akds-color-border-neutral-default);
+}
+
+/* ── Focus ─────────────────────────────────────────────────────────────── */
+/* Keyboard users tab to the area to scroll it. Inset, so the rounded
+   frame doesn't clip the ring. */
+.akds-dataview-scroll-area:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: calc(-1 * var(--akds-spacing-50));
 }

@@ -8,15 +8,19 @@ import { flexRender } from '@tanstack/react-table';
 import { Checkbox, Table, Tbody, Td, Th, Thead, Tr, VisuallyHidden } from '@aknishi/akds-reactkit';
 import { useDataViewInstance, useRowLabel, activateRow, IGNORE_CLICK_ATTRIBUTE } from '../headless';
 import { useSortAnnouncement } from '../headless/useSortAnnouncement';
+import { useAnnounce } from '../headless/announcer';
 import { DataViewActions } from '../DataViewActions';
 import { DataViewDetailsSlot } from '../DataViewDetailsButton';
 import { DataViewLoadingMore, DataViewStateContent, getDataViewStatus, useDataViewStateFocus, useHeldHeight } from '../DataViewState';
 import { makePrefixer } from '../utils';
 import {
   ACTIONS_PIN_KEY,
+  PINNED_END,
+  PINNED_START,
   SELECT_PIN_KEY,
   useHorizontalScrollEdges,
   usePinnedOffsets,
+  useScrollerPadding,
 } from './pinning';
 import type { PinSide } from './pinning';
 
@@ -37,6 +41,7 @@ function SpacerRow({ height, columnCount }: { height: number; columnCount: numbe
 }
 
 export function TableView<TData>({
+  caption,
   selectable = false,
   loading = false,
   loadingMore = false,
@@ -49,11 +54,17 @@ export function TableView<TData>({
   rowClickOptions,
   virtualizer,
   className,
+  wrapperProps,
   ...rest
 }: TableViewProps<TData>) {
-  const { table, state } = useDataViewInstance<TData>();
+  const captionId = React.useId();
+  const { table, state, announce: sharedAnnounce } = useDataViewInstance<TData>();
+  const hasSharedAnnouncer = Boolean(sharedAnnounce);
   const getRowLabel = useRowLabel<TData>();
-  const sortMessage = useSortAnnouncement(table, state.sorting);
+  // useDataView announces sorting once for every view; a view rendered
+  // without its shared announcer announces its own.
+  const announce = useAnnounce();
+  useSortAnnouncement(table, state.sorting, announce, !hasSharedAnnouncer);
   const rows = table.getRowModel().rows;
   const columnCount = table.getVisibleLeafColumns().length + (selectable ? 1 : 0) + (rowActions ? 1 : 0);
 
@@ -68,6 +79,11 @@ export function TableView<TData>({
     ...(rowActions ? [ACTIONS_PIN_KEY] : []),
   ];
   const offsets = usePinnedOffsets(tableRef, leftKeys, rightKeys);
+  useScrollerPadding(tableRef, {
+    start: offsets[PINNED_START] ?? 0,
+    end: offsets[PINNED_END] ?? 0,
+    stickyHeader: Boolean(virtualizer),
+  });
   const status = getDataViewStatus(rows.length, { loading, loadingMore, error });
   // With rows shown, loading replaces them and loading more adds to them.
   // Loading wins: rows about to be replaced don't need a load-more indicator.
@@ -110,6 +126,16 @@ export function TableView<TData>({
   const paddingBottom = virtualizer && lastItem ? virtualizer.getTotalSize() - lastItem.end : 0;
   const ignoreClick = { [IGNORE_CLICK_ATTRIBUTE]: '' };
 
+  // Table's wrapper scrolls the table horizontally, so it's a named region
+  // keyboard users can tab to and scroll. Virtualized, the
+  // DataViewScrollArea around the table scrolls instead, and is the region.
+  const regionProps: React.HTMLAttributes<HTMLDivElement> | undefined = virtualizer ? undefined : {
+    role: 'region',
+    tabIndex: 0,
+    'aria-labelledby': caption ? captionId : rest['aria-labelledby'],
+    'aria-label': caption ? undefined : rest['aria-label'],
+  };
+
   return (
     <>
       <Table
@@ -130,8 +156,12 @@ export function TableView<TData>({
         aria-busy={loading || loadingMore || undefined}
         // Focusable from script only, for useDataViewStateFocus.
         tabIndex={-1}
+        wrapperProps={{ ...regionProps, ...wrapperProps }}
         {...rest}
       >
+        {caption && (
+          <caption id={captionId} className={withBaseName.el('caption')}>{caption}</caption>
+        )}
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Tr key={headerGroup.id} aria-rowindex={virtualizer ? 1 : undefined}>
@@ -264,7 +294,6 @@ export function TableView<TData>({
           )}
         </Tbody>
       </Table>
-      <VisuallyHidden role="status">{sortMessage}</VisuallyHidden>
     </>
   );
 }

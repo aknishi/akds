@@ -124,11 +124,11 @@ export function VirtualizedDemo() {
       />
       <BulkActions variant={bulkActionsVariant} actions={bulkActions} />
       {/* The team sets the height, which decides how many rows are visible. */}
-      <DataViewScrollArea ref={scrollRef} style={{ height: '480px' }}>
+      <DataViewScrollArea aria-label="Orders" ref={scrollRef} style={{ height: '480px' }}>
         {/* Each page adds rows after the ones shown, so this is loadingMore:
             the table shows "Loading more…" after the last row, or its loading
             state while there are no rows yet. */}
-        <TableView
+        <TableView aria-label="Orders"
           selectable
           loadingMore={isFetching}
           // Only shown while there are no rows; a failed "load more" is

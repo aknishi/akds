@@ -11,8 +11,8 @@ import type { TestOrder } from '../fixtures/orders';
 
 expect.extend(toHaveNoViolations);
 
-const cards = () => screen.getAllByRole('group');
-const card = (name: string) => screen.getByRole('group', { name });
+const cards = () => screen.getAllByRole('article');
+const card = (name: string) => screen.getByRole('article', { name });
 
 describe('CardView', () => {
   it('renders a list with one list item per row', () => {
@@ -118,7 +118,7 @@ describe('CardView', () => {
     expect(card('Kenji Ito').tabIndex).toBe(0);
 
     act(() => table!.getColumn('customer')!.setFilterValue('a'));
-    expect(screen.queryByRole('group', { name: 'Kenji Ito' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('article', { name: 'Kenji Ito' })).not.toBeInTheDocument();
     expect(cards().map((c) => c.tabIndex)).toEqual([0, -1]);
   });
 });
@@ -240,7 +240,7 @@ describe('CardView header', () => {
     expect(screen.getByRole('status')).toHaveTextContent('');
     await user.click(screen.getByRole('button', { name: 'Sort by' }));
     await user.click(screen.getByRole('menuitem', { name: 'Customer' }));
-    expect(screen.getByRole('status')).toHaveTextContent('Sorted by Customer, ascending.');
+    expect(screen.getByRole('status')).toHaveTextContent('Sorted by Customer, ascending, 3 rows.');
   });
 
   it('shares sorting with the table', async () => {

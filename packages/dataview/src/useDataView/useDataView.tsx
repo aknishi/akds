@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Row, Table } from '@tanstack/react-table';
-import { DataViewContext, getRowLabel as defaultGetRowLabel, useDataViewCore } from '../headless';
+import { DataViewContext, getRowLabel as defaultGetRowLabel, useAnnouncer, useDataViewCore } from '../headless';
+import { useSortAnnouncement } from '../headless/useSortAnnouncement';
 import type { DataViewContextValue, UseDataViewCoreOptions } from '../headless';
 import { TableView as BaseTableView } from '../TableView';
 import type { TableViewProps } from '../TableView';
@@ -36,6 +37,10 @@ export function useDataView<TData>(options: UseDataViewOptions<TData>): UseDataV
   // function views call keeps its identity and never re-renders every row.
   const getRowLabelRef = React.useRef(options.getRowLabel);
   getRowLabelRef.current = options.getRowLabel;
+  // One live region for the whole DataView, shared by every bound
+  // component, which also announces sorting once whichever views are shown.
+  const announce = useAnnouncer();
+  useSortAnnouncement(table, table.getState().sorting, announce);
 
   // Created once per table instance (which is stable), so the returned
   // components keep their identity across renders and never remount.
@@ -47,7 +52,7 @@ export function useDataView<TData>(options: UseDataViewOptions<TData>): UseDataV
         // getState() returns a new object on every render, so memoize on the
         // slices DataView uses; each keeps its identity until it changes.
         const value = React.useMemo<DataViewContextValue<TData>>(
-          () => ({ table, state, getRowLabel }),
+          () => ({ table, state, getRowLabel, announce }),
           [state.sorting, state.columnFilters, state.globalFilter, state.rowSelection, state.pagination],
         );
         return (

@@ -186,7 +186,7 @@ describe('TableView row click', () => {
 });
 
 describe('CardView card click', () => {
-  const card = (name: string) => screen.getByRole('group', { name });
+  const card = (name: string) => screen.getByRole('article', { name });
 
   it('renders no Details buttons without rowClickOptions', () => {
     render(<CardHarness selectable />);

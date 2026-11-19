@@ -2,7 +2,7 @@ import type React from 'react';
 
 export interface DataViewCardProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'title' | 'children'> {
   /**
-   * The card's title, rendered as an h3. Also names the card group. The
+   * The card's title, rendered as an h3. Also names the card, an article. The
    * checkbox and Details button are named by useDataView's `getRowLabel`.
    * Overrides the inherited HTML `title` attribute.
    */

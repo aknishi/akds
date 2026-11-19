@@ -81,7 +81,8 @@ function StaticHarness({ data, rowCount = 25, onQueryChange }: { data: TestOrder
 const customers = () => screen.queryAllByRole('rowheader').map((cell) => cell.textContent);
 const pagerSummary = () => document.querySelector('.akds-dataview-pagination__summary')?.textContent;
 const bulkSummary = () => document.querySelector('.akds-dataview-bulk-actions__summary');
-const searchAnnouncement = () => document.querySelector('.akds-dataview-search [role="status"]')?.textContent;
+// useDataView's one live region, shared by every DataView component.
+const searchAnnouncement = () => document.querySelector('body > [role="status"]')?.textContent;
 const selectRow = (name: string) => fireEvent.click(screen.getByRole('checkbox', { name: `Select ${name}` }));
 
 describe('serverSide', () => {
@@ -163,7 +164,8 @@ describe('serverSide', () => {
       fireEvent.change(screen.getByRole('searchbox', { name: 'Search orders' }), { target: { value: 'Customer' } });
       expect(searchAnnouncement()).toBe('25 results.');
       await userEvent.click(screen.getByRole('button', { name: 'Page 2' }));
-      expect(searchAnnouncement()).toBe('25 results.');
+      // Only Pagination's own announcement, not the search count again.
+      expect(searchAnnouncement()).toMatch(/^Page 2 of 3/);
     });
   });
 

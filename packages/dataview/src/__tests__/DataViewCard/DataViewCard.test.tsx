@@ -9,10 +9,10 @@ import { CardHarness } from '../fixtures/CardHarness';
 
 expect.extend(toHaveNoViolations);
 
-const card = (name: string) => screen.getByRole('group', { name });
+const card = (name: string) => screen.getByRole('article', { name });
 
 describe('DataViewCard', () => {
-  it('renders a group named by its h3 title', () => {
+  it('renders an article named by its h3 title', () => {
     render(<CardHarness />);
     const hanako = card('Hanako Sato');
     expect(hanako).toHaveClass('akds-dataview-card', 'akds-card');

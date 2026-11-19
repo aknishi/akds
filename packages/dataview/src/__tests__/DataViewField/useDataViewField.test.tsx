@@ -38,26 +38,26 @@ function DescriptionCards() {
 describe('useDataViewField', () => {
   it('returns the column label from a string header', () => {
     render(<DescriptionCards />);
-    const card = screen.getByRole('group', { name: 'Hanako Sato' });
+    const card = screen.getByRole('article', { name: 'Hanako Sato' });
     expect(within(card).getByText('Status').tagName).toBe('DT');
   });
 
   it('returns meta.ariaLabel when the header is not a string', () => {
     render(<DescriptionCards />);
-    const card = screen.getByRole('group', { name: 'Hanako Sato' });
+    const card = screen.getByRole('article', { name: 'Hanako Sato' });
     expect(within(card).getByText('Order total').tagName).toBe('DT');
   });
 
   it('returns the column cell rendered for the row', () => {
     render(<DescriptionCards />);
-    const card = screen.getByRole('group', { name: 'Hanako Sato' });
+    const card = screen.getByRole('article', { name: 'Hanako Sato' });
     const values = card.querySelectorAll('dd');
     expect(values[0]!.querySelector('.akds-tag')!.textContent).toBe('Processing');
   });
 
   it('adds no markup of its own', () => {
     render(<DescriptionCards />);
-    const card = screen.getByRole('group', { name: 'Hanako Sato' });
+    const card = screen.getByRole('article', { name: 'Hanako Sato' });
     const list = card.querySelector('dl')!;
     for (const child of Array.from(list.children)) {
       expect(child.tagName).toBe('DIV');

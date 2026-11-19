@@ -37,7 +37,8 @@ function Harness({ paged = true, ...props }: Partial<PaginationProps> & { paged?
 
 const customers = () => screen.queryAllByRole('rowheader').map((cell) => cell.textContent);
 const summary = () => document.querySelector('.akds-dataview-pagination__summary')?.textContent;
-const announcement = () => document.querySelector('.akds-dataview-pagination [role="status"]')?.textContent;
+// useDataView's one live region, shared by every DataView component.
+const announcement = () => document.querySelector('body > [role="status"]')?.textContent;
 
 describe('Pagination', () => {
   it('shows the first page of rows with a range summary', () => {

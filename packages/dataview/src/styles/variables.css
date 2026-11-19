@@ -15,4 +15,9 @@
      is about five table rows. There's no layout height token, so it's a
      literal. A state still keeps the taller height of rows it replaces. */
   --akds-dataview-state-min-height: 240px;
+  /* A card's estimated height before it first renders, for content-visibility
+     on long card lists. Only the scrollbar's first estimate depends on it:
+     each card's real height is remembered once it renders. About a card
+     with a header and four fields. */
+  --akds-dataview-card-size-estimate: 12rem;
 }

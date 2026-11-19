@@ -21,7 +21,8 @@ function Harness(props: Partial<SearchProps>) {
 const input = () => screen.getByRole('searchbox', { name: 'Search orders' });
 const type = (value: string) => fireEvent.change(input(), { target: { value } });
 const customers = () => screen.queryAllByRole('rowheader').map((cell) => cell.textContent);
-const announcement = () => document.querySelector('.akds-dataview-search [role="status"]');
+// useDataView's one live region, shared by every DataView component.
+const announcement = () => document.querySelector('body > [role="status"]');
 
 describe('Search', () => {
   afterEach(() => {
@@ -83,8 +84,26 @@ describe('Search', () => {
     act(() => vi.advanceTimersByTime(500));
     expect(announcement()).toHaveTextContent('No results.');
 
+    // Clearing the search announces nothing new.
     type('');
+    act(() => vi.advanceTimersByTime(500));
+    expect(announcement()).toHaveTextContent('No results.');
+  });
+
+  it('announces a repeated count again, after clearing it briefly', () => {
+    vi.useFakeTimers();
+    render(<Harness />);
+    type('o');
+    act(() => vi.advanceTimersByTime(500));
+    expect(announcement()).toHaveTextContent('3 results.');
+
+    // A different search with the same count (matching is case-insensitive):
+    // the text is cleared, then set again, so screen readers hear it.
+    type('O');
+    act(() => vi.advanceTimersByTime(500));
     expect(announcement()).toBeEmptyDOMElement();
+    act(() => vi.advanceTimersByTime(100));
+    expect(announcement()).toHaveTextContent('3 results.');
   });
 
   it('passes other props to the text input', () => {

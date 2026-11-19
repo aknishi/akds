@@ -42,7 +42,7 @@ export function TableViewWithSelection() {
   return (
     <Flexbox direction="column" gap="sm">
       <BulkActions variant={bulkActionsVariant} actions={bulkActions} />
-      <TableView selectable rowActions={(row) => <OrderActions order={row.original} />} />
+      <TableView aria-label="Orders" selectable rowActions={(row) => <OrderActions order={row.original} />} />
       <Pagination aria-label="Orders pages" />
     </Flexbox>
   );

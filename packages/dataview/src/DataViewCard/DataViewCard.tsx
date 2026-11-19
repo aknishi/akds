@@ -40,13 +40,18 @@ export const DataViewCard = React.forwardRef<HTMLDivElement, DataViewCardProps>(
         ? React.cloneElement(avatar, { size: 'sm' })
         : avatar;
 
+    // A title with a subtitle is an hgroup, so the subtitle reads as part of
+    // the heading; a title alone needs no group.
+    const Heading = subtitle ? 'hgroup' : 'div';
+
     // The frame is fixed so every team's card reads in the same order:
     // checkbox, avatar, title and subtitle, details control, header actions,
-    // body, footer actions.
+    // body, footer actions. Each card is an article named by its title.
+    // Card renders a div, so the role gives it article semantics.
     return (
       <Card
         ref={ref}
-        role="group"
+        role="article"
         aria-labelledby={titleId}
         tabIndex={tabIndex}
         {...{ [CARD_ROW_ID_ATTRIBUTE]: row.id }}
@@ -70,13 +75,13 @@ export const DataViewCard = React.forwardRef<HTMLDivElement, DataViewCardProps>(
             />
           )}
           {avatar && <span className={withBaseName.el('avatar')}>{sizedAvatar}</span>}
-          <div className={withBaseName.el('heading')}>
+          <Heading className={withBaseName.el('heading')}>
             {/* A real h3 for heading navigation, styled like any CardHeader text. */}
             <h3 id={titleId} className={withBaseName.el('title')}>
               {title}
             </h3>
             {subtitle && <p className={withBaseName.el('subtitle')}>{subtitle}</p>}
-          </div>
+          </Heading>
           {rowClickOptions && <DataViewDetailsSlot row={row} rowLabel={label} options={rowClickOptions} />}
           {cardActionsPlacement === 'header' && actions}
         </CardHeader>

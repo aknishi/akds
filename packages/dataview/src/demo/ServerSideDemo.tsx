@@ -184,7 +184,7 @@ export function ServerSideDemo() {
       <BulkActions variant={bulkActionsVariant} actions={bulkActions} />
 
       {isWide ? (
-        <TableView selectable rowActions={(row) => <OrderActions order={row.original} />} {...states} />
+        <TableView aria-label="Orders" selectable rowActions={(row) => <OrderActions order={row.original} />} {...states} />
       ) : (
         <CardView selectable cardActions={(row) => <OrderActions order={row.original} />} {...states}>
           {(row) => <OrderCard row={row} />}

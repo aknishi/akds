@@ -37,6 +37,27 @@ describe('TableView', () => {
     expect(within(first).getByText('$30.00')).toBeInTheDocument();
   });
 
+  it('names the table and its scroll region with the caption', () => {
+    render(<Harness caption="Recent orders" />);
+    const table = screen.getByRole('table', { name: 'Recent orders' });
+    const region = screen.getByRole('region', { name: 'Recent orders' });
+    expect(region).toBe(table.parentElement);
+    // Keyboard users tab to the region to scroll a wide table.
+    expect(region).toHaveAttribute('tabindex', '0');
+  });
+
+  it('names the scroll region with aria-label when there is no caption', () => {
+    render(<Harness aria-label="Orders" />);
+    expect(screen.getByRole('table', { name: 'Orders' })).toBeInTheDocument();
+    expect(screen.getByRole('region', { name: 'Orders' })).toHaveAttribute('tabindex', '0');
+  });
+
+  it('leaves the region to the scroll area when virtualized', () => {
+    const virtualizer = { getVirtualItems: () => [], getTotalSize: () => 0 };
+    render(<Harness aria-label="Orders" virtualizer={virtualizer} />);
+    expect(screen.queryByRole('region')).not.toBeInTheDocument();
+  });
+
   it('renders the rowHeader column as row headers', () => {
     render(<Harness />);
     expect(customers()).toEqual(['Hanako Sato', 'Kenji Ito', 'Maria Garcia']);
@@ -59,16 +80,34 @@ describe('TableView', () => {
     expect(header('Total')).toHaveAttribute('aria-sort', 'ascending');
     expect(header('Customer')).not.toHaveAttribute('aria-sort');
     expect(customers()).toEqual(['Kenji Ito', 'Maria Garcia', 'Hanako Sato']);
-    expect(status).toHaveTextContent('Sorted by Order total, ascending.');
+    expect(status).toHaveTextContent('Sorted by Order total, ascending, 3 rows.');
 
     await user.click(within(header('Total')).getByRole('button'));
     expect(header('Total')).toHaveAttribute('aria-sort', 'descending');
-    expect(status).toHaveTextContent('Sorted by Order total, descending.');
+    expect(status).toHaveTextContent('Sorted by Order total, descending, 3 rows.');
 
     await user.click(within(header('Customer')).getByRole('button'));
     expect(header('Customer')).toHaveAttribute('aria-sort', 'ascending');
     expect(header('Total')).not.toHaveAttribute('aria-sort');
-    expect(status).toHaveTextContent('Sorted by Customer, ascending.');
+    expect(status).toHaveTextContent('Sorted by Customer, ascending, 3 rows.');
+  });
+
+  it('announces each sort once, in one live region, with a table and cards on the page', async () => {
+    function BothViews() {
+      const { TableView, CardView } = useDataView({ data: testOrders, columns: testColumns, getRowId: (row) => row.id });
+      return (
+        <>
+          <TableView />
+          <CardView>{(row) => <p>{row.original.customer}</p>}</CardView>
+        </>
+      );
+    }
+    const user = userEvent.setup();
+    render(<BothViews />);
+    expect(screen.getAllByRole('status')).toHaveLength(1);
+    await user.click(within(header('Customer')).getByRole('button'));
+    expect(screen.getAllByRole('status')).toHaveLength(1);
+    expect(screen.getByRole('status')).toHaveTextContent('Sorted by Customer, ascending, 3 rows.');
   });
 
   it('announces when sorting is removed', async () => {
@@ -79,7 +118,7 @@ describe('TableView', () => {
     await user.click(button);
     await user.click(button);
     expect(header('Customer')).not.toHaveAttribute('aria-sort');
-    expect(screen.getByRole('status')).toHaveTextContent('Sorting removed.');
+    expect(screen.getByRole('status')).toHaveTextContent('Sorting removed, 3 rows.');
   });
 
   it('sorts with the keyboard', async () => {

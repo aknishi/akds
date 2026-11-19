@@ -23,7 +23,7 @@ export function StatesDefault() {
           <ToggleButton value="empty">Empty</ToggleButton>
         </ToggleGroup>
       </Flexbox>
-      <TableView
+      <TableView aria-label="Orders"
         selectable
         loading={state === 'loading'}
         error={state === 'error' ? 'Couldn’t load orders.' : undefined}

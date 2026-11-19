@@ -10,6 +10,7 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
   function Table(
     {
       wrapperClassName,
+      wrapperProps,
       className,
       children,
       ...rest
@@ -17,7 +18,10 @@ export const Table = React.forwardRef<HTMLTableElement, TableProps>(
     ref,
   ) {
     return (
-      <div className={clsx(withBaseName.el('wrapper'), wrapperClassName)}>
+      <div
+        {...wrapperProps}
+        className={clsx(withBaseName.el('wrapper'), wrapperClassName, wrapperProps?.className)}
+      >
         <table
           ref={ref}
           className={clsx(withBaseName(), className)}

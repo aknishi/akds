@@ -2,8 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import './Pagination.css';
 import type { PaginationProps } from './Pagination.types';
-import { Pagination as PageButtons, VisuallyHidden } from '@aknishi/akds-reactkit';
+import { Pagination as PageButtons } from '@aknishi/akds-reactkit';
 import { useDataViewInstance } from '../headless';
+import { useAnnounce } from '../headless/announcer';
 import { makePrefixer } from '../utils';
 
 const withBaseName = makePrefixer('akds-dataview-pagination');
@@ -20,7 +21,7 @@ export function Pagination<TData>({
   ...rest
 }: PaginationProps) {
   const { table, state } = useDataViewInstance<TData>();
-  const [announcement, setAnnouncement] = React.useState('');
+  const announce = useAnnounce();
 
   // Rows after search and filters, before paging. Server-side, the
   // server's rowCount.
@@ -45,7 +46,7 @@ export function Pagination<TData>({
   // to page 1 after a sort or search isn't announced on top of theirs.
   const handlePageChange = (page: number) => {
     table.setPageIndex(page - 1);
-    setAnnouncement(`Page ${page} of ${pageCount}, showing rows ${range(page - 1)}.`);
+    announce(`Page ${page} of ${pageCount}, showing rows ${range(page - 1)}.`);
   };
 
   return (
@@ -58,7 +59,6 @@ export function Pagination<TData>({
         onPageChange={handlePageChange}
         siblingCount={siblingCount}
       />
-      <VisuallyHidden role="status">{announcement}</VisuallyHidden>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import { Checkbox, VisuallyHidden } from '@aknishi/akds-reactkit';
 import { RowContext, useDataViewInstance, activateRow } from '../headless';
 import type { RowContextValue } from '../headless';
 import { useSortAnnouncement } from '../headless/useSortAnnouncement';
+import { useAnnounce } from '../headless/announcer';
 import { CARD_ROW_ID_ATTRIBUTE } from '../DataViewCard/cardRowId';
 import { SortMenu } from '../SortMenu';
 import { DataViewLoadingMore, DataViewStateContent, getDataViewStatus, useDataViewStateFocus, useHeldHeight } from '../DataViewState';
@@ -35,9 +36,13 @@ export function CardView<TData>({
   children,
   ...rest
 }: CardViewProps<TData>) {
-  const { table, state } = useDataViewInstance<TData>();
+  const { table, state, announce: sharedAnnounce } = useDataViewInstance<TData>();
+  const hasSharedAnnouncer = Boolean(sharedAnnounce);
   const rows = table.getRowModel().rows;
-  const sortMessage = useSortAnnouncement(table, state.sorting);
+  // useDataView announces sorting once for every view; a view rendered
+  // without its shared announcer announces its own.
+  const announce = useAnnounce();
+  useSortAnnouncement(table, state.sorting, announce, !hasSharedAnnouncer);
   const sortable = table.getAllLeafColumns().some((column) => column.getCanSort());
   const [activeRowId, setActiveRowId] = React.useState<string | null>(null);
   const listRef = React.useRef<HTMLUListElement | null>(null);
@@ -174,7 +179,6 @@ export function CardView<TData>({
         </ul>
       )}
       {showLoadingMore && <DataViewLoadingMore className={withBaseName.el('loading-more')} />}
-      <VisuallyHidden role="status">{sortMessage}</VisuallyHidden>
     </div>
   );
 }

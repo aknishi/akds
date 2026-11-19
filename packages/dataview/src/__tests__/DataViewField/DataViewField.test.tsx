@@ -27,7 +27,7 @@ describe('DataViewField', () => {
     render(<Both />);
     const tableRow = screen.getByRole('rowheader', { name: 'Kenji Ito' }).closest('tr')!;
     const tableTag = tableRow.querySelector('.akds-tag')!;
-    const cardTag = screen.getByRole('group', { name: 'Kenji Ito' }).querySelector('.akds-tag')!;
+    const cardTag = screen.getByRole('article', { name: 'Kenji Ito' }).querySelector('.akds-tag')!;
     expect(cardTag.textContent).toBe('Shipped');
     expect(cardTag.textContent).toBe(tableTag.textContent);
     expect(cardTag.className).toBe(tableTag.className);
@@ -35,7 +35,7 @@ describe('DataViewField', () => {
 
   it('prefixes the value with a visually hidden column label', () => {
     render(<CardHarness />);
-    const field = screen.getByRole('group', { name: 'Hanako Sato' }).querySelector('.akds-dataview-field')!;
+    const field = screen.getByRole('article', { name: 'Hanako Sato' }).querySelector('.akds-dataview-field')!;
     const label = within(field as HTMLElement).getByText('Status:');
     expect(label).toHaveClass('akds-visually-hidden');
     expect(field.textContent).toBe('Status: Processing');

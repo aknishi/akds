@@ -84,7 +84,7 @@ describe.each(['table', 'cards'] as const)('%s rowClickOptions', (view) => {
     render(<Harness view={view} options={textButton(onClick)} />);
     const scope = view === 'table'
       ? screen.getByRole('row', { name: /Maria Garcia/ })
-      : screen.getByRole('group', { name: 'Maria Garcia' });
+      : screen.getByRole('article', { name: 'Maria Garcia' });
     await user.click(within(scope).getByText('$20.00'));
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick.mock.calls[0]![0].original.id).toBe('ORD-3');

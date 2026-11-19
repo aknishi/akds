@@ -51,17 +51,31 @@
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */
-/* The bar still shows that rows are loading, as a still bar. The delay
-   stays, so fast responses still don't flash. */
+/* The bar keeps pulsing, much more slowly, so it still shows that rows are
+   loading rather than reading as a static line. The delay stays, so fast
+   responses still don't flash. */
 @media (prefers-reduced-motion: reduce) {
   .akds-dataview-table .akds-thead .akds-th::before,
   .akds-dataview-cards__list::before {
-    animation: none;
+    animation-duration: 4000ms;
     transition-duration: 0s;
   }
 
   .akds-dataview-table .akds-tbody,
   .akds-dataview-cards__item {
     transition-duration: 0s;
+  }
+}
+
+/* ── Forced colors ─────────────────────────────────────────────────────── */
+/* Forced colors replaces backgrounds, which would erase the bar. Opt it out
+   and draw it in the system highlight color; the color pulse is dropped,
+   since it only alternates between two theme colors. */
+@media (forced-colors: active) {
+  .akds-dataview-table .akds-thead .akds-th::before,
+  .akds-dataview-cards__list::before {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    animation: none;
   }
 }

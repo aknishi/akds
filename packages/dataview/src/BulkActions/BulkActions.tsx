@@ -6,6 +6,7 @@ import type { BulkActionsProps } from './BulkActions.types';
 import { ActionsMenu, Button, IconButton, MenuItem, VisuallyHidden } from '@aknishi/akds-reactkit';
 import { KeyboardArrowDownIcon } from '@aknishi/akds-icons';
 import { useDataViewInstance, getSelectedOriginals, getSelectedRowIds } from '../headless';
+import { useAnnounce } from '../headless/announcer';
 import { makePrefixer } from '../utils';
 
 const withBaseName = makePrefixer('akds-dataview-bulk-actions');
@@ -16,17 +17,17 @@ const rowsLabel = (count: number) => `${count} ${count === 1 ? 'row' : 'rows'}`;
 
 /**
  * Selecting several rows quickly would queue one announcement per click, so
- * the live region waits until selection pauses and announces once.
+ * the announcement waits until selection pauses and is made once.
  */
 function useSelectionAnnouncement(selectedCount: number) {
-  const [message, setMessage] = React.useState('');
+  const announce = useAnnounce();
   const prevCountRef = React.useRef(selectedCount);
 
   React.useEffect(() => {
     if (prevCountRef.current === selectedCount) return undefined;
     prevCountRef.current = selectedCount;
     const timer = setTimeout(() => {
-      setMessage(
+      announce(
         selectedCount > 0
           ? `${rowsLabel(selectedCount)} selected. Bulk actions available above table.`
           : 'Selection cleared.',
@@ -34,8 +35,6 @@ function useSelectionAnnouncement(selectedCount: number) {
     }, ANNOUNCE_DELAY_MS);
     return () => clearTimeout(timer);
   }, [selectedCount]);
-
-  return message;
 }
 
 export function BulkActions<TData>({ variant = 'button', actions, className, ...rest }: BulkActionsProps<TData>) {
@@ -53,7 +52,7 @@ export function BulkActions<TData>({ variant = 'button', actions, className, ...
   // Server-side there's no Select all: the rows on other pages aren't
   // loaded, so bulk actions couldn't be given their data.
   const canSelectAll = !serverSide && !allSelected;
-  const announcement = useSelectionAnnouncement(selectedCount);
+  useSelectionAnnouncement(selectedCount);
   const selectAllRef = React.useRef<HTMLButtonElement>(null);
   const clearRef = React.useRef<HTMLButtonElement>(null);
   const summaryRef = React.useRef<HTMLSpanElement>(null);
@@ -182,7 +181,6 @@ export function BulkActions<TData>({ variant = 'button', actions, className, ...
           </IconButton>
         ))}
       </div>
-      <VisuallyHidden role="status">{announcement}</VisuallyHidden>
     </div>
   );
 }

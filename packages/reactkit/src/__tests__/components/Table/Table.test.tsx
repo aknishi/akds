@@ -55,6 +55,25 @@ describe('Table', () => {
     expect(wrapper).toHaveClass('custom-wrapper');
   });
 
+  it('applies wrapperProps to the outer wrapper, making it a named, focusable region', () => {
+    render(
+      <Table
+        wrapperProps={{ role: 'region', tabIndex: 0, 'aria-label': 'Orders', className: 'from-props' }}
+        data-testid="table"
+      >
+        <Tbody>
+          <Tr>
+            <Td>Cell</Td>
+          </Tr>
+        </Tbody>
+      </Table>,
+    );
+    const region = screen.getByRole('region', { name: 'Orders' });
+    expect(region).toBe(screen.getByTestId('table').parentElement);
+    expect(region).toHaveAttribute('tabindex', '0');
+    expect(region).toHaveClass('akds-table__wrapper', 'from-props');
+  });
+
   it('passes through className and HTML attributes to the table element', () => {
     render(
       <Table className="custom" data-testid="table">

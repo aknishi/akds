@@ -12,6 +12,8 @@ export type {
   RowClickHandler,
 } from './context.js';
 export { useDataViewCore } from './useDataViewCore.js';
+export { useAnnouncer, useAnnounce } from './announcer.js';
+export type { Announce } from './announcer.js';
 export type { UseDataViewCoreOptions, DataViewQuery } from './useDataViewCore.js';
 export { getSelectedOriginals, getSelectedRowIds } from './selectedRows.js';
 export { getColumnLabel, getRowLabel } from './labels.js';

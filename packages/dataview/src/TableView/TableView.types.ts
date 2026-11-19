@@ -24,6 +24,14 @@ export interface DataViewVirtualizer {
 }
 
 export interface TableViewProps<TData> extends Omit<TableProps, 'children'>, DataViewStateProps {
+  /**
+   * Names the table, rendered as its `<caption>`. It also names the scroll
+   * region around the table, which keyboard users tab to when the table is
+   * wider than its space. Wrap it in VisuallyHidden to name the table
+   * without showing the caption. Without a caption, pass `aria-label` or
+   * `aria-labelledby` instead; both views use it.
+   */
+  caption?: React.ReactNode;
   /** Adds a first column of checkboxes for selecting rows, with a "select all" checkbox in the header. */
   selectable?: boolean;
   /**

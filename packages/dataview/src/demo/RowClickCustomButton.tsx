@@ -99,7 +99,7 @@ export function RowClickCustomButton() {
     <Flexbox direction="column" gap="lg">
       <Flexbox direction="column" gap="sm">
         <Text styleAs="h3">Text button</Text>
-        <TableView rowClickOptions={textButton} />
+        <TableView aria-label="Orders" rowClickOptions={textButton} />
       </Flexbox>
       <Flexbox direction="column" gap="sm">
         <Text styleAs="h3">Opens a new tab</Text>

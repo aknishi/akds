@@ -50,7 +50,7 @@ export function TableViewPinnedColumns() {
     // Narrower than the table, so it scrolls horizontally.
     <Flexbox direction="column" gap="sm" style={{ maxWidth: '720px' }}>
       <BulkActions variant={bulkActionsVariant} actions={bulkActions} />
-      <TableView selectable rowActions={(row) => <OrderActions order={row.original} />} />
+      <TableView aria-label="Orders" selectable rowActions={(row) => <OrderActions order={row.original} />} />
       <Pagination aria-label="Orders pages" />
     </Flexbox>
   );

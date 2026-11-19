@@ -29,7 +29,8 @@ function Harness({
 
 const exportAction = () => ({ label: 'Export', icon: <svg aria-hidden="true" data-testid="export-icon" />, onSelect: vi.fn() });
 const summary = () => document.querySelector('.akds-dataview-bulk-actions__summary');
-const announcement = () => document.querySelector('.akds-dataview-bulk-actions [role="status"]');
+// useDataView's one live region, shared by every DataView component.
+const announcement = () => document.querySelector('body > [role="status"]');
 const trigger = () => document.querySelector<HTMLButtonElement>('.akds-dataview-bulk-actions .akds-actions-menu')!;
 const actionsGroup = () => document.querySelector('.akds-dataview-bulk-actions__actions')!;
 // Looked up by class: while hidden (visibility: hidden) it has no accessible name.

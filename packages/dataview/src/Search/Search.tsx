@@ -1,9 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import type { SearchProps } from './Search.types';
-import { TextInput, VisuallyHidden } from '@aknishi/akds-reactkit';
+import { TextInput } from '@aknishi/akds-reactkit';
 import { SearchIcon } from '@aknishi/akds-icons';
 import { useDataViewInstance } from '../headless';
+import { useAnnounce } from '../headless/announcer';
 import { makePrefixer } from '../utils';
 
 const withBaseName = makePrefixer('akds-dataview-search');
@@ -18,19 +19,15 @@ export function Search<TData>({ label, column, className, ...rest }: SearchProps
   // Server-side, the server's count of matching rows.
   const serverSide = table.options.manualFiltering === true;
   const resultCount = serverSide ? table.getRowCount() : table.getFilteredRowModel().rows.length;
-  const [announcement, setAnnouncement] = React.useState('');
+  const announce = useAnnounce();
   const awaitingResultsRef = React.useRef(false);
   const resultsLabel = resultCount === 0 ? 'No results.' : `${resultCount} ${resultCount === 1 ? 'result' : 'results'}.`;
 
   // Results update silently as the user types, so screen-reader users hear
   // the count once typing pauses instead of after every keystroke.
   React.useEffect(() => {
-    if (serverSide) return undefined;
-    if (!value) {
-      setAnnouncement('');
-      return undefined;
-    }
-    const timer = setTimeout(() => setAnnouncement(resultsLabel), ANNOUNCE_DELAY_MS);
+    if (serverSide || !value) return undefined;
+    const timer = setTimeout(() => announce(resultsLabel), ANNOUNCE_DELAY_MS);
     return () => clearTimeout(timer);
   }, [value, resultCount]);
 
@@ -43,7 +40,6 @@ export function Search<TData>({ label, column, className, ...rest }: SearchProps
   React.useEffect(() => {
     if (!serverSide) return;
     awaitingResultsRef.current = Boolean(value);
-    if (!value) setAnnouncement('');
   }, [value]);
   React.useEffect(() => {
     if (!serverSide || !awaitingResultsRef.current) return;
@@ -51,7 +47,7 @@ export function Search<TData>({ label, column, className, ...rest }: SearchProps
     // and the view's error state announces that instead.
     if (table.getRowModel().rows.length === 0 && resultCount > 0) return;
     awaitingResultsRef.current = false;
-    setAnnouncement(resultsLabel);
+    announce(resultsLabel);
   }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +67,6 @@ export function Search<TData>({ label, column, className, ...rest }: SearchProps
         startAdornment={<SearchIcon aria-hidden="true" />}
         {...rest}
       />
-      <VisuallyHidden role="status">{announcement}</VisuallyHidden>
     </div>
   );
 }

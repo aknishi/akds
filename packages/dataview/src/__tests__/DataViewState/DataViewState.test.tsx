@@ -106,7 +106,7 @@ describe.each(['table', 'cards'] as const)('%s states', (view) => {
     render(<Retrying />);
     await user.click(screen.getByRole('button', { name: 'Try again' }));
     if (view === 'table') expect(screen.getByRole('table')).toHaveFocus();
-    else expect(screen.getByRole('group', { name: 'Hanako Sato' })).toHaveFocus();
+    else expect(screen.getByRole('article', { name: 'Hanako Sato' })).toHaveFocus();
   });
 
   it('does not move focus that is elsewhere on the page', () => {

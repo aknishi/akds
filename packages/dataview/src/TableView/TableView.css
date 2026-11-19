@@ -11,6 +11,29 @@
   isolation: isolate;
 }
 
+/* ── Caption ───────────────────────────────────────────────────────────── */
+.akds-dataview-table__caption {
+  padding: var(--akds-spacing-200);
+  color: var(--akds-color-text-primary-default);
+  font-weight: var(--akds-font-weight-semibold);
+  text-align: start;
+}
+
+/* ── Scroll container ──────────────────────────────────────────────────── */
+/* The element that scrolls the table: Table's own wrapper, or a
+   DataViewScrollArea when virtualized (its wrapper doesn't scroll then).
+   - scroll-padding keeps focused cells clear of the pinned columns and the
+     sticky header; TableView measures both (see useScrollerPadding).
+   - It's a scroll-state container, so the pinned-column and header shadows
+     can follow its scroll position in CSS. */
+.akds-table__wrapper:has(> .akds-dataview-table:not(.akds-dataview-table--virtual)),
+.akds-dataview-scroll-area {
+  scroll-padding-block-start: var(--akds-dataview-scroll-padding-top, 0px);
+  scroll-padding-inline: var(--akds-dataview-scroll-padding-start, 0px) var(--akds-dataview-scroll-padding-end, 0px);
+  container-type: scroll-state;
+  container-name: akds-dataview-scroller;
+}
+
 /* Td aligns to the top by default; rows here mix text with checkboxes and
    icon buttons, which only line up when centred. */
 .akds-dataview-table .akds-td,
@@ -202,10 +225,73 @@
   clip-path: inset(0 0 0 calc(-1 * var(--akds-spacing-200)));
 }
 
-/* Only when content is actually hidden beneath the pinned columns. */
+/* ── Scroll shadows ────────────────────────────────────────────────────── */
+/* Each shadow shows only when content is hidden beneath it: the pinned
+   columns once the table scrolls sideways, the sticky header once rows
+   scroll under it. Three tiers, no scroll listeners where CSS can do it:
+   1. Scroll-state container queries (Chrome and Edge).
+   2. Scroll-driven animations, fading each shadow in over the first bit
+      of scrolling away from its edge.
+   3. Classes set by TableView and DataViewScrollArea from script, only in
+      browsers without either. */
+@container akds-dataview-scroller scroll-state(scrollable: inline-start) {
+  .akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge::after {
+    opacity: 1;
+  }
+}
+
+@container akds-dataview-scroller scroll-state(scrollable: inline-end) {
+  .akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge::after {
+    opacity: 1;
+  }
+}
+
+@container akds-dataview-scroller scroll-state(scrollable: block-start) {
+  .akds-dataview-table--virtual .akds-thead .akds-tr::after {
+    opacity: 1;
+  }
+}
+
+@supports not (container-type: scroll-state) {
+  .akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge::after {
+    animation: akds-dataview-show-shadow linear both;
+    animation-timeline: scroll(nearest inline);
+    animation-range: 0 var(--akds-spacing-layout-lg);
+  }
+
+  .akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge::after {
+    animation: akds-dataview-show-shadow linear both reverse;
+    animation-timeline: scroll(nearest inline);
+    animation-range: calc(100% - var(--akds-spacing-layout-lg)) 100%;
+  }
+
+  .akds-dataview-table--virtual .akds-thead .akds-tr::after {
+    animation: akds-dataview-show-shadow linear both;
+    animation-timeline: scroll(nearest block);
+    animation-range: 0 var(--akds-spacing-layout-lg);
+  }
+}
+
+@keyframes akds-dataview-show-shadow {
+  to {
+    opacity: 1;
+  }
+}
+
 .akds-dataview-table--scrolled-start .akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge::after,
 .akds-dataview-table--scrolled-end .akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge::after {
   opacity: 1;
+}
+
+/* ── Forced colors ─────────────────────────────────────────────────────── */
+/* The hover overlay is a background image, which forced colors removes. An
+   outline keeps the hovered row visible. Selected rows keep their checkbox
+   as the cue. */
+@media (forced-colors: active) {
+  .akds-dataview-table__row--clickable:hover {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
 }
 
 /* ── Reduced motion ────────────────────────────────────────────────────── */

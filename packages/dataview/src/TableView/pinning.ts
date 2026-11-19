@@ -6,6 +6,10 @@ export const ACTIONS_PIN_KEY = '__actions';
 
 export type PinSide = 'left' | 'right';
 
+/** Keys in usePinnedOffsets' result for the total pinned width on each side. */
+export const PINNED_START = '__pinnedStart';
+export const PINNED_END = '__pinnedEnd';
+
 /**
  * Measures the rendered width of each pinned header cell and returns how far
  * each pinned column sits from its edge (the sum of the widths before it).
@@ -17,6 +21,8 @@ export function usePinnedOffsets(
   leftKeys: string[],
   rightKeys: string[],
 ) {
+  // Each pinned key's offset from its edge, plus the total width pinned on
+  // each side under PINNED_START and PINNED_END.
   const [offsets, setOffsets] = React.useState<Record<string, number>>({});
   const leftSignature = leftKeys.join('|');
   const rightSignature = rightKeys.join('|');
@@ -40,6 +46,8 @@ export function usePinnedOffsets(
         next[key] = right;
         right += widthOf(key);
       });
+      next[PINNED_START] = left;
+      next[PINNED_END] = right;
       setOffsets((prev) => (shallowEqual(prev, next) ? prev : next));
     };
 
@@ -55,14 +63,25 @@ export function usePinnedOffsets(
 }
 
 /**
+ * Whether CSS alone can show the scroll shadows: scroll-state container
+ * queries, or scroll-driven animations as their fallback (see
+ * TableView.css). Read on each call, since it's only used in effects.
+ */
+export function supportsCssScrollShadows() {
+  return typeof CSS !== 'undefined' && typeof CSS.supports === 'function'
+    && (CSS.supports('container-type', 'scroll-state') || CSS.supports('animation-timeline', 'scroll()'));
+}
+
+/**
  * Tracks whether the table is scrolled away from its start and end, so the
  * pinned columns only cast a shadow when content is actually hidden beneath
- * them.
+ * them. Only a fallback for browsers that can't do it in CSS.
  */
 export function useHorizontalScrollEdges(tableRef: React.RefObject<HTMLTableElement>) {
   const [edges, setEdges] = React.useState({ start: false, end: false });
 
   React.useEffect(() => {
+    if (supportsCssScrollShadows()) return undefined;
     const table = tableRef.current;
     const scroller = table ? findHorizontalScroller(table) : null;
     if (!table || !scroller) return undefined;
@@ -86,6 +105,46 @@ export function useHorizontalScrollEdges(tableRef: React.RefObject<HTMLTableElem
   }, [tableRef]);
 
   return edges;
+}
+
+/**
+ * Keeps keyboard focus from landing under the pinned columns or, in a
+ * DataViewScrollArea, the sticky header (WCAG 2.4.11 Focus Not Obscured).
+ * Sets the pinned widths and the header height as custom properties on the
+ * scroll container, which TableView.css turns into its scroll-padding.
+ */
+export function useScrollerPadding(
+  tableRef: React.RefObject<HTMLTableElement>,
+  { start, end, stickyHeader }: { start: number; end: number; stickyHeader: boolean },
+) {
+  React.useLayoutEffect(() => {
+    const table = tableRef.current;
+    const scroller = table ? findHorizontalScroller(table) : null;
+    if (!table || !scroller) return undefined;
+    scroller.style.setProperty('--akds-dataview-scroll-padding-start', `${start}px`);
+    scroller.style.setProperty('--akds-dataview-scroll-padding-end', `${end}px`);
+    return () => {
+      scroller.style.removeProperty('--akds-dataview-scroll-padding-start');
+      scroller.style.removeProperty('--akds-dataview-scroll-padding-end');
+    };
+  }, [tableRef, start, end]);
+
+  React.useLayoutEffect(() => {
+    const table = tableRef.current;
+    const scroller = table ? findHorizontalScroller(table) : null;
+    const thead = table?.tHead;
+    if (!stickyHeader || !scroller || !thead) return undefined;
+    const measure = () => {
+      scroller.style.setProperty('--akds-dataview-scroll-padding-top', `${thead.getBoundingClientRect().height}px`);
+    };
+    measure();
+    const observer = typeof ResizeObserver === 'undefined' ? undefined : new ResizeObserver(measure);
+    observer?.observe(thead);
+    return () => {
+      observer?.disconnect();
+      scroller.style.removeProperty('--akds-dataview-scroll-padding-top');
+    };
+  }, [tableRef, stickyHeader]);
 }
 
 /**

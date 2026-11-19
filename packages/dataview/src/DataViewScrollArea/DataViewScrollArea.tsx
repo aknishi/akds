@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import './DataViewScrollArea.css';
 import type { DataViewScrollAreaProps } from './DataViewScrollArea.types';
 import { makePrefixer } from '../utils';
+import { supportsCssScrollShadows } from '../TableView/pinning';
 
 const withBaseName = makePrefixer('akds-dataview-scroll-area');
 
@@ -11,6 +12,8 @@ const withBaseName = makePrefixer('akds-dataview-scroll-area');
  * useVirtualizer's getScrollElement, and give it a height. It clips rows to
  * its rounded frame, shows a shadow under the sticky header once the content
  * is scrolled, and keeps the last row's border while content overflows.
+ * It's a region keyboard users can tab to and scroll; name it with
+ * `aria-label` or `aria-labelledby`.
  */
 export const DataViewScrollArea = React.forwardRef<HTMLDivElement, DataViewScrollAreaProps>(
   function DataViewScrollArea(
@@ -46,10 +49,12 @@ export const DataViewScrollArea = React.forwardRef<HTMLDivElement, DataViewScrol
       return () => observer.disconnect();
     }, []);
 
-    // React skips the re-render when the value is unchanged, so this only
-    // re-renders when crossing the top edge, not on every scroll event.
+    // Fallback for browsers that can't show the header shadow in CSS (see
+    // TableView.css). React skips the re-render when the value is unchanged,
+    // so this only re-renders when crossing the top edge.
+    const cssShadows = React.useMemo(supportsCssScrollShadows, []);
     const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-      setScrolled(e.currentTarget.scrollTop > 0);
+      if (!cssShadows) setScrolled(e.currentTarget.scrollTop > 0);
       onScroll?.(e);
     };
 
@@ -62,6 +67,8 @@ export const DataViewScrollArea = React.forwardRef<HTMLDivElement, DataViewScrol
           className,
         )}
         onScroll={handleScroll}
+        role="region"
+        tabIndex={0}
         {...rest}
       >
         {children}

@@ -18,6 +18,12 @@ export interface DataViewContextValue<TData = unknown> {
    * "View details for {label}". Defaults to `getRowLabel`.
    */
   getRowLabel?: (row: Row<TData>) => string;
+  /**
+   * Sends a message to screen readers through the DataView's one live
+   * region (see useAnnouncer). Without it, each component that announces
+   * keeps a region of its own.
+   */
+  announce?: (message: string) => void;
 }
 
 /** Called when a table row or card is clicked, or its details button is activated. */

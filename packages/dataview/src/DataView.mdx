@@ -18,6 +18,22 @@ One data source rendered as a table (`TableView`) or as cards (`CardView`), buil
 import { useDataView, DataViewCard, DataViewField } from '@aknishi/akds-dataview';
 ```
 
+## Naming the table
+
+Give every `TableView` an accessible name: a `caption`, or `aria-label` when there's no visible title. The name also labels the scroll region around the table, which keyboard users tab to when the table is wider than its space. Wrap the caption in `VisuallyHidden` to name the table without showing it.
+
+```tsx
+<TableView caption="Recent orders" />
+<TableView caption={<VisuallyHidden>Recent orders</VisuallyHidden>} />
+<TableView aria-label="Recent orders" />
+```
+
+A virtualized table scrolls inside a `DataViewScrollArea` instead, so name that: `<DataViewScrollArea aria-label="Recent orders">`.
+
+## Announcements
+
+Search result counts, selection changes, page changes, and sorting are announced to screen readers through one live region per `useDataView`, so they don't talk over each other. Sorting is announced once even when a table and cards show the same data.
+
 ## Card view header
 
 `CardView` renders its cards inside the same bordered frame as `TableView`, with a header bar styled like the table's header row. The bar holds what the table puts in its column headers:
