@@ -18,6 +18,12 @@ One data source rendered as a table (`TableView`) or as cards (`CardView`), buil
 import { useDataView, DataViewCard, DataViewField } from '@aknishi/akds-dataview';
 ```
 
+### Keep `data` and `columns` stable
+
+Pass the same `data` array on every render until the rows change, for example from state, a data-fetching library, or `useMemo`. A new array counts as new data: TanStack Table updates its state in response, which renders again, and an array rebuilt on every render (such as `orders.filter(...)` inline) keeps that going without end. Keep `columns` stable the same way, defined outside the component or in `useMemo`.
+
+An empty array is the exception: `data={result ?? []}` is safe, because DataView treats every empty array as the same one.
+
 ## Naming the table
 
 Give every `TableView` an accessible name: a `caption`, or `aria-label` when there's no visible title. The name also labels the scroll region around the table, which keyboard users tab to when the table is wider than its space. Wrap the caption in `VisuallyHidden` to name the table without showing it.

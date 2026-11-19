@@ -34,7 +34,12 @@ export interface DataViewQuery {
 }
 
 export interface UseDataViewCoreOptions<TData> {
-  /** The rows to display. Keep the array reference stable (e.g. useMemo) to avoid recomputing rows every render. */
+  /**
+   * The rows to display. Pass the same array on every render until the rows
+   * change, e.g. from state or useMemo: a new array counts as new data, and
+   * TanStack Table updates its state in response, which renders again. An
+   * empty array is safe to pass inline (`data ?? []`).
+   */
   data: TData[];
   /** TanStack column definitions. Keep the array reference stable. */
   columns: ColumnDef<TData, any>[];
@@ -80,8 +85,11 @@ export interface UseDataViewCoreOptions<TData> {
   onQueryChange?: (query: DataViewQuery) => void;
 }
 
+// Stands in for every empty `data`, so `data ?? []` keeps one identity.
+const NO_ROWS: never[] = [];
+
 export function useDataViewCore<TData>({
-  data,
+  data: dataOption,
   columns,
   getRowId,
   columnPinning,
@@ -90,6 +98,11 @@ export function useDataViewCore<TData>({
   rowCount,
   onQueryChange,
 }: UseDataViewCoreOptions<TData>): Table<TData> {
+  // A new array is new data to TanStack, which updates its state in
+  // response and renders again. With `data ?? []` every render would make
+  // another, without end. One shared empty array stops that for the most
+  // common case; other arrays have to be kept stable by the caller.
+  const data: TData[] = dataOption.length === 0 ? NO_ROWS : dataOption;
   // TanStack's own return to the first page after a sort or search is
   // queued for a later render (and never happens server-side), so the
   // render in between still asks for the old page: with fewer rows that
