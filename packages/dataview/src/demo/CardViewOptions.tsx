@@ -126,17 +126,14 @@ export function CardViewOptions() {
 
   return (
     <Flexbox direction="column" gap="sm">
-      {/* A row Flexbox sizes the toggle to its content; the column would stretch it. */}
-      <Flexbox>
-        <ToggleGroup
-          aria-label="Card layout"
-          value={cardLayout}
-          onChange={(value) => setCardLayout(value as CardLayout)}
-        >
-          <ToggleButton value="teamA">Team A layout</ToggleButton>
-          <ToggleButton value="teamB">Team B layout</ToggleButton>
-        </ToggleGroup>
-      </Flexbox>
+      <ToggleGroup
+        aria-label="Card layout"
+        value={cardLayout}
+        onChange={(value) => setCardLayout(value as CardLayout)}
+      >
+        <ToggleButton value="teamA">Team A layout</ToggleButton>
+        <ToggleButton value="teamB">Team B layout</ToggleButton>
+      </ToggleGroup>
 
       <BulkActions variant={bulkActionsVariant} actions={bulkActions} />
       <CardView selectable cardActions={(row) => <OrderActions order={row.original} />}>

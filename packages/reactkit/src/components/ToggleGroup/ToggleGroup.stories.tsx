@@ -10,6 +10,7 @@ const meta: Meta<typeof ToggleGroup> = {
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] },
     disabled: { control: 'boolean' },
+    fullWidth: { control: 'boolean' },
   },
 };
 
@@ -101,6 +102,22 @@ const Example = () => (
   <ToggleGroup defaultValue="drinks" disabled>
     <ToggleButton value="drinks"><LocalBarIcon />Drinks</ToggleButton>
     <ToggleButton value="food"><LunchDiningIcon />Food</ToggleButton>
+  </ToggleGroup>
+);
+
+export default Example;
+`,
+});
+
+export const FullWidth = LiveEditStory({
+  component: ToggleGroup,
+  code: `import { ToggleGroup, ToggleButton } from '@aknishi/akds-reactkit';
+
+const Example = () => (
+  <ToggleGroup defaultValue="day" fullWidth aria-label="Range">
+    <ToggleButton value="day">Day</ToggleButton>
+    <ToggleButton value="week">Week</ToggleButton>
+    <ToggleButton value="month">Month</ToggleButton>
   </ToggleGroup>
 );
 

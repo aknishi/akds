@@ -49,6 +49,17 @@ describe('ToggleGroup', () => {
   it('applies default classes', () => {
     render(<ToggleGroupFixture />);
     expect(screen.getByRole('radiogroup')).toHaveClass('akds-toggle-group');
+    expect(screen.getByRole('radiogroup')).not.toHaveClass('akds-toggle-group--full-width');
+  });
+
+  it('adds the full-width class with fullWidth', () => {
+    render(
+      <ToggleGroup defaultValue="day" fullWidth aria-label="Range">
+        <ToggleButton value="day">Day</ToggleButton>
+        <ToggleButton value="week">Week</ToggleButton>
+      </ToggleGroup>,
+    );
+    expect(screen.getByRole('radiogroup')).toHaveClass('akds-toggle-group--full-width');
   });
 
   it('renders the sliding indicator element', () => {

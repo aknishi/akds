@@ -208,17 +208,14 @@ export function TableViewDefault() {
 
   return (
     <Flexbox direction="column" gap="md">
-      {/* A row Flexbox sizes the toggle to its content; the column would stretch it. */}
-      <Flexbox>
-        <ToggleGroup
-          aria-label="Table layout"
-          value={tableLayout}
-          onChange={(value) => setTableLayout(value as TableLayout)}
-        >
-          <ToggleButton value="a">Layout A</ToggleButton>
-          <ToggleButton value="b">Layout B</ToggleButton>
-        </ToggleGroup>
-      </Flexbox>
+      <ToggleGroup
+        aria-label="Table layout"
+        value={tableLayout}
+        onChange={(value) => setTableLayout(value as TableLayout)}
+      >
+        <ToggleButton value="a">Layout A</ToggleButton>
+        <ToggleButton value="b">Layout B</ToggleButton>
+      </ToggleGroup>
 
       {tableLayout === 'a' && <LayoutA />}
       {tableLayout === 'b' && <LayoutB />}

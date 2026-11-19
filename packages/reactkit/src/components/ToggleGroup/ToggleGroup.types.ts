@@ -9,6 +9,8 @@ export interface ToggleGroupProps extends Omit<React.HTMLAttributes<HTMLDivEleme
   onChange?: (value: string) => void;
   /** When true, disables all child ToggleButton components. */
   disabled?: boolean;
+  /** When true, the group fills its parent and every button gets the same width. By default the group is only as wide as its buttons. */
+  fullWidth?: boolean;
   /** Sets the size applied to all child ToggleButton components. */
   size?: ToggleGroupSize;
   /** ToggleButton components to render inside the group. Required — overrides the optional inherited type. */
