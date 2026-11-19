@@ -46,6 +46,7 @@ const COMPONENT_KEYWORDS: Record<string, string[]> = {
   avatar: ['profile picture', 'user icon', 'headshot'],
   carousel: ['slider', 'slideshow', 'gallery'],
   table: ['data table', 'grid'],
+  dataview: ['data table', 'data grid', 'datagrid', 'list', 'cards', 'sorting', 'filtering', 'pagination', 'bulk actions'],
   tag: ['chip', 'pill', 'badge', 'label'],
   text: ['typography', 'heading', 'paragraph'],
   'theme-provider': ['theming', 'dark mode', 'light mode'],

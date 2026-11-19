@@ -85,12 +85,24 @@ export function ComponentDocPage() {
       )}
 
       <nav className="component-doc-page__jump-nav" aria-label="On this page">
+        {entry.sections?.map((section) => (
+          <a key={section.id} href={`#${section.id}`}>{section.title}</a>
+        ))}
         <a href="#examples">Examples</a>
         <a href="#accessibility">Accessibility</a>
         <a href="#props">Props</a>
         {!entry.isPrimitive && entry.doDont && entry.doDont.length > 0 && <a href="#do-dont">Do&rsquo;s and don&rsquo;ts</a>}
         {!entry.isPrimitive && related.length > 0 && <a href="#related">Related</a>}
       </nav>
+
+      {entry.sections?.map((section) => (
+        <section id={section.id} key={section.id}>
+          <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
+            {section.title}
+          </Text>
+          {section.content}
+        </section>
+      ))}
 
       <section id="examples">
         <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
@@ -106,7 +118,7 @@ export function ComponentDocPage() {
                 {example.description && <Text styleAs="body">{example.description}</Text>}
               </Flexbox>
               <ComponentPreviewFrame>{example.render()}</ComponentPreviewFrame>
-              <CodeBlock code={example.code} />
+              {example.code && <CodeBlock code={example.code} />}
             </Flexbox>
           ))}
         </Flexbox>
@@ -133,6 +145,11 @@ export function ComponentDocPage() {
         <Text as="h2" styleAs="h3" className="component-doc-page__section-title">
           Props
         </Text>
+        {entry.propsIntro && (
+          <Text styleAs="body" className="component-doc-page__props-intro">
+            {entry.propsIntro}
+          </Text>
+        )}
         <PropsTable props={entry.props} />
       </section>
 

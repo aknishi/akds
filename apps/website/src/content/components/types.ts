@@ -36,7 +36,19 @@ export interface ComponentExample {
   title: string;
   description?: string;
   render: () => React.ReactNode;
-  code: string;
+  /** Omit for examples that show behavior rather than how to write it; the Storybook docs carry the code. */
+  code?: string;
+}
+
+/**
+ * A page section shown before Examples, for components with more to explain
+ * than examples and props cover: what's included, how parts work together,
+ * and when to use it.
+ */
+export interface DocSection {
+  id: string;
+  title: string;
+  content: React.ReactNode;
 }
 
 export interface DoDontPair {
@@ -59,6 +71,10 @@ export interface ComponentEntry {
   examples: ComponentExample[];
   accessibilityNotes: string[];
   props: PropRow[];
+  /** Shown above the props table, e.g. to say it lists only the main options. */
+  propsIntro?: string;
+  /** Overview sections, shown before Examples and listed in the page's jump links. */
+  sections?: DocSection[];
   doDont?: DoDontPair[];
   related?: string[];
 }

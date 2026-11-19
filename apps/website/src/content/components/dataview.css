@@ -1,0 +1,26 @@
+/* The preview frame centres its content; the demos fill its width instead. */
+.dataview-entry-demo {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Narrower than the frame, so the pinned columns example scrolls sideways. */
+.dataview-entry-demo--narrow {
+  max-width: 560px;
+}
+
+.dataview-entry-prose {
+  max-width: 720px;
+}
+
+.akds-text.dataview-entry-subheading {
+  margin-top: var(--akds-spacing-200);
+}
+
+.dataview-entry-list {
+  margin: 0;
+  padding-left: var(--akds-spacing-300);
+  display: flex;
+  flex-direction: column;
+  gap: var(--akds-spacing-100);
+}
