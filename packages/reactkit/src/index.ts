@@ -89,7 +89,7 @@ export { ProgressTrackerStep } from './components/ProgressTrackerStep/index.js';
 export type { ProgressTrackerStepProps, ProgressTrackerStepStatus, ProgressTrackerStepContextValue } from './components/ProgressTrackerStep/index.js';
 
 export { ThemeProvider, useTheme, ThemeContext } from './components/ThemeProvider/index.js';
-export type { ThemeProviderProps, Theme, ThemeContextValue } from './components/ThemeProvider/index.js';
+export type { ThemeProviderProps, Theme, ResolvedTheme, ThemeContextValue } from './components/ThemeProvider/index.js';
 
 export { Avatar } from './components/Avatar/index.js';
 export type { AvatarProps, AvatarSize, AvatarColor } from './components/Avatar/index.js';

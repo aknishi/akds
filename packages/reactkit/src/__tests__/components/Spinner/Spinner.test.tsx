@@ -1,7 +1,10 @@
 import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { Spinner } from '../../../components/Spinner/Spinner';
+
+expect.extend(toHaveNoViolations);
 
 describe('Spinner', () => {
   it('renders a hidden span', () => {
@@ -35,5 +38,12 @@ describe('Spinner', () => {
     const span = container.querySelector('span');
     expect(span).toHaveClass('akds-spinner');
     expect(span).toHaveClass('my-spinner');
+  });
+
+  it('is exposed as a labelled progressbar when a label is given', async () => {
+    const { container } = render(<Spinner label="Loading results" />);
+    const spinner = screen.getByRole('progressbar', { name: 'Loading results' });
+    expect(spinner).not.toHaveAttribute('aria-hidden');
+    expect(await axe(container)).toHaveNoViolations();
   });
 });

@@ -138,3 +138,36 @@
     transition: none;
   }
 }
+
+/* ── Forced colors (Windows High Contrast) ──────────────────────────────── */
+/* Forced colors removes box-shadow and replaces author backgrounds, so state
+   and boundaries drawn with them disappear. System color keywords are kept. */
+@media (forced-colors: active) {
+  /* Track and thumb are background fills only; give them system colors and a
+     boundary so both the control and its state stay visible. */
+  .akds-switch__track {
+    background-color: Canvas;
+    outline: 1px solid CanvasText;
+  }
+
+  .akds-switch__thumb {
+    background-color: CanvasText;
+  }
+
+  .akds-switch__input:checked ~ .akds-switch__track {
+    background-color: Highlight;
+    outline-color: Highlight;
+  }
+
+  .akds-switch__input:checked ~ .akds-switch__track .akds-switch__thumb {
+    background-color: HighlightText;
+  }
+
+  .akds-switch--disabled .akds-switch__track {
+    outline-color: GrayText;
+  }
+
+  .akds-switch--disabled .akds-switch__thumb {
+    background-color: GrayText;
+  }
+}

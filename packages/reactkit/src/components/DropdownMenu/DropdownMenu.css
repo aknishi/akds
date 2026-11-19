@@ -126,6 +126,7 @@
 }
 
 /* ── Listbox panel — positioned below control, full width ──────────────── */
+/* Fallback for browsers without the Popover API: absolute inside the container. */
 .akds-dropdown-menu__listbox {
   position: absolute;
   top: calc(100% + var(--akds-spacing-50));
@@ -136,6 +137,26 @@
   overflow-y: auto;
   /* min-width: 0 to allow full-width stretch (overrides .akds-menu's min-width) */
   min-width: 0;
+}
+
+/* Native popover: top layer, so overflow containers and dialogs can't clip it. */
+@supports selector(:popover-open) {
+  .akds-dropdown-menu__listbox[popover] {
+    position: fixed;
+    top: auto;
+    left: auto;
+    right: auto;
+    z-index: auto;
+  }
+}
+
+/* Anchored to the control; flips above it when there is no room below. */
+@supports selector(:popover-open) and (position-area: block-end) {
+  .akds-dropdown-menu__listbox[popover] {
+    position-area: block-end span-inline-end;
+    width: anchor-size(width);
+    margin-block-start: var(--akds-spacing-50);
+  }
 }
 
 /* ── Disabled ──────────────────────────────────────────────────────────── */

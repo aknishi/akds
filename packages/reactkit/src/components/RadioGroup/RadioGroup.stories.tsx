@@ -52,7 +52,7 @@ export const Disabled = LiveEditStory({
   code: `import { RadioGroup, Radio } from '@aknishi/akds-reactkit';
 
 const RadioGroupExample = () => (
-  <RadioGroup name="disabled-group" disabled>
+  <RadioGroup name="disabled-group" disabled legend="Disabled group">
     <Radio value="a" label="Option A" />
     <Radio value="b" label="Option B" />
   </RadioGroup>

@@ -27,7 +27,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) {
     const isDisabled = disabled || loading;
-    const useAriaDisabled = isDisabled && focusableWhenDisabled;
+    // While loading, use aria-disabled (not native disabled) so the button
+    // that was just activated keeps keyboard focus.
+    const useAriaDisabled = isDisabled && (focusableWhenDisabled || !disabled);
     const rippleRef = React.useRef<RippleBaseHandle>(null);
     const prefersReducedMotion =
       typeof window !== 'undefined' &&

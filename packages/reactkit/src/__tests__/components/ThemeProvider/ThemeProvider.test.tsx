@@ -45,13 +45,15 @@ describe('ThemeProvider', () => {
     expect(screen.getByText('child content')).toBeInTheDocument();
   });
 
-  it('provides default light theme via context', () => {
+  it('defaults to the system theme and leaves data-theme unset', () => {
+    document.documentElement.setAttribute('data-theme', 'dark');
     render(
       <ThemeProvider>
         <ThemeConsumer />
       </ThemeProvider>,
     );
-    expect(screen.getByTestId('theme')).toHaveTextContent('light');
+    expect(screen.getByTestId('theme')).toHaveTextContent('system');
+    expect(document.documentElement).not.toHaveAttribute('data-theme');
   });
 
   it('respects defaultTheme prop', () => {
@@ -195,7 +197,7 @@ describe('ThemeProvider', () => {
         return <span data-testid="theme">{theme}</span>;
       };
       render(<Consumer />);
-      expect(screen.getByTestId('theme')).toHaveTextContent('light');
+      expect(screen.getByTestId('theme')).toHaveTextContent('system');
     });
 
     it('no-op setTheme outside provider does not throw', () => {
@@ -225,6 +227,76 @@ describe('ThemeProvider', () => {
         </ThemeProvider>,
       );
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('system theme', () => {
+    function mockMatchMedia(initialDark: boolean) {
+      let matches = initialDark;
+      const listeners = new Set<() => void>();
+      const mql = {
+        get matches() { return matches; },
+        media: '(prefers-color-scheme: dark)',
+        addEventListener: (_: string, cb: () => void) => listeners.add(cb),
+        removeEventListener: (_: string, cb: () => void) => listeners.delete(cb),
+      };
+      vi.stubGlobal('matchMedia', vi.fn(() => mql));
+      return {
+        setDark(next: boolean) {
+          matches = next;
+          listeners.forEach((cb) => cb());
+        },
+      };
+    }
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    const ResolvedConsumer = () => {
+      const { theme, resolvedTheme, setTheme } = useTheme();
+      return (
+        <div>
+          <span data-testid="theme">{theme}</span>
+          <span data-testid="resolved">{resolvedTheme}</span>
+          <button onClick={() => setTheme('system')}>Use system</button>
+        </div>
+      );
+    };
+
+    it('resolves the system theme from the OS and tracks changes', () => {
+      const media = mockMatchMedia(true);
+      render(
+        <ThemeProvider>
+          <ResolvedConsumer />
+        </ThemeProvider>,
+      );
+      expect(screen.getByTestId('resolved')).toHaveTextContent('dark');
+      act(() => media.setDark(false));
+      expect(screen.getByTestId('resolved')).toHaveTextContent('light');
+    });
+
+    it('an explicit theme overrides the OS for resolvedTheme', () => {
+      mockMatchMedia(true);
+      render(
+        <ThemeProvider defaultTheme="light">
+          <ResolvedConsumer />
+        </ThemeProvider>,
+      );
+      expect(screen.getByTestId('resolved')).toHaveTextContent('light');
+    });
+
+    it('switching back to system removes data-theme', async () => {
+      mockMatchMedia(false);
+      render(
+        <ThemeProvider defaultTheme="dark">
+          <ResolvedConsumer />
+        </ThemeProvider>,
+      );
+      expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+      await userEvent.click(screen.getByRole('button', { name: 'Use system' }));
+      expect(document.documentElement).not.toHaveAttribute('data-theme');
+      expect(screen.getByTestId('theme')).toHaveTextContent('system');
     });
   });
 });

@@ -6,10 +6,12 @@ import { makePrefixer } from '../../utils';
 
 const withBaseName = makePrefixer('akds-spinner');
 
-export const Spinner: React.FC<SpinnerProps> = ({ size = 'md', className }) => {
+export const Spinner: React.FC<SpinnerProps> = ({ size = 'md', className, label }) => {
   return (
     <span
-      aria-hidden="true"
+      {...(label
+        ? { role: 'progressbar', 'aria-label': label }
+        : { 'aria-hidden': true })}
       className={clsx(withBaseName(), withBaseName(size), className)}
     />
   );

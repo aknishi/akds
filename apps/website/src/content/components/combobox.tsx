@@ -73,8 +73,9 @@ export const combobox: ComponentEntry = {
   ],
   accessibilityNotes: [
     'The input is a combobox with an associated listbox popup, following the ARIA combobox pattern.',
-    'Typing filters the option list; arrow keys move the active option; Enter selects it; Escape closes the popup.',
+    'Typing filters the option list; arrow keys move the active option; Enter (on keydown) or Space (on keyup) selects it; Escape closes the popup.',
     'Provide label (or aria-label) — it is the accessible name for the input.',
+    'Set name to submit the selection with a surrounding <form> (hidden inputs; one per value in multiple mode). required sets aria-required and blocks native form submission until an option is selected.',
   ],
   props: [
     { name: 'options', type: 'ComboboxOption[]', description: 'Array of selectable options. Required.' },
@@ -86,6 +87,8 @@ export const combobox: ComponentEntry = {
     { name: 'placeholder', type: 'string', description: 'Placeholder shown when no value is selected.' },
     { name: 'helperText', type: 'string', description: 'Helper text rendered below the control.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling.' },
+    { name: 'name', type: 'string', description: 'Form field name. The selection is submitted via hidden inputs — one per selected value in multiple mode.' },
+    { name: 'required', type: 'boolean', default: 'false', description: 'Blocks form submission until at least one option is selected.' },
     { name: 'fullWidth', type: 'boolean', default: 'false', description: "Expands the control to fill its container's width." },
     { name: 'aria-label', type: 'string', description: 'Accessible label applied to the combobox input when no visible label is provided.' },
   ],

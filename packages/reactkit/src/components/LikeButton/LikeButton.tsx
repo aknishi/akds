@@ -18,6 +18,7 @@ export const LikeButton = React.forwardRef<HTMLButtonElement, LikeButtonProps>(
       className,
       onClick,
       onPointerDown,
+      'aria-label': ariaLabel = 'Like',
       ...rest
     },
     ref,
@@ -56,6 +57,8 @@ export const LikeButton = React.forwardRef<HTMLButtonElement, LikeButtonProps>(
         type="button"
         disabled={useAriaDisabled ? undefined : isDisabled || undefined}
         aria-disabled={isDisabled || undefined}
+        aria-label={ariaLabel}
+        aria-pressed={likedState}
         className={clsx(
           withBaseName(),
           { [withBaseName('disabled')]: isDisabled },

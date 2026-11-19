@@ -1,55 +1,21 @@
 /* ── Wrapper ──────────────────────────────────────────────────────────────── */
+/* The wrapper hugs the trigger and is the tooltip's anchor. The anchor name is
+   per-instance (set inline as --akds-tooltip-anchor) and inherited by the
+   tooltip, which reads it back as its position-anchor. */
 .akds-tooltip__wrapper {
   display: inline-flex;
-  position: relative;
   align-self: flex-start;
-}
-
-/* ── Animations ──────────────────────────────────────────────────────────── */
-@keyframes akds-tooltip-in-top {
-  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-@keyframes akds-tooltip-in-bottom {
-  from { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
-}
-
-@keyframes akds-tooltip-in-left {
-  from { opacity: 0; transform: translateY(-50%) translateX(8px); }
-  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-@keyframes akds-tooltip-in-right {
-  from { opacity: 0; transform: translateY(-50%) translateX(-8px); }
-  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-@keyframes akds-tooltip-out-top {
-  from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to   { opacity: 0; transform: translateX(-50%) translateY(8px); }
-}
-
-@keyframes akds-tooltip-out-bottom {
-  from { opacity: 1; transform: translateX(-50%) translateY(0); }
-  to   { opacity: 0; transform: translateX(-50%) translateY(-8px); }
-}
-
-@keyframes akds-tooltip-out-left {
-  from { opacity: 1; transform: translateY(-50%) translateX(0); }
-  to   { opacity: 0; transform: translateY(-50%) translateX(8px); }
-}
-
-@keyframes akds-tooltip-out-right {
-  from { opacity: 1; transform: translateY(-50%) translateX(0); }
-  to   { opacity: 0; transform: translateY(-50%) translateX(-8px); }
+  anchor-name: var(--akds-tooltip-anchor);
 }
 
 /* ── Base ────────────────────────────────────────────────────────────────── */
+/* Rendered as popover="hint", so it lives in the top layer: never clipped by
+   overflow ancestors and no z-index needed. */
 .akds-tooltip {
-  position: absolute;
-  z-index: 100;
+  box-sizing: border-box;
+  position: fixed;
+  overflow: visible;
+  border: 0;
   padding: var(--akds-spacing-25) var(--akds-spacing-100);
   background-color: var(--akds-color-text-primary-default);
   color: var(--akds-color-surface-default);
@@ -59,90 +25,114 @@
   line-height: var(--akds-font-line-height-normal);
   border-radius: var(--akds-radius-sm);
   white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
   box-shadow: var(--akds-elevation-sm);
+  opacity: 0;
+  transition-property: opacity, translate, display, overlay;
+  transition-duration: 140ms;
+  transition-timing-function: ease-out;
+  /* Declared on its own (not in a transition shorthand) so older browsers keep the transition. */
+  transition-behavior: allow-discrete;
 }
 
-/* ── Placements ──────────────────────────────────────────────────────────── */
-.akds-tooltip--top {
-  bottom: calc(100% + var(--akds-spacing-100));
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.akds-tooltip--bottom {
-  top: calc(100% + var(--akds-spacing-100));
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.akds-tooltip--left {
-  right: calc(100% + var(--akds-spacing-100));
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.akds-tooltip--right {
-  left: calc(100% + var(--akds-spacing-100));
-  top: 50%;
-  transform: translateY(-50%);
+/* Hidden unless showing or playing its exit transition. Covers browsers
+   without the Popover API, where the UA doesn't hide closed popovers. */
+.akds-tooltip:not(.akds-tooltip--visible):not(.akds-tooltip--hiding) {
+  display: none;
 }
 
 /* ── Visible ──────────────────────────────────────────────────────────────── */
-.akds-tooltip--visible.akds-tooltip--top {
-  animation: akds-tooltip-in-top 140ms ease-out forwards;
+.akds-tooltip--visible {
+  opacity: 1;
+  translate: 0 0;
 }
 
-.akds-tooltip--visible.akds-tooltip--bottom {
-  animation: akds-tooltip-in-bottom 140ms ease-out forwards;
-}
-
-.akds-tooltip--visible.akds-tooltip--left {
-  animation: akds-tooltip-in-left 140ms ease-out forwards;
-}
-
-.akds-tooltip--visible.akds-tooltip--right {
-  animation: akds-tooltip-in-right 140ms ease-out forwards;
+@starting-style {
+  .akds-tooltip--visible {
+    opacity: 0;
+    translate: var(--akds-tooltip-nudge, 0 0);
+  }
 }
 
 /* ── Hiding ──────────────────────────────────────────────────────────────── */
-.akds-tooltip--hiding.akds-tooltip--top {
-  animation: akds-tooltip-out-top 160ms ease-in forwards;
+/* The popover stays open (in the top layer) while this runs, then JS calls
+   hidePopover() — works whether or not the browser can transition overlay. */
+.akds-tooltip--hiding {
+  opacity: 0;
+  translate: var(--akds-tooltip-nudge, 0 0);
+  transition-duration: 160ms;
+  transition-timing-function: ease-in;
 }
 
-.akds-tooltip--hiding.akds-tooltip--bottom {
-  animation: akds-tooltip-out-bottom 160ms ease-in forwards;
-}
-
-.akds-tooltip--hiding.akds-tooltip--left {
-  animation: akds-tooltip-out-left 160ms ease-in forwards;
-}
-
-.akds-tooltip--hiding.akds-tooltip--right {
-  animation: akds-tooltip-out-right 160ms ease-in forwards;
-}
-
-/* ── Reduced motion ─────────────────────────────────────────────────────── */
-/*
- * The base .akds-tooltip has opacity: 0. Normally the keyframe animation's
- * `forwards` fill mode sets opacity: 1 when visible. With animation: none the
- * fill never applies, so we must set opacity explicitly for each state.
- */
-@media (prefers-reduced-motion: reduce) {
-  .akds-tooltip--visible.akds-tooltip--top,
-  .akds-tooltip--visible.akds-tooltip--bottom,
-  .akds-tooltip--visible.akds-tooltip--left,
-  .akds-tooltip--visible.akds-tooltip--right {
-    animation: none;
-    opacity: 1;
+/* ── Motion ──────────────────────────────────────────────────────────────── */
+/* Directional slide only for users who haven't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .akds-tooltip--top {
+    --akds-tooltip-nudge: 0 8px;
   }
 
-  .akds-tooltip--hiding.akds-tooltip--top,
-  .akds-tooltip--hiding.akds-tooltip--bottom,
-  .akds-tooltip--hiding.akds-tooltip--left,
-  .akds-tooltip--hiding.akds-tooltip--right {
-    animation: none;
-    opacity: 0;
+  .akds-tooltip--bottom {
+    --akds-tooltip-nudge: 0 -8px;
+  }
+
+  .akds-tooltip--left {
+    --akds-tooltip-nudge: 8px 0;
+  }
+
+  .akds-tooltip--right {
+    --akds-tooltip-nudge: -8px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .akds-tooltip,
+  .akds-tooltip--hiding {
+    transition-duration: 0.1s;
+  }
+}
+
+/* ── Placement: CSS anchor positioning ───────────────────────────────────── */
+/* inset/margin resets are gated so browsers without anchor positioning keep a
+   sensible placement (see the fallback block below). */
+@supports (position-area: block-start) {
+  .akds-tooltip {
+    inset: auto;
+    margin: 0;
+    position-anchor: var(--akds-tooltip-anchor);
+  }
+
+  .akds-tooltip--top {
+    position-area: block-start;
+    position-try-fallbacks: flip-block;
+    margin-block-end: var(--akds-spacing-100);
+  }
+
+  .akds-tooltip--bottom {
+    position-area: block-end;
+    position-try-fallbacks: flip-block;
+    margin-block-start: var(--akds-spacing-100);
+  }
+
+  .akds-tooltip--left {
+    position-area: inline-start;
+    position-try-fallbacks: flip-inline;
+    margin-inline-end: var(--akds-spacing-100);
+  }
+
+  .akds-tooltip--right {
+    position-area: inline-end;
+    position-try-fallbacks: flip-inline;
+    margin-inline-start: var(--akds-spacing-100);
+  }
+}
+
+/* ── Placement: fallback ─────────────────────────────────────────────────── */
+/* Without anchor positioning, Tooltip.tsx measures the trigger and writes
+   viewport coordinates (with flip + clamping) into these custom properties. */
+@supports not (position-area: block-start) {
+  .akds-tooltip {
+    inset: auto;
+    margin: 0;
+    top: var(--akds-tooltip-top, 0);
+    left: var(--akds-tooltip-left, 0);
   }
 }

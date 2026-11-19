@@ -15,6 +15,10 @@ export interface SwitchProps extends Omit<React.LabelHTMLAttributes<HTMLLabelEle
   name?: string;
   /** Value attribute forwarded to the inner `<input>`. */
   value?: string;
+  /** Marks the inner `<input>` as required for form validation. */
+  required?: boolean;
+  /** Focuses the inner `<input>` on mount. */
+  autoFocus?: boolean;
   /** When true, prevents interaction and applies disabled styling. */
   disabled?: boolean;
   /** Sets the size of the switch. */

@@ -5,6 +5,7 @@ import './Combobox.css';
 import type { ComboboxProps, ComboboxOption } from './Combobox.types';
 import { CloseIcon, KeyboardArrowDownIcon } from '@aknishi/akds-icons';
 import { makePrefixer } from '../../utils/makePrefixer';
+import { useAnchoredPopover } from '../../utils/useAnchoredPopover';
 
 const withBaseName = makePrefixer('akds-combobox');
 
@@ -62,6 +63,8 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
       multiple = false,
       disabled = false,
       fullWidth = false,
+      name,
+      required = false,
       className,
       'aria-label': ariaLabel,
       ...rest
@@ -80,6 +83,9 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
     const [focused, setFocused] = React.useState(false);
     const [keyboardFocused, setKeyboardFocused] = React.useState(false);
     const pointerActive = React.useRef(false);
+    // Option a Space keydown landed on; Space activates on keyup (like a
+    // native button) only if it was also pressed on that option.
+    const spacePressedOn = React.useRef<string | null>(null);
 
     const inputId = React.useId();
     const labelId = React.useId();
@@ -90,8 +96,30 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
     const inputRef = React.useRef<HTMLInputElement>(null);
     const listboxRef = React.useRef<HTMLUListElement>(null);
     const fieldWrapperRef = React.useRef<HTMLDivElement>(null);
+    const controlRef = React.useRef<HTMLDivElement>(null);
+
+    // Top-layer popover anchored to the control. "manual" so focus and typing
+    // stay in the input without light dismiss; outside clicks, Escape and blur
+    // are handled below as before.
+    const { mounted, popoverProps, position, usesJsPosition } = useAnchoredPopover({
+      open,
+      popoverRef: listboxRef,
+      anchorRef: controlRef,
+      mode: 'manual',
+      placement: 'bottom-left',
+      matchAnchorWidth: true,
+      legacyPositioning: 'css',
+    });
 
     React.useImperativeHandle(ref, () => containerRef.current!);
+
+    // `required`: the visible input's text isn't the submitted value, so
+    // validity tracks the selection instead. Native validation then blocks
+    // submit and focuses the input like any other required field.
+    const hasSelection = resolvedSelected.length > 0;
+    React.useEffect(() => {
+      inputRef.current?.setCustomValidity(required && !hasSelection ? 'Please select an option.' : '');
+    }, [required, hasSelection]);
 
     const filteredOptions = React.useMemo(() => {
       const q = isAutoFilled ? '' : inputValue.trim().toLowerCase();
@@ -197,6 +225,9 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Escape') {
+        // Consume Escape only when there's something to dismiss, so inside a
+        // native <dialog> it doesn't also close the dialog.
+        if (open || inputValue) e.preventDefault();
         setOpen(false);
         setInputValue('');
         setIsAutoFilled(false);
@@ -216,6 +247,8 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
         const first = listboxRef.current?.querySelector<HTMLElement>(OPTION_SELECTOR);
         first?.focus();
       } else if (e.key === 'Enter') {
+        // Don't select while an IME (e.g. CJK input) is composing text.
+        if (e.nativeEvent.isComposing || e.keyCode === 229) return;
         const match = findMatchingOption(inputValue) ?? getSoleFilteredOption();
         if (match) {
           e.preventDefault();
@@ -310,6 +343,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
         {...rest}
       >
         <div
+          ref={controlRef}
           className={clsx(
             withBaseName.el('control'),
             { [withBaseName.el('control') + '--open']: open },
@@ -346,7 +380,7 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
               aria-labelledby={label ? labelId : undefined}
               aria-label={!label ? ariaLabel : undefined}
               aria-describedby={helperText ? helperId : undefined}
-              aria-disabled={disabled || undefined}
+              aria-required={required || undefined}
               disabled={disabled}
               value={displayLabel}
               placeholder={!label ? (placeholder ?? '') : ''}
@@ -361,6 +395,12 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
               onPointerDown={handleInputPointerDown}
               onKeyDown={handleInputKeyDown}
             />
+            {name !== undefined && (multiple
+              ? resolvedSelected.map(v => (
+                  <input key={v} type="hidden" name={name} value={v} disabled={disabled} />
+                ))
+              : <input type="hidden" name={name} value={resolvedSelected[0] ?? ''} disabled={disabled} />
+            )}
             {label && (
               <label
                 id={labelId}
@@ -383,15 +423,26 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
           <p id={helperId} className={withBaseName.el('helper-text')}>{helperText}</p>
         )}
 
-        {open && (
+        {mounted && (
           <ul
             ref={listboxRef}
             id={listboxId}
             role="listbox"
             aria-multiselectable={multiple || undefined}
             aria-label={label ?? ariaLabel}
-            className={clsx('akds-menu', withBaseName.el('listbox'))}
+            className={clsx('akds-menu', { 'akds-menu--open': open }, withBaseName.el('listbox'))}
+            style={
+              usesJsPosition
+                ? {
+                    top: position?.top ?? 0,
+                    left: position?.left ?? 0,
+                    width: position?.width,
+                    opacity: position ? undefined : 0,
+                  }
+                : undefined
+            }
             onKeyDown={handleListboxKeyDown}
+            {...popoverProps}
           >
             {filteredOptions.length === 0 ? (
               <li className={withBaseName.el('no-results')} role="presentation">
@@ -417,10 +468,20 @@ export const Combobox = React.forwardRef<HTMLDivElement, ComboboxProps>(
                       if (!option.disabled) handleSelect(option.value);
                     }}
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
+                      if (e.key === 'Enter') {
                         e.preventDefault();
                         if (!option.disabled) handleSelect(option.value);
+                      } else if (e.key === ' ') {
+                        // Prevent page scroll; Space activates on keyup.
+                        e.preventDefault();
+                        spacePressedOn.current = option.value;
                       }
+                    }}
+                    onKeyUp={(e) => {
+                      if (e.key !== ' ') return;
+                      const pressed = spacePressedOn.current === option.value;
+                      spacePressedOn.current = null;
+                      if (pressed && !option.disabled) handleSelect(option.value);
                     }}
                   >
                     {multiple && (

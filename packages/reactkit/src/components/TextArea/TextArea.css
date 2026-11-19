@@ -38,19 +38,16 @@
   display: flex;
 }
 
-/* ── Grow wrap (CSS-only auto-grow via a hidden mirrored ::after) ───────── */
+/* ── Grow wrap ──────────────────────────────────────────────────────────
+   Auto-grow uses `field-sizing: content` (progressive enhancement). The
+   grid + mirrored ::after trick is only applied under
+   `@supports not (field-sizing: content)`, and TextArea.tsx only writes
+   data-replicated-value in that case. Row limits come from
+   --akds-text-area-min-rows / --akds-text-area-max-rows (set inline). */
 .akds-text-area__grow-wrap {
   position: relative;
   flex: 1;
   display: grid;
-}
-
-.akds-text-area__grow-wrap::after {
-  content: attr(data-replicated-value) ' ';
-  grid-area: 1 / 1 / 2 / 2;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  visibility: hidden;
 }
 
 .akds-text-area__grow-wrap::after,
@@ -76,19 +73,43 @@
   color: var(--akds-color-text-primary-default);
   resize: vertical;
   overflow-y: auto;
+  field-sizing: content;
+  min-block-size: calc(var(--akds-text-area-min-rows, 3) * 1lh + var(--akds-spacing-200) + var(--akds-spacing-100));
+  /* Invalid (so `none`) when --akds-text-area-max-rows is unset. */
+  max-block-size: calc(var(--akds-text-area-max-rows) * 1lh + var(--akds-spacing-200) + var(--akds-spacing-100));
 }
 
 .akds-text-area__textarea::placeholder {
   color: transparent;
 }
 
-/* ── No resize (fixed height, scrolls instead of growing) ────────────────── */
-.akds-text-area--no-resize .akds-text-area__grow-wrap::after {
-  content: none;
+/* ── Fixed height (autoGrow={false}): rows={minRows}, scrolls instead ───── */
+.akds-text-area--fixed-height .akds-text-area__textarea {
+  field-sizing: fixed;
+  min-block-size: auto;
+  max-block-size: none;
 }
 
+/* ── No resize (hides the drag handle only; auto-grow still applies) ────── */
 .akds-text-area--no-resize .akds-text-area__textarea {
   resize: none;
+}
+
+/* ── Auto-grow fallback for browsers without field-sizing ─────────────────── */
+@supports not (field-sizing: content) {
+  .akds-text-area__grow-wrap[data-replicated-value]::after {
+    content: attr(data-replicated-value) ' ';
+    grid-area: 1 / 1 / 2 / 2;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    visibility: hidden;
+    overflow: hidden;
+    max-block-size: calc(var(--akds-text-area-max-rows) * 1lh + var(--akds-spacing-200) + var(--akds-spacing-100));
+  }
+
+  .akds-text-area--fixed-height .akds-text-area__grow-wrap::after {
+    content: none;
+  }
 }
 
 /* ── Label ─────────────────────────────────────────────────────────────── */
@@ -164,4 +185,28 @@
   .akds-text-area__label {
     transition: none;
   }
+}
+
+/* ── Native constraint validation (:user-invalid) ──────────────────────────
+   Matches the `error` prop look once the user has edited and left a field
+   that fails `required` / `minLength` etc., or after a submit attempt.
+   Kept as separate rules so an unsupported selector can't drop the other;
+   the --user-invalid class (set from JS) is the fallback. */
+.akds-text-area__control:has(.akds-text-area__textarea:user-invalid) {
+  border-color: var(--akds-color-border-error-default);
+}
+
+.akds-text-area--user-invalid .akds-text-area__control {
+  border-color: var(--akds-color-border-error-default);
+}
+
+.akds-text-area__error-text {
+  margin: 0;
+  margin-top: var(--akds-spacing-50);
+  padding-left: var(--akds-spacing-150);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-xs);
+  font-weight: var(--akds-font-weight-regular);
+  color: var(--akds-color-text-error-default);
+  line-height: var(--akds-font-line-height-normal);
 }

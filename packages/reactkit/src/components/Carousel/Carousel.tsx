@@ -356,18 +356,26 @@ export const Carousel = React.forwardRef<HTMLDivElement, CarouselProps>(
         {/* No style.transform here — the rAF loop sets it directly on the DOM
             element so React re-renders do not interfere with the running animation */}
         <div ref={trackRef} className={withBaseName.el('track')}>
-          {displayedSlides.map((slide, i) => (
-            <div
-              key={i}
-              className={withBaseName.el('slide')}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${(i % N) + 1} of ${N}`}
-              style={slideStyle}
-            >
-              {slide}
-            </div>
-          ))}
+          {displayedSlides.map((slide, i) => {
+            // Loop mode renders three copies of the slides for the seamless
+            // wrap; only the middle copy is exposed. The others are hidden from
+            // assistive tech and inert, so they're never read or tabbed into twice.
+            const isClone = loop && Math.floor(i / N) !== 1;
+            return (
+              <div
+                key={i}
+                className={withBaseName.el('slide')}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${(i % N) + 1} of ${N}`}
+                aria-hidden={isClone || undefined}
+                {...(isClone ? { inert: '' } : {})}
+                style={slideStyle}
+              >
+                {slide}
+              </div>
+            );
+          })}
         </div>
 
         {!hideButtons && N > 0 && (

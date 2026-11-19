@@ -7,10 +7,16 @@ import { AppRouter } from './router';
 
 const THEME_STORAGE_KEY = 'akds-website-theme';
 
+// No stored value means "follow the OS" ('system'). Only an explicit override
+// is persisted, so the site keeps tracking OS changes until the user pins one.
 function getStoredTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
-  const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
-  return stored === 'dark' ? 'dark' : 'light';
+  if (typeof window === 'undefined') return 'system';
+  try {
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return stored === 'dark' || stored === 'light' ? stored : 'system';
+  } catch {
+    return 'system';
+  }
 }
 
 export default function App() {
@@ -18,8 +24,22 @@ export default function App() {
 
   const handleThemeChange = (nextTheme: Theme) => {
     setTheme(nextTheme);
-    window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    try {
+      if (nextTheme === 'system') window.localStorage.removeItem(THEME_STORAGE_KEY);
+      else window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    } catch {
+      // Storage blocked: the theme still applies for this visit.
+    }
   };
+
+  // Keep other open tabs in sync with a change made here.
+  React.useEffect(() => {
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === THEME_STORAGE_KEY) setTheme(getStoredTheme());
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   return (
     <ThemeProvider theme={theme} onThemeChange={handleThemeChange}>

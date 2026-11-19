@@ -8,6 +8,13 @@ import { Switch } from '../../../components/Switch/Switch';
 expect.extend(toHaveNoViolations);
 
 describe('Switch', () => {
+  it('sets the native switch attribute alongside role="switch"', () => {
+    render(<Switch label="Wi-Fi" />);
+    const input = screen.getByRole('switch', { name: 'Wi-Fi' });
+    expect(input).toHaveAttribute('switch', '');
+    expect(input).toHaveAttribute('type', 'checkbox');
+  });
+
   it('renders a checkbox with role switch and accessible label', () => {
     render(<Switch label="Enable notifications" />);
     expect(screen.getByRole('switch', { name: 'Enable notifications' })).toBeInTheDocument();
@@ -93,5 +100,27 @@ describe('Switch', () => {
       const { container } = render(<Switch label="Enable" disabled />);
       expect(await axe(container)).toHaveNoViolations();
     });
+  });
+
+  it('forwards aria-*, id and required to the input, keeping data-* on the label', () => {
+    const { container } = render(
+      <Switch
+        label="Test"
+        id="field"
+        required
+        aria-describedby="hint"
+        aria-invalid="true"
+        data-testid="root"
+      />,
+    );
+    const input = container.querySelector('input')!;
+    expect(input).toHaveAttribute('id', 'field');
+    expect(input).toBeRequired();
+    expect(input).toHaveAttribute('aria-describedby', 'hint');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    const label = container.querySelector('label')!;
+    expect(label).toHaveAttribute('data-testid', 'root');
+    expect(label).not.toHaveAttribute('aria-describedby');
+    expect(label).not.toHaveAttribute('id');
   });
 });

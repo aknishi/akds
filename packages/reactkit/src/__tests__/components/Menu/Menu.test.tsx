@@ -1,10 +1,11 @@
 import React from 'react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { render, screen, act } from '@testing-library/react';
+import { render, screen, act, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Menu } from '../../../components/Menu/Menu';
 import { Option } from '../../../components/Option/Option';
+import { stubPopoverApi } from './popoverStub';
 
 expect.extend(toHaveNoViolations);
 
@@ -265,16 +266,12 @@ describe('Menu', () => {
     });
   });
 
-  describe('closing animation', () => {
-    beforeEach(() => {
-      vi.useFakeTimers();
-    });
-
+  describe('closing transition', () => {
     afterEach(() => {
-      vi.useRealTimers();
+      delete (HTMLElement.prototype as Partial<HTMLElement>).getAnimations;
     });
 
-    it('applies akds-menu--closing class when open transitions to false', () => {
+    it('unmounts immediately when no exit transition is running', () => {
       const { rerender } = render(
         <Menu open>
           <Option>Cut</Option>
@@ -285,37 +282,209 @@ describe('Menu', () => {
           <Option>Cut</Option>
         </Menu>,
       );
-      expect(screen.getByRole('menu')).toHaveClass('akds-menu--closing');
-    });
-
-    it('unmounts the menu after the closing animation (120ms)', () => {
-      const { rerender } = render(
-        <Menu open>
-          <Option>Cut</Option>
-        </Menu>,
-      );
-      rerender(
-        <Menu open={false}>
-          <Option>Cut</Option>
-        </Menu>,
-      );
-      act(() => { vi.advanceTimersByTime(120); });
       expect(screen.queryByRole('menu')).not.toBeInTheDocument();
     });
 
-    it('cancels the close timer when re-opened before animation completes', () => {
+    it('marks the menu data-closing until its exit transition finishes', async () => {
+      let finish!: () => void;
+      const finished = new Promise<void>(r => { finish = r; });
+      (HTMLElement.prototype as Partial<HTMLElement>).getAnimations = () =>
+        [{ finished } as unknown as Animation];
       const { rerender } = render(
         <Menu open>
           <Option>Cut</Option>
         </Menu>,
       );
       rerender(<Menu open={false}><Option>Cut</Option></Menu>);
-      // Re-open before the 120ms timer fires
+      const menu = screen.getByRole('menu');
+      expect(menu).toHaveAttribute('data-closing');
+      expect(menu).not.toHaveClass('akds-menu--open');
+      await act(async () => { finish(); await finished; });
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+    });
+
+    it('re-opening during the exit transition keeps the menu mounted', async () => {
+      let finish!: () => void;
+      const finished = new Promise<void>(r => { finish = r; });
+      (HTMLElement.prototype as Partial<HTMLElement>).getAnimations = () =>
+        [{ finished } as unknown as Animation];
+      const { rerender } = render(
+        <Menu open>
+          <Option>Cut</Option>
+        </Menu>,
+      );
+      rerender(<Menu open={false}><Option>Cut</Option></Menu>);
       rerender(<Menu open><Option>Cut</Option></Menu>);
-      act(() => { vi.advanceTimersByTime(120); });
-      // Menu should still be mounted (not closed)
+      await act(async () => { finish(); await finished; });
       expect(screen.getByRole('menu')).toBeInTheDocument();
-      expect(screen.getByRole('menu')).not.toHaveClass('akds-menu--closing');
+      expect(screen.getByRole('menu')).not.toHaveAttribute('data-closing');
+      expect(screen.getByRole('menu')).toHaveClass('akds-menu--open');
+    });
+  });
+
+  describe('trigger focus behaviour', () => {
+    const Fixture = ({ onOpenChange }: { onOpenChange?: (open: boolean) => void }) => {
+      const [open, setOpen] = React.useState(false);
+      const triggerRef = React.useRef<HTMLButtonElement>(null);
+      return (
+        <>
+          <button ref={triggerRef} onClick={() => setOpen(o => !o)}>Actions</button>
+          <Menu
+            open={open}
+            onOpenChange={o => { setOpen(o); onOpenChange?.(o); }}
+            triggerRef={triggerRef as React.RefObject<HTMLElement>}
+          >
+            <Option onClick={() => setOpen(false)}>Cut</Option>
+            <Option>Copy</Option>
+          </Menu>
+          <button>After</button>
+        </>
+      );
+    };
+
+    it('pointer open keeps focus on the trigger', async () => {
+      render(<Fixture />);
+      await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+      expect(screen.getByRole('menu')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Actions' })).toHaveFocus();
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).not.toHaveFocus();
+    });
+
+    it('keyboard open (Enter) focuses the first item', async () => {
+      render(<Fixture />);
+      act(() => { screen.getByRole('button', { name: 'Actions' }).focus(); });
+      await userEvent.keyboard('{Enter}');
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).toHaveFocus();
+    });
+
+    it('ArrowDown on the trigger opens the menu and focuses the first item', async () => {
+      render(<Fixture />);
+      act(() => { screen.getByRole('button', { name: 'Actions' }).focus(); });
+      await userEvent.keyboard('{ArrowDown}');
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).toHaveFocus();
+    });
+
+    it('ArrowDown on the trigger enters a pointer-opened menu', async () => {
+      render(<Fixture />);
+      await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+      await userEvent.keyboard('{ArrowDown}');
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).toHaveFocus();
+    });
+
+    it('Escape closes the menu and restores focus to the trigger', async () => {
+      render(<Fixture />);
+      act(() => { screen.getByRole('button', { name: 'Actions' }).focus(); });
+      await userEvent.keyboard('{Enter}');
+      expect(screen.getByRole('menuitem', { name: 'Cut' })).toHaveFocus();
+      await userEvent.keyboard('{Escape}');
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Actions' })).toHaveFocus();
+    });
+
+    it('activating an item restores focus to the trigger', async () => {
+      render(<Fixture />);
+      await userEvent.click(screen.getByRole('button', { name: 'Actions' }));
+      await userEvent.click(screen.getByRole('menuitem', { name: 'Cut' }));
+      expect(screen.queryByRole('menu')).not.toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Actions' })).toHaveFocus();
+    });
+
+    it('Tab closes the menu without pulling focus back to the trigger', () => {
+      const onOpenChange = vi.fn();
+      render(<Fixture onOpenChange={onOpenChange} />);
+      act(() => { screen.getByRole('button', { name: 'Actions' }).focus(); });
+      fireEvent.keyDown(screen.getByRole('button', { name: 'Actions' }), { key: 'ArrowDown' });
+      const cut = screen.getByRole('menuitem', { name: 'Cut' });
+      expect(cut).toHaveFocus();
+      fireEvent.keyDown(cut, { key: 'Tab' });
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+      expect(screen.getByRole('button', { name: 'Actions' })).not.toHaveFocus();
+    });
+  });
+
+  describe('native popover', () => {
+    let stub: ReturnType<typeof stubPopoverApi>;
+
+    afterEach(() => {
+      stub.restore();
+    });
+
+    const Fixture = ({ open, onOpenChange }: { open: boolean; onOpenChange?: (o: boolean) => void }) => {
+      const triggerRef = React.useRef<HTMLButtonElement>(null);
+      return (
+        <div data-testid="host">
+          <button ref={triggerRef} data-testid="trigger">Trigger</button>
+          <Menu open={open} onOpenChange={onOpenChange ?? (() => {})} triggerRef={triggerRef as React.RefObject<HTMLElement>}>
+            <Option>Cut</Option>
+          </Menu>
+        </div>
+      );
+    };
+
+    const getMenu = () => document.body.querySelector<HTMLElement>('[role="menu"]')!;
+
+    it('renders in place with popover="auto" and shows it in the top layer', () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      render(<Fixture open />);
+      const menu = getMenu();
+      expect(menu).toHaveAttribute('popover', 'auto');
+      expect(screen.getByTestId('host')).toContainElement(menu);
+      expect(stub.showPopover).toHaveBeenCalled();
+      expect(stub.isShown(menu)).toBe(true);
+      expect(menu).toHaveAttribute('data-placement', 'bottom-left');
+    });
+
+    it('uses CSS anchor positioning instead of script coordinates when supported', () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      render(<Fixture open />);
+      const menu = getMenu();
+      expect(menu.style.position).toBe('');
+      expect(menu.style.top).toBe('');
+    });
+
+    it('falls back to script positioning when anchor positioning is unsupported', () => {
+      stub = stubPopoverApi({ anchorPositioning: false });
+      render(<Fixture open />);
+      expect(getMenu().style.position).toBe('fixed');
+    });
+
+    it('calls onOpenChange(false) when the browser light-dismisses the popover', () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      const onOpenChange = vi.fn();
+      render(<Fixture open onOpenChange={onOpenChange} />);
+      act(() => { stub.nativeClose(getMenu()); });
+      expect(onOpenChange).toHaveBeenCalledWith(false);
+    });
+
+    it('does not treat a press on the trigger as a light dismiss', () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      const onOpenChange = vi.fn();
+      render(<Fixture open onOpenChange={onOpenChange} />);
+      act(() => {
+        screen.getByTestId('trigger').dispatchEvent(new Event('pointerdown', { bubbles: true }));
+        stub.nativeClose(getMenu());
+      });
+      expect(onOpenChange).not.toHaveBeenCalled();
+    });
+
+    it('hides the popover when closed', () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      const { rerender } = render(<Fixture open />);
+      const menu = getMenu();
+      rerender(<Fixture open={false} />);
+      expect(stub.hidePopover).toHaveBeenCalled();
+      expect(stub.isShown(menu)).toBe(false);
+      expect(getMenu()).toBeNull();
+    });
+
+    it('does not register a document mousedown outside-click handler', () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      const onOpenChange = vi.fn();
+      render(<Fixture open onOpenChange={onOpenChange} />);
+      act(() => {
+        document.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
+      });
+      expect(onOpenChange).not.toHaveBeenCalled();
     });
   });
 

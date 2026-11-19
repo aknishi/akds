@@ -9,7 +9,11 @@ export interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLFieldSetE
   value?: string | number;
   /** Change handler called when a Radio option is selected. */
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-  /** Accessible label rendered as a `<legend>`. */
+  /**
+   * Accessible label rendered as a `<legend>`. If omitted, name the group with
+   * `aria-label` or `aria-labelledby` (forwarded to the `<fieldset>`); a
+   * development-only warning is logged when none of the three is provided.
+   */
   legend?: React.ReactNode;
   /** When true, disables all child Radio inputs. */
   disabled?: boolean;

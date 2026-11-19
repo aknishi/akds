@@ -83,4 +83,26 @@ describe('Radio', () => {
       expect(await axe(container)).toHaveNoViolations();
     });
   });
+
+  it('forwards aria-*, id and required to the input, keeping data-* on the label', () => {
+    const { container } = render(
+      <Radio
+        label="Test"
+        id="field"
+        required
+        aria-describedby="hint"
+        aria-invalid="true"
+        data-testid="root"
+      />,
+    );
+    const input = container.querySelector('input')!;
+    expect(input).toHaveAttribute('id', 'field');
+    expect(input).toBeRequired();
+    expect(input).toHaveAttribute('aria-describedby', 'hint');
+    expect(input).toHaveAttribute('aria-invalid', 'true');
+    const label = container.querySelector('label')!;
+    expect(label).toHaveAttribute('data-testid', 'root');
+    expect(label).not.toHaveAttribute('aria-describedby');
+    expect(label).not.toHaveAttribute('id');
+  });
 });

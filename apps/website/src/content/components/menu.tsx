@@ -129,7 +129,7 @@ export const menu: ComponentEntry = {
     },
     {
       title: 'Anchored',
-      description: 'Set triggerRef to a trigger element so the menu renders in a portal, positioned relative to it.',
+      description: 'Set triggerRef to a trigger element so the menu renders in the top layer (Popover API), anchored to it.',
       render: () => <AnchoredMenuExample />,
       code: `function Example() {
   const [open, setOpen] = React.useState(false);
@@ -199,14 +199,14 @@ export const menu: ComponentEntry = {
   ],
   accessibilityNotes: [
     'Menu renders role="menu" on a <ul>; each MenuItem is role="menuitem" — following the WAI-ARIA Menu pattern.',
-    'Arrow keys move focus between items; Escape closes the menu and returns focus to the trigger (when wired up by the consumer).',
-    'When triggerRef is provided, the menu renders in a portal with fixed positioning and flips vertically to stay in the viewport.',
+    'Arrow keys move focus between items; Escape and item activation close the menu and return focus to the trigger. Only keyboard opens move focus into the menu — a pointer open leaves focus on the trigger.',
+    'When triggerRef is provided, the menu is a popover="auto" in the top layer (never clipped by overflow containers or dialogs), anchored with CSS anchor positioning and flipping on both axes to stay in the viewport. Clicking outside dismisses it natively. Browsers without anchor positioning fall back to script positioning; without the Popover API, to a portal with fixed positioning.',
   ],
   props: [
     { name: 'open', type: 'boolean', description: 'Whether the menu panel is visible. Always controlled.' },
     { name: 'onOpenChange', type: '(open: boolean) => void', description: 'Called when the menu requests a change in open state.' },
     { name: 'placement', type: "'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'", default: "'bottom-left'", description: 'Preferred placement relative to the trigger.' },
-    { name: 'triggerRef', type: 'React.RefObject<HTMLElement>', description: 'Ref to the trigger element. When set, the menu renders in a portal with fixed positioning.' },
+    { name: 'triggerRef', type: 'React.RefObject<HTMLElement>', description: 'Ref to the trigger element. When set, the menu renders as an anchored popover in the top layer.' },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'Prevents interaction and applies disabled styling to a MenuItem.' },
     { name: 'trailingElement', type: 'React.ReactNode', description: 'Element rendered after a MenuItem label, pinned to the right (shortcut hint, badge, etc.).' },
     { name: 'children', type: 'React.ReactNode', description: 'Option (or MenuItem) elements. Required.' },

@@ -19,7 +19,7 @@ export interface DropdownMenuProps extends Omit<React.HTMLAttributes<HTMLDivElem
   disabled?: boolean;
   /** Helper text rendered below the control. */
   helperText?: string;
-  /** Name attribute for form association. */
+  /** Submits the selection with a surrounding form under this name (one entry per value when `multiple`). */
   name?: string;
   /** When true, stretches the component to fill its parent container. */
   fullWidth?: boolean;

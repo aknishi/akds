@@ -89,10 +89,13 @@ export const dialog: ComponentEntry = {
     // standalone element to mount inline), so — like Toast's preview — this is
     // a static, non-interactive replica built from the component's own
     // akds-dialog* CSS classes rather than a generic trigger-button preview,
-    // so the card shows what a dialog actually looks like. Only the backdrop
-    // (not rendered here) is position: fixed — the panel itself is already
-    // position: relative, so no position override is needed to sit inline.
-    <div className="akds-dialog akds-dialog--sm" style={{ width: '100%', maxWidth: 240 }}>
+    // so the card shows what a dialog actually looks like. The real panel is a
+    // native <dialog> whose closed state is display: none / opacity: 0 (the
+    // open state comes from [open]), so the open-state values are inlined.
+    <div
+      className="akds-dialog akds-dialog--sm"
+      style={{ display: 'flex', opacity: 1, transform: 'none', width: '100%', maxWidth: 240 }}
+    >
       <div className="akds-dialog__header">
         <h2 className="akds-dialog__title">Delete item</h2>
         <IconButton
@@ -181,7 +184,7 @@ export const dialog: ComponentEntry = {
   accessibilityNotes: [
     'title is used as the dialog\'s accessible name (aria-label) as well as the visible heading.',
     'Pressing Escape or clicking the backdrop closes the dialog by calling onClose, unless disableBackdropClose is set.',
-    'Focus should be managed by the caller: move focus into the dialog on open and return it to the trigger on close for the smoothest keyboard experience.',
+    'Rendered as a native <dialog> opened with showModal(): the rest of the page is inert, focus moves into the dialog on open and returns to the trigger on close, and page scrolling behind it is contained — no manual focus management needed.',
   ],
   props: [
     { name: 'open', type: 'boolean', description: 'Controls whether the dialog is visible. Required.' },

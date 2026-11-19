@@ -17,6 +17,10 @@ export interface CheckboxProps extends Omit<React.LabelHTMLAttributes<HTMLLabelE
   value?: string | ReadonlyArray<string> | number;
   /** When true, shows the indeterminate state (overrides checked visually). */
   indeterminate?: boolean;
+  /** Marks the inner `<input>` as required for form validation. */
+  required?: boolean;
+  /** Focuses the inner `<input>` on mount. */
+  autoFocus?: boolean;
   /** When true, prevents interaction and applies disabled styling. */
   disabled?: boolean;
   /** Sets the size of the checkbox indicator. */

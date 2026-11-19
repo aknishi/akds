@@ -33,6 +33,27 @@
      bleeding outside the pill silhouette. Dark mode keeps it outward
      (unchanged, already-good) by overriding this to empty below. */
   --bevel-highlight-position: inset;
+  /* Per-mode pseudo-element styles. Dark values are set in the dark-mode
+     blocks below, so both the explicit [data-theme="dark"] and the OS
+     preference paths get the full dark treatment. */
+  --ai-before-shadow:
+    0 -8px 8px -6px transparent inset,
+    0 -16px 16px -8px transparent inset,
+    -2px -2px 8px var(--bevel-highlight-strong) var(--bevel-highlight-position),
+    0 -8px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
+    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+  --ai-loading-before-shadow: var(--ai-before-shadow);
+  --ai-after-background: none;
+  --ai-after-shadow:
+    0 -1px 2px -3px var(--akds-primitive-color-white) inset,
+    0 -8px 4px -4px var(--akds-primitive-color-white) inset,
+    1px 1px 2px var(--akds-primitive-color-white) var(--bevel-highlight-position),
+    1px 2px 4px var(--akds-primitive-color-white) var(--bevel-highlight-position),
+    -1px -1px 1px var(--akds-primitive-color-white),
+    -2px -2px 2px var(--akds-primitive-color-white);
+  --ai-hover-after-opacity: 0.5;
+  --ai-hover-after-mask: none;
 
   user-select: none;
   display: flex;
@@ -75,7 +96,8 @@
 
 /* Dark mode is hardcoded to the original reference design's colors,
    rather than the primary/accent token used for light mode. */
-[data-theme="dark"] .akds-ai-button {
+/* :not(... [data-theme="light"] *) keeps a light-themed subtree light. */
+[data-theme="dark"] .akds-ai-button:not([data-theme="dark"] [data-theme="light"] *) {
   /* #101010 is kept as a literal — it's the original reference design's
      exact dark-mode fill, deliberately not one of the neutral primitives. */
   --button-color: #101010;
@@ -85,9 +107,34 @@
   --bevel-highlight-strong: color-mix(in srgb, var(--akds-primitive-color-white) 13.33%, transparent);
   --bevel-highlight-soft: color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent);
   --bevel-highlight-position: ;
+  --ai-before-shadow:
+    0 -8px 8px -6px transparent inset,
+    0 -16px 16px -8px transparent inset,
+    1px 1px 1px var(--bevel-highlight-strong) var(--bevel-highlight-position),
+    2px 2px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
+    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+  --ai-loading-before-shadow:
+    0 -8px 12px -6px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent) inset,
+    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 20%) inset,
+    1px 1px 1px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent),
+    2px 2px 2px color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent),
+    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+  --ai-after-background: linear-gradient(
+    0deg,
+    var(--akds-color-text-on-primary-default),
+    hsl(var(--highlight-color-hue), 100%, 70%),
+    hsla(var(--highlight-color-hue), 100%, 70%, 50%),
+    8%,
+    transparent
+  );
+  --ai-after-shadow: none;
+  --ai-hover-after-opacity: 1;
+  --ai-hover-after-mask: linear-gradient(0deg, var(--akds-color-text-on-primary-default), transparent);
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .akds-ai-button {
+  :root:not([data-theme="light"]) .akds-ai-button:not([data-theme="light"] *) {
     --button-color: #101010;
     --channel-color-start: color-mix(in srgb, var(--akds-primitive-color-black) 26.67%, transparent);
     --channel-color-end: color-mix(in srgb, var(--akds-primitive-color-black) 66.67%, transparent);
@@ -95,6 +142,31 @@
     --bevel-highlight-strong: color-mix(in srgb, var(--akds-primitive-color-white) 13.33%, transparent);
     --bevel-highlight-soft: color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent);
     --bevel-highlight-position: ;
+    --ai-before-shadow:
+      0 -8px 8px -6px transparent inset,
+      0 -16px 16px -8px transparent inset,
+      1px 1px 1px var(--bevel-highlight-strong) var(--bevel-highlight-position),
+      2px 2px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
+      -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+      -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+    --ai-loading-before-shadow:
+      0 -8px 12px -6px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent) inset,
+      0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 20%) inset,
+      1px 1px 1px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent),
+      2px 2px 2px color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent),
+      -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
+      -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+    --ai-after-background: linear-gradient(
+      0deg,
+      var(--akds-color-text-on-primary-default),
+      hsl(var(--highlight-color-hue), 100%, 70%),
+      hsla(var(--highlight-color-hue), 100%, 70%, 50%),
+      8%,
+      transparent
+    );
+    --ai-after-shadow: none;
+    --ai-hover-after-opacity: 1;
+    --ai-hover-after-mask: linear-gradient(0deg, var(--akds-color-text-on-primary-default), transparent);
   }
 }
 
@@ -113,23 +185,7 @@
   transition:
     box-shadow var(--transition),
     filter var(--transition);
-  box-shadow:
-    0 -8px 8px -6px transparent inset,
-    0 -16px 16px -8px transparent inset,
-    -2px -2px 8px var(--bevel-highlight-strong) var(--bevel-highlight-position),
-    0 -8px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
-    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
-    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
-}
-
-[data-theme="dark"] .akds-ai-button::before {
-  box-shadow:
-    0 -8px 8px -6px transparent inset,
-    0 -16px 16px -8px transparent inset,
-    1px 1px 1px var(--bevel-highlight-strong) var(--bevel-highlight-position),
-    2px 2px 2px var(--bevel-highlight-soft) var(--bevel-highlight-position),
-    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
-    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+  box-shadow: var(--ai-before-shadow);
 }
 
 .akds-ai-button::after {
@@ -144,28 +200,11 @@
   opacity: 0;
   transition:
     opacity var(--transition),
-    box-shadow 0.2s
+    box-shadow 0.2s,
     filter var(--transition);
-  box-shadow:
-    0 -1px 2px -3px var(--akds-primitive-color-white) inset,
-    0 -8px 4px -4px var(--akds-primitive-color-white) inset,
-    1px 1px 2px var(--akds-primitive-color-white) var(--bevel-highlight-position),
-    1px 2px 4px var(--akds-primitive-color-white) var(--bevel-highlight-position),
-    -1px -1px 1px var(--akds-primitive-color-white),
-    -2px -2px 2px var(--akds-primitive-color-white);
-}
-
-[data-theme="dark"] .akds-ai-button::after {
-  background-image: linear-gradient(
-    0deg,
-    var(--akds-color-text-on-primary-default),
-    hsl(var(--highlight-color-hue), 100%, 70%),
-    hsla(var(--highlight-color-hue), 100%, 70%, 50%),
-    8%,
-    transparent
-  );
+  background-image: var(--ai-after-background);
   background-position: 0 0;
-  box-shadow: none;
+  box-shadow: var(--ai-after-shadow);
 }
 
 .akds-ai-button__letter {
@@ -278,14 +317,8 @@
   animation-delay: 0.2s;
 }
 
-[data-theme="dark"] .akds-ai-button--loading::before {
-  box-shadow:
-    0 -8px 12px -6px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent) inset,
-    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 20%) inset,
-    1px 1px 1px color-mix(in srgb, var(--akds-primitive-color-white) 20%, transparent),
-    2px 2px 2px color-mix(in srgb, var(--akds-primitive-color-white) 6.67%, transparent),
-    -1px -1px 1px color-mix(in srgb, var(--akds-primitive-color-black) 13.33%, transparent),
-    -2px -2px 2px color-mix(in srgb, var(--akds-primitive-color-black) 6.67%, transparent);
+.akds-ai-button--loading::before {
+  box-shadow: var(--ai-loading-before-shadow);
 }
 .akds-ai-button--loading::after {
   opacity: 0.6;
@@ -299,12 +332,12 @@
 }
 
 .akds-ai-button:hover:not(.akds-ai-button--disabled)::after {
-  opacity: 0.5;
+  opacity: var(--ai-hover-after-opacity);
 }
 
-[data-theme="dark"] .akds-ai-button:not(.akds-ai-button--disabled):hover::after {
-  opacity: 1;
-  mask-image: linear-gradient(0deg, var(--akds-color-text-on-primary-default), transparent);
+/* Loading already sets its own mask; don't override it on hover. */
+.akds-ai-button:hover:not(.akds-ai-button--disabled, .akds-ai-button--loading)::after {
+  mask-image: var(--ai-hover-after-mask);
 }
 
 .akds-ai-button:not(.akds-ai-button--disabled):hover .akds-ai-button__start-icon {
@@ -329,4 +362,17 @@
 .akds-ai-button--disabled .akds-ai-button__default-text,
 .akds-ai-button--disabled .akds-ai-button__loading-text {
   animation: none !important;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────── */
+/* Keep the label crossfade (opacity only) but drop the per-letter scale/blur
+   burst, the infinite letter pulse, and the icon flicker. */
+@media (prefers-reduced-motion: reduce) {
+  .akds-ai-button--loading .akds-ai-button__letter,
+  .akds-ai-button--loading .akds-ai-button__start-icon {
+    animation: none;
+  }
+  .akds-ai-button--loading .akds-ai-button__letter {
+    color: var(--akds-color-text-on-primary-default);
+  }
 }

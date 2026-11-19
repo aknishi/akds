@@ -28,6 +28,10 @@ export interface ComboboxProps extends Omit<React.HTMLAttributes<HTMLDivElement>
   disabled?: boolean;
   /** When true, the control expands to fill its container's width. */
   fullWidth?: boolean;
+  /** Form field name. When set, the selection is submitted with the surrounding form via hidden inputs (one per selected value in multiple mode). */
+  name?: string;
+  /** When true, form submission is blocked until at least one option is selected. */
+  required?: boolean;
   /** Accessible label applied to the combobox input when no visible label is provided. */
   'aria-label'?: string;
 }

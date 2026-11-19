@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.types';
-import { makePrefixer } from '../../utils';
+import { makePrefixer, splitInputProps } from '../../utils';
 
 const withBaseName = makePrefixer('akds-checkbox');
 
@@ -41,6 +41,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate]);
 
+    const { inputProps, labelProps } = splitInputProps(rest);
+
     return (
       <label
         className={clsx(
@@ -50,7 +52,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           className,
         )}
         onPointerDown={onPointerDown}
-        {...rest}
+        {...labelProps}
       >
         <input
           ref={callbackRef}
@@ -62,7 +64,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           name={name}
           value={value as string | number | readonly string[] | undefined}
           disabled={disabled}
-          aria-disabled={disabled || undefined}
+          {...inputProps}
         />
         <span className={withBaseName.el('indicator')} aria-hidden="true">
           <svg

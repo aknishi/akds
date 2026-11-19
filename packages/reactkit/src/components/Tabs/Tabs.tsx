@@ -31,9 +31,16 @@ export const Tabs = React.forwardRef<HTMLDivElement, TabsProps>(
       [isControlled, onChange],
     );
 
+    const baseId = React.useId();
+    const getId = React.useCallback(
+      (kind: 'tab' | 'panel', value: string) =>
+        `${baseId}${kind}-${value.replace(/[^\w-]/g, '_')}`,
+      [baseId],
+    );
+
     const ctx = React.useMemo(
-      () => ({ activeTab: resolvedActive, onTabChange: handleTabChange }),
-      [resolvedActive, handleTabChange],
+      () => ({ activeTab: resolvedActive, onTabChange: handleTabChange, getId }),
+      [resolvedActive, handleTabChange, getId],
     );
 
     return (

@@ -1,10 +1,11 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { DropdownMenu } from '../../../components/DropdownMenu/DropdownMenu';
 import { Option } from '../../../components/Option/Option';
+import { stubPopoverApi } from '../Menu/popoverStub';
 
 expect.extend(toHaveNoViolations);
 
@@ -82,6 +83,56 @@ describe('DropdownMenu', () => {
     setup();
     await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
     expect(screen.getByRole('option', { name: 'Cherry' })).toHaveAttribute('aria-disabled', 'true');
+  });
+
+  describe('form submission and display text', () => {
+    it('submits the selected value under `name`', () => {
+      const { container } = render(
+        <form>
+          <DropdownMenu label="Fruit" name="fruit" selected="banana">
+            <Option value="apple">Apple</Option>
+            <Option value="banana">Banana</Option>
+          </DropdownMenu>
+        </form>,
+      );
+      const data = new FormData(container.querySelector('form')!);
+      expect(data.get('fruit')).toBe('banana');
+    });
+
+    it('submits every selected value when multiple', () => {
+      const { container } = render(
+        <form>
+          <DropdownMenu label="Fruit" name="fruit" multiple selected={['apple', 'banana']}>
+            <Option value="apple">Apple</Option>
+            <Option value="banana">Banana</Option>
+          </DropdownMenu>
+        </form>,
+      );
+      expect(new FormData(container.querySelector('form')!).getAll('fruit')).toEqual(['apple', 'banana']);
+    });
+
+    it('does not submit when disabled', () => {
+      const { container } = render(
+        <form>
+          <DropdownMenu label="Fruit" name="fruit" disabled selected="apple">
+            <Option value="apple">Apple</Option>
+          </DropdownMenu>
+        </form>,
+      );
+      expect(new FormData(container.querySelector('form')!).has('fruit')).toBe(false);
+    });
+
+    it('shows labels of options inside fragments and with element children', () => {
+      render(
+        <DropdownMenu label="Fruit" multiple selected={['apple', 'banana']}>
+          <>
+            <Option value="apple">Apple</Option>
+          </>
+          <Option value="banana"><strong>Banana</strong> (ripe)</Option>
+        </DropdownMenu>,
+      );
+      expect(screen.getByRole('button', { name: 'Fruit' })).toHaveTextContent('Apple, Banana (ripe)');
+    });
   });
 
   describe('uncontrolled open', () => {
@@ -427,6 +478,46 @@ describe('DropdownMenu', () => {
     expect(ref.current).toBeInstanceOf(HTMLDivElement);
   });
 
+  describe('native popover', () => {
+    let stub: ReturnType<typeof stubPopoverApi>;
+
+    afterEach(() => {
+      stub.restore();
+    });
+
+    const getListbox = () => document.body.querySelector<HTMLElement>('[role="listbox"]')!;
+
+    it('renders the listbox as an auto popover and shows it on open', async () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      const { container } = setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const listbox = getListbox();
+      expect(listbox).toHaveAttribute('popover', 'auto');
+      expect(container).toContainElement(listbox);
+      expect(stub.isShown(listbox)).toBe(true);
+    });
+
+    it('closes when the browser light-dismisses the popover', async () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      const onOpenChange = vi.fn();
+      setup({ onOpenChange });
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      act(() => { stub.nativeClose(getListbox()); });
+      expect(onOpenChange).toHaveBeenLastCalledWith(false);
+      expect(getListbox()).toBeNull();
+      expect(screen.getByRole('button', { name: 'Fruit' })).toHaveAttribute('aria-expanded', 'false');
+    });
+
+    it('restores focus to the trigger after selecting an option', async () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      await userEvent.click(screen.getByRole('option', { name: 'Apple', hidden: true }));
+      expect(getListbox()).toBeNull();
+      expect(screen.getByRole('button', { name: 'Fruit' })).toHaveFocus();
+    });
+  });
+
   describe('axe accessibility', () => {
     it('has no violations when closed', async () => {
       const { container } = setup();
@@ -463,6 +554,52 @@ describe('DropdownMenu', () => {
     it('has no violations with helper text', async () => {
       const { container } = setup({ helperText: 'Choose one fruit' });
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('roving tabindex', () => {
+    it('makes only one option a Tab stop (the first enabled one by default)', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const tabStops = screen.getAllByRole('option').filter(o => o.getAttribute('tabindex') === '0');
+      expect(tabStops).toHaveLength(1);
+      expect(tabStops[0]).toHaveTextContent('Apple');
+    });
+
+    it('makes the selected option the Tab stop', async () => {
+      setup({ selected: 'banana' });
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      expect(screen.getByRole('option', { name: 'Banana' })).toHaveAttribute('tabindex', '0');
+      expect(screen.getByRole('option', { name: 'Apple' })).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('moves the Tab stop with arrow-key focus', async () => {
+      setup();
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      const [apple, banana] = screen.getAllByRole('option') as [HTMLElement, HTMLElement];
+      apple.focus();
+      await userEvent.keyboard('{ArrowDown}');
+      expect(banana).toHaveFocus();
+      expect(banana).toHaveAttribute('tabindex', '0');
+      expect(apple).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('opening with Space does not also select the focused option', async () => {
+      const onChange = vi.fn();
+      setup({ onChange });
+      screen.getByRole('button', { name: 'Fruit' }).focus();
+      await userEvent.keyboard(' ');
+      expect(screen.getByRole('listbox')).toBeInTheDocument();
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('selects the focused option with Space', async () => {
+      const onChange = vi.fn();
+      setup({ onChange });
+      await userEvent.click(screen.getByRole('button', { name: 'Fruit' }));
+      screen.getByRole('option', { name: 'Banana' }).focus();
+      await userEvent.keyboard(' ');
+      expect(onChange).toHaveBeenCalledWith('banana');
     });
   });
 });

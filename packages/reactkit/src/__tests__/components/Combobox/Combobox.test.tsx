@@ -1,9 +1,10 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Combobox } from '../../../components/Combobox/Combobox';
+import { stubPopoverApi } from '../Menu/popoverStub';
 
 expect.extend(toHaveNoViolations);
 
@@ -335,6 +336,16 @@ describe('Combobox', () => {
   });
 
   describe('Enter key selection', () => {
+    it('ignores Enter while an IME composition is in progress', async () => {
+      const onChange = vi.fn();
+      render(<Combobox options={OPTIONS} aria-label="Fruit" onChange={onChange} />);
+      const input = screen.getByRole('combobox');
+      await userEvent.type(input, 'cherr');
+      fireEvent.keyDown(input, { key: 'Enter', isComposing: true });
+      fireEvent.keyDown(input, { key: 'Enter', keyCode: 229 });
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
     it('selects the sole filtered option', async () => {
       const onChange = vi.fn();
       render(<Combobox options={OPTIONS} aria-label="Fruit" onChange={onChange} />);
@@ -400,6 +411,53 @@ describe('Combobox', () => {
     expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
   });
 
+  describe('native popover', () => {
+    let stub: ReturnType<typeof stubPopoverApi>;
+
+    afterEach(() => {
+      stub.restore();
+    });
+
+    const getListbox = () => document.body.querySelector<HTMLElement>('[role="listbox"]')!;
+
+    it('renders the listbox as a manual popover and shows it on open', async () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      render(<Combobox options={OPTIONS} aria-label="Fruit" />);
+      await userEvent.click(screen.getByRole('combobox'));
+      const listbox = getListbox();
+      expect(listbox).toHaveAttribute('popover', 'manual');
+      expect(stub.isShown(listbox)).toBe(true);
+    });
+
+    it('keeps focus in the input while typing', async () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      render(<Combobox options={OPTIONS} aria-label="Fruit" />);
+      const input = screen.getByRole('combobox');
+      await userEvent.type(input, 'ban');
+      expect(input).toHaveFocus();
+      expect(stub.isShown(getListbox())).toBe(true);
+    });
+
+    it('hides the popover when closed with Escape', async () => {
+      stub = stubPopoverApi({ anchorPositioning: true });
+      render(<Combobox options={OPTIONS} aria-label="Fruit" />);
+      await userEvent.click(screen.getByRole('combobox'));
+      const listbox = getListbox();
+      await userEvent.keyboard('{Escape}');
+      expect(stub.hidePopover).toHaveBeenCalled();
+      expect(stub.isShown(listbox)).toBe(false);
+      expect(getListbox()).toBeNull();
+    });
+
+    it('falls back to script positioning without anchor positioning', async () => {
+      stub = stubPopoverApi({ anchorPositioning: false });
+      render(<Combobox options={OPTIONS} aria-label="Fruit" />);
+      await userEvent.click(screen.getByRole('combobox'));
+      act(() => { window.dispatchEvent(new Event('resize')); });
+      expect(getListbox().style.top).not.toBe('');
+    });
+  });
+
   describe('axe accessibility', () => {
     it('has no violations in default state', async () => {
       const { container } = render(<Combobox options={OPTIONS} label="Fruit" />);
@@ -422,6 +480,106 @@ describe('Combobox', () => {
       const { container } = render(<Combobox options={OPTIONS} label="Fruit" />);
       await userEvent.click(screen.getByRole('combobox'));
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('form integration', () => {
+    it('submits the selected value under `name` (single)', () => {
+      const { container } = render(
+        <form>
+          <Combobox options={OPTIONS} aria-label="Fruit" name="fruit" defaultValue="banana" />
+        </form>,
+      );
+      const data = new FormData(container.querySelector('form')!);
+      expect(data.getAll('fruit')).toEqual(['banana']);
+    });
+
+    it('submits an empty value under `name` when nothing is selected (single)', () => {
+      const { container } = render(
+        <form>
+          <Combobox options={OPTIONS} aria-label="Fruit" name="fruit" />
+        </form>,
+      );
+      expect(new FormData(container.querySelector('form')!).getAll('fruit')).toEqual(['']);
+    });
+
+    it('submits one entry per selected value (multiple)', async () => {
+      const { container } = render(
+        <form>
+          <Combobox options={OPTIONS} aria-label="Fruit" name="fruit" multiple />
+        </form>,
+      );
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.click(screen.getByRole('option', { name: 'Apple' }));
+      await userEvent.click(screen.getByRole('option', { name: 'Cherry' }));
+      expect(new FormData(container.querySelector('form')!).getAll('fruit')).toEqual(['apple', 'cherry']);
+    });
+
+    it('does not submit the value when disabled', () => {
+      const { container } = render(
+        <form>
+          <Combobox options={OPTIONS} aria-label="Fruit" name="fruit" defaultValue="apple" disabled />
+        </form>,
+      );
+      expect(new FormData(container.querySelector('form')!).getAll('fruit')).toEqual([]);
+    });
+
+    it('renders no hidden inputs without `name`', () => {
+      const { container } = render(<Combobox options={OPTIONS} aria-label="Fruit" defaultValue="apple" />);
+      expect(container.querySelector('input[type="hidden"]')).not.toBeInTheDocument();
+    });
+
+    it('`required` blocks validity until an option is selected', async () => {
+      render(<Combobox options={OPTIONS} aria-label="Fruit" name="fruit" required />);
+      const input = screen.getByRole('combobox') as HTMLInputElement;
+      expect(input).toHaveAttribute('aria-required', 'true');
+      expect(input.checkValidity()).toBe(false);
+      await userEvent.click(input);
+      await userEvent.click(screen.getByRole('option', { name: 'Apple' }));
+      expect(input.checkValidity()).toBe(true);
+    });
+
+    it('is valid without `required` when nothing is selected', () => {
+      render(<Combobox options={OPTIONS} aria-label="Fruit" />);
+      expect((screen.getByRole('combobox') as HTMLInputElement).checkValidity()).toBe(true);
+    });
+
+    it('uses native disabled without a redundant aria-disabled', () => {
+      render(<Combobox options={OPTIONS} aria-label="Fruit" disabled />);
+      const input = screen.getByRole('combobox');
+      expect(input).toBeDisabled();
+      expect(input).not.toHaveAttribute('aria-disabled');
+    });
+  });
+
+  describe('Space key on options', () => {
+    it('selects the focused option on Space keyup', async () => {
+      const onChange = vi.fn();
+      render(<Combobox options={OPTIONS} aria-label="Fruit" onChange={onChange} multiple />);
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.keyboard('{ArrowDown}');
+      await userEvent.keyboard(' ');
+      expect(onChange).toHaveBeenCalledWith(['apple']);
+    });
+
+    it('does not select on Space keydown alone, and prevents page scroll', async () => {
+      const onChange = vi.fn();
+      render(<Combobox options={OPTIONS} aria-label="Fruit" onChange={onChange} />);
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.keyboard('{ArrowDown}');
+      const option = screen.getByRole('option', { name: 'Apple' });
+      const notCancelled = fireEvent.keyDown(option, { key: ' ' });
+      expect(notCancelled).toBe(false);
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('ignores a Space keyup whose keydown happened elsewhere', async () => {
+      const onChange = vi.fn();
+      render(<Combobox options={OPTIONS} aria-label="Fruit" onChange={onChange} />);
+      await userEvent.click(screen.getByRole('combobox'));
+      await userEvent.keyboard('{ArrowDown}');
+      fireEvent.keyUp(screen.getByRole('option', { name: 'Apple' }), { key: ' ' });
+      expect(onChange).not.toHaveBeenCalled();
     });
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'vitest';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { TextArea } from '../../../components/TextArea/TextArea';
@@ -230,6 +230,88 @@ describe('TextArea', () => {
         <TextArea label="Feedback" helperText="Tell us what you think" />,
       );
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('form validation and descriptions', () => {
+    it('merges a consumer aria-describedby with the helper text id', () => {
+      render(<TextArea label="Bio" helperText="A short bio" aria-describedby="external-hint" />);
+      const ids = screen.getByRole('textbox').getAttribute('aria-describedby')!.split(' ');
+      expect(ids).toContain('external-hint');
+      expect(document.getElementById(ids[1]!)).toHaveTextContent('A short bio');
+    });
+
+    it('sets aria-invalid="false" until the field is invalid', () => {
+      render(<TextArea label="Bio" required />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'false');
+    });
+
+    it('flags a required field after it is edited and left empty, then clears when fixed', async () => {
+      const { container } = render(<TextArea label="Bio" required />);
+      const textarea = screen.getByRole('textbox');
+      await userEvent.type(textarea, 'a{Backspace}');
+      await userEvent.tab();
+      expect(textarea).toHaveAttribute('aria-invalid', 'true');
+      expect(container.firstChild).toHaveClass('akds-text-area--user-invalid');
+      await userEvent.type(textarea, 'Hello');
+      expect(textarea).toHaveAttribute('aria-invalid', 'false');
+    });
+
+    it('flags an untouched field on a failed submit and shows the validation message', () => {
+      render(<TextArea label="Bio" />);
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement;
+      textarea.setCustomValidity('Tell us about yourself.');
+      fireEvent.invalid(textarea);
+      expect(textarea).toHaveAttribute('aria-invalid', 'true');
+      const message = screen.getByText('Tell us about yourself.');
+      expect(within(message).getByRole('img', { name: 'Error' })).toBeInTheDocument();
+      expect(textarea.getAttribute('aria-describedby')).toContain(message.id);
+    });
+
+    it('prefixes error helper text with an icon named "Error"', () => {
+      render(<TextArea label="Bio" error helperText="Bio is required" />);
+      const helper = screen.getByText('Bio is required');
+      expect(within(helper).getByRole('img', { name: 'Error' })).toBeInTheDocument();
+    });
+  });
+
+  describe('auto-grow', () => {
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    it('keeps auto-grow when resizable is false (only the resize handle is removed)', () => {
+      const { container } = render(<TextArea label="Notes" resizable={false} />);
+      expect(container.firstChild).toHaveClass('akds-text-area--no-resize');
+      expect(container.firstChild).not.toHaveClass('akds-text-area--fixed-height');
+    });
+
+    it('applies the fixed-height class when autoGrow is false', () => {
+      const { container } = render(<TextArea label="Notes" autoGrow={false} />);
+      expect(container.firstChild).toHaveClass('akds-text-area--fixed-height');
+      expect(container.querySelector('.akds-text-area__grow-wrap')).not.toHaveAttribute('data-replicated-value');
+    });
+
+    it('exposes minRows and maxRows as CSS custom properties', () => {
+      const { container } = render(<TextArea label="Notes" minRows={2} maxRows={8} />);
+      const wrap = container.querySelector<HTMLElement>('.akds-text-area__grow-wrap')!;
+      expect(wrap.style.getPropertyValue('--akds-text-area-min-rows')).toBe('2');
+      expect(wrap.style.getPropertyValue('--akds-text-area-max-rows')).toBe('8');
+    });
+
+    it('mirrors the value for the grid fallback when field-sizing is unsupported', async () => {
+      const { container } = render(<TextArea label="Notes" defaultValue="Hi" />);
+      const wrap = container.querySelector('.akds-text-area__grow-wrap')!;
+      expect(wrap).toHaveAttribute('data-replicated-value', 'Hi');
+      await userEvent.type(screen.getByRole('textbox'), '!');
+      expect(wrap).toHaveAttribute('data-replicated-value', 'Hi!');
+    });
+
+    it('does not mirror the value when field-sizing: content is supported', async () => {
+      vi.stubGlobal('CSS', { supports: (prop: string) => prop === 'field-sizing' });
+      const { container } = render(<TextArea label="Notes" defaultValue="Hi" />);
+      await userEvent.type(screen.getByRole('textbox'), '!');
+      expect(container.querySelector('.akds-text-area__grow-wrap')).not.toHaveAttribute('data-replicated-value');
     });
   });
 });

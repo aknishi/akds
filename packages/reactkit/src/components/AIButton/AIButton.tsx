@@ -28,7 +28,9 @@ export const AIButton = React.forwardRef<HTMLButtonElement, AIButtonProps>(
     const isLoading = isLoadingControlled ? loading : uncontrolledLoading;
 
     const isDisabled = disabled || isLoading;
-    const useAriaDisabled = isDisabled && focusableWhenDisabled;
+    // While loading, use aria-disabled (not native disabled) so the button
+    // that was just activated keeps keyboard focus.
+    const useAriaDisabled = isDisabled && (focusableWhenDisabled || !disabled);
     const rippleRef = React.useRef<RippleBaseHandle>(null);
 
     // Gate the label-swap animation to actual loading transitions so it
@@ -38,6 +40,11 @@ export const AIButton = React.forwardRef<HTMLButtonElement, AIButtonProps>(
     React.useEffect(() => {
       prevLoadingRef.current = isLoading;
     }, [isLoading]);
+
+    // The labels are split into per-letter spans for the animation, which some
+    // screen readers read letter by letter. Expose the active label as a whole.
+    const activeLabel = isLoading ? loadingLabel : children;
+    const accessibleLabel = typeof activeLabel === 'string' ? activeLabel : undefined;
 
     const handlePointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
       rippleRef.current?.trigger(e);
@@ -64,6 +71,7 @@ export const AIButton = React.forwardRef<HTMLButtonElement, AIButtonProps>(
           disabled={useAriaDisabled ? undefined : isDisabled || undefined}
           aria-disabled={isDisabled || undefined}
           aria-busy={isLoading || undefined}
+          aria-label={accessibleLabel}
           className={clsx(
             withBaseName(),
             { [withBaseName('disabled')]: disabled },
@@ -75,14 +83,16 @@ export const AIButton = React.forwardRef<HTMLButtonElement, AIButtonProps>(
           onPointerDown={handlePointerDown}
           {...rest}
         >
-          <svg className={withBaseName.el('start-icon')} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <svg className={withBaseName.el('start-icon')} aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path
               d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
             ></path>
           </svg>
 
           <div className={withBaseName.el('text-wrapper')}>
-            <div className={withBaseName.el('default-text')}>
+            {/* Both labels stay rendered so the button keeps a stable width;
+                the inactive one is hidden from assistive tech. */}
+            <div className={withBaseName.el('default-text')} aria-hidden={isLoading || undefined}>
               {typeof children === 'string'
                 ? Array.from(children).map((char, index) => (
                     <span
@@ -95,7 +105,7 @@ export const AIButton = React.forwardRef<HTMLButtonElement, AIButtonProps>(
                   ))
                 : children}
             </div>
-            <div className={withBaseName.el('loading-text')}>
+            <div className={withBaseName.el('loading-text')} aria-hidden={!isLoading || undefined}>
               {typeof loadingLabel === 'string'
                 ? Array.from(loadingLabel).map((char, index) => (
                     <span

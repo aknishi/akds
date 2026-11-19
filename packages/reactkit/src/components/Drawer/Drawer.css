@@ -1,150 +1,211 @@
-/* ── Backdrop ───────────────────────────────────────────────────────────── */
-.akds-drawer-backdrop {
+/* ── Root (native <dialog>) ────────────────────────────────────────────── */
+/* The dialog fills the viewport so the swipe surface reaches edge to edge.
+   It is transparent; the visible panel is .akds-drawer__sheet. */
+.akds-drawer {
+  /* Sheet width (left / right) or height (top / bottom); set per size below. */
+  --akds-drawer-size: 360px;
+  /* 0 = fully closed (transparent backdrop), 1 = fully open. Driven by the
+     scroll position: a scroll-driven animation where supported, otherwise a
+     scroll listener in Drawer.tsx. */
+  --akds-drawer-backdrop: 0;
+
+  /* Reset UA dialog styles (centered, size-capped, padded, bordered). Leave
+     `display` to the UA so the closed state stays display: none. */
   position: fixed;
   inset: 0;
-  background: var(--akds-color-background-scrim-default);
-  z-index: 1000;
+  width: auto;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  overflow: visible;
+  outline: none;
 }
 
-/* ── Panel ─────────────────────────────────────────────────────────────── */
-.akds-drawer {
-  position: fixed;
+.akds-drawer::backdrop {
+  background-color: var(--akds-color-background-scrim-default, rgba(0, 0, 0, 0.5));
+  opacity: var(--akds-drawer-backdrop);
+}
+
+/* ── Scroller: two snap stops, sheet (open) and spacer (closed) ───────── */
+.akds-drawer__scroller {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  /* Stop the swipe from chaining into the page at either snap edge. */
+  overscroll-behavior: none;
+  scrollbar-width: none;
+  /* Sides are physical; the sheet restores the document direction below. */
+  direction: ltr;
+}
+
+.akds-drawer__scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.akds-drawer:dir(rtl) .akds-drawer__sheet {
+  direction: rtl;
+}
+
+/* The empty spacer that creates the "closed" stop, on the side away from the
+   edge. The dialog is shown already scrolled here where supported. */
+.akds-drawer__scroller::after {
+  content: '';
+  scroll-snap-align: start;
+  scroll-initial-target: nearest;
+}
+
+.akds-drawer--left .akds-drawer__scroller,
+.akds-drawer--right .akds-drawer__scroller {
+  grid-template-rows: 100%;
+  overflow-x: scroll;
+  /* Vertical scrolling belongs to the sheet body. */
+  overflow-y: hidden;
+  /* `mandatory` guarantees the drawer settles fully open or fully closed. */
+  scroll-snap-type: x mandatory;
+}
+
+.akds-drawer--top .akds-drawer__scroller,
+.akds-drawer--bottom .akds-drawer__scroller {
+  grid-template-columns: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.akds-drawer--left .akds-drawer__scroller {
+  grid-template-columns: min(var(--akds-drawer-size), 100%) 100%;
+}
+
+.akds-drawer--right .akds-drawer__scroller {
+  grid-template-columns: 100% min(var(--akds-drawer-size), 100%);
+}
+
+.akds-drawer--top .akds-drawer__scroller {
+  grid-template-rows: min(var(--akds-drawer-size), 100%) 100%;
+}
+
+.akds-drawer--bottom .akds-drawer__scroller {
+  grid-template-rows: 100% min(var(--akds-drawer-size), 100%);
+}
+
+/* Right / bottom: spacer first, so the sheet sits at the far edge. */
+.akds-drawer--right .akds-drawer__scroller::after,
+.akds-drawer--bottom .akds-drawer__scroller::after {
+  order: -1;
+}
+
+/* Smooth open / close, unless the user asked for reduced motion (then the
+   drawer opens and closes instantly). */
+@media (prefers-reduced-motion: no-preference) {
+  .akds-drawer__scroller {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Tie the backdrop to the scroll position. Gated so browsers without
+   scroll-driven animations never apply the keyframes (which would pin the
+   backdrop at one end); the JS fallback writes the property there. */
+@supports (animation-timeline: scroll()) {
+  @property --akds-drawer-backdrop {
+    syntax: '<number>';
+    inherits: true;
+    initial-value: 0;
+  }
+
+  @keyframes akds-drawer-backdrop {
+    0% {
+      --akds-drawer-backdrop: 1;
+    }
+    100% {
+      --akds-drawer-backdrop: 0;
+    }
+  }
+
+  .akds-drawer {
+    /* Lets the dialog use the timeline defined on its descendant scroller. */
+    timeline-scope: --akds-drawer-fade;
+    animation: akds-drawer-backdrop linear both;
+    animation-timeline: --akds-drawer-fade;
+  }
+
+  /* Right / bottom are open at the end of the scroll range. */
+  .akds-drawer--right,
+  .akds-drawer--bottom {
+    animation-direction: reverse;
+  }
+
+  .akds-drawer--left .akds-drawer__scroller,
+  .akds-drawer--right .akds-drawer__scroller {
+    scroll-timeline: --akds-drawer-fade x;
+  }
+
+  .akds-drawer--top .akds-drawer__scroller,
+  .akds-drawer--bottom .akds-drawer__scroller {
+    scroll-timeline: --akds-drawer-fade y;
+  }
+}
+
+/* ── Sheet (the visible panel) ─────────────────────────────────────────── */
+.akds-drawer__sheet {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   background: var(--akds-color-surface-overlay);
   box-shadow: var(--akds-elevation-xl);
   box-sizing: border-box;
-  outline: none;
-  z-index: 1001;
+  scroll-snap-align: start;
 }
 
-/* ── Sides ─────────────────────────────────────────────────────────────── */
-.akds-drawer--left {
-  top: 0;
-  left: 0;
-  bottom: 0;
-  animation: akds-drawer-in-left 200ms ease;
+.akds-drawer--right .akds-drawer__sheet,
+.akds-drawer--bottom .akds-drawer__sheet {
+  scroll-snap-align: end;
 }
 
-.akds-drawer--right {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  animation: akds-drawer-in-right 200ms ease;
-}
-
-.akds-drawer--top {
-  top: 0;
-  left: 0;
-  right: 0;
-  animation: akds-drawer-in-top 200ms ease;
-}
-
-.akds-drawer--bottom {
-  bottom: 0;
-  left: 0;
-  right: 0;
+.akds-drawer--bottom .akds-drawer__sheet {
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.10), 0 -10px 10px rgba(0, 0, 0, 0.04);
-  animation: akds-drawer-in-bottom 200ms ease;
 }
 
-@keyframes akds-drawer-in-left {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes akds-drawer-in-right {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes akds-drawer-in-top {
-  from { transform: translateY(-100%); }
-  to { transform: translateY(0); }
-}
-
-@keyframes akds-drawer-in-bottom {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-@keyframes akds-drawer-out-left {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
-}
-
-@keyframes akds-drawer-out-right {
-  from { transform: translateX(0); }
-  to { transform: translateX(100%); }
-}
-
-@keyframes akds-drawer-out-top {
-  from { transform: translateY(0); }
-  to { transform: translateY(-100%); }
-}
-
-@keyframes akds-drawer-out-bottom {
-  from { transform: translateY(0); }
-  to { transform: translateY(100%); }
-}
-
-/* ── Closing ────────────────────────────────────────────────────────────── */
-.akds-drawer--closing.akds-drawer--left {
-  animation: akds-drawer-out-left 200ms ease forwards;
-}
-
-.akds-drawer--closing.akds-drawer--right {
-  animation: akds-drawer-out-right 200ms ease forwards;
-}
-
-.akds-drawer--closing.akds-drawer--top {
-  animation: akds-drawer-out-top 200ms ease forwards;
-}
-
-.akds-drawer--closing.akds-drawer--bottom {
-  animation: akds-drawer-out-bottom 200ms ease forwards;
-}
-
-/* ── Sizes (left / right drawers) ──────────────────────────────────────── */
+/* ── Sizes (left / right drawers: width) ───────────────────────────────── */
 .akds-drawer--left.akds-drawer--sm,
 .akds-drawer--right.akds-drawer--sm {
-  width: 280px;
+  --akds-drawer-size: 280px;
 }
 
 .akds-drawer--left.akds-drawer--md,
 .akds-drawer--right.akds-drawer--md {
-  width: 360px;
+  --akds-drawer-size: 360px;
 }
 
 .akds-drawer--left.akds-drawer--lg,
 .akds-drawer--right.akds-drawer--lg {
-  width: 480px;
+  --akds-drawer-size: 480px;
 }
 
-.akds-drawer--left.akds-drawer--full,
-.akds-drawer--right.akds-drawer--full {
-  width: 100%;
-}
-
-/* ── Sizes (top / bottom drawers) ──────────────────────────────────────── */
+/* ── Sizes (top / bottom drawers: height) ──────────────────────────────── */
 .akds-drawer--top.akds-drawer--sm,
 .akds-drawer--bottom.akds-drawer--sm {
-  height: 200px;
+  --akds-drawer-size: 200px;
 }
 
 .akds-drawer--top.akds-drawer--md,
 .akds-drawer--bottom.akds-drawer--md {
-  height: 320px;
+  --akds-drawer-size: 320px;
 }
 
 .akds-drawer--top.akds-drawer--lg,
 .akds-drawer--bottom.akds-drawer--lg {
-  height: 480px;
+  --akds-drawer-size: 480px;
 }
 
-.akds-drawer--top.akds-drawer--full,
-.akds-drawer--bottom.akds-drawer--full {
-  height: 100%;
+.akds-drawer--full {
+  --akds-drawer-size: 100%;
 }
 
 /* ── Header ────────────────────────────────────────────────────────────── */
@@ -178,30 +239,13 @@
 .akds-drawer__body {
   padding: var(--akds-spacing-300);
   overflow-y: auto;
+  /* Keep long content's vertical scroll inside the body. Only the y axis, so
+     a horizontal swipe on a left / right sheet still reaches the scroller. */
+  overscroll-behavior-y: contain;
   flex: 1;
+  min-height: 0;
   font-family: var(--akds-font-family-sans);
   font-size: var(--akds-font-size-md);
   color: var(--akds-color-text-primary-default);
   line-height: var(--akds-font-line-height-normal);
-}
-
-/* ── Reduced motion ─────────────────────────────────────────────────────── */
-/*
- * Use animation-duration: 0.01ms rather than animation: none so that the
- * animationend event still fires. Drawer.tsx listens for animationend on the
- * closing animation to unmount the panel — suppressing the event entirely
- * would leave the drawer stuck in its closing state.
- */
-@media (prefers-reduced-motion: reduce) {
-  .akds-drawer--left,
-  .akds-drawer--right,
-  .akds-drawer--top,
-  .akds-drawer--bottom,
-  .akds-drawer--closing.akds-drawer--left,
-  .akds-drawer--closing.akds-drawer--right,
-  .akds-drawer--closing.akds-drawer--top,
-  .akds-drawer--closing.akds-drawer--bottom {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-  }
 }

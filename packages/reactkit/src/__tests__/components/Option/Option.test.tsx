@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Option } from '../../../components/Option/Option';
@@ -258,6 +258,56 @@ describe('Option', () => {
     it('has no violations when disabled in menu context', async () => {
       const { container } = renderInMenu(<Option disabled>Cut</Option>);
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('listbox keyboard and tabindex', () => {
+    it('uses tabIndex -1 by default (roving tabindex) and 0 for the selected option', () => {
+      renderInListbox(
+        <>
+          <Option value="apple">Apple</Option>
+          <Option value="banana">Banana</Option>
+        </>,
+        { isSelected: v => v === 'banana' },
+      );
+      expect(screen.getByRole('option', { name: 'Apple' })).toHaveAttribute('tabindex', '-1');
+      expect(screen.getByRole('option', { name: 'Banana' })).toHaveAttribute('tabindex', '0');
+    });
+
+    it('defers to ctx.isTabStop when provided', () => {
+      renderInListbox(
+        <>
+          <Option value="apple">Apple</Option>
+          <Option value="banana">Banana</Option>
+        </>,
+        { isTabStop: v => v === 'apple' },
+      );
+      expect(screen.getByRole('option', { name: 'Apple' })).toHaveAttribute('tabindex', '0');
+      expect(screen.getByRole('option', { name: 'Banana' })).toHaveAttribute('tabindex', '-1');
+    });
+
+    it('reports focus through ctx.onOptionFocus', () => {
+      const onOptionFocus = vi.fn();
+      renderInListbox(<Option value="apple">Apple</Option>, { onOptionFocus });
+      screen.getByRole('option', { name: 'Apple' }).focus();
+      expect(onOptionFocus).toHaveBeenCalledWith('apple');
+    });
+
+    it('does not select on Space keydown alone, and prevents page scroll', () => {
+      const onSelect = vi.fn();
+      renderInListbox(<Option value="apple">Apple</Option>, { onSelect });
+      const option = screen.getByRole('option', { name: 'Apple' });
+      expect(fireEvent.keyDown(option, { key: ' ' })).toBe(false);
+      expect(onSelect).not.toHaveBeenCalled();
+      fireEvent.keyUp(option, { key: ' ' });
+      expect(onSelect).toHaveBeenCalledWith('apple');
+    });
+
+    it('ignores a Space keyup without a matching keydown', () => {
+      const onSelect = vi.fn();
+      renderInListbox(<Option value="apple">Apple</Option>, { onSelect });
+      fireEvent.keyUp(screen.getByRole('option', { name: 'Apple' }), { key: ' ' });
+      expect(onSelect).not.toHaveBeenCalled();
     });
   });
 });

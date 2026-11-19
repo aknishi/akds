@@ -137,7 +137,9 @@ export default function App() {
   ],
   accessibilityNotes: [
     "Each toast auto-dismisses after 7 seconds by default (or a custom duration); autoDismiss: false keeps it open until the user closes it manually with the X button.",
-    'Toasts use role="status"/aria-live="polite" for most emphases, and role="alert"/aria-live="assertive" for destructive ones — but changing aria-live on an already-mounted node is unreliably respected across screen readers (notably VoiceOver), and a freshly-created node with aria-live already attached often isn\'t announced at all since the region never registered an empty state to diff against. ToastProvider works around both issues with two permanent, visually hidden live regions (one polite, one assertive) that mount once and never change politeness; each toast\'s message is routed into the matching region, cleared first so a repeated identical message still gets re-announced.',
+    'Toasts are announced politely for most emphases and assertively for destructive ones. Where supported, announcements use document.ariaNotify(); otherwise ToastProvider routes each message into one of two permanent, visually hidden live regions (polite and assertive) that mount once and never change politeness, cleared first so a repeated identical message is re-announced. Toast cards themselves are not live regions, so nothing is announced twice.',
+    'The toast viewport is a popover="manual" in the top layer, above page content regardless of z-index or stacking contexts. Dismissing a focused toast moves focus to the next toast, or back to where focus was before.',
+    'While a modal Dialog or Drawer is open, toasts render inside it, so they appear above its backdrop and stay clickable.',
     "Hovering or focusing a toast pauses its auto-dismiss timer so it can't disappear mid-read; leaving or blurring resumes the remaining time.",
   ],
   props: [

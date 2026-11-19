@@ -1,73 +1,109 @@
-/* ── Backdrop ───────────────────────────────────────────────────────────── */
-.akds-dialog-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: var(--akds-spacing-200);
-  box-sizing: border-box;
-}
-
-/* ── Panel ─────────────────────────────────────────────────────────────── */
+/* ── Panel (native <dialog>) ───────────────────────────────────────────── */
 .akds-dialog {
-  position: relative;
-  display: flex;
+  --akds-dialog-max-width: 560px;
+  /* Reset UA dialog styles. Leave `display` to the UA so the closed state
+     stays display: none; it's only set on [open] below. */
+  padding: 0;
+  border: 0;
+  color: inherit;
   flex-direction: column;
   background: var(--akds-color-surface-overlay);
   border-radius: var(--akds-radius-xl);
   box-shadow: var(--akds-elevation-xl);
+  width: min(var(--akds-dialog-max-width), 100% - 2 * var(--akds-spacing-200));
+  max-width: none;
   max-height: calc(100vh - var(--akds-spacing-400));
-  width: 100%;
   box-sizing: border-box;
-  animation: akds-dialog-in 150ms ease;
   outline: none;
+  /* Exit (closed / data-closing) state */
+  opacity: 0;
+  transition-property: opacity, transform, display, overlay;
+  transition-duration: 120ms;
+  transition-timing-function: ease-in;
+  /* Separate from the shorthand so older browsers don't drop the transition */
+  transition-behavior: allow-discrete;
 }
 
-@keyframes akds-dialog-in {
-  from {
+.akds-dialog[open] {
+  display: flex;
+}
+
+/* Scroll gestures inside the dialog or over the backdrop must not scroll the
+   page underneath (replaces the old body overflow lock). */
+.akds-dialog:modal {
+  overscroll-behavior: contain;
+}
+
+.akds-dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+  background-color: transparent;
+  transition-property: background-color, display, overlay;
+  transition-duration: 120ms;
+  transition-timing-function: ease-in;
+  transition-behavior: allow-discrete;
+}
+
+/* Open state. Scoped to :not([data-closing]) so setting that attribute plays
+   the exit transition while the dialog is still in the top layer — needed in
+   browsers without `overlay` support (Firefox, Safari). */
+.akds-dialog:is([open]):where(:not([data-closing])) {
+  opacity: 1;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+@starting-style {
+  .akds-dialog:is([open]):where(:not([data-closing])) {
     opacity: 0;
-    transform: scale(0.96) translateY(var(--akds-spacing-100));
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
   }
 }
 
-@keyframes akds-dialog-out {
-  from {
-    opacity: 1;
-    transform: scale(1) translateY(0);
+.akds-dialog:is([open]):where(:not([data-closing]))::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+@starting-style {
+  .akds-dialog:is([open]):where(:not([data-closing]))::backdrop {
+    background-color: transparent;
   }
-  to {
-    opacity: 0;
+}
+
+/* Scale/slide only for users who haven't asked for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .akds-dialog {
     transform: scale(0.97) translateY(var(--akds-spacing-100));
   }
-}
 
-.akds-dialog--closing {
-  animation: akds-dialog-out 120ms ease-in forwards;
+  .akds-dialog:is([open]):where(:not([data-closing])) {
+    transform: none;
+  }
+
+  @starting-style {
+    .akds-dialog:is([open]):where(:not([data-closing])) {
+      transform: scale(0.96) translateY(var(--akds-spacing-100));
+    }
+  }
 }
 
 /* ── Sizes ─────────────────────────────────────────────────────────────── */
 .akds-dialog--sm {
-  max-width: 400px;
+  --akds-dialog-max-width: 400px;
 }
 
 .akds-dialog--md {
-  max-width: 560px;
+  --akds-dialog-max-width: 560px;
 }
 
 .akds-dialog--lg {
-  max-width: 800px;
+  --akds-dialog-max-width: 800px;
 }
 
 .akds-dialog--full {
-  max-width: 100%;
-  max-height: 100%;
+  --akds-dialog-max-width: 100%;
+  max-height: calc(100% - 2 * var(--akds-spacing-200));
   border-radius: var(--akds-radius-none);
 }
 
@@ -109,16 +145,12 @@
 }
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
-/*
- * Use animation-duration: 0.01ms rather than animation: none so that the
- * animationend event still fires. Dialog.tsx listens for animationend on the
- * closing animation to unmount the panel — suppressing the event entirely
- * would leave the dialog stuck in its closing state.
- */
+/* No scale/slide (see above); just a short fade. */
 @media (prefers-reduced-motion: reduce) {
   .akds-dialog,
-  .akds-dialog--closing {
-    animation-duration: 0.01ms;
-    animation-iteration-count: 1;
+  .akds-dialog::backdrop,
+  .akds-dialog:is([open]):where(:not([data-closing])),
+  .akds-dialog:is([open]):where(:not([data-closing]))::backdrop {
+    transition-duration: 100ms;
   }
 }

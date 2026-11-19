@@ -80,7 +80,8 @@ describe('IconButton', () => {
     );
     const btn = screen.getByRole('button');
     expect(btn).toHaveAttribute('aria-busy', 'true');
-    expect(btn).toBeDisabled();
+    expect(btn).not.toBeDisabled();
+    expect(btn).toHaveAttribute('aria-disabled', 'true');
     expect(btn.querySelector('.akds-spinner')).toBeInTheDocument();
   });
 

@@ -30,8 +30,8 @@
 
 /* ── Reduced motion ─────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  /* Slow down rather than stop, so it still reads as in-progress. */
   .akds-spinner {
-    animation: none;
-    opacity: 0.7;
+    animation-duration: 2.5s;
   }
 }

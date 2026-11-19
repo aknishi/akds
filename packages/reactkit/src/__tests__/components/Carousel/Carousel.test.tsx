@@ -98,9 +98,14 @@ describe('Carousel', () => {
         {slides(3)}
       </Carousel>,
     );
-    // Two extra off-screen copies are rendered for seamless wraparound.
-    expect(screen.getAllByRole('group')).toHaveLength(9);
-    expect(screen.getAllByRole('group', { name: '1 of 3' })).toHaveLength(3);
+    // Two extra off-screen copies are rendered for seamless wraparound...
+    expect(document.querySelectorAll('.akds-carousel__slide')).toHaveLength(9);
+    // ...but only one copy is exposed to assistive tech; the clones are inert.
+    expect(screen.getAllByRole('group')).toHaveLength(3);
+    expect(screen.getAllByRole('group', { name: '1 of 3' })).toHaveLength(1);
+    const clones = document.querySelectorAll('.akds-carousel__slide[aria-hidden="true"]');
+    expect(clones).toHaveLength(6);
+    clones.forEach((clone) => expect(clone).toHaveAttribute('inert'));
   });
 
   it('renders navigation buttons by default', () => {

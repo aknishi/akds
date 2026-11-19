@@ -9,20 +9,24 @@ const withBaseName = makePrefixer('akds-tab-panel');
 
 export const TabPanel = React.forwardRef<HTMLDivElement, TabPanelProps>(
   function TabPanel({ value, className, children, ...rest }, ref) {
-    const { activeTab } = React.useContext(TabContext);
+    const { activeTab, getId } = React.useContext(TabContext);
     const isActive = activeTab === value;
 
-    if (!isActive) return null;
-
+    // Inactive panels stay in the DOM (empty and hidden) so each tab's
+    // aria-controls always references an existing element, while content
+    // still mounts only when its tab is selected.
     return (
       <div
         ref={ref}
         role="tabpanel"
-        tabIndex={0}
+        id={getId('panel', value)}
+        aria-labelledby={getId('tab', value)}
+        tabIndex={isActive ? 0 : undefined}
+        hidden={!isActive}
         className={clsx(withBaseName(), className)}
         {...rest}
       >
-        {children}
+        {isActive ? children : null}
       </div>
     );
   },

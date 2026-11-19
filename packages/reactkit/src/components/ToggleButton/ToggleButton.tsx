@@ -65,7 +65,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
         role={isGrouped ? 'radio' : undefined}
         aria-checked={isGrouped ? isActive : undefined}
         aria-pressed={!isGrouped ? isActive : undefined}
-        aria-disabled={resolvedDisabled || undefined}
         disabled={resolvedDisabled}
         tabIndex={isGrouped ? (isActive ? 0 : -1) : undefined}
         className={clsx(

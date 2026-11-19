@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { TextInput } from '../../../components/TextInput/TextInput';
@@ -182,6 +182,95 @@ describe('TextInput', () => {
         />,
       );
       expect(await axe(container)).toHaveNoViolations();
+    });
+  });
+
+  describe('form validation and descriptions', () => {
+    it('merges a consumer aria-describedby with the helper text id', () => {
+      render(<TextInput label="Name" helperText="Your full name" aria-describedby="external-hint" />);
+      const input = screen.getByRole('textbox');
+      const ids = input.getAttribute('aria-describedby')!.split(' ');
+      expect(ids).toContain('external-hint');
+      expect(document.getElementById(ids[1]!)).toHaveTextContent('Your full name');
+    });
+
+    it('sets aria-invalid="false" until the field is invalid', () => {
+      render(<TextInput label="Name" required />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'false');
+    });
+
+    it('forces aria-invalid="true" when error is set', () => {
+      render(<TextInput label="Name" error aria-invalid={false} />);
+      expect(screen.getByRole('textbox')).toHaveAttribute('aria-invalid', 'true');
+    });
+
+    it('does not flag a required field while the user is still typing', async () => {
+      render(<TextInput label="Name" required />);
+      const input = screen.getByRole('textbox');
+      await userEvent.type(input, 'a{Backspace}');
+      expect(input).toHaveAttribute('aria-invalid', 'false');
+    });
+
+    it('flags a required field after it is edited and left empty, then clears when fixed', async () => {
+      const { container } = render(<TextInput label="Name" required />);
+      const input = screen.getByRole('textbox');
+      await userEvent.type(input, 'a{Backspace}');
+      await userEvent.tab();
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+      expect(container.firstChild).toHaveClass('akds-text-input--user-invalid');
+
+      await userEvent.type(input, 'Ada');
+      expect(input).toHaveAttribute('aria-invalid', 'false');
+      expect(container.firstChild).not.toHaveClass('akds-text-input--user-invalid');
+    });
+
+    it('flags an untouched field on a failed submit (invalid event)', () => {
+      render(<TextInput label="Name" required />);
+      const input = screen.getByRole('textbox');
+      fireEvent.invalid(input);
+      expect(input).toHaveAttribute('aria-invalid', 'true');
+    });
+
+    it('shows the browser validation message with an error icon and links it', () => {
+      render(<TextInput label="Name" helperText="Hint" />);
+      const input = screen.getByRole('textbox') as HTMLInputElement;
+      input.setCustomValidity('Enter your name.');
+      fireEvent.invalid(input);
+      const message = screen.getByText('Enter your name.');
+      expect(message).toHaveClass('akds-text-input__error-text');
+      expect(within(message).getByRole('img', { name: 'Error' })).toBeInTheDocument();
+      expect(input.getAttribute('aria-describedby')!.split(' ')).toContain(message.id);
+    });
+
+    it('prefixes error helper text with an icon named "Error"', () => {
+      render(<TextInput label="Email" error helperText="Enter a valid email" />);
+      const helper = screen.getByText('Enter a valid email');
+      expect(within(helper).getByRole('img', { name: 'Error' })).toBeInTheDocument();
+    });
+
+    it('does not show the error icon on non-error helper text', () => {
+      render(<TextInput label="Email" helperText="We never share it" />);
+      expect(screen.queryByRole('img', { name: 'Error' })).not.toBeInTheDocument();
+    });
+
+    it('composes onBlur, onChange and onInvalid consumer handlers', async () => {
+      const onBlur = vi.fn();
+      const onChange = vi.fn();
+      const onInvalid = vi.fn();
+      render(<TextInput label="Name" onBlur={onBlur} onChange={onChange} onInvalid={onInvalid} />);
+      const input = screen.getByRole('textbox');
+      await userEvent.type(input, 'a');
+      await userEvent.tab();
+      fireEvent.invalid(input);
+      expect(onChange).toHaveBeenCalled();
+      expect(onBlur).toHaveBeenCalled();
+      expect(onInvalid).toHaveBeenCalled();
+    });
+
+    it('still forwards inputRef', () => {
+      const ref = React.createRef<HTMLInputElement>();
+      render(<TextInput label="Name" inputRef={ref} />);
+      expect(ref.current).toBe(screen.getByRole('textbox'));
     });
   });
 });

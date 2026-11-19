@@ -1,9 +1,10 @@
 import React from 'react';
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { Dialog } from '../../../components/Dialog/Dialog';
+import { Combobox } from '../../../components/Combobox/Combobox';
 
 expect.extend(toHaveNoViolations);
 
@@ -49,25 +50,51 @@ describe('Dialog', () => {
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('calls onClose when backdrop is clicked', async () => {
+  it('calls onClose when the backdrop is clicked (press and release outside)', () => {
     const onClose = vi.fn();
     render(<Dialog open onClose={onClose}><p>Content</p></Dialog>);
-    const backdrop = document.querySelector('.akds-dialog-backdrop') as HTMLElement;
-    await userEvent.click(backdrop);
+    const dialog = screen.getByRole('dialog');
+    fireEvent.pointerDown(dialog, { clientX: 500, clientY: 500 });
+    fireEvent.pointerUp(dialog, { clientX: 500, clientY: 500 });
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it('does not call onClose on backdrop click when disableBackdropClose is set', async () => {
+  it('does not call onClose on backdrop click when disableBackdropClose is set', () => {
     const onClose = vi.fn();
     render(<Dialog open onClose={onClose} disableBackdropClose><p>Content</p></Dialog>);
-    const backdrop = document.querySelector('.akds-dialog-backdrop') as HTMLElement;
-    await userEvent.click(backdrop);
+    const dialog = screen.getByRole('dialog');
+    fireEvent.pointerDown(dialog, { clientX: 500, clientY: 500 });
+    fireEvent.pointerUp(dialog, { clientX: 500, clientY: 500 });
     expect(onClose).not.toHaveBeenCalled();
+    expect(dialog).toHaveAttribute('closedby', 'closerequest');
   });
 
-  it('sets aria-modal on the dialog panel', () => {
+  it('uses closedby="any" for native light dismiss by default', () => {
     render(<Dialog open onClose={() => {}}><p>Content</p></Dialog>);
-    expect(screen.getByRole('dialog')).toHaveAttribute('aria-modal', 'true');
+    expect(screen.getByRole('dialog')).toHaveAttribute('closedby', 'any');
+  });
+
+  it('renders a native modal <dialog> without manual ARIA modal attributes', () => {
+    render(<Dialog open onClose={() => {}}><p>Content</p></Dialog>);
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.tagName).toBe('DIALOG');
+    expect(dialog).toHaveAttribute('open');
+    expect(dialog).not.toHaveAttribute('aria-modal');
+    expect(dialog).not.toHaveAttribute('role');
+  });
+
+  it('stays open on Escape when the parent ignores onClose', async () => {
+    // Escape is routed through onClose; if the parent ignores it, it stays open.
+    render(<Dialog open onClose={() => {}}><p>Content</p></Dialog>);
+    await userEvent.keyboard('{Escape}');
+    expect(screen.getByRole('dialog')).toHaveAttribute('open');
+  });
+
+  it('calls onClose when the dialog closes natively (e.g. form method="dialog")', () => {
+    const onClose = vi.fn();
+    render(<Dialog open onClose={onClose}><p>Content</p></Dialog>);
+    (screen.getByRole('dialog') as HTMLDialogElement).close();
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   it('associates title with dialog via aria-labelledby', () => {
@@ -87,64 +114,49 @@ describe('Dialog', () => {
     expect(screen.getByRole('button', { name: 'Close dialog' })).toHaveFocus();
   });
 
-  it('sets body overflow to hidden when open', () => {
+  it('does not lock body scroll with overflow: hidden', () => {
     render(<Dialog open onClose={() => {}}><p>Content</p></Dialog>);
-    expect(document.body.style.overflow).toBe('hidden');
-  });
-
-  it('restores body overflow when closed', () => {
-    const { rerender } = render(<Dialog open onClose={() => {}}><p>Content</p></Dialog>);
-    expect(document.body.style.overflow).toBe('hidden');
-    rerender(<Dialog open={false} onClose={() => {}}><p>Content</p></Dialog>);
     expect(document.body.style.overflow).not.toBe('hidden');
   });
 
-  describe('focus trap', () => {
-    it('Tab from last focusable element wraps focus to first', () => {
-      render(
-        <Dialog open onClose={() => {}}>
-          <button>Action</button>
-        </Dialog>,
+  it('unmounts and returns focus to the trigger after closing', async () => {
+    function Harness() {
+      const [open, setOpen] = React.useState(false);
+      return (
+        <>
+          <button onClick={() => setOpen(true)}>Open</button>
+          <Dialog open={open} onClose={() => setOpen(false)} title="T"><p>Content</p></Dialog>
+        </>
       );
-      const closeBtn = screen.getByRole('button', { name: 'Close dialog' });
-      const actionBtn = screen.getByRole('button', { name: 'Action' });
-      actionBtn.focus();
-      fireEvent.keyDown(document, { key: 'Tab', shiftKey: false });
-      expect(closeBtn).toHaveFocus();
-    });
-
-    it('Shift+Tab from first focusable element wraps focus to last', () => {
-      render(
-        <Dialog open onClose={() => {}}>
-          <button>Action</button>
-        </Dialog>,
-      );
-      const closeBtn = screen.getByRole('button', { name: 'Close dialog' });
-      const actionBtn = screen.getByRole('button', { name: 'Action' });
-      closeBtn.focus();
-      fireEvent.keyDown(document, { key: 'Tab', shiftKey: true });
-      expect(actionBtn).toHaveFocus();
-    });
-
-    it('Tab with no focusable elements does not throw', () => {
-      render(
-        <Dialog open onClose={() => {}}>
-          <p>Content</p>
-        </Dialog>,
-      );
-      // Close button is removed from the query by disabling it via a wrapper;
-      // instead just verify firing Tab doesn't throw when close button exists
-      expect(() =>
-        fireEvent.keyDown(document, { key: 'Tab', shiftKey: false }),
-      ).not.toThrow();
-    });
+    }
+    render(<Harness />);
+    const trigger = screen.getByRole('button', { name: 'Open' });
+    await userEvent.click(trigger);
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    await userEvent.keyboard('{Escape}');
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
+    expect(trigger).toHaveFocus();
   });
 
-  it('forwards ref to the dialog panel', () => {
-    const ref = React.createRef<HTMLDivElement>();
+  it('forwards ref to the native dialog element', () => {
+    const ref = React.createRef<HTMLDialogElement>();
     render(<Dialog open onClose={() => {}} ref={ref}><p>Content</p></Dialog>);
-    expect(ref.current).toBeInstanceOf(HTMLDivElement);
-    expect(ref.current).toHaveAttribute('role', 'dialog');
+    expect(ref.current).toBeInstanceOf(HTMLDialogElement);
+  });
+
+  it('lets a nested open popup consume Escape before the dialog closes', async () => {
+    const onClose = vi.fn();
+    render(
+      <Dialog open onClose={onClose} title="T">
+        <Combobox aria-label="Fruit" options={[{ value: 'a', label: 'Apple' }]} />
+      </Dialog>,
+    );
+    await userEvent.click(screen.getByRole('combobox'));
+    expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
+    await userEvent.keyboard('{Escape}');
+    expect(onClose).not.toHaveBeenCalled();
+    await userEvent.keyboard('{Escape}');
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 
   describe('axe accessibility', () => {

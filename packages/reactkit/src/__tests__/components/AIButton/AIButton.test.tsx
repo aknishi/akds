@@ -22,10 +22,18 @@ describe('AIButton', () => {
   it('shows loadingLabel and disables button when loading', () => {
     render(<AIButton loading>Generate</AIButton>);
     const btn = screen.getByRole('button');
-    expect(btn).toBeDisabled();
+    expect(btn).not.toBeDisabled();
+    expect(btn).toHaveAttribute('aria-disabled', 'true');
     expect(btn).toHaveClass('akds-ai-button--loading');
     expect(btn).toHaveAttribute('aria-busy', 'true');
     expect(btn).toHaveTextContent('Generating');
+  });
+
+  it('exposes only the active label as the accessible name', () => {
+    const { rerender } = render(<AIButton loading={false}>Generate</AIButton>);
+    expect(screen.getByRole('button', { name: 'Generate' })).toBeInTheDocument();
+    rerender(<AIButton loading>Generate</AIButton>);
+    expect(screen.getByRole('button', { name: 'Generating' })).toBeInTheDocument();
   });
 
   it('does not apply the disabled class while only loading (so the generating animation keeps playing)', () => {
