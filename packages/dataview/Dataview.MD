@@ -491,7 +491,7 @@ export interface Order {
 - Smaller focused stories: `TableView` with selection, `CardView` with each team layout, and `DataViewCard` alone.
 - For the demo stories, add Chromatic viewport modes (a narrow mobile width and a desktop width) in addition to the existing `light` and `dark` modes in `.storybook/modes.ts`. Apply the new modes **only to DataView stories** via story parameters, so existing baselines don't change.
 - A `DataView.mdx` docs page: what it is, the fixed-versus-flexible card regions, the API examples above, and accessibility notes.
-- `packages/reactkit/src/Datagrid.mdx` currently describes a planned `@aknishi/akds-datagrid` package. **Ask me** whether to update it to point to `@aknishi/akds-dataview` before changing it.
+- `packages/reactkit/src/DataView.mdx` (formerly `Datagrid.mdx`, which described a planned `@aknishi/akds-datagrid` package) points to `@aknishi/akds-dataview`.
 
 ## Tests (Vitest + React Testing Library)
 

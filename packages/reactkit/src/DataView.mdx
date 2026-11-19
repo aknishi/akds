@@ -1,22 +1,25 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Reactkit/Table/Datagrid" />
+<Meta title="Reactkit/Table/DataView" />
 
-# Datagrid
+# DataView
 
-> **Planned — not yet available**
+For interactive tabular data, use the separate `@aknishi/akds-dataview` package. It's built on [TanStack Table](https://tanstack.com/table) and renders with this package's `Table` primitives, and it shows the same rows as a table or as cards. See the [DataView docs](?path=/docs/dataview-dataview--docs) for its API and examples.
 
-Datagrid will be a separate `@aknishi/akds-datagrid` package for interactive, large-scale tabular data — built on [TanStack Table](https://tanstack.com/table) for its headless logic layer, and rendered with this package's `Table`, `Thead`, `Tbody`, `Tr`, `Th`, and `Td` primitives.
+## What it adds
 
-## Planned features
+- Column sorting, search, and column filtering
+- Pagination, client-side or from a server
+- Row selection with bulk actions
+- Pinned columns and virtualized rendering for large datasets
+- Loading, error, and empty states
+- Row click, to open a row's details
+- A card view of the same rows for narrow layouts, sharing sorting, search, and selection with the table
 
-- Column sorting
-- Column and global filtering
-- Pagination
-- Row selection
-- Column resizing, reordering, and pinning (beyond the resizable columns already available on `Th`)
-- Virtualized rendering for large datasets
+```tsx
+import { useDataView } from '@aknishi/akds-dataview';
+```
 
-## What to use today
+## When to use Basic Table instead
 
-For static or simple tabular data — a props table, a summary list, a small dataset with no sorting or filtering — use [Basic Table](/docs/reactkit-table-basic-table--docs) instead. It has no dependency on this future package and covers column alignment, striping, a footer row, and resizable columns.
+For static or simple tabular data, such as a props table, a summary list, or a small dataset with no sorting or filtering, use [Basic Table](?path=/docs/reactkit-table-basic-table--docs). It needs no extra package and covers column alignment, striping, a footer row, and resizable columns.
