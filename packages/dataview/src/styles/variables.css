@@ -1,0 +1,23 @@
+/* ── DataView variables ────────────────────────────────────────────────── */
+:root {
+  /* Space between row-level actions and the edge of their row: the table's
+     actions cell padding. It's the same token CardHeader uses for its
+     padding, so row actions sit at the same inset in table and card views,
+     and the bulk icon actions can line up with both. */
+  --akds-dataview-actions-inset: var(--akds-spacing-layout-md);
+  /* How faded rows are while rows that replace them load. There's no
+     opacity token yet; reactkit's disabled states hardcode theirs too. This
+     is lighter than disabled, since the rows can still be read and used. */
+  --akds-dataview-refreshing-opacity: 0.6;
+  /* The least height of the loading, error, and empty states, so switching
+     between them doesn't make the view jump. It fits the tallest standard
+     message (icon, title, description, and action) with room to spare, and
+     is about five table rows. There's no layout height token, so it's a
+     literal. A state still keeps the taller height of rows it replaces. */
+  --akds-dataview-state-min-height: 240px;
+  /* A card's estimated height before it first renders, for content-visibility
+     on long card lists. Only the scrollbar's first estimate depends on it:
+     each card's real height is remembered once it renders. About a card
+     with a header and four fields. */
+  --akds-dataview-card-size-estimate: 12rem;
+}

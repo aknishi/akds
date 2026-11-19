@@ -13,9 +13,10 @@
    overflow ancestors and no z-index needed. */
 .akds-tooltip {
   box-sizing: border-box;
-  position: fixed;
   overflow: visible;
   border: 0;
+  position: absolute;
+  z-index: var(--akds-z-index-tooltip);
   padding: var(--akds-spacing-25) var(--akds-spacing-100);
   background-color: var(--akds-color-text-primary-default);
   color: var(--akds-color-surface-default);

@@ -171,6 +171,17 @@
   --akds-elevation-xl:   0 20px 25px rgba(0,0,0,0.10), 0 10px 10px rgba(0,0,0,0.04);
   --akds-elevation-2xl:  0 25px 50px rgba(0,0,0,0.25);
 
+  /* ─── Z-index ────────────────────────────────────────────────────────── */
+  /* Stacking order for page-level layers. Components that stack things
+     internally use small local values inside their own stacking context
+     (isolation: isolate) instead. */
+  --akds-z-index-base: 0;
+  --akds-z-index-sticky: 100;
+  --akds-z-index-modal: 300;
+  --akds-z-index-popover: 400;
+  --akds-z-index-toast: 500;
+  --akds-z-index-tooltip: 600;
+
   /* ─── Focus ──────────────────────────────────────────────────────────── */
   --akds-color-interaction-focus-outline: #262626;
   --akds-outline-focus: 2px dotted var(--akds-color-interaction-focus-outline);
@@ -220,7 +231,7 @@
   --akds-color-text-info-default: #2563EB;
   --akds-color-text-on-primary-default: #FFFFFF;
   --akds-color-text-on-secondary-default: #171717;
-  --akds-color-text-placeholder-default: #A3A3A3;
+  --akds-color-text-placeholder-default: #737373;
   --akds-color-text-on-success-default: #FFFFFF;
   --akds-color-text-on-error-default: #FFFFFF;
   --akds-color-text-on-warning-default: #FFFFFF;
@@ -368,7 +379,7 @@
   --akds-color-text-info-default: #60A5FA;
   --akds-color-text-on-primary-default: #FFFFFF;
   --akds-color-text-on-secondary-default: #FAFAFA;
-  --akds-color-text-placeholder-default: #737373;
+  --akds-color-text-placeholder-default: #A3A3A3;
   --akds-color-text-on-success-default: #FFFFFF;
   --akds-color-text-on-error-default: #FFFFFF;
   --akds-color-text-on-warning-default: #FFFFFF;
@@ -443,7 +454,7 @@
     --akds-color-text-info-default: #60A5FA;
     --akds-color-text-on-primary-default: #FFFFFF;
     --akds-color-text-on-secondary-default: #FAFAFA;
-    --akds-color-text-placeholder-default: #737373;
+    --akds-color-text-placeholder-default: #A3A3A3;
     --akds-color-text-on-success-default: #FFFFFF;
     --akds-color-text-on-error-default: #FFFFFF;
     --akds-color-text-on-warning-default: #FFFFFF;

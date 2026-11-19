@@ -40,23 +40,23 @@
 }
 
 .akds-tag--info {
-  background: var(--akds-color-background-info-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-info-surface);
+  color: var(--akds-color-text-info-default);
 }
 
 .akds-tag--success {
-  background: var(--akds-color-background-success-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-success-surface);
+  color: var(--akds-color-text-success-default);
 }
 
 .akds-tag--warning {
-  background: var(--akds-color-background-warning-default);
-  color: var(--akds-color-text-on-secondary-default);
+  background: var(--akds-color-background-warning-surface);
+  color: var(--akds-color-text-warning-default);
 }
 
 .akds-tag--error {
-  background: var(--akds-color-background-error-default);
-  color: var(--akds-color-text-on-primary-default);
+  background: var(--akds-color-background-error-surface);
+  color: var(--akds-color-text-error-default);
 }
 
 /* ── Dismiss button ────────────────────────────────────────────────────── */
@@ -76,22 +76,24 @@
   flex-shrink: 0;
 }
 
-.akds-tag--default .akds-tag__dismiss:hover {
+.akds-tag__dismiss:hover {
   background: var(--akds-color-interaction-hover-overlay);
 }
 
-.akds-tag--info .akds-tag__dismiss:hover,
-.akds-tag--success .akds-tag__dismiss:hover,
-.akds-tag--warning .akds-tag__dismiss:hover,
-.akds-tag--error .akds-tag__dismiss:hover {
-  background: var(--akds-color-interaction-hover-ondark-overlay);
+.akds-tag--info .akds-tag__dismiss {
+  color: var(--akds-color-icon-info-default);
 }
 
-.akds-tag--info .akds-tag__dismiss,
-.akds-tag--success .akds-tag__dismiss,
-.akds-tag--warning .akds-tag__dismiss,
+.akds-tag--success .akds-tag__dismiss {
+  color: var(--akds-color-icon-success-default);
+}
+
+.akds-tag--warning .akds-tag__dismiss {
+  color: var(--akds-color-icon-warning-default);
+}
+
 .akds-tag--error .akds-tag__dismiss {
-  color: var(--akds-color-icon-on-primary-default);
+  color: var(--akds-color-icon-error-default);
 }
 
 .akds-tag__dismiss:focus-visible {

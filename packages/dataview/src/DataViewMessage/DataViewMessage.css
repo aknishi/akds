@@ -1,0 +1,31 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* Wraps normally, even inside the table's no-wrap cells. */
+.akds-dataview-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--akds-spacing-100);
+  font-family: var(--akds-font-family-sans);
+  font-size: var(--akds-font-size-sm);
+  text-align: center;
+  white-space: normal;
+}
+
+.akds-dataview-message__icon {
+  display: flex;
+}
+
+.akds-dataview-message__title {
+  margin: 0;
+  color: var(--akds-color-text-primary-default);
+  font-weight: var(--akds-font-weight-semibold);
+}
+
+.akds-dataview-message__description {
+  margin: 0;
+  color: var(--akds-color-text-secondary-default);
+}
+
+.akds-dataview-message__action {
+  margin-top: var(--akds-spacing-100);
+}

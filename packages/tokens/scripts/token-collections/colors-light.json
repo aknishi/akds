@@ -1206,12 +1206,12 @@
             "$value": {
               "colorSpace": "srgb",
               "components": [
-                0.6392157077789307,
-                0.6392157077789307,
-                0.6392157077789307
+                0.45098039507865906,
+                0.45098039507865906,
+                0.45098039507865906
               ],
               "alpha": 1,
-              "hex": "#A3A3A3"
+              "hex": "#737373"
             },
             "$extensions": {
               "com.figma.variableId": "VariableID:17:12",
@@ -1222,8 +1222,8 @@
                 "WEB": "var(--akds-color-text-placeholder-default)"
               },
               "com.figma.aliasData": {
-                "targetVariableId": "VariableID:3e3c90441bf60a6348e04c7d05beed7a6fdfce28/-1:-1",
-                "targetVariableName": "akds/primitive/color/neutral/400",
+                "targetVariableId": "VariableID:6a4093e91b288f2f62eea45556f8f81d26010bb8/-1:-1",
+                "targetVariableName": "akds/primitive/color/neutral/500",
                 "targetVariableSetId": "VariableCollectionId:24508a2331f607831c1b55408ee3a45810c250bc/-1:-1",
                 "targetVariableSetName": "Primitives"
               },

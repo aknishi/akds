@@ -6,6 +6,8 @@ export { breakpoints } from './breakpoints.js';
 export type { Breakpoint } from './breakpoints.js';
 export { elevation } from './elevation.js';
 export type { ElevationLevel } from './elevation.js';
+export { zIndex } from './zIndex.js';
+export type { ZIndexLayer } from './zIndex.js';
 
 // CSS variable references — use these in components
 export const cssVars = {
@@ -49,6 +51,7 @@ export const cssVars = {
   },
   radius: { none: 'var(--akds-radius-none)', xs: 'var(--akds-radius-xs)', sm: 'var(--akds-radius-sm)', md: 'var(--akds-radius-md)', lg: 'var(--akds-radius-lg)', xl: 'var(--akds-radius-xl)', '2xl': 'var(--akds-radius-2xl)', full: 'var(--akds-radius-full)' },
   fontSize: { '2xs': 'var(--akds-font-size-2xs)', xs: 'var(--akds-font-size-xs)', sm: 'var(--akds-font-size-sm)', md: 'var(--akds-font-size-md)', lg: 'var(--akds-font-size-lg)', xl: 'var(--akds-font-size-xl)', '2xl': 'var(--akds-font-size-2xl)', '3xl': 'var(--akds-font-size-3xl)', '4xl': 'var(--akds-font-size-4xl)', '5xl': 'var(--akds-font-size-5xl)', '6xl': 'var(--akds-font-size-6xl)' },
+  zIndex: { base: 'var(--akds-z-index-base)', sticky: 'var(--akds-z-index-sticky)', modal: 'var(--akds-z-index-modal)', popover: 'var(--akds-z-index-popover)', toast: 'var(--akds-z-index-toast)', tooltip: 'var(--akds-z-index-tooltip)' },
   elevation: { none: 'var(--akds-elevation-none)', xs: 'var(--akds-elevation-xs)', sm: 'var(--akds-elevation-sm)', md: 'var(--akds-elevation-md)', lg: 'var(--akds-elevation-lg)', xl: 'var(--akds-elevation-xl)', '2xl': 'var(--akds-elevation-2xl)' },
   interaction: {
     hover:    { overlay: 'var(--akds-color-interaction-hover-overlay)'    },

@@ -49,8 +49,14 @@
   bottom: var(--akds-spacing-100);
   right: 0;
   width: 1px;
-  background: var(--akds-primitive-color-neutral-300);
+  background: var(--akds-color-border-neutral-default);
   transition: background 150ms ease;
+}
+
+/* The last column's divider would sit on top of the table's outer border.
+   The handle stays so the column remains resizable. */
+.akds-th--resizable:last-child .akds-th__resize-handle::after {
+  display: none;
 }
 
 .akds-th__resize-handle:hover::after,
@@ -63,9 +69,86 @@
   outline-offset: var(--akds-outline-focus-offset);
 }
 
+/* ── Sortable ────────────────────────────────────────────────────────────── */
+/* The padding moves from the cell to the button so the whole visual cell is
+   the click target. */
+.akds-th--sortable {
+  padding: 0;
+}
+
+.akds-th__sort-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-50);
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--akds-spacing-150) var(--akds-spacing-200);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+  white-space: inherit;
+  cursor: pointer;
+}
+
+.akds-th--center .akds-th__sort-button {
+  justify-content: center;
+}
+
+.akds-th--right .akds-th__sort-button {
+  justify-content: flex-end;
+}
+
+.akds-th__sort-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+  transition: background 150ms ease;
+}
+
+.akds-th__sort-button:hover::after {
+  background: var(--akds-color-interaction-hover-overlay);
+}
+
+.akds-th__sort-button:active::after {
+  background: var(--akds-color-interaction-pressed-overlay);
+}
+
+/* Inset so the outline isn't clipped by the table's overflow. */
+.akds-th__sort-button:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: calc(-1 * var(--akds-spacing-50));
+}
+
+.akds-th__sort-icon {
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+/* Unsorted columns hint at sortability only on hover/focus, to avoid
+   visual noise across every header. */
+.akds-th__sort-button:hover .akds-th__sort-icon,
+.akds-th__sort-button:focus-visible .akds-th__sort-icon {
+  opacity: 0.5;
+}
+
+.akds-th__sort-icon--active,
+.akds-th__sort-button:hover .akds-th__sort-icon--active,
+.akds-th__sort-button:focus-visible .akds-th__sort-icon--active {
+  opacity: 1;
+}
+
 /* ── Reduced motion ──────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .akds-th__resize-handle::after {
+  .akds-th__resize-handle::after,
+  .akds-th__sort-button::after,
+  .akds-th__sort-icon {
     transition: none;
   }
 }

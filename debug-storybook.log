@@ -1,21 +1,22 @@
-[00:15:42.347] [INFO] storybook v10.3.5
-[00:15:42.492] [DEBUG] Getting package.json info for /Users/adriankawanishi/Coding/akds/package.json...
-[00:15:43.025] [DEBUG] Serving static files from [36m.storybook/public[39m at [36m/[39m
-[00:15:43.025] [DEBUG] Serving static files from [36mnode_modules/monaco-editor/min[39m at [36m/monaco-editor/min[39m
-[00:15:43.025] [DEBUG] Serving static files from [36mnode_modules/@types/react[39m at [36m/@types/react[39m
-[00:15:43.030] [INFO] Starting...
-[00:15:43.179] [ERROR] [38;2;241;97;97mError: Build failed with 2 errors:
-node_modules/@a110/storybook-expand-all/dist/register.js:5:45: ERROR: Could not resolve "@storybook/core-events"
-node_modules/@a110/storybook-expand-all/dist/register.js:7:22: ERROR: Could not resolve "@storybook/addons"[39m
-    at failureErrorWithLog (./node_modules/esbuild/lib/main.js:1748:15)
-    at ./node_modules/esbuild/lib/main.js:1207:25
-    at runOnEndCallbacks (./node_modules/esbuild/lib/main.js:1588:45)
-    at buildResponseToResult (./node_modules/esbuild/lib/main.js:1205:7)
-    at ./node_modules/esbuild/lib/main.js:1232:16
-    at responseCallbacks.<computed> (./node_modules/esbuild/lib/main.js:884:9)
-    at handleIncomingPacket (./node_modules/esbuild/lib/main.js:939:12)
-    at Socket.readFromStdout (./node_modules/esbuild/lib/main.js:862:7)
-    at Socket.emit (node:events:507:28)
-    at addChunk (node:internal/streams/readable:559:12)
-[00:15:43.181] [WARN] Broken build, fix the error above.
+[23:35:31.759] [INFO] storybook v10.3.5
+[23:35:31.981] [DEBUG] Getting package.json info for /Users/adriankawanishi/Coding/akds/package.json...
+[23:35:32.553] [DEBUG] Serving static files from [36m.storybook/public[39m at [36m/[39m
+[23:35:32.553] [DEBUG] Serving static files from [36mnode_modules/monaco-editor/min[39m at [36m/monaco-editor/min[39m
+[23:35:32.553] [DEBUG] Serving static files from [36mnode_modules/@types/react[39m at [36m/@types/react[39m
+[23:35:32.556] [INFO] Starting...
+[23:35:32.928] [DEBUG] Starting preview..
+[23:35:32.974] [WARN] 🚨 SyntaxError: Unexpected token ':'
+[23:35:32.975] [ERROR] Failed to build the preview
+[23:35:32.979] [ERROR] [38;2;241;97;97mSyntaxError: Unexpected token ':'[39m
+    at eval (<anonymous>)
+    at getStorySortParameter (file://./node_modules/storybook/dist/_node-chunks/chunk-D4PPIIAS.js:1253:23)
+    at _StoryIndexGenerator.getIndexAndStats (file://./node_modules/storybook/dist/core-server/index.js:6295:24)
+    at async _StoryIndexGenerator.getIndex (file://./node_modules/storybook/dist/core-server/index.js:6271:13)
+    at async config (file://./node_modules/@storybook/builder-vite/dist/_node-chunks/chunk-FQ4EAKAD.js:184:19)
+    at async runConfigHook (file://./node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:67004:19)
+    at async resolveConfig (file://./node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:66445:12)
+    at async _createServer (file://./node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63015:18)
+    at async Module.start (file://./node_modules/@storybook/builder-vite/dist/index.js:1557:17)
+    at async storybookDevServer (file://./node_modules/storybook/dist/core-server/index.js:7503:83)
+[23:35:32.981] [WARN] Broken build, fix the error above.
 You may need to refresh the browser.

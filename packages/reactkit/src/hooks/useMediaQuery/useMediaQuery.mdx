@@ -1,0 +1,29 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Reactkit/Hooks/useMediaQuery" />
+
+# useMediaQuery
+
+> **Available from v1.7.0**
+
+Returns whether a CSS media query currently matches, and re-renders when that changes. Use it when what renders changes, not just its styles. For styling alone, prefer a media query in CSS.
+
+To switch layouts at a design system breakpoint, use [`useBreakpointUp` or `useBreakpointDown`](?path=/docs/reactkit-hooks-usebreakpointup-and-usebreakpointdown--docs) instead: they read the widths from the breakpoint tokens. `useMediaQuery` is for everything else, such as a width a layout's content needs or a non-width query.
+
+## Usage
+
+```tsx
+import { useMediaQuery } from '@aknishi/akds-reactkit';
+
+function Gallery() {
+  const isPortrait = useMediaQuery('(orientation: portrait)');
+  return <ImageGrid columns={isPortrait ? 2 : 4} />;
+}
+```
+
+## Behavior
+
+- **No stale first frame:** the hook reads the query with `useSyncExternalStore`, so the first render already has the right value instead of correcting itself after an effect.
+- **Server render:** there is no viewport, so the hook returns `false`. Write the query so `false` is the safe fallback (usually the small-screen layout); the client corrects it on hydration.
+- **No `matchMedia`:** in environments without `window.matchMedia`, such as some test setups, the hook returns `false`.
+- **Cleanup:** the listener is removed on unmount, and when the query string changes.

@@ -1,0 +1,25 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Reactkit/Table/DataView" />
+
+# DataView
+
+For interactive tabular data, use the separate `@aknishi/akds-dataview` package. It's built on [TanStack Table](https://tanstack.com/table) and renders with this package's `Table` primitives, and it shows the same rows as a table or as cards. See the [DataView docs](?path=/docs/dataview-dataview--docs) for its API and examples.
+
+## What it adds
+
+- Column sorting, search, and column filtering
+- Pagination, client-side or from a server
+- Row selection with bulk actions
+- Pinned columns and virtualized rendering for large datasets
+- Loading, error, and empty states
+- Row click, to open a row's details
+- A card view of the same rows for narrow layouts, sharing sorting, search, and selection with the table
+
+```tsx
+import { useDataView } from '@aknishi/akds-dataview';
+```
+
+## When to use Basic Table instead
+
+For static or simple tabular data, such as a props table, a summary list, or a small dataset with no sorting or filtering, use [Basic Table](?path=/docs/reactkit-table-basic-table--docs). It needs no extra package and covers column alignment, striping, a footer row, and resizable columns.

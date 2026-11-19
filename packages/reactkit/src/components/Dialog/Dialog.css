@@ -1,4 +1,17 @@
-/* ── Panel (native <dialog>) ───────────────────────────────────────────── */
+/* ── Backdrop ───────────────────────────────────────────────────────────── */
+.akds-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--akds-z-index-modal);
+  padding: var(--akds-spacing-200);
+  box-sizing: border-box;
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
 .akds-dialog {
   --akds-dialog-max-width: 560px;
   /* Reset UA dialog styles. Leave `display` to the UA so the closed state

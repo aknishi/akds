@@ -12,6 +12,13 @@
   line-height: var(--akds-font-line-height-normal);
 }
 
+/* A visually hidden label would otherwise leave an empty flex item, and a
+   trailing gap, next to the indicator. Only matches VisuallyHidden labels,
+   so visible labels are unaffected. */
+.akds-checkbox__label:has(> .akds-visually-hidden:only-child) {
+  display: contents;
+}
+
 .akds-checkbox__input {
   position: absolute;
   opacity: 0;

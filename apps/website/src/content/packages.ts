@@ -28,6 +28,17 @@ function App() {
     storybookId: 'overview--docs',
   },
   {
+    name: '@aknishi/akds-dataview',
+    tagline: 'Tables and cards for data',
+    description:
+      'One set of records shown as a table or as cards, with sorting, search, filters, selection, bulk actions, pagination, and loading states. Built on TanStack Table and akds components.',
+    install: 'npm install @aknishi/akds-dataview',
+    usage: `import { useDataView } from '@aknishi/akds-dataview';
+
+const { TableView, Search, Pagination } = useDataView({ data, columns, pageSize: 10 });`,
+    storybookId: 'dataview-dataview--docs',
+  },
+  {
     name: '@aknishi/akds-tokens',
     tagline: 'Design tokens',
     description:

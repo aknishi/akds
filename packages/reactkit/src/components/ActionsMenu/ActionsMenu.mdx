@@ -1,0 +1,65 @@
+import { Canvas, Meta, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ActionsMenuStories from './ActionsMenu.stories';
+
+<Meta of={ActionsMenuStories} />
+
+# ActionsMenu
+
+> **Available from v1.7.0**
+
+An icon button with a vertical ellipsis that opens a menu of actions. Composes `IconButton`, `Menu`, and `MenuItem`, and adds the trigger behaviour they don't provide on their own: `aria-haspopup="menu"`, closing when an item is selected, and returning focus to the trigger after Escape or a selection. Open state is uncontrolled, and `onOpenChange` reports changes.
+
+## Usage
+
+```tsx
+import { ActionsMenu, MenuItem } from '@aknishi/akds-reactkit';
+```
+
+## Props
+
+<ArgTypes of={ActionsMenuStories} />
+
+## Accessibility
+
+- The default trigger has no visible text, so `label` is required and becomes its accessible name. With a custom `trigger`, its visible text is the name instead.
+- Selecting an enabled item runs its `onClick`, closes the menu, and moves focus back to the trigger. Escape does the same. Tab and outside clicks close the menu without moving focus, because the user is already going somewhere else.
+- Use `disabled` with `focusableWhenDisabled` when screen-reader users should still be able to find the trigger and hear why it's unavailable. Explain the reason in the `label`.
+
+### Give every trigger a unique name
+
+In a table with 40 rows, 40 buttons all named "More actions" can't be told apart in a screen reader's list of buttons. Include the row's identity in the `label`.
+
+<table>
+  <thead>
+    <tr>
+      <th>Do</th>
+      <th>Don't</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>{'<ActionsMenu label={`Actions for ${order.customer}`}>'}</code></td>
+      <td><code>{'<ActionsMenu label="More actions">'}</code></td>
+    </tr>
+  </tbody>
+</table>
+
+## Examples
+
+### Default
+
+<Canvas of={ActionsMenuStories.Default} />
+
+### Disabled
+
+<Canvas of={ActionsMenuStories.Disabled} />
+
+### Custom trigger
+
+Pass any `Button` or `IconButton` as `trigger` when the ellipsis icon isn't clear enough, for example a labelled button. ActionsMenu adds the ref, click handling, `aria-haspopup`, and disabled state to it. The button's visible text becomes its accessible name, so `label` is optional here. Include a chevron so it reads as a menu button.
+
+<Canvas of={ActionsMenuStories.CustomTrigger} />
+
+### In a table row
+
+<Canvas of={ActionsMenuStories.InTableRow} />

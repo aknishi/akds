@@ -1,0 +1,81 @@
+/* ── Refreshing ────────────────────────────────────────────────────────── */
+/* While rows that will replace the shown ones load, both views show a
+   progress bar along the top of their rows and fade the rows. Each view
+   places the bar; this file draws it. Both wait before appearing, so a fast
+   response doesn't flash, and fade out right away when the rows arrive.
+
+   The table draws the bar in every header cell, never on the header row:
+   browsers lay out a pseudo-element on a table row as an extra cell, even
+   when it's absolutely positioned, which shifts the header out of line with
+   the body. So the bar pulses rather than sweeps; every cell pulses in step,
+   and the pieces read as one bar. */
+.akds-dataview-table .akds-thead .akds-th::before,
+.akds-dataview-cards__list::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  height: var(--akds-spacing-25);
+  /* Above the cell's content and pinned cells' shadows. */
+  z-index: 2;
+  background-color: var(--akds-color-background-primary-default);
+  opacity: 0;
+  pointer-events: none;
+  animation: akds-dataview-refresh 1200ms ease-in-out infinite paused;
+  transition: opacity 150ms ease;
+}
+
+.akds-dataview-table--refreshing .akds-thead .akds-th::before,
+.akds-dataview-cards--refreshing .akds-dataview-cards__list::before {
+  opacity: 1;
+  animation-play-state: running;
+  transition-delay: 200ms;
+}
+
+@keyframes akds-dataview-refresh {
+  50% {
+    background-color: var(--akds-color-background-info-default);
+  }
+}
+
+/* The whole body fades as one layer, so pinned cells still cover the
+   columns scrolled beneath them. */
+.akds-dataview-table .akds-tbody,
+.akds-dataview-cards__item {
+  transition: opacity 150ms ease;
+}
+
+.akds-dataview-table--refreshing .akds-tbody,
+.akds-dataview-cards--refreshing .akds-dataview-cards__item {
+  opacity: var(--akds-dataview-refreshing-opacity);
+  transition-delay: 200ms;
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+/* The bar keeps pulsing, much more slowly, so it still shows that rows are
+   loading rather than reading as a static line. The delay stays, so fast
+   responses still don't flash. */
+@media (prefers-reduced-motion: reduce) {
+  .akds-dataview-table .akds-thead .akds-th::before,
+  .akds-dataview-cards__list::before {
+    animation-duration: 4000ms;
+    transition-duration: 0s;
+  }
+
+  .akds-dataview-table .akds-tbody,
+  .akds-dataview-cards__item {
+    transition-duration: 0s;
+  }
+}
+
+/* ── Forced colors ─────────────────────────────────────────────────────── */
+/* Forced colors replaces backgrounds, which would erase the bar. Opt it out
+   and draw it in the system highlight color; the color pulse is dropped,
+   since it only alternates between two theme colors. */
+@media (forced-colors: active) {
+  .akds-dataview-table .akds-thead .akds-th::before,
+  .akds-dataview-cards__list::before {
+    forced-color-adjust: none;
+    background-color: Highlight;
+    animation: none;
+  }
+}

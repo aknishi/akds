@@ -342,7 +342,7 @@ export const table: ComponentEntry = {
     { name: 'children', type: 'React.ReactNode', description: 'Typically Thead, Tbody, and/or Tfoot. Required.' },
   ],
   doDont: [
-    { do: 'Use Basic table for static or simple tabular data — a props table, a summary list, a small dataset.', dont: "Don't reach for sorting, filtering, or pagination here — those are planned for a separate future Datagrid package built on TanStack Table." },
+    { do: 'Use Basic table for static or simple tabular data — a props table, a summary list, a small dataset.', dont: "Don't reach for sorting, filtering, or pagination here — use the separate DataView package (@aknishi/akds-dataview), built on TanStack Table, for those." },
   ],
-  related: ['card', 'text'],
+  related: ['dataview', 'card', 'text'],
 };

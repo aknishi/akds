@@ -1,0 +1,444 @@
+import { Canvas, Meta, Source } from '@storybook/addon-docs/blocks';
+import dataSource from './demo/data.ts?raw';
+import columnsSource from './demo/columns.tsx?raw';
+import apiSource from './demo/api.ts?raw';
+import * as RowClickStories from './demo/RowClick.stories';
+import * as StatesStories from './demo/States.stories';
+import * as ServerSideStories from './demo/ServerSide.stories';
+
+<Meta title="Dataview/DataView" />
+
+# DataView
+
+One data source rendered as a table (`TableView`) or as cards (`CardView`), built on TanStack Table and AKDS reactkit components. `useDataView` returns views bound to the same rows, so sorting, search, and selection carry across them.
+
+## Usage
+
+```tsx
+import { useDataView, DataViewCard, DataViewField } from '@aknishi/akds-dataview';
+```
+
+### Keep `data` and `columns` stable
+
+Pass the same `data` array on every render until the rows change, for example from state, a data-fetching library, or `useMemo`. A new array counts as new data: TanStack Table updates its state in response, which renders again, and an array rebuilt on every render (such as `orders.filter(...)` inline) keeps that going without end. Keep `columns` stable the same way, defined outside the component or in `useMemo`.
+
+An empty array is the exception: `data={result ?? []}` is safe, because DataView treats every empty array as the same one.
+
+## Naming the table
+
+Give every `TableView` an accessible name: a `caption`, or `aria-label` when there's no visible title. The name also labels the scroll region around the table, which keyboard users tab to when the table is wider than its space. Wrap the caption in `VisuallyHidden` to name the table without showing it.
+
+```tsx
+<TableView caption="Recent orders" />
+<TableView caption={<VisuallyHidden>Recent orders</VisuallyHidden>} />
+<TableView aria-label="Recent orders" />
+```
+
+A virtualized table scrolls inside a `DataViewScrollArea` instead, so name that: `<DataViewScrollArea aria-label="Recent orders">`.
+
+## Announcements
+
+Search result counts, selection changes, page changes, and sorting are announced to screen readers through one live region per `useDataView`, so they don't talk over each other. Sorting is announced once even when a table and cards show the same data.
+
+## Card view header
+
+`CardView` renders its cards inside the same bordered frame as `TableView`, with a header bar styled like the table's header row. The bar holds what the table puts in its column headers:
+
+- **Sorting:** a "Sort by" menu of every column with `enableSorting: true`, plus a "Reverse sort order" button. They read and write the same sorting state as the table headers, so a sort carries across when switching views. "Default order" removes the sort.
+- **Select all:** with `selectable`, a "Select all shown rows" checkbox, the same as the table's header checkbox.
+
+The header bar only renders when there's something to put in it: at least one sortable column, or `selectable`. Menu items use each column's plain-text name (`meta.ariaLabel`, then a string `header`), so give columns with element headers an `ariaLabel`.
+
+`aria-label` and `aria-labelledby` name the list of cards. Other attributes and `className` go on the outer frame.
+
+## Card fields
+
+`DataViewField` renders a column's `cell` for the card's row, so a field looks the same in a card as in the table. Cards have no column headers, so its column label is visually hidden and only read by screen readers ("Status: Shipped").
+
+```tsx
+<DataViewCard title={row.original.customer}>
+  <DataViewField column="status" />
+  <DataViewField column="total" />
+</DataViewCard>
+```
+
+### Avatar and subtitle
+
+`subtitle` renders below the title, and the two stack as one block. `avatar` renders between the checkbox and the title, usually an `Avatar`. With an avatar, the checkbox, avatar, and title block center on each other. Without one, the checkbox lines up with the title's first line. The Details control and header actions stay at the top either way.
+
+```tsx
+<DataViewCard
+  title={row.original.customer}
+  subtitle={row.original.id}
+  avatar={<Avatar name={row.original.customer} />}
+>
+  <DataViewField column="status" />
+</DataViewCard>
+```
+
+### Visible labels in your own layout
+
+To show labels, use `useDataViewField(column)`. It returns the column's `label` and its rendered `value`, and adds no markup, so the card can lay them out any way: stacked, side by side, in a grid, or as a `<dl>`.
+
+```tsx
+import { useDataViewField } from '@aknishi/akds-dataview';
+
+function OrderField({ column }: { column: string }) {
+  const field = useDataViewField(column);
+  if (!field) return null;
+  return (
+    <Flexbox direction="column" gap={0.5}>
+      <Text as="dt" styleAs="label">{field.label}</Text>
+      <Text as="dd">{field.value}</Text>
+    </Flexbox>
+  );
+}
+
+<DataViewCard title={row.original.customer}>
+  <Flexbox as="dl" direction="column" gap={1}>
+    <OrderField column="status" />
+    <OrderField column="total" />
+  </Flexbox>
+</DataViewCard>
+```
+
+<table>
+  <thead>
+    <tr><th>Returns</th><th>What it is</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>label</code></td><td>The column's plain-text name: <code>meta.ariaLabel</code>, then a string <code>header</code>. A string, so it also works in an <code>aria-label</code> or tooltip.</td></tr>
+    <tr><td><code>value</code></td><td>The column's <code>cell</code> rendered for the card's row, the same as in the table.</td></tr>
+  </tbody>
+</table>
+
+It returns `null` for an unknown column. Like `DataViewField`, it must be used inside `CardView`.
+
+With the hook, the layout is yours, and so are the semantics. For labels and values, use a description list:
+
+- **Wrap the fields in a `<dl>`,** with each label in a `<dt>` and its value in a `<dd>`. Screen readers then announce it as a list and pair each value with its label, with no extra punctuation. `<Flexbox as="dl">` resets the list's default margins, and `Text` resets the `<dd>` indent.
+- **Group each pair in a `<div>` if you need one for layout,** as above. A `<div>` holding one `<dt>` and its `<dd>` is valid inside a `<dl>`; other wrappers aren't.
+- **For a value without a visible label,** use `DataViewField` instead: it keeps the label for screen readers.
+
+## Pagination
+
+Pass `pageSize` to `useDataView` to show one page of rows at a time, and place the returned `Pagination` where you want it, usually below the view. Without `pageSize`, every row is shown and `Pagination` renders nothing.
+
+```tsx
+const { TableView, Pagination } = useDataView({ data, columns, pageSize: 10 });
+
+<TableView />
+<Pagination aria-label="Orders pages" />
+```
+
+- **Shared page:** the page is part of the table state, so switching between `TableView` and `CardView` keeps it.
+- **Back to page 1:** sorting or searching returns to the first page, in the same update, so the view never shows an empty page in between.
+- **Summary and announcements:** `Pagination` shows the visible range ("11–20 of 40", counted after search and filters). After a page change it announces "Page 2 of 4, showing rows 11–20 of 40." in a live region, because focus stays on the page button and the new rows aren't announced otherwise.
+- **Selection:** "Select all shown rows" selects the current page only. `BulkActions`' "Select all" still selects every row.
+- **Hidden with no rows:** while the view shows a loading, error, or empty state, `Pagination` renders nothing.
+
+`pageSize` is read on the first render. Don't combine it with a virtualizer: a paged view already renders few enough rows.
+
+## Server-side data
+
+When the server searches, filters, sorts, and pages the rows, pass `serverSide`. `data` is then only the current page, as the server returned it: DataView doesn't sort, filter, or slice it again. It still keeps the sorting, search, filter, and page state, so the views, `Search`, column filters, and `Pagination` work as usual, and reports every change through `onQueryChange`.
+
+```tsx
+const [query, setQuery] = useState<DataViewQuery>(INITIAL_QUERY);
+const { orders, total } = useOrders(query); // your fetching
+
+const { TableView, Search, Pagination } = useDataView({
+  data: orders,
+  columns,
+  getRowId: (row) => row.id,
+  serverSide: true,
+  rowCount: total,
+  pageSize: 10,
+  onQueryChange: setQuery,
+});
+```
+
+<table>
+  <thead>
+    <tr><th>Option</th><th>What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>serverSide</code></td><td>Turns off sorting, filtering, and paging in the browser. Read on the first render.</td></tr>
+    <tr><td><code>rowCount</code></td><td>How many rows on the server match the current search and filters. Drives the page count, the "11–20 of 243" range, and the row totals.</td></tr>
+    <tr><td><code>onQueryChange</code></td><td>Called with <code>{'{ pageIndex, pageSize, sorting, globalFilter, columnFilters }'}</code> whenever one of them changes. A sort, search, or filter change comes with <code>pageIndex: 0</code> in a single call. Not called on the first render, so fetch the first page yourself.</td></tr>
+  </tbody>
+</table>
+
+Your code owns the requests:
+
+- **Wait for typing to pause** before fetching a search; page, sort, and filter changes can fetch right away.
+- **Ignore stale responses**, so a slow request can't replace the rows of a later one (the example cancels the previous request in its effect cleanup).
+- **Pass `loading`** to the view while a request is out. The current rows stay in place, faded, with a progress bar under the header, until the new page arrives (see [While rows are shown](#while-rows-are-shown)).
+- **On a failed request**, clear the rows and pass `error`, but keep the last `rowCount`. `Pagination` only hides when the server has no rows, so a focused page button stays where it is while the error state shows.
+
+What changes from in-browser data:
+
+- **Search** announces the result count when the new rows arrive, instead of after a pause in typing, since the count isn't known until then.
+- **Selection** carries across pages. Bulk actions get the data of every selected row, including rows selected on other pages. The summary reads "5 selected" without a total, since selected rows can be outside the current search.
+- **Select all** isn't offered: the rows on other pages aren't loaded, so bulk actions couldn't be given their data. After Clear selection, focus moves to the row count.
+
+<Canvas of={ServerSideStories.Default} />
+
+## Loading, error, and empty states
+
+While there are no rows to show, `TableView` and `CardView` show a state in their place. Pass all three props and DataView picks one: **loading** wins over **error**, and error wins over **empty**. During a retry, the loading state replaces the error.
+
+```tsx
+<TableView
+  loading={isFetching}
+  error={failed ? 'Couldn’t load orders.' : undefined}
+  onRetry={refetch}
+/>
+```
+
+<table>
+  <thead>
+    <tr><th>Prop</th><th>What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>loading</code></td><td>Rows are loading that will replace the ones shown. Shows the loading state while there are no rows, and the refreshing treatment while there are. Sets <code>aria-busy</code>.</td></tr>
+    <tr><td><code>loadingMore</code></td><td>Rows are loading that will be added after the ones shown. Shows "Loading more…" after the last row, or the loading state while there are no rows. <code>loading</code> wins when both are set. Sets <code>aria-busy</code>.</td></tr>
+    <tr><td><code>error</code></td><td>A message such as "Couldn’t load orders.", or <code>true</code> for the default message. Shown in a <code>role="alert"</code> region, so it’s announced.</td></tr>
+    <tr><td><code>onRetry</code></td><td>Adds a "Try again" button to the default error state.</td></tr>
+    <tr><td><code>loadingState</code>, <code>errorState</code>, <code>emptyState</code></td><td>Replace a state’s layout. Pass <code>null</code> to show nothing.</td></tr>
+  </tbody>
+</table>
+
+The states only replace the rows while there are none. When loading more fails, the rows stay, so show that error yourself, for example next to a "Load more" button.
+
+Every state is at least `--akds-dataview-state-min-height` tall (240px by default), with its message centred, so switching between loading, error, and empty doesn't make the view jump. Set the variable on the view, or on any element around it, to change it.
+
+When rows give way to the loading or error state and they were taller than that, the state keeps their height, so the view doesn't collapse and `Pagination` below it stays where it was. A retry after a failed request keeps the same height throughout. Virtualized tables don't hold the rows' height, since their scroll area already has one.
+
+### While rows are shown
+
+Loading while rows are on screen means one of two things, so there are two props:
+
+<table>
+  <thead>
+    <tr><th>Prop</th><th>Use for</th><th>What the view shows</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>loading</code></td><td>Rows that <strong>replace</strong> the shown ones: a sort, page change, search, or filter, usually from a server</td><td>The rows stay in place, faded, with a progress bar along the bottom of the header (or the top of the cards)</td></tr>
+    <tr><td><code>loadingMore</code></td><td>Rows <strong>added</strong> after the shown ones: the next page of an infinite list or a "Load more" button</td><td>The rows stay at full strength, with "Loading more…" after the last one</td></tr>
+  </tbody>
+</table>
+
+```tsx
+<TableView loading={isRefetching} />        // server-side sort or page change
+<TableView loadingMore={isFetchingNextPage} /> // infinite list
+```
+
+The rows aren't swapped for the loading state, because that would remove the column header or page button that has focus, and make the layout jump while the request is out. Both indicators wait a moment before appearing, so a fast response doesn't flash. With reduced motion, the progress bar stays still instead of pulsing. Neither indicator is announced on its own: the new rows, the page announcement, or the sort announcement that follow tell screen-reader users the load finished.
+
+### Custom layouts
+
+Pass your own layout to `loadingState`, `errorState`, or `emptyState`. Build it with `DataViewMessage` (an icon, a title, a description, and an action) to keep the system’s layout:
+
+```tsx
+import { DataViewMessage } from '@aknishi/akds-dataview';
+
+<TableView
+  emptyState={(
+    <DataViewMessage
+      title="No orders yet"
+      description="Orders appear here as soon as a customer checks out."
+      action={<Button size="sm" onClick={createOrder}>Create order</Button>}
+    />
+  )}
+/>
+```
+
+DataView still handles the parts that must stay correct whatever the layout: which state shows, `aria-busy`, the `role="alert"` region around errors, and focus. When "Try again" swaps the error for the loading state, focus stays in the state instead of dropping to the page, and moves to the table or the first card once rows arrive. A custom `errorState` needs its own retry action, since `onRetry` only applies to the default layout.
+
+#### Default states
+
+<Canvas of={StatesStories.DefaultStates} />
+
+#### Custom states
+
+<Canvas of={StatesStories.CustomStates} />
+
+## Row and card click
+
+Clicking a table row or a card can open details for that item, for example in a `Drawer`. Pass `rowClickOptions` with an `onClick` handler to turn it on. It's opt-in: without it there is no details button, no click handling, and no pointer cursor. `TableView` and `CardView` take the same options, so one object works for both views.
+
+```tsx
+const { TableView, CardView } = useDataView({
+  data,
+  columns,
+  getRowId: (row) => row.id,
+  getRowLabel: (row) => row.original.customer,
+});
+
+const rowClickOptions = {
+  onClick: (row, event) => openDrawer(row.original),
+};
+
+<TableView
+  selectable
+  rowClickOptions={rowClickOptions}
+  rowActions={(row) => <OrderActions order={row.original} />}
+/>
+
+<CardView
+  selectable
+  rowClickOptions={rowClickOptions}
+  cardActions={(row) => <OrderActions order={row.original} />}
+>
+  {(row) => <OrderCard row={row} />}
+</CardView>
+```
+
+<table>
+  <thead>
+    <tr><th>Option</th><th>What it does</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>onClick</code></td><td>Required. Called with the row and the click event when the row or card is clicked, or its details button is activated. Clicking never toggles selection.</td></tr>
+    <tr><td><code>renderButton</code></td><td>Replaces the default details button. See <a href="#custom-details-button">Custom details button</a>.</td></tr>
+    <tr><td><code>revealButtonOnHover</code></td><td>Fades the button in only while the row or card is hovered or has focus within. Defaults to <code>true</code>; set <code>false</code> to always show it, e.g. for a text button.</td></tr>
+  </tbody>
+</table>
+
+### Three ways to open details
+
+- **Mouse:** click anywhere on the row or card, except the selection checkbox, the actions, and other interactive elements.
+- **Keyboard and screen readers:** each row and card has a details button, named "View details for \{label}" by default. In the table it follows the content of the first data cell; in cards it sits in the header after the title and before the card actions. It shows a "View details" tooltip on hover and focus.
+- **Touch:** the details button is always visible on devices without hover. On devices with hover, it appears when the pointer is over the row or card, or when focus is anywhere inside it.
+
+The details button is only faded out, never hidden with `display: none`, `visibility: hidden`, or `hidden`, so it always stays in the tab order and the accessibility tree.
+
+### Custom details button
+
+`renderButton` replaces the default button with anything, for example a "Details" text button. It receives the `row`, its plain-text `rowLabel` (from `getRowLabel`), and an `onClick` that opens the row's details:
+
+```tsx
+rowClickOptions={{
+  onClick: (row) => openDrawer(row.original),
+  renderButton: ({ rowLabel, onClick }) => (
+    <Button size="sm" appearance="bordered" onClick={onClick} aria-label={`Details for ${rowLabel}`}>
+      Details
+    </Button>
+  ),
+  revealButtonOnHover: false,
+}}
+```
+
+Whatever it renders, DataView still places it, fades it in on hover (unless `revealButtonOnHover` is `false`), and keeps clicks on it from also counting as a row click. What it can't check is the name: give the control an accessible name that includes `rowLabel`, so every row's button is distinct to screen readers, and if it opens a new tab, say so in the name.
+
+To keep the standard icon button but change where it says details open, use `DataViewDetailsButton` with a `target`. The target sets a matching icon, accessible name, and tooltip:
+
+```tsx
+import { DataViewDetailsButton } from '@aknishi/akds-dataview';
+
+rowClickOptions={{
+  onClick: (row) => window.open(orderUrl(row.original), '_blank', 'noopener,noreferrer'),
+  renderButton: ({ rowLabel, onClick }) => (
+    <DataViewDetailsButton rowLabel={rowLabel} onClick={onClick} target="new-tab" />
+  ),
+}}
+```
+
+<table>
+  <thead>
+    <tr><th><code>target</code></th><th>Use for</th><th>Icon</th><th>Accessible name</th><th>Tooltip</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>"drawer"</code> (default)</td><td>A Drawer or other side panel on the same page</td><td><code>RightPanelOpenIcon</code></td><td>"View details for \{label}"</td><td>"View details"</td></tr>
+    <tr><td><code>"page"</code></td><td>A details page in the same tab</td><td><code>ChevronRightIcon</code></td><td>"Go to details for \{label}"</td><td>"Go to details"</td></tr>
+    <tr><td><code>"new-tab"</code></td><td>A details page in a new tab or window</td><td><code>OpenInNewIcon</code></td><td>"Open details for \{label} in a new tab"</td><td>"Open in a new tab"</td></tr>
+  </tbody>
+</table>
+
+`DataViewDetailsButton` also takes `icon`, `label`, and `tooltip` to override any part, e.g. `icon={<LeftPanelOpenIcon aria-hidden="true" />}` for a Drawer on the left. Keep the row's label in the name, and start the tooltip with the same words, so voice control users know what to say.
+
+### Why the row isn't a keyboard target
+
+Rows and cards already contain interactive elements: checkboxes, links, buttons, and menus. Making the row itself a button (with `tabIndex`, `role="button"`, or a key handler) would nest interactive elements, which screen readers can't announce reliably. So the row only listens for mouse clicks, and the details button is its keyboard and screen-reader equivalent.
+
+When a Drawer opened from the details button closes, focus returns to that button, so keyboard users keep their place.
+
+### Clicks that don't open details
+
+The row or card ignores a click when:
+
+- it comes from an interactive element inside it: `button`, `a[href]`, `input`, `select`, `textarea`, `label`, `[role="button"]`, `[role="menuitem"]`, `[role="checkbox"]`, or `[contenteditable="true"]`,
+- it lands in the selection or actions regions, including the space around the checkbox or menu,
+- it ends a text selection, so users can still select and copy text from a row,
+- it comes from an element marked with `data-dataview-ignore-click`.
+
+DataView puts `data-dataview-ignore-click` on its selection and actions regions. Add it to your own elements for the same behavior:
+
+```tsx
+cell: ({ row }) => (
+  <span data-dataview-ignore-click>
+    <CopyableId value={row.original.id} />
+  </span>
+),
+```
+
+This is an attribute check, not `event.stopPropagation()`, so other click listeners on the page keep working.
+
+### Row labels
+
+`getRowLabel` names a row in plain text. Every row-level label uses it: "Select \{label}" on checkboxes and "View details for \{label}" on details buttons. Without it, DataView uses the value of the `rowHeader` column, then the first data column.
+
+Do: return a short, unique, human-readable name.
+
+```tsx
+getRowLabel: (row) => row.original.customer,
+// "View details for Hanako Sato"
+```
+
+Don't: return a generic or repeated label, or one that already includes the action.
+
+```tsx
+getRowLabel: () => 'row',
+// "View details for row", the same for every row
+getRowLabel: (row) => `Open ${row.original.customer}`,
+// "View details for Open Hanako Sato"
+```
+
+### Examples
+
+#### TableView with rowClickOptions
+
+<Canvas of={RowClickStories.TableViewWithRowClick} />
+
+#### CardView with rowClickOptions
+
+<Canvas of={RowClickStories.CardViewWithCardClick} />
+
+#### Custom details button
+
+<Canvas of={RowClickStories.CustomButton} />
+
+## Example fixtures
+
+The examples share only their mock data and column definitions, imported with relative paths such as `./columns`. The live editor only shows the example itself, so their source is shown here. They're demo scaffolding, not part of the package: copy and adapt what you need.
+
+Everything else, such as card layouts, row actions, and bulk actions, is written in each example, so every part of the setup is visible where it's used. When an example needs different data, it changes it in its own code, for example `generateOrders(10_000)`. A variant more than one example uses is a named export here, such as `wideColumns`.
+
+### data.ts
+
+The `Order` type and `generateOrders(count)`, which returns the same orders on every run, so the examples look the same each time.
+
+<Source code={dataSource} language="tsx" />
+
+### columns.tsx
+
+TanStack Table column definitions, the part of the setup most worth reading: `meta.rowHeader` names each row for screen readers and checkbox labels, a column's `cell` renders the same in the table and in cards, and `filterFn` drives the status filter. There are enough columns that the table scrolls horizontally on most screens. The Tracking column renders a link, to show that clicking a link in a row follows it instead of counting as a row click. `wideColumns` adds a long Notes column for the pinned-columns example.
+
+<Source code={columnsSource} language="tsx" />
+
+### api.ts
+
+Stand-in APIs with network latency: `fetchOrdersPage` for the virtualized example's "Load more", and `fetchOrders` for the server-side example, which searches, filters, sorts, and pages on the "server".
+
+<Source code={apiSource} language="tsx" />

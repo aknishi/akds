@@ -82,6 +82,11 @@
   margin-bottom: var(--akds-spacing-200);
 }
 
+.akds-text.component-doc-page__props-intro {
+  display: block;
+  margin-bottom: var(--akds-spacing-200);
+}
+
 .component-doc-page__a11y-list {
   margin: 0;
   padding-left: var(--akds-spacing-300);

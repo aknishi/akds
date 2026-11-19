@@ -146,6 +146,13 @@ export const parameters: Preview['parameters'] = {
   interactions: { disable: true },
   docs: {
     container: ThemedDocsContainer,
+    // An "On this page" menu beside every docs page, linking to its h2 and
+    // h3 headings and highlighting the current section. Headings inside
+    // story previews are skipped (Storybook's default ignoreSelector).
+    toc: {
+      title: 'On this page',
+      headingSelector: 'h2, h3',
+    },
   },
   chromatic: {
     modes: {
@@ -154,8 +161,38 @@ export const parameters: Preview['parameters'] = {
     },
   },
   options: {
-    storySort: {
-      order: ['Overview', 'Getting Started', 'ThemeProvider', 'Tokens', ['Changelog', 'Tokens'], 'Reactkit', 'Icons', 'create-akds-app'],
+    // Follows `order` where listed; everything else sorts alphabetically by
+    // title. Stories within one file keep their export order. Storybook
+    // requires this function to be self-contained plain JS (it is eval-ed, so no type annotations).
+    storySort: (a, b) => {
+      const order = ['Overview', 'Getting Started', 'ThemeProvider', 'Tokens', ['Changelog', 'Tokens'], 'Reactkit', ['Changelog'], 'Icons', 'create-akds-app', 'Dataview', ['DataView', 'Full responsive demo', '*']];
+      const pathA = a.title.split('/');
+      const pathB = b.title.split('/');
+      let level = order;
+
+      for (let i = 0; i < Math.max(pathA.length, pathB.length); i++) {
+        const nameA = pathA[i];
+        const nameB = pathB[i];
+        if (nameA === nameB) {
+          const index = level ? level.indexOf(nameA) : -1;
+          const next = index >= 0 ? level?.[index + 1] : undefined;
+          level = Array.isArray(next) ? next : undefined;
+          continue;
+        }
+        // A parent's own docs come before its children.
+        if (nameA === undefined) return -1;
+        if (nameB === undefined) return 1;
+
+        const rank = (name) => {
+          if (!level) return 0;
+          const index = level.indexOf(name);
+          if (index >= 0) return index;
+          const wildcard = level.indexOf('*');
+          return wildcard >= 0 ? wildcard : level.length;
+        };
+        return rank(nameA) - rank(nameB) || nameA.localeCompare(nameB);
+      }
+      return 0;
     },
   },
 };
