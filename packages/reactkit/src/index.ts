@@ -174,3 +174,6 @@ export type { VisuallyHiddenProps } from './components/VisuallyHidden/index.js';
 
 export { useMediaQuery } from './hooks/useMediaQuery/index.js';
 export { useBreakpointUp, useBreakpointDown } from './hooks/useBreakpoint/index.js';
+export { useContainerWidth } from './hooks/useContainerWidth/index.js';
+export { useContainerBreakpointUp, useContainerBreakpointDown } from './hooks/useContainerBreakpoint/index.js';
+export type { UseContainerBreakpointOptions } from './hooks/useContainerBreakpoint/index.js';

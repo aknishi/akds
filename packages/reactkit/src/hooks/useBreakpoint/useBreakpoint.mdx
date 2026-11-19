@@ -51,6 +51,10 @@ A breakpoint is where its size starts: at exactly 768px the viewport is already 
 
 There is no viewport during a server render, so `useBreakpointUp` returns `false` and `useBreakpointDown` returns `true`. Both point to the small-screen layout, which the client corrects on hydration.
 
+## Container width
+
+To switch at an element's width instead of the viewport's, use [`useContainerBreakpointUp` or `useContainerBreakpointDown`](?path=/docs/reactkit-hooks-usecontainerbreakpointup-and-usecontainerbreakpointdown--docs).
+
 ## Other media queries
 
 For a width that isn't a breakpoint, or a query that isn't about width (orientation, color scheme), use [`useMediaQuery`](?path=/docs/reactkit-hooks-usemediaquery--docs).

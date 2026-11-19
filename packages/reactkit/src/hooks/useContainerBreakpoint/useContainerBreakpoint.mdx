@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Reactkit/Hooks/useContainerBreakpointUp and useContainerBreakpointDown" />
+
+# useContainerBreakpointUp and useContainerBreakpointDown
+
+> **Available from v1.8.0**
+
+Return whether an element is at or above a breakpoint wide, or narrower than it, and re-render when that changes. They work like [`useBreakpointUp` and `useBreakpointDown`](?path=/docs/reactkit-hooks-usebreakpointup-and-usebreakpointdown--docs), with the same breakpoint tokens, but measure an element instead of the viewport. So a component switches layout whenever it's narrow: in a sidebar, a split view, or a dialog as well as on a phone.
+
+Use them when what renders changes, for example cards instead of a table. For styling alone, prefer a CSS container query.
+
+## Usage
+
+Pass a ref to the element to measure, and a breakpoint.
+
+```tsx
+import { useRef } from 'react';
+import { useContainerBreakpointUp } from '@aknishi/akds-reactkit';
+
+function Orders() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isWide = useContainerBreakpointUp(ref, 'md');
+  return <div ref={ref}>{isWide ? <OrdersTable /> : <OrdersCards />}</div>;
+}
+```
+
+## Where the boundary falls
+
+As with the viewport hooks, a breakpoint is where its size starts: at exactly 768px the element is already `md`. At any width, exactly one of the two hooks is true.
+
+<table>
+  <thead>
+    <tr><th>Hook</th><th>True when</th><th>At 767px</th><th>At 768px</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>useContainerBreakpointUp(ref, 'md')</code></td><td>Width ≥ 768px: <code>md</code> and larger</td><td><code>false</code></td><td><code>true</code></td></tr>
+    <tr><td><code>useContainerBreakpointDown(ref, 'md')</code></td><td>Width &lt; 768px: smaller than <code>md</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+  </tbody>
+</table>
+
+The width is the element's content box, without padding, border, or a scrollbar: the same width a CSS container query compares.
+
+## Behavior
+
+- **Re-renders only at the breakpoint:** resizing within one side of the breakpoint doesn't re-render. For a custom threshold, use [`useContainerWidth`](?path=/docs/reactkit-hooks-usecontainerwidth--docs), which re-renders on every change of width.
+- **Measured before the first paint:** the element is measured in a layout effect, so the first frame already shows the right layout.
+- **Before measuring:** during a server render, there's no element to measure. `useContainerBreakpointUp` returns `false` and `useContainerBreakpointDown` returns `true`, which both point to the small layout. Pass `initialValue` to start with the other one.
+- **Measure an element that doesn't depend on the result:** if the measured element's width changes with what you render inside it, the layout can flip back and forth. Measure a wrapper whose width comes from its parent, such as a block or a stretched flex item.
+- **The element has to stay the same:** the ref is read when the component mounts. If the element is replaced, give the component a new `key`.
+
+## Options
+
+<table>
+  <thead>
+    <tr><th>Option</th><th>Type</th><th>Default</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>initialValue</code></td><td><code>boolean</code></td><td><code>false</code> (Up), <code>true</code> (Down)</td><td>The value before the element is measured, such as during a server render.</td></tr>
+  </tbody>
+</table>

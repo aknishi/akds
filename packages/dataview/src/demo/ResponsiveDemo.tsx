@@ -1,9 +1,9 @@
-import React, { useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ActionsMenu, DropdownMenu, Flexbox, MenuItem, Option, Tag, Text, VisuallyHidden } from '@aknishi/akds-reactkit';
+import React, { useMemo, useRef } from 'react';
+import { ActionsMenu, DropdownMenu, Flexbox, MenuItem, Option, Tag, Text, VisuallyHidden, useContainerBreakpointUp, useContainerWidth } from '@aknishi/akds-reactkit';
 import { CopyIcon, DownloadIcon } from '@aknishi/akds-icons';
 import type { ColumnDef, Row } from '@tanstack/react-table';
 import { DataViewCard, useDataView, useDataViewField } from '../index';
-import type { BulkAction, BulkActionsVariant } from '../index';
+import type { BulkAction, BulkActionsProps, BulkActionsVariant } from '../index';
 
 interface Order {
   id: string;
@@ -155,36 +155,23 @@ function OrderActions({ order }: { order: Order }) {
   );
 }
 
-// Widths where the layout changes. 768px matches the md breakpoint token;
-// 600px is where the labelled bulk actions menu stops fitting beside the
-// selection controls.
-const WIDE_MIN_WIDTH = 768;
-const MENU_MIN_WIDTH = 600;
-
-// The demo's own width, not the window's, so it switches to cards whenever
-// it's narrow: in a sidebar or a split view as well as on a phone. Measured
-// before the first paint, so it never flashes the wrong layout.
-function useContainerWidth<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-  const [width, setWidth] = useState<number | null>(null);
-  useLayoutEffect(() => {
-    const element = ref.current;
-    if (!element) return undefined;
-    setWidth(element.getBoundingClientRect().width);
-    const observer = new ResizeObserver(([entry]) => {
-      if (entry) setWidth(entry.contentRect.width);
-    });
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
-  return [ref, width] as const;
-}
-
 // Switches BulkActions by the space it has: buttons when there's room, a
-// labelled menu when narrower, and the icon menu when narrowest.
-function bulkActionsVariant(width: number): BulkActionsVariant {
-  if (width >= WIDE_MIN_WIDTH) return 'button';
-  return width >= MENU_MIN_WIDTH ? 'menu' : 'icon-menu';
+// labelled menu when narrower, and the icon menu when narrowest. 768px
+// matches the md breakpoint; 600px isn't a breakpoint, it's where the
+// labelled menu stops fitting beside the selection controls. It measures its
+// own wrapper, so only this component re-renders as the width changes.
+function ResponsiveBulkActions({ BulkActions }: { BulkActions: React.ComponentType<BulkActionsProps<Order>> }) {
+  const ref = useRef<HTMLDivElement>(null);
+  // Before the first measurement, assume the wide layout.
+  const width = useContainerWidth(ref) ?? 768;
+  let variant: BulkActionsVariant = 'icon-menu';
+  if (width >= 768) variant = 'button';
+  else if (width >= 600) variant = 'menu';
+  return (
+    <div ref={ref}>
+      <BulkActions variant={variant} actions={bulkActions} />
+    </div>
+  );
 }
 
 // The cards stand in for the table when the demo is narrow. useDataViewField gives
@@ -222,10 +209,11 @@ function OrderCard({ row }: { row: Row<Order> }) {
 
 export function ResponsiveDemo() {
   const orders = useMemo(() => generateOrders(40), []);
-  const [containerRef, measuredWidth] = useContainerWidth<HTMLElement>();
-  // Before the first measurement, assume the wide layout.
-  const width = measuredWidth ?? WIDE_MIN_WIDTH;
-  const isWide = width >= WIDE_MIN_WIDTH;
+  // The demo's own width, not the window's, so it switches to cards whenever
+  // it's narrow: in a sidebar or a split view as well as on a phone. It only
+  // re-renders when the width crosses md.
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isWide = useContainerBreakpointUp(containerRef, 'md', { initialValue: true });
 
   const { TableView, CardView, Search, BulkActions, Pagination, tableSource } = useDataView({
     data: orders,
@@ -267,7 +255,7 @@ export function ResponsiveDemo() {
           ))}
         </DropdownMenu>
       </Flexbox>
-      <BulkActions variant={bulkActionsVariant(width)} actions={bulkActions} />
+      <ResponsiveBulkActions BulkActions={BulkActions} />
 
       {isWide ? (
         <TableView aria-label="Orders" selectable rowActions={(row) => <OrderActions order={row.original} />} />
