@@ -1,0 +1,60 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Reactkit/Hooks/useBreakpointUp and useBreakpointDown" />
+
+# useBreakpointUp and useBreakpointDown
+
+> **Available from v1.7.0**
+
+Return whether the viewport is at or above a breakpoint, or below it, and re-render when that changes. The widths come from the `--akds-breakpoint-*` tokens, so layout switches in JavaScript line up with the design system's breakpoints. Use them when the layout itself changes, for example a card list instead of a table on small screens.
+
+## Usage
+
+```tsx
+import { useBreakpointUp } from '@aknishi/akds-reactkit';
+
+function Orders() {
+  const isWide = useBreakpointUp('md');
+  return isWide ? <OrdersTable /> : <OrdersCards />;
+}
+```
+
+## Where the boundary falls
+
+A breakpoint is where its size starts: at exactly 768px the viewport is already `md`. So `useBreakpointUp` includes the breakpoint, and `useBreakpointDown` doesn't. At any width, exactly one of them is true.
+
+<table>
+  <thead>
+    <tr><th>Hook</th><th>True when</th><th>At 767px</th><th>At 768px</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>useBreakpointUp('md')</code></td><td>Width ≥ 768px: <code>md</code> and larger</td><td><code>false</code></td><td><code>true</code></td></tr>
+    <tr><td><code>useBreakpointDown('md')</code></td><td>Width &lt; 768px: smaller than <code>md</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr><th>Breakpoint</th><th>Token</th><th>Starts at</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>xs</code></td><td><code>--akds-breakpoint-xs</code></td><td>320px</td></tr>
+    <tr><td><code>sm</code></td><td><code>--akds-breakpoint-sm</code></td><td>480px</td></tr>
+    <tr><td><code>md</code></td><td><code>--akds-breakpoint-md</code></td><td>768px</td></tr>
+    <tr><td><code>lg</code></td><td><code>--akds-breakpoint-lg</code></td><td>1024px</td></tr>
+    <tr><td><code>xl</code></td><td><code>--akds-breakpoint-xl</code></td><td>1280px</td></tr>
+    <tr><td><code>2xl</code></td><td><code>--akds-breakpoint-2xl</code></td><td>1536px</td></tr>
+  </tbody>
+</table>
+
+## Server render
+
+There is no viewport during a server render, so `useBreakpointUp` returns `false` and `useBreakpointDown` returns `true`. Both point to the small-screen layout, which the client corrects on hydration.
+
+## Container width
+
+To switch at an element's width instead of the viewport's, use [`useContainerBreakpointUp` or `useContainerBreakpointDown`](?path=/docs/reactkit-hooks-usecontainerbreakpointup-and-usecontainerbreakpointdown--docs).
+
+## Other media queries
+
+For a width that isn't a breakpoint, or a query that isn't about width (orientation, color scheme), use [`useMediaQuery`](?path=/docs/reactkit-hooks-usemediaquery--docs).

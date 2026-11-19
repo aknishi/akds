@@ -42,3 +42,9 @@ import { IconButton } from '@aknishi/akds-reactkit';
 ### Loading
 
 <Canvas of={IconButtonStories.Loading} />
+
+### As a link
+
+Pass `href` to render a link with the same styles, for actions that go somewhere instead of doing something. Users keep middle-click, ⌘/Ctrl-click, "Copy link", and the URL preview. With `target="_blank"`, `rel` defaults to `"noopener noreferrer"`; say that it opens a new tab in `aria-label`. Links can't be `disabled` or `loading`.
+
+<Canvas of={IconButtonStories.AsLink} />

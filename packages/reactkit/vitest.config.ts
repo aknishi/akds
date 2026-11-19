@@ -26,6 +26,7 @@ export default defineConfig({
       thresholds: {
         perFile: true,
         'src/components/**': { statements: 80 },
+        'src/hooks/**': { statements: 80 },
       },
     },
   },

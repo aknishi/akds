@@ -40,6 +40,27 @@ const config: StorybookConfig = {
   core: {
     disableTelemetry: true
   },
+  // Resolve workspace packages to their source, not dist. Otherwise a story can load
+  // the same component twice (dist via a package import, src via a relative import or
+  // LiveEditStory's availableImports): two stylesheets and two React contexts, and a
+  // stale dist wins or loses depending on which stylesheet is injected last.
+  async viteFinal(config) {
+    const pkg = (name: string, entry = 'src/index.ts') => resolve(__dirname, '../packages', name, entry);
+    const aliases = [
+      { find: /^@aknishi\/akds-reactkit$/, replacement: pkg('reactkit') },
+      { find: /^@aknishi\/akds-icons$/, replacement: pkg('icons') },
+      { find: /^@aknishi\/akds-dataview$/, replacement: pkg('dataview') },
+      { find: /^@aknishi\/akds-dataview\/headless$/, replacement: pkg('dataview', 'src/headless/index.ts') },
+    ];
+    const existing = config.resolve?.alias ?? [];
+    config.resolve = {
+      ...config.resolve,
+      alias: Array.isArray(existing)
+        ? [...aliases, ...existing]
+        : [...aliases, ...Object.entries(existing).map(([find, replacement]) => ({ find, replacement }))],
+    };
+    return config;
+  },
   typescript: {
     reactDocgen: 'react-docgen-typescript',
     reactDocgenTypescriptOptions: {
@@ -47,6 +68,7 @@ const config: StorybookConfig = {
       include: [
         'packages/reactkit/src/components/**/*.tsx',
         'packages/icons/src/components/**/*.tsx',
+        'packages/dataview/src/**/*.tsx',
       ],
       shouldExtractLiteralValuesFromEnum: true,
       propFilter: (prop) => {

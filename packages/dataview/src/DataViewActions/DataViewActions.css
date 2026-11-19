@@ -1,0 +1,9 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-dataview-actions {
+  display: flex;
+  /* Wraps rather than overflowing a narrow card. */
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--akds-spacing-100);
+}

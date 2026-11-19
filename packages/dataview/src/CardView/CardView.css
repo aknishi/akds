@@ -1,0 +1,121 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* The same frame as Table's wrapper, so card view reads as the same data
+   container as the table. */
+.akds-dataview-cards {
+  box-sizing: border-box;
+  border: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: var(--akds-radius-lg);
+  background-color: var(--akds-color-surface-default);
+  font-family: var(--akds-font-family-sans);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+/* Styled like Th, so it reads as the table's header row. It holds select
+   all and sorting, which the table puts in its column headers. The inner
+   radius is the frame's minus its border, so the corners meet cleanly. */
+.akds-dataview-cards__header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--akds-spacing-200);
+  padding: var(--akds-spacing-100) var(--akds-spacing-200);
+  border-bottom: 1px solid var(--akds-color-border-neutral-default);
+  border-radius: calc(var(--akds-radius-lg) - 1px) calc(var(--akds-radius-lg) - 1px) 0 0;
+  background-color: var(--akds-color-background-neutral-default);
+  color: var(--akds-color-text-secondary-default);
+  font-size: var(--akds-font-size-sm);
+  font-weight: var(--akds-font-weight-semibold);
+}
+
+/* ── List ──────────────────────────────────────────────────────────────── */
+/* Columns are at least the smallest breakpoint wide (or the full width when
+   narrower), so cards reflow from one column to several. */
+.akds-dataview-cards__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--akds-breakpoint-xs)), 1fr));
+  gap: var(--akds-spacing-layout-sm);
+  margin: 0;
+  padding: var(--akds-spacing-layout-sm);
+  list-style: none;
+}
+
+.akds-dataview-cards__item {
+  display: flex;
+}
+
+.akds-dataview-cards__item > * {
+  flex: 1;
+  /* Off-screen cards skip rendering until scrolled near, which matters
+     once "Load more" grows the list. They stay focusable and in the
+     accessibility tree. It's on the card, not the list item: the item's
+     paint containment would clip the card's focus ring. "auto" remembers
+     each card's real height once rendered. */
+  content-visibility: auto;
+  contain-intrinsic-block-size: auto var(--akds-dataview-card-size-estimate);
+}
+
+/* ── Refreshing ────────────────────────────────────────────────────────── */
+/* The progress bar (see styles/refreshing.css) runs along the top of the
+   list, just under the header bar. Without a header, it follows the
+   frame's rounded corners. */
+.akds-dataview-cards__list {
+  position: relative;
+}
+
+.akds-dataview-cards__list::before {
+  top: 0;
+}
+
+.akds-dataview-cards__list:first-child::before {
+  border-radius: calc(var(--akds-radius-lg) - 1px) calc(var(--akds-radius-lg) - 1px) 0 0;
+}
+
+/* ── Loading more ──────────────────────────────────────────────────────── */
+/* Two classes, so it wins over Flexbox's own padding. */
+.akds-dataview-cards .akds-dataview-cards__loading-more {
+  padding: 0 var(--akds-spacing-layout-sm) var(--akds-spacing-layout-sm);
+}
+
+/* ── Card click ────────────────────────────────────────────────────────── */
+/* Only when the team passes onCardClick. */
+.akds-dataview-cards__item--clickable {
+  cursor: pointer;
+}
+
+.akds-dataview-cards__item--clickable:hover > .akds-dataview-card {
+  background-image: linear-gradient(
+    var(--akds-color-interaction-hover-overlay),
+    var(--akds-color-interaction-hover-overlay)
+  );
+}
+
+/* Forced colors removes the background-image overlay; an outline keeps the
+   hovered card visible. */
+@media (forced-colors: active) {
+  .akds-dataview-cards__item--clickable:hover > .akds-dataview-card {
+    outline: 1px solid Highlight;
+  }
+}
+
+/* ── States ────────────────────────────────────────────────────────────── */
+/* The loading, error, and empty states fill the frame below the header.
+   Each also has its own class (__loading, __error, __empty) for team
+   styling. */
+.akds-dataview-cards__state {
+  /* Centred, for when it keeps the height of the cards it replaced. */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
+  /* Every state starts at the same height, or keeps the taller height of
+     the cards it replaced (set inline). */
+  min-height: max(var(--akds-dataview-state-min-height), var(--akds-dataview-held-height, 0px));
+  padding: var(--akds-spacing-layout-md);
+}
+
+/* Focused from script when a retry swaps the state out from under the
+   focused "Try again" button. */
+.akds-dataview-cards__state:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: calc(-1 * var(--akds-spacing-50));
+}

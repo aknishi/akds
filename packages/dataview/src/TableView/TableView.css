@@ -1,0 +1,303 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* Separate borders (with no spacing, so it looks the same as collapsed)
+   let borders and shadows move with sticky cells. Collapsed borders stay
+   behind when a cell sticks. */
+.akds-dataview-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  /* The sticky header and pinned columns use z-index 1 and 2. A stacking
+     context keeps those values inside the table, so they can't cover
+     page-level layers like menus (see the z-index tokens). */
+  isolation: isolate;
+}
+
+/* ── Caption ───────────────────────────────────────────────────────────── */
+.akds-dataview-table__caption {
+  padding: var(--akds-spacing-200);
+  color: var(--akds-color-text-primary-default);
+  font-weight: var(--akds-font-weight-semibold);
+  text-align: start;
+}
+
+/* ── Scroll container ──────────────────────────────────────────────────── */
+/* The element that scrolls the table: Table's own wrapper, or a
+   DataViewScrollArea when virtualized (its wrapper doesn't scroll then).
+   - scroll-padding keeps focused cells clear of the pinned columns and the
+     sticky header; TableView measures both (see useScrollerPadding).
+   - It's a scroll-state container, so the pinned-column and header shadows
+     can follow its scroll position in CSS. */
+.akds-table__wrapper:has(> .akds-dataview-table:not(.akds-dataview-table--virtual)),
+.akds-dataview-scroll-area {
+  scroll-padding-block-start: var(--akds-dataview-scroll-padding-top, 0px);
+  scroll-padding-inline: var(--akds-dataview-scroll-padding-start, 0px) var(--akds-dataview-scroll-padding-end, 0px);
+  container-type: scroll-state;
+  container-name: akds-dataview-scroller;
+}
+
+/* Td aligns to the top by default; rows here mix text with checkboxes and
+   icon buttons, which only line up when centred. */
+.akds-dataview-table .akds-td,
+.akds-dataview-table .akds-th {
+  vertical-align: middle;
+}
+
+/* Values like "ORD-1024" or "2026-08-03" would otherwise break at the hyphen
+   when space runs out. Columns keep their content on one line and the table
+   scrolls horizontally instead, with pinned columns staying in view. */
+.akds-dataview-table .akds-tbody .akds-td,
+.akds-dataview-table .akds-tbody .akds-th {
+  white-space: nowrap;
+}
+
+/* ── Row header ────────────────────────────────────────────────────────── */
+/* A <th scope="row"> for semantics, styled like an ordinary body cell. */
+.akds-dataview-table__row-header.akds-th {
+  background-color: transparent;
+  color: var(--akds-color-text-primary-default);
+  font-weight: var(--akds-font-weight-regular);
+}
+
+/* ── Selection ─────────────────────────────────────────────────────────── */
+/* 1px on a table cell shrinks the column to fit its content. */
+.akds-dataview-table__select-cell {
+  width: 1px;
+}
+
+.akds-dataview-table__row--selected {
+  background-color: var(--akds-color-background-info-surface);
+}
+
+/* ── Actions ───────────────────────────────────────────────────────────── */
+.akds-dataview-table .akds-dataview-table__actions-cell {
+  width: 1px;
+  white-space: nowrap;
+  padding-inline-end: var(--akds-dataview-actions-inset);
+}
+
+/* ── Row click ─────────────────────────────────────────────────────────── */
+/* Only when the team passes onRowClick. The overlay is a background image
+   on the cells, so it layers over pinned and selected cell backgrounds. */
+.akds-dataview-table__row--clickable {
+  cursor: pointer;
+}
+
+.akds-dataview-table__row--clickable:hover > .akds-td,
+.akds-dataview-table__row--clickable:hover > .akds-th {
+  background-image: linear-gradient(
+    var(--akds-color-interaction-hover-overlay),
+    var(--akds-color-interaction-hover-overlay)
+  );
+}
+
+/* The first data cell's content, then its Details button at the far end. */
+.akds-dataview-table__details-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--akds-spacing-100);
+}
+
+/* ── States ────────────────────────────────────────────────────────────── */
+/* The loading, error, and empty states fill the body in one cell. Each also
+   has its own class (__loading, __error, __empty) for team styling. */
+.akds-dataview-table .akds-tbody .akds-dataview-table__state {
+  padding: var(--akds-spacing-layout-md);
+}
+
+/* Every state starts at the same height, or keeps the taller height of the
+   rows it replaced (set inline). A row's height is its minimum. */
+.akds-dataview-table__status-row {
+  height: max(var(--akds-dataview-state-min-height), var(--akds-dataview-held-height, 0px));
+}
+
+/* Focused from script when a retry swaps the state out from under the
+   focused "Try again" button; shown inset so the cell's edges don't clip it. */
+.akds-dataview-table__state:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: calc(-1 * var(--akds-spacing-50));
+}
+
+/* Focused from script once rows replace a focused state. */
+.akds-dataview-table:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: calc(-1 * var(--akds-spacing-50));
+}
+
+/* ── Refreshing ────────────────────────────────────────────────────────── */
+/* The progress bar (see styles/refreshing.css) runs along the bottom of the
+   header cells, over their border. Pinned cells are already positioned
+   (sticky), so only the others need it. */
+.akds-dataview-table .akds-thead .akds-th:not(.akds-dataview-table__pinned) {
+  position: relative;
+}
+
+.akds-dataview-table .akds-thead .akds-th::before {
+  bottom: 0;
+}
+
+/* ── Loading more ──────────────────────────────────────────────────────── */
+.akds-dataview-table .akds-tbody .akds-dataview-table__loading-more {
+  padding: var(--akds-spacing-200);
+}
+
+/* ── Virtual ───────────────────────────────────────────────────────────── */
+/* The team's scroll container does the scrolling. Table's own wrapper
+   would otherwise become the scroll container and stop the header from
+   sticking. */
+.akds-table__wrapper:has(> .akds-dataview-table--virtual) {
+  overflow: visible;
+}
+
+.akds-dataview-table--virtual .akds-thead {
+  position: sticky;
+  top: 0;
+  /* Above pinned body cells, which also stack above the scrolling ones. */
+  z-index: 2;
+}
+
+/* One shadow for the whole header row, revealed by DataViewScrollArea once
+   scrolled. It's a pseudo-element because browsers don't draw box-shadows on
+   table rows, and clip-path keeps it below the header only. */
+.akds-dataview-table--virtual .akds-thead .akds-tr {
+  position: relative;
+  clip-path: inset(0 0 calc(-1 * var(--akds-spacing-200)) 0);
+}
+
+.akds-dataview-table--virtual .akds-thead .akds-tr::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  box-shadow: var(--akds-elevation-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.akds-dataview-table__spacer > td {
+  padding: 0;
+  border: 0;
+}
+
+/* ── Pinned ────────────────────────────────────────────────────────────── */
+/* Sticky does nothing until the table scrolls horizontally, so pinned
+   columns behave like any other column when the table fits. The offset
+   (left or right) is measured in TableView and set inline. */
+.akds-dataview-table .akds-dataview-table__pinned {
+  position: sticky;
+  z-index: 1;
+}
+
+/* Opaque, so scrolled cells don't show through. Header cells already are. */
+.akds-dataview-table .akds-tbody .akds-dataview-table__pinned {
+  background-color: var(--akds-color-surface-default);
+}
+
+.akds-dataview-table .akds-dataview-table__row--selected > .akds-dataview-table__pinned {
+  background-color: var(--akds-color-background-info-surface);
+}
+
+/* The innermost pinned cell on each side casts a shadow over the scrolled
+   columns. The shadow box is taller than the cell so it doesn't fade at the
+   top and bottom of each row; clip-path shows only the side facing the
+   scrolled content. */
+.akds-dataview-table__pinned--edge::after {
+  content: '';
+  position: absolute;
+  inset: calc(-1 * var(--akds-spacing-200)) 0;
+  box-shadow: var(--akds-elevation-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+/* Clip-path hides the overhang but it still counts as scrollable overflow,
+   so the last row's shadow stops at the table's bottom edge. Otherwise the
+   table's wrapper gains an extra scrollable strip below the last row. */
+.akds-dataview-table .akds-tbody .akds-tr:last-child .akds-dataview-table__pinned--edge::after {
+  bottom: 0;
+}
+
+.akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge {
+  clip-path: inset(0 calc(-1 * var(--akds-spacing-200)) 0 0);
+}
+
+.akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge {
+  clip-path: inset(0 0 0 calc(-1 * var(--akds-spacing-200)));
+}
+
+/* ── Scroll shadows ────────────────────────────────────────────────────── */
+/* Each shadow shows only when content is hidden beneath it: the pinned
+   columns once the table scrolls sideways, the sticky header once rows
+   scroll under it. Three tiers, no scroll listeners where CSS can do it:
+   1. Scroll-state container queries (Chrome and Edge).
+   2. Scroll-driven animations, fading each shadow in over the first bit
+      of scrolling away from its edge.
+   3. Classes set by TableView and DataViewScrollArea from script, only in
+      browsers without either. */
+@container akds-dataview-scroller scroll-state(scrollable: inline-start) {
+  .akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge::after {
+    opacity: 1;
+  }
+}
+
+@container akds-dataview-scroller scroll-state(scrollable: inline-end) {
+  .akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge::after {
+    opacity: 1;
+  }
+}
+
+@container akds-dataview-scroller scroll-state(scrollable: block-start) {
+  .akds-dataview-table--virtual .akds-thead .akds-tr::after {
+    opacity: 1;
+  }
+}
+
+@supports not (container-type: scroll-state) {
+  .akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge::after {
+    animation: akds-dataview-show-shadow linear both;
+    animation-timeline: scroll(nearest inline);
+    animation-range: 0 var(--akds-spacing-layout-lg);
+  }
+
+  .akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge::after {
+    animation: akds-dataview-show-shadow linear both reverse;
+    animation-timeline: scroll(nearest inline);
+    animation-range: calc(100% - var(--akds-spacing-layout-lg)) 100%;
+  }
+
+  .akds-dataview-table--virtual .akds-thead .akds-tr::after {
+    animation: akds-dataview-show-shadow linear both;
+    animation-timeline: scroll(nearest block);
+    animation-range: 0 var(--akds-spacing-layout-lg);
+  }
+}
+
+@keyframes akds-dataview-show-shadow {
+  to {
+    opacity: 1;
+  }
+}
+
+.akds-dataview-table--scrolled-start .akds-dataview-table__pinned--left.akds-dataview-table__pinned--edge::after,
+.akds-dataview-table--scrolled-end .akds-dataview-table__pinned--right.akds-dataview-table__pinned--edge::after {
+  opacity: 1;
+}
+
+/* ── Forced colors ─────────────────────────────────────────────────────── */
+/* The hover overlay is a background image, which forced colors removes. An
+   outline keeps the hovered row visible. Selected rows keep their checkbox
+   as the cue. */
+@media (forced-colors: active) {
+  .akds-dataview-table__row--clickable:hover {
+    outline: 1px solid Highlight;
+    outline-offset: -1px;
+  }
+}
+
+/* ── Reduced motion ────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .akds-dataview-table--virtual .akds-thead .akds-tr::after,
+  .akds-dataview-table__pinned--edge::after {
+    transition: none;
+  }
+}

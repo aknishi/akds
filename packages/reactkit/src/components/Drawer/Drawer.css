@@ -20,10 +20,11 @@
   margin: 0;
   padding: 0;
   border: 0;
-  background: transparent;
   color: inherit;
   overflow: visible;
   outline: none;
+  background: var(--akds-color-background-scrim-default);
+  z-index: var(--akds-z-index-modal);
 }
 
 .akds-drawer::backdrop {
@@ -161,6 +162,9 @@
   box-shadow: var(--akds-elevation-xl);
   box-sizing: border-box;
   scroll-snap-align: start;
+  outline: none;
+  /* Same layer as the backdrop; the panel comes later in the portal, so it paints on top. */
+  z-index: var(--akds-z-index-modal);
 }
 
 .akds-drawer--right .akds-drawer__sheet,

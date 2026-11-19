@@ -121,6 +121,22 @@ export const toggleGroup: ComponentEntry = {
 </Flexbox>`,
     },
     {
+      title: 'Full width',
+      description: 'By default the group is only as wide as its buttons. fullWidth makes it fill its container and gives every button the same width, for example in a narrow panel or on small screens.',
+      render: () => (
+        <ToggleGroup defaultValue="day" fullWidth aria-label="Range">
+          <ToggleButton value="day">Day</ToggleButton>
+          <ToggleButton value="week">Week</ToggleButton>
+          <ToggleButton value="month">Month</ToggleButton>
+        </ToggleGroup>
+      ),
+      code: `<ToggleGroup defaultValue="day" fullWidth aria-label="Range">
+  <ToggleButton value="day">Day</ToggleButton>
+  <ToggleButton value="week">Week</ToggleButton>
+  <ToggleButton value="month">Month</ToggleButton>
+</ToggleGroup>`,
+    },
+    {
       title: 'Disabled',
       description: 'Setting disabled on the group disables every child Toggle button, regardless of their own disabled prop.',
       render: () => (
@@ -152,6 +168,7 @@ export const toggleGroup: ComponentEntry = {
     { name: 'onChange', type: '(value: string) => void', description: "Called with a button's value when the selection changes." },
     { name: 'disabled', type: 'boolean', default: 'false', description: 'When true, disables all child Toggle button components.' },
     { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", description: 'Sets the size applied to all child Toggle button components.' },
+    { name: 'fullWidth', type: 'boolean', default: 'false', description: 'When true, the group fills its container and every button gets the same width. By default it is only as wide as its buttons.' },
     { name: 'children', type: 'React.ReactNode', description: 'Toggle button components to render inside the group. Required.' },
   ],
   doDont: [

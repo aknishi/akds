@@ -1,0 +1,105 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* Card clips its content to its rounded corners, which would also crop the
+   header tooltips (Details button, actions). DataViewCard's regions have no
+   backgrounds of their own, so nothing needs clipping. */
+.akds-dataview-card.akds-card {
+  overflow: visible;
+}
+
+.akds-dataview-card:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: var(--akds-outline-focus-offset);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+/* Top aligned, so the checkbox, Details control, and actions stay at the
+   top when a subtitle or a wrapping title makes the header taller. Two
+   classes so it beats CardHeader's own center alignment whatever order the
+   stylesheets load in. */
+.akds-dataview-card__header.akds-card-header {
+  --akds-dataview-card-title-line: calc(var(--akds-font-size-md) * var(--akds-font-line-height-normal));
+  --akds-dataview-card-row-height: var(--akds-dataview-card-title-line);
+  align-items: flex-start;
+}
+
+/* The first row is as tall as the header's controls when it has any, so the
+   checkbox and the title center on them, as they did when the whole header
+   was center aligned. */
+.akds-dataview-card__header.akds-card-header:has(> .akds-dataview-actions, > .akds-dataview-details) {
+  --akds-dataview-card-row-height: var(--akds-size-component-sm);
+}
+
+.akds-dataview-card__checkbox {
+  flex-shrink: 0;
+  min-height: var(--akds-dataview-card-row-height);
+}
+
+/* Without an avatar, the top padding centers the title's line in the first
+   row, level with the checkbox and actions. The subtitle follows directly
+   below the title. */
+.akds-dataview-card__heading {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  padding-top: calc((var(--akds-dataview-card-row-height) - var(--akds-dataview-card-title-line)) / 2);
+}
+
+/* Inherits CardHeader's typography so the title matches a plain Card title,
+   instead of the browser's default h3 size and weight. */
+.akds-dataview-card__title {
+  margin: 0;
+  font: inherit;
+  color: inherit;
+}
+
+.akds-dataview-card__subtitle {
+  margin: 0;
+  font-size: var(--akds-font-size-xs);
+  line-height: var(--akds-font-line-height-normal);
+  color: var(--akds-color-text-secondary-default);
+}
+
+/* ── With avatar ───────────────────────────────────────────────────────── */
+/* The checkbox, avatar, and title block center on each other. The Details
+   control and actions keep the header's top alignment. */
+.akds-dataview-card__avatar {
+  display: flex;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.akds-dataview-card--with-avatar .akds-dataview-card__checkbox,
+.akds-dataview-card--with-avatar .akds-dataview-card__heading {
+  align-self: center;
+  padding-top: 0;
+}
+
+/* The header and body read as one block: no divider between them, and the
+   header's own padding is the only space above the body. */
+.akds-dataview-card__header.akds-card-header--divided {
+  border-bottom: none;
+}
+
+/* Only token spacing between whatever the team puts in the body. */
+.akds-dataview-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--akds-spacing-100);
+}
+
+.akds-dataview-card__body.akds-card-content {
+  padding-top: 0;
+}
+
+.akds-dataview-card__footer {
+  justify-content: flex-end;
+}
+
+/* ── Selected ──────────────────────────────────────────────────────────── */
+/* Two classes so it beats Card's own background whatever order the
+   stylesheets load in. With one class each, the later stylesheet wins, and
+   Card's is injected again whenever another story imports Card. */
+.akds-card.akds-dataview-card--selected {
+  background-color: var(--akds-color-background-info-surface);
+}

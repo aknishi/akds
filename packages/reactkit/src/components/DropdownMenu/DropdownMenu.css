@@ -132,7 +132,7 @@
   top: calc(100% + var(--akds-spacing-50));
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: var(--akds-z-index-popover);
   max-height: 240px;
   overflow-y: auto;
   /* min-width: 0 to allow full-width stretch (overrides .akds-menu's min-width) */

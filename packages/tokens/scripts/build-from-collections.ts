@@ -246,6 +246,20 @@ const ELEVATION_CSS_BLOCK = `
   --akds-elevation-xl:   0 20px 25px rgba(0,0,0,0.10), 0 10px 10px rgba(0,0,0,0.04);
   --akds-elevation-2xl:  0 25px 50px rgba(0,0,0,0.25);`;
 
+// Z-index is an ordering decision rather than a Figma variable, so it's
+// hand-maintained here alongside elevation.
+const Z_INDEX_CSS_BLOCK = `
+  /* ─── Z-index ────────────────────────────────────────────────────────── */
+  /* Stacking order for page-level layers. Components that stack things
+     internally use small local values inside their own stacking context
+     (isolation: isolate) instead. */
+  --akds-z-index-base: 0;
+  --akds-z-index-sticky: 100;
+  --akds-z-index-modal: 300;
+  --akds-z-index-popover: 400;
+  --akds-z-index-toast: 500;
+  --akds-z-index-tooltip: 600;`;
+
 // Figma Variables cannot represent CSS shorthand values (outline, box-shadow, etc.)
 // so compound focus tokens are hardcoded here. --akds-color-interaction-focus-outline
 // isn't exported by Figma at all (in either collection), so both the light default
@@ -311,6 +325,7 @@ function genCSS(): string {
   }
 
   rootLines.push(ELEVATION_CSS_BLOCK);
+  rootLines.push(Z_INDEX_CSS_BLOCK);
   rootLines.push(FOCUS_CSS_BLOCK);
 
   rootLines.push('\n  /* ─── Semantic colors — Light mode ─────────────────────────── */');

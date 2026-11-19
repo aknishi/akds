@@ -1,0 +1,43 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+/* Labelled actions line up with the table or card edge; icon actions are
+   inset to match the row actions (below). */
+.akds-dataview-bulk-actions {
+  display: flex;
+  /* Stays on one line whenever it fits; wraps only when it doesn't. */
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--akds-spacing-100);
+  min-height: var(--akds-size-component-sm);
+  font-family: var(--akds-font-family-sans);
+}
+
+.akds-dataview-bulk-actions__summary {
+  /* "1 of 40 selected" reads badly split across two lines. */
+  white-space: nowrap;
+  font-size: var(--akds-font-size-sm);
+  color: var(--akds-color-text-secondary-default);
+}
+
+/* Icon-only actions line up with the row actions below them (in the table's
+   actions column or a card's header). The extra 1px is the table's or card's
+   border. Labelled buttons stay flush with the edge, like a toolbar. */
+.akds-dataview-bulk-actions--icon-button,
+.akds-dataview-bulk-actions--icon-menu {
+  padding-inline-end: calc(var(--akds-dataview-actions-inset) + 1px);
+}
+
+/* Pushes the actions to the end of the row. */
+.akds-dataview-bulk-actions__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-100);
+  margin-left: auto;
+}
+
+/* Hidden but still taking up its space, so selecting doesn't shift the
+   layout. visibility also removes it from the tab order and the
+   accessibility tree. */
+.akds-dataview-bulk-actions__clear--hidden,
+.akds-dataview-bulk-actions__actions--hidden {
+  visibility: hidden;
+}

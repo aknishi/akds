@@ -9,6 +9,21 @@
   border-radius: var(--akds-radius-full);
   box-shadow: inset 0 var(--akds-spacing-25) var(--akds-spacing-50) var(--akds-color-interaction-pressed-overlay);
   box-sizing: border-box;
+  /* Sizes to its buttons even where a parent would stretch it, such as a
+     column Flexbox. fit-content still shrinks to fit a narrower parent. */
+  width: fit-content;
+}
+
+/* ── Full width ───────────────────────────────────────────────────────── */
+/* Fills the parent, with every button the same width. 1fr columns stay
+   equal unless a label needs more than its share, which then widens its
+   column rather than being cut off. The indicator is absolutely
+   positioned, so it doesn't take a column. */
+.akds-toggle-group--full-width {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  width: 100%;
 }
 
 /* ── Indicator ─────────────────────────────────────────────────────────── */

@@ -14,6 +14,7 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(
       defaultValue = '',
       onChange,
       disabled = false,
+      fullWidth = false,
       size = 'md',
       className,
       children,
@@ -107,7 +108,11 @@ export const ToggleGroup = React.forwardRef<HTMLDivElement, ToggleGroupProps>(
         <div
           ref={groupRef}
           role="radiogroup"
-          className={clsx(withBaseName(), { [withBaseName('disabled')]: disabled }, className)}
+          className={clsx(
+            withBaseName(),
+            { [withBaseName('disabled')]: disabled, [withBaseName('full-width')]: fullWidth },
+            className,
+          )}
           onKeyDown={handleKeyDown}
           {...rest}
         >

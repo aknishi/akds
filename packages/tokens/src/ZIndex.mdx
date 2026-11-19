@@ -1,0 +1,72 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Tokens/Tokens/Z-index" />
+
+# Z-index
+
+Z-index tokens set the stacking order of page-level layers, so overlays from different components always stack the same way. Apply them via `z-index` using the CSS variables below. They're separate from [elevation](/docs/tokens-tokens-elevation--docs): elevation is how deep a surface looks (its shadow), z-index is what sits on top.
+
+---
+
+## Layers
+
+From lowest to highest.
+
+<table>
+  <thead>
+    <tr><th>Layer</th><th>CSS variable</th><th>Value</th><th>Used by</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>base</code></td><td><code>--akds-z-index-base</code></td><td><code>0</code></td><td>Normal page content</td></tr>
+    <tr><td><code>sticky</code></td><td><code>--akds-z-index-sticky</code></td><td><code>100</code></td><td>Sticky app headers and page toolbars</td></tr>
+    <tr><td><code>modal</code></td><td><code>--akds-z-index-modal</code></td><td><code>300</code></td><td>Dialog, Drawer, and other sheets, with their backdrops</td></tr>
+    <tr><td><code>popover</code></td><td><code>--akds-z-index-popover</code></td><td><code>400</code></td><td>Menu, ActionsMenu, DropdownMenu, Combobox</td></tr>
+    <tr><td><code>toast</code></td><td><code>--akds-z-index-toast</code></td><td><code>500</code></td><td>Toast</td></tr>
+    <tr><td><code>tooltip</code></td><td><code>--akds-z-index-tooltip</code></td><td><code>600</code></td><td>Tooltip</td></tr>
+  </tbody>
+</table>
+
+- **Popovers sit above modals,** so a menu or dropdown opened inside a dialog appears on top of it.
+- **Toasts sit above modals,** so a notification is still visible while a dialog is open.
+- **Tooltips are on top,** because they can belong to anything, including a toast's close button.
+- **The gaps of 100** leave room to add a layer later (for example, a non-modal side panel at 200) without renumbering.
+
+---
+
+## Two rules
+
+**1. Page-level layers use these tokens.** Overlays render in a portal at the end of `<body>`, so a component's own stacking context can never trap them. When two overlays share a layer, such as a dialog opened from another dialog, the one rendered later paints on top, so tokens never need `+1` values.
+
+**2. Stacking inside a component stays inside the component.** A component that layers its own parts (a table's sticky header over its rows, for example) uses small values like `1` and `2` inside its own stacking context, created with `isolation: isolate`. Without that, those values compete with page layers: a sticky table cell at `z-index: 1` would cover a menu that has no z-index of its own.
+
+```css
+.my-table {
+  /* Keeps the z-index values below local to the table */
+  isolation: isolate;
+}
+
+.my-table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+```
+
+---
+
+## Pairing with elevation
+
+Stacking and shadow are separate, but these pairings are common:
+
+<table>
+  <thead>
+    <tr><th>Layer</th><th>Typical shadow</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>sticky</code></td><td>None, or <code>--akds-elevation-sm</code> once content scrolls under it</td></tr>
+    <tr><td><code>modal</code></td><td><code>--akds-elevation-xl</code></td></tr>
+    <tr><td><code>popover</code></td><td><code>--akds-elevation-lg</code></td></tr>
+    <tr><td><code>toast</code></td><td><code>--akds-elevation-lg</code></td></tr>
+    <tr><td><code>tooltip</code></td><td><code>--akds-elevation-sm</code></td></tr>
+  </tbody>
+</table>

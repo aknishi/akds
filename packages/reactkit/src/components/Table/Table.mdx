@@ -9,7 +9,7 @@ import * as TableStories from './Table.stories';
 
 A semantic HTML table for displaying tabular data, styled to match the design system's documentation tables. Compose with `Thead`, `Tbody`, `Tfoot`, `Tr`, `Th`, and `Td` subcomponents. `Th` supports optional column resizing — draggable and keyboard-operable — in both uncontrolled (`defaultWidth`) and controlled (`width` + `onWidthChange`) forms.
 
-This is a lightweight, presentational table for static or simple tabular data. It does not include sorting, filtering, or pagination — those data-grid features are planned for a separate `Datagrid` package built on TanStack Table.
+This is a lightweight, presentational table for static or simple tabular data. It does not include sorting, filtering, or pagination: for those, use the separate `@aknishi/akds-dataview` package, built on TanStack Table. See [DataView](?path=/docs/reactkit-table-dataview--docs).
 
 ## Usage
 
@@ -38,6 +38,19 @@ import { Table, Thead, Tbody, Tfoot, Tr, Th, Td } from '@aknishi/akds-reactkit';
 ### Resizable Columns (Controlled)
 
 <Canvas of={TableStories.ResizableColumnsControlled} />
+
+### Sortable Headers
+
+> **Available from v1.7.0**
+
+Set `sortable` on a `Th` to render the whole header as a button. `Th` only renders the sort UI. It never reorders rows. The consumer owns the sorting logic and passes the result back through `sortDirection` and `onSort`, so it works with plain React state or with a library such as TanStack Table.
+
+- `aria-sort` is set on the `<th>` only when `sortDirection` is set. Leave it `undefined` on every column except the one currently sorted.
+- The arrow icon is decorative (`aria-hidden`), because `aria-sort` already conveys the direction. On unsorted columns it appears faintly on hover and focus as a hint.
+- The resize handle sits outside the button, so a column can be both `sortable` and `resizable` without resizing triggering a sort.
+- Screen readers don't reliably announce an `aria-sort` change after the header is activated. If sorting matters to the task, announce the new sort in a polite live region next to the table.
+
+<Canvas of={TableStories.SortableHeaders} />
 
 ### Striped
 

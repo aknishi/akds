@@ -5,6 +5,13 @@
   border-radius: var(--akds-radius-lg);
 }
 
+/* Focusable when given tabIndex through wrapperProps, so keyboard users can
+   scroll a wide table. Inset, so the rounded frame doesn't clip the ring. */
+.akds-table__wrapper:focus-visible {
+  outline: var(--akds-outline-focus);
+  outline-offset: calc(-1 * var(--akds-spacing-50));
+}
+
 .akds-table {
   width: 100%;
   border-collapse: collapse;

@@ -1,0 +1,34 @@
+/* ── Base ──────────────────────────────────────────────────────────────── */
+.akds-dataview-sort {
+  display: flex;
+  align-items: center;
+  gap: var(--akds-spacing-100);
+}
+
+/* ── Surface ───────────────────────────────────────────────────────────── */
+/* Bordered buttons are transparent, so in the header bar they'd take on its
+   neutral background. Like DropdownMenu, the sort controls sit on the
+   surface color (white in light mode) so their text and icons keep the
+   contrast they were designed for. Hover overlays are on ::after, and
+   disabled styling uses !important, so neither is affected. Three classes
+   so this wins over reactkit's two-class appearance rules in any load order. */
+.akds-dataview-sort .akds-button.akds-button--bordered,
+.akds-dataview-sort .akds-icon-button.akds-icon-button--bordered {
+  background: var(--akds-color-surface-default);
+}
+
+/* ── Label ─────────────────────────────────────────────────────────────── */
+/* Every label shares one grid cell, so the cell takes the longest label's
+   width and the trigger keeps its width whichever column is chosen. */
+.akds-dataview-sort__label {
+  display: inline-grid;
+  text-align: start;
+}
+
+.akds-dataview-sort__label > * {
+  grid-area: 1 / 1;
+}
+
+.akds-dataview-sort__sizer {
+  visibility: hidden;
+}

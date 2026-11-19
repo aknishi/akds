@@ -214,8 +214,8 @@ export const semanticColors = {
     },
     placeholder: {
       default: {
-        light: '#A3A3A3',
-        dark: '#737373',
+        light: '#737373',
+        dark: '#A3A3A3',
       },
     },
     'on-success': {
