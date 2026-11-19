@@ -1,5 +1,55 @@
 # @aknishi/akds-reactkit
 
+## 1.8.0
+
+### Minor Changes
+
+- 05bfdff: Add `useContainerBreakpointUp`, `useContainerBreakpointDown`, and `useContainerWidth`: the breakpoint hooks for an element's width instead of the viewport's, so a component switches layout whenever it's narrow, in a sidebar or a split view as well as on a phone. The breakpoint hooks re-render only when the breakpoint is crossed; `useContainerWidth` returns the width in pixels for other thresholds. Both measure before the first paint and are safe in a server render.
+- fec162d: `Drawer` now returns focus to the element that opened it when it closes, whether by Escape, the close button, the scrim, or `open` becoming false. Follows the ARIA Authoring Practices for dialogs, so keyboard users keep their place.
+- fec162d: `IconButton` can render a link: pass `href` (and optionally `target`) and it renders an `<a>` with the same styles and ripple, so navigation keeps middle-click, ⌘/Ctrl-click, and "Copy link". With `target="_blank"`, `rel` defaults to `"noopener noreferrer"`. The ref is an `HTMLAnchorElement` in this form; without `href`, IconButton is unchanged. New `IconButtonLinkProps` type.
+- fec162d: Add responsive hooks:
+
+  - `useBreakpointUp(breakpoint)` returns whether the viewport is at least a breakpoint (`md` and larger, so true at exactly 768px). `useBreakpointDown(breakpoint)` returns whether it's smaller than the breakpoint, and is always the opposite. Widths come from the `--akds-breakpoint-*` tokens.
+  - `useMediaQuery(query)` returns whether any CSS media query matches, for queries that aren't a breakpoint.
+
+  All three re-render when the result changes. During a server render, `useMediaQuery` and `useBreakpointUp` return `false`, and `useBreakpointDown` returns `true`.
+
+- fec162d: Add `Pagination`: numbered page buttons with previous/next arrows in a `<nav>` landmark. Long ranges collapse into ellipses around the current page (`siblingCount`), keeping a stable width. Works controlled (`page` + `onPageChange`) or uncontrolled (`defaultPage`).
+- fec162d: Add `VisuallyHidden`, `ActionsMenu`, and sortable `Th` headers.
+
+  - **`VisuallyHidden`**: hides content visually while keeping it available to screen readers. `Checkbox` now drops the label gap when its label is a single `VisuallyHidden`.
+  - **`ActionsMenu`**: an icon button with a vertical ellipsis that opens a `Menu` of `MenuItem` actions. Sets `aria-haspopup="menu"`, closes when an item is selected, and returns focus to the trigger after Escape or a selection. Pass a `Button` or `IconButton` as `trigger` to replace the default icon trigger, e.g. with a labelled button.
+  - **Sortable `Th`**: new `sortable`, `sortDirection`, and `onSort` props. The whole header renders as a button, `aria-sort` is set only on the sorted column, and the resize handle stays outside the button. `Th` renders exactly as before when `sortable` is not set.
+
+- 88fd82c: Add `wrapperProps` to `Table`, for attributes on its horizontal scroll wrapper. Pass `role="region"`, `tabIndex={0}`, and an accessible name so keyboard users can scroll a wide table.
+- 7b0781f: Add `fullWidth` to `ToggleGroup`: the group fills its parent and every button gets the same width.
+
+### Patch Changes
+
+- 06fb556: The keyboard focus ring on menu items and options (`MenuItem`, `Option`) is now drawn inside the item, so it no longer spills past the edge of the `Menu`, `DropdownMenu`, or `Combobox` list.
+- fec162d: Overlays now use the new `--akds-z-index-*` tokens, so they stack consistently:
+
+  - `Menu` (and so `ActionsMenu`) is on the popover layer. It previously had no z-index, so content with any positive z-index, such as a sticky table column, could cover it.
+  - Menus, dropdowns, and combobox lists opened inside a `Dialog` or `Drawer` now appear above it (popover, 400, is above modal, 300).
+  - `Dialog` and `Drawer` use the modal layer, `Toast` the toast layer, and `Tooltip` the tooltip layer.
+
+  The numeric values changed (for example `Dialog` from 1000 to 300). If your app positions its own elements relative to the old values, use the `--akds-z-index-*` tokens instead.
+
+- 99cd504: Radio: keep the checked dot centered at every zoom level and window size. The dot is now drawn as part of the indicator's border instead of as a separate scaled element. Disabled checked radios now show the checked state too; before, the dot was invisible.
+- Improve `Tag` and floating label contrast:
+
+  - `Tag` status variants (`info`, `success`, `warning`, `error`) now use a subtle surface background with matching text and dismiss icon colors, instead of a solid fill with white or dark text.
+  - Floating labels on `TextInput` and `TextArea` use the secondary text color.
+
+- 514c8bb: Fix `TextArea` collapsing to a sliver when its container doesn't stretch it, such as a centered flex container. It again has a natural width of about 20 characters, while still filling a sized parent.
+- 7b0781f: `ToggleGroup` is now only as wide as its buttons inside containers that stretch their children, such as a column `Flexbox`, instead of filling the row.
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies
+  - @aknishi/akds-tokens@2.2.0
+  - @aknishi/akds-icons@1.4.0
+
 ## 1.7.0
 
 ### Minor Changes

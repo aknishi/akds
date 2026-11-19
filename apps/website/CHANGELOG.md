@@ -1,5 +1,37 @@
 # @akds/website
 
+## 1.5.0
+
+### Minor Changes
+
+- b29ae92: Add dataview page
+
+### Patch Changes
+
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies [05bfdff]
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies [06fb556]
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies
+- Updated dependencies [fec162d]
+- Updated dependencies [fec162d]
+- Updated dependencies [99cd504]
+- Updated dependencies [88fd82c]
+- Updated dependencies
+- Updated dependencies [514c8bb]
+- Updated dependencies [7b0781f]
+- Updated dependencies [7b0781f]
+  - @aknishi/akds-dataview@0.1.0
+  - @aknishi/akds-tokens@2.2.0
+  - @aknishi/akds-reactkit@1.8.0
+  - @aknishi/akds-icons@1.4.0
+
 ## 1.4.2
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @aknishi/akds-icons
 
+## 1.4.0
+
+### Minor Changes
+
+- fec162d: Add `DownloadIcon` (Material Symbols Rounded `download`).
+- fec162d: Add `LeftPanelOpenIcon` and `RightPanelOpenIcon` (Material Symbols Rounded `left_panel_open`, `right_panel_open`), for actions that open a side panel such as a Drawer.
+
+### Patch Changes
+
+- Updated dependencies [fec162d]
+- Updated dependencies
+  - @aknishi/akds-tokens@2.2.0
+
 ## 1.3.0
 
 ### Minor Changes
