@@ -63,9 +63,7 @@ export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
           disabled={resolvedDisabled}
           {...inputProps}
         />
-        <span className={withBaseName.el('indicator')} aria-hidden="true">
-          <span className={withBaseName.el('dot')} />
-        </span>
+        <span className={withBaseName.el('indicator')} aria-hidden="true" />
         {label !== undefined && (
           <span className={withBaseName.el('label')}>{label}</span>
         )}
